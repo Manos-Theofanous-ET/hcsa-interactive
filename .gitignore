@@ -16,3 +16,9 @@ test-results
 public/3d/manifest.json
 
 .vercel
+
+# Local Claude Code preview-tool config. Not shared.
+.claude
+
+# TypeScript incremental build cache. Committing it causes merge noise.
+tsconfig.tsbuildinfo

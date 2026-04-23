@@ -5,10 +5,11 @@ import {
   AdditiveBlending,
   BackSide,
   MeshPhysicalMaterial,
+  MeshStandardMaterial,
+  Quaternion,
   Vector3,
   type Object3D,
   type Mesh,
-  type MeshStandardMaterial,
   type Group,
 } from "three";
 import type { SceneRegistry } from "./sceneRegistry";
@@ -16,7 +17,13 @@ import type { SceneRegistry } from "./sceneRegistry";
 /** Upgrade a MeshStandardMaterial to MeshPhysicalMaterial, preserving
  *  all PBR properties and adding clearcoat so painted aluminum gets its
  *  second-surface gloss. Wrapped in try/catch at the call site — a
- *  single bad source material cannot take down the scene. */
+ *  single bad source material cannot take down the scene.
+ *
+ *  Why not `phys.copy(std)`: MeshPhysicalMaterial.copy assumes the source
+ *  also has physical-only fields (clearcoatNormalScale, attenuationColor,
+ *  sheenColor, etc.) and crashes on `undefined.x` when copying Vector2/Color
+ *  properties. We instead use MeshStandardMaterial.copy for the Standard
+ *  subset, then keep the Physical defaults for the physical-only fields. */
 function upgradeToPhysical(
   std: MeshStandardMaterial,
   options: {
@@ -31,7 +38,8 @@ function upgradeToPhysical(
   } = {},
 ): MeshPhysicalMaterial {
   const phys = new MeshPhysicalMaterial();
-  phys.copy(std);
+  (MeshStandardMaterial.prototype.copy as (this: MeshStandardMaterial, s: MeshStandardMaterial) => MeshStandardMaterial)
+    .call(phys as unknown as MeshStandardMaterial, std);
   phys.envMapIntensity = std.envMapIntensity;
   if (options.clearcoat !== undefined) phys.clearcoat = options.clearcoat;
   if (options.clearcoatRoughness !== undefined)
@@ -170,6 +178,13 @@ export function Scene({ registry }: Props) {
     const hexFaceNodes: Record<string, Object3D> = {};
     const pentFaceNodes: Record<string, Object3D> = {};
     const teardownNodes: Array<{ node: Object3D; mesh: Mesh; index: number }> = [];
+    /** Nodes flagged during the traverse for post-traverse hinge assembly. */
+    const pent02Meshes: Object3D[] = [];
+    let pent02PivotNode: Object3D | null = null;
+    /** Unmatched mesh names collected so the interior heuristic can be
+     *  verified once the site runs — if nothing lands in `interiorMeshes`,
+     *  this list tells the user which node names Blender actually exports. */
+    const unmatchedInteriorCandidates: string[] = [];
 
     scene.traverse((node: Object3D) => {
       const name = node.name;
@@ -184,6 +199,15 @@ export function Scene({ registry }: Props) {
       if (pentMatch) {
         const [, nn] = pentMatch;
         if (!pentFaceNodes[nn!]) pentFaceNodes[nn!] = node;
+      }
+
+      // Phase 6 hinge collection. PENT_02_HINGE_PIVOT is a Blender empty
+      // whose +X axis is the hinge axis per phase_metadata.json; the meshes
+      // named PENT_02_Frame / PENT_02_Glass are what we rotate around it.
+      if (name === "PENT_02_HINGE_PIVOT") {
+        pent02PivotNode = node;
+      } else if (name === "PENT_02_Frame" || name === "PENT_02_Glass") {
+        pent02Meshes.push(node);
       }
 
       const mesh = node as Mesh;
@@ -226,6 +250,18 @@ export function Scene({ registry }: Props) {
           reg.materials.waterRed = mat;
         } else if (name.startsWith("BEAM_WATER_BLUE") && !reg.materials.waterBlue) {
           reg.materials.waterBlue = mat;
+        } else if (name === "BEAM_TRUNK") {
+          // Phase 7 systems core: BEAM_TRUNK scales 3× longitudinally.
+          // We capture the initial scale so the tween can interpolate from it
+          // rather than assuming identity (Blender may export non-identity).
+          reg.beamTrunk = { node, initialScale: node.scale.clone() };
+        } else if (/^PLANT_TRAY_\d+/.test(name)) {
+          // Phase 6 greenhouse: each tray carries its own grow-LED material.
+          // Collect each unique material once so the `led_green` emissive
+          // tween writes to one value per tray, not every instance.
+          if (!reg.plantLedMaterials.includes(mat)) {
+            reg.plantLedMaterials.push(mat);
+          }
         } else {
           // PANEL_TEARDOWN_L{1..7}_{suffix} — each layer is a unique mesh
           // with its own authored PBR material (silica, 6061-T6, perovskite,
@@ -235,6 +271,30 @@ export function Scene({ registry }: Props) {
           if (teardownMatch) {
             const idx = Number(teardownMatch[1]);
             teardownNodes.push({ node, mesh, index: idx });
+          } else if (
+            /^(INT_|INTERIOR_|RAMP_|POD_|FIGURE_|AEROGARDEN)/i.test(name)
+          ) {
+            // Phase 4 interior reveal: ramps, pods, aerogarden, figures.
+            // Blender export names are not yet pinned in the contract, so we
+            // use a broad prefix heuristic and log unmatched mesh names below.
+            mat.transparent = true;
+            mat.depthWrite = true;
+            const baseOpacity = mat.opacity > 0 ? mat.opacity : 1.0;
+            mat.opacity = 0;
+            reg.interiorMeshes.push({ mesh, material: mat, baseOpacity });
+          } else if (
+            // Record every other mesh for post-traverse diagnostics so we can
+            // extend the interior heuristic when the node-name convention
+            // shifts. Skip infrastructure that we've already matched above.
+            !name.startsWith("HEX_") &&
+            !name.startsWith("PENT_") &&
+            !name.startsWith("BEAM_") &&
+            !name.startsWith("PANEL_TEARDOWN_") &&
+            !name.startsWith("PLANT_TRAY_") &&
+            name !== "WIREFRAME" &&
+            name !== "BEAM_TRUNK"
+          ) {
+            unmatchedInteriorCandidates.push(name);
           }
         }
       }
@@ -282,6 +342,56 @@ export function Scene({ registry }: Props) {
         const baseOpacity = spec ? spec.alpha : 1.0;
         return { node, material, index, baseOpacity };
       });
+
+    // --- Phase 6 hinge assembly ---
+    // Given PENT_02_HINGE_PIVOT (a Blender empty) and the PENT_02 meshes,
+    // capture each mesh's initial pose plus the pivot point and hinge axis
+    // in WORLD space. PhaseController then rotates each mesh around the
+    // world-space pivot by up to 90° without reparenting — keeps the scene
+    // graph identical to what Blender exported.
+    if (pent02PivotNode && pent02Meshes.length > 0) {
+      const pivot = pent02PivotNode as Object3D;
+      pivot.updateWorldMatrix(true, false);
+      const pivotWorld = new Vector3();
+      const pivotQuat = new Quaternion();
+      const pivotScale = new Vector3();
+      pivot.matrixWorld.decompose(pivotWorld, pivotQuat, pivotScale);
+      // Hinge axis = pivot's local +X in world coordinates.
+      const axisWorld = new Vector3(1, 0, 0).applyQuaternion(pivotQuat).normalize();
+      const initialPoses = pent02Meshes.map((m) => {
+        m.updateWorldMatrix(true, false);
+        const p = new Vector3();
+        const q = new Quaternion();
+        const s = new Vector3();
+        m.matrixWorld.decompose(p, q, s);
+        return { position: p, quaternion: q };
+      });
+      reg.pent02Hinge = {
+        meshes: pent02Meshes,
+        initialPoses,
+        pivotWorld,
+        axisWorld,
+      };
+    } else if (import.meta.env.DEV) {
+      console.info(
+        `[hcsa] Phase 6 hinge: pivotNode=${!!pent02PivotNode}, meshes=${pent02Meshes.length} (need pivot + ≥1 mesh)`,
+      );
+    }
+
+    if (import.meta.env.DEV) {
+      console.info(
+        `[hcsa] phase-6/7 nodes: beamTrunk=${!!reg.beamTrunk}, plantLEDs=${reg.plantLedMaterials.length}, pent02Hinge=${!!reg.pent02Hinge}, interior=${reg.interiorMeshes.length}`,
+      );
+      if (reg.interiorMeshes.length === 0 && unmatchedInteriorCandidates.length > 0) {
+        // Log up to 30 candidate names so the interior-heuristic regex can
+        // be tightened once the user names-pattern is known. Keeps signal
+        // from drowning in long lists.
+        console.info(
+          `[hcsa] interior heuristic matched 0 meshes. Unmatched candidates (first 30):`,
+          unmatchedInteriorCandidates.slice(0, 30),
+        );
+      }
+    }
 
     // --- Frame-only material upgrade ---
     // Promote ONLY the hex/pent frame materials to MeshPhysicalMaterial

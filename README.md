@@ -61,12 +61,16 @@ content/
   chapters/                    MDX copy per phase
   data/                        structured data
   numerics.ts                  canonical numeric citations
+src/
+  3d/                          bundled at build time — zod-validated on import
+    cameras.json               9 phase cameras
+    phase_metadata.json        per-phase opacity / translation / emissive
 public/
   3d/
     HCSA_MAIN.glb              habitat geometry (~2.3 MB, Draco-compressed)
-    cameras.json               9 phase cameras
-    phase_metadata.json        per-phase opacity / translation / emissive
+    manifest.json              hash + size for drift detection
   assets/                      renders, blueprints, concept images
+  fallback/                    reduced-motion poster stills + 9s MP4
 scripts/
   sync-geometry.ts             pulls updated GLB + JSONs from the
                                blender-automation repo
