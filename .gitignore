@@ -16,3 +16,6 @@ test-results
 public/3d/manifest.json
 
 .vercel
+
+# Local Claude Code preview-tool config. Not shared.
+.claude

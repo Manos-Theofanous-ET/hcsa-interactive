@@ -1,11 +1,20 @@
 import { useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useMemo, useRef } from "react";
-import { Vector3 } from "three";
+import { Quaternion, Vector3 } from "three";
 import camerasJson from "../../public/3d/cameras.json";
 import phasesJson from "../../public/3d/phase_metadata.json";
 import { CamerasDoc, focalToFov } from "@/lib/cameras";
 import { PhasesDoc, type PhaseSpec } from "@/lib/phases";
 import type { SceneRegistry } from "./sceneRegistry";
+
+const HINGE_MAX_DEG = 90;
+const BEAM_TRUNK_MAX_SCALE = 3.0;
+/** Water-loop pulse rate (Hz) layered on top of the JSON emissive value
+ *  during Phase 7 so the red/blue loops read as flowing, not static glow. */
+const WATER_PULSE_HZ = 1.25;
+/** Shared scratch objects so per-frame math doesn't allocate. */
+const _scratchQuat = new Quaternion();
+const _scratchVec = new Vector3();
 
 const cameras = CamerasDoc.parse(camerasJson);
 const phases = PhasesDoc.parse(phasesJson);
@@ -127,6 +136,9 @@ export function PhaseController({ registry, progressRef }: Props) {
 
     applyPhase(p, registry.current);
     applyTeardown(t, a.phase.phase, a.phase.scroll_range, registry.current);
+    applyHinge(t, a.phase.phase, a.phase.scroll_range, registry.current);
+    applyBeamTrunk(t, a.phase.phase, a.phase.scroll_range, registry.current);
+    applyWaterPulse(p.emissive.water_red, p.emissive.water_blue, registry.current);
   });
 
   return null;
@@ -148,18 +160,23 @@ function applyPhase(p: PhaseLike, reg: SceneRegistry) {
   if (reg.materials.pentGlass) reg.materials.pentGlass.opacity = p.opacities.pent_glass;
   if (reg.materials.wireframe) reg.materials.wireframe.opacity = p.opacities.wireframe;
 
-  // Emissive strength (cyan wireframe + water loops).
+  // Emissive strength (cyan wireframe + water loops + plant LEDs).
   const wf = reg.materials.wireframe;
   if (wf && "emissiveIntensity" in wf) {
     wf.emissiveIntensity = p.emissive.wireframe_cyan;
   }
-  const wr = reg.materials.waterRed;
-  if (wr && "emissiveIntensity" in wr) {
-    wr.emissiveIntensity = p.emissive.water_red;
+  // Plant-tray grow LEDs (Phase 6 greenhouse reveal). Applied to every tray
+  // material we collected; water loops get their pulse in applyWaterPulse.
+  for (const mat of reg.plantLedMaterials) {
+    if ("emissiveIntensity" in mat) mat.emissiveIntensity = p.emissive.led_green;
   }
-  const wb = reg.materials.waterBlue;
-  if (wb && "emissiveIntensity" in wb) {
-    wb.emissiveIntensity = p.emissive.water_blue;
+
+  // Interior meshes (ramps, pods, aerogarden, figures) fade in on Phase 4.
+  // Multiplicative against baseOpacity so authored translucent parts
+  // (glass domes, etc.) keep their intended alpha.
+  for (const entry of reg.interiorMeshes) {
+    entry.material.opacity = entry.baseOpacity * p.opacities.interior;
+    entry.mesh.visible = p.opacities.interior > 0.001;
   }
 
   // Face outward translation (the Phase 3 "aha" moment + Phase 4 ghost cage).
@@ -173,6 +190,84 @@ function applyPhase(p: PhaseLike, reg: SceneRegistry) {
       .copy(f.initialPosition)
       .addScaledVector(f.faceNormal, p.pent_translation_m);
   }
+}
+
+/** Phase 6 pentagon greenhouse: rotate PENT_02 around its hinge pivot
+ *  from 0° → 90° as scroll advances through the phase. Uses world-space
+ *  pivot math (no reparenting), so the scene graph stays identical to
+ *  what Blender exported and HMR reloads don't stack transforms.
+ *
+ *  Outside phase 6 we snap every mesh back to its captured initial pose
+ *  so re-entering the phase starts from a clean 0° state. */
+function applyHinge(
+  t: number,
+  phase: number,
+  range: readonly [number, number],
+  reg: SceneRegistry,
+): void {
+  const hinge = reg.pent02Hinge;
+  if (!hinge) return;
+
+  const angleDeg = phase === 6 ? easedAngle(t, range) * HINGE_MAX_DEG : 0;
+  const angleRad = (angleDeg * Math.PI) / 180;
+  _scratchQuat.setFromAxisAngle(hinge.axisWorld, angleRad);
+
+  for (let i = 0; i < hinge.meshes.length; i += 1) {
+    const m = hinge.meshes[i]!;
+    const pose = hinge.initialPoses[i]!;
+    // Rotate initial position around the world pivot by the scratch quat.
+    _scratchVec.copy(pose.position).sub(hinge.pivotWorld).applyQuaternion(_scratchQuat).add(hinge.pivotWorld);
+    m.position.copy(_scratchVec);
+    m.quaternion.copy(pose.quaternion).premultiply(_scratchQuat);
+    m.updateMatrix();
+  }
+}
+
+/** Phase 7 systems core: scale BEAM_TRUNK from its initial size to 3× along
+ *  the Y axis as scroll advances through the phase, snapping back to the
+ *  initial scale outside phase 7. JSON ships `scale_factor: 3.0`; we apply
+ *  it only to Y so the beam reads as "extending" rather than ballooning. */
+function applyBeamTrunk(
+  t: number,
+  phase: number,
+  range: readonly [number, number],
+  reg: SceneRegistry,
+): void {
+  const trunk = reg.beamTrunk;
+  if (!trunk) return;
+  const u = phase === 7 ? easedAngle(t, range) : 0;
+  const scaleY = lerp(1, BEAM_TRUNK_MAX_SCALE, u);
+  trunk.node.scale.set(
+    trunk.initialScale.x,
+    trunk.initialScale.y * scaleY,
+    trunk.initialScale.z,
+  );
+}
+
+/** Phase 7 water loops: layer a sine pulse on top of the JSON's static
+ *  water_red / water_blue emissive so the loops read as flowing, not
+ *  glowing-constant. Runs every frame; emissive magnitude already accounts
+ *  for whatever the JSON asked for this scroll fraction. */
+function applyWaterPulse(waterRedEmi: number, waterBlueEmi: number, reg: SceneRegistry) {
+  const now = performance.now() * 0.001;
+  const pulse = 0.35 + 0.35 * Math.sin(now * Math.PI * 2 * WATER_PULSE_HZ);
+  const wr = reg.materials.waterRed;
+  if (wr && "emissiveIntensity" in wr) {
+    wr.emissiveIntensity = waterRedEmi * (0.65 + pulse);
+  }
+  const wb = reg.materials.waterBlue;
+  if (wb && "emissiveIntensity" in wb) {
+    // Offset blue by a half-period so red/blue loops alternate, not sync.
+    const pulseB = 0.35 + 0.35 * Math.sin(now * Math.PI * 2 * WATER_PULSE_HZ + Math.PI);
+    wb.emissiveIntensity = waterBlueEmi * (0.65 + pulseB);
+  }
+}
+
+/** Eased 0→1 progress within a phase's scroll range, matching the global
+ *  power2.inOut used for camera lerps. Shared by hinge + beam scale. */
+function easedAngle(t: number, range: readonly [number, number]): number {
+  const [s, e] = range;
+  return easeInOut(clamp((t - s) / Math.max(e - s, 1e-6), 0, 1));
 }
 
 /** Phase 5 "peak technical flex": stagger-fade the 7 authored teardown
