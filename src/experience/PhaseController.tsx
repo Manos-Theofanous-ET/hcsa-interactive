@@ -1,8 +1,8 @@
 import { useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useMemo, useRef } from "react";
 import { Quaternion, Vector3 } from "three";
-import camerasJson from "../../public/3d/cameras.json";
-import phasesJson from "../../public/3d/phase_metadata.json";
+import camerasJson from "../3d/cameras.json";
+import phasesJson from "../3d/phase_metadata.json";
 import { CamerasDoc, focalToFov } from "@/lib/cameras";
 import { PhasesDoc, type PhaseSpec } from "@/lib/phases";
 import type { SceneRegistry } from "./sceneRegistry";

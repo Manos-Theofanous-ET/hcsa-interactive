@@ -24,7 +24,14 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const SITE_ROOT = resolve(__dirname, "..");
 const BA_ROOT = resolve(SITE_ROOT, "..", "blender-automation");
 const SRC_DIR = resolve(BA_ROOT, "blend", "web");
-const DST_DIR = resolve(SITE_ROOT, "public", "3d");
+/** GLB + manifest.json live in public/ so they're served as static assets.
+ *  Contract JSONs live in src/ so Vite bundles + tree-shakes them, and
+ *  runtime imports are typesafe + zod-validated at build time (not over
+ *  the network). */
+const DST_PUBLIC = resolve(SITE_ROOT, "public", "3d");
+const DST_SRC = resolve(SITE_ROOT, "src", "3d");
+const PUBLIC_FILES = new Set(["HCSA_MAIN.glb"]);
+const SRC_FILES = new Set(["cameras.json", "phase_metadata.json"]);
 
 /** Pinned contract: update intentionally after each blender-automation re-export.
  *  2026-04-22 Pass 3: engineering-canonical hex/pent windows — every
@@ -51,14 +58,20 @@ function sha256(buf: Buffer): string {
 }
 
 function main(): void {
-  mkdirSync(DST_DIR, { recursive: true });
+  mkdirSync(DST_PUBLIC, { recursive: true });
+  mkdirSync(DST_SRC, { recursive: true });
 
   const manifest: Record<string, { size: number; sha256: string; mtime: string }> = {};
   let glbHash = "";
 
   for (const { name } of FILES) {
     const src = resolve(SRC_DIR, name);
-    const dst = resolve(DST_DIR, name);
+    const destRoot = PUBLIC_FILES.has(name)
+      ? DST_PUBLIC
+      : SRC_FILES.has(name)
+        ? DST_SRC
+        : DST_PUBLIC;
+    const dst = resolve(destRoot, name);
     const buf = readFileSync(src);
     const stat = statSync(src);
     const hash = sha256(buf);
@@ -92,7 +105,7 @@ function main(): void {
     expectedGlbSha256: EXPECTED_GLB_SHA256,
     files: manifest,
   };
-  writeFileSync(resolve(DST_DIR, "manifest.json"), JSON.stringify(manifestJson, null, 2));
+  writeFileSync(resolve(DST_PUBLIC, "manifest.json"), JSON.stringify(manifestJson, null, 2));
   process.stdout.write(`[sync] manifest written to public/3d/manifest.json\n`);
 }
 

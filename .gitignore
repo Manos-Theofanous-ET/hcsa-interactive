@@ -19,3 +19,6 @@ public/3d/manifest.json
 
 # Local Claude Code preview-tool config. Not shared.
 .claude
+
+# TypeScript incremental build cache. Committing it causes merge noise.
+tsconfig.tsbuildinfo
