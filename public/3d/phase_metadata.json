@@ -1,0 +1,285 @@
+{
+  "version": "1.0.0",
+  "canonical_source": "references/geometry_truth/CANONICAL.md",
+  "brief_source": "references/interior_design/WEB_ASSET_BRIEF.md",
+  "phases": [
+    {
+      "phase": 1,
+      "name": "hero_launch",
+      "scroll_range": [
+        0.0,
+        0.1
+      ],
+      "camera": "CAM_P1_HERO",
+      "opacities": {
+        "hex_frame": 1.0,
+        "hex_glass": 1.0,
+        "hex_solar": 1.0,
+        "pent_frame": 1.0,
+        "pent_glass": 1.0,
+        "interior": 0.0,
+        "wireframe": 0.0
+      },
+      "hex_translation_m": 0.0,
+      "pent_translation_m": 0.0,
+      "emissive": {
+        "wireframe_cyan": 0.0,
+        "led_green": 0.0,
+        "water_red": 0.0,
+        "water_blue": 0.0
+      },
+      "ease": "power2.inOut"
+    },
+    {
+      "phase": 2,
+      "name": "mission_breath",
+      "scroll_range": [
+        0.1,
+        0.2
+      ],
+      "camera": "CAM_P2_BREATH",
+      "opacities": {
+        "hex_frame": 1.0,
+        "hex_glass": 0.35,
+        "hex_solar": 1.0,
+        "pent_frame": 1.0,
+        "pent_glass": 0.4,
+        "interior": 0.0,
+        "wireframe": 1.0
+      },
+      "hex_translation_m": 0.02,
+      "pent_translation_m": 0.02,
+      "emissive": {
+        "wireframe_cyan": 2.5,
+        "led_green": 0.0,
+        "water_red": 0.0,
+        "water_blue": 0.0
+      },
+      "ease": "custom_bouncy"
+    },
+    {
+      "phase": 3,
+      "name": "geometry_reveal",
+      "scroll_range": [
+        0.2,
+        0.35
+      ],
+      "camera": "CAM_P3_GEOMETRY",
+      "opacities": {
+        "hex_frame": 1.0,
+        "hex_glass": 0.3,
+        "hex_solar": 1.0,
+        "pent_frame": 1.0,
+        "pent_glass": 0.35,
+        "interior": 0.0,
+        "wireframe": 1.0
+      },
+      "hex_translation_m": 0.3,
+      "pent_translation_m": 0.15,
+      "emissive": {
+        "wireframe_cyan": 2.5,
+        "led_green": 0.0,
+        "water_red": 0.0,
+        "water_blue": 0.0
+      },
+      "ease": "custom_bouncy"
+    },
+    {
+      "phase": 4,
+      "name": "interior_architecture",
+      "scroll_range": [
+        0.35,
+        0.5
+      ],
+      "camera": "CAM_P4_INTERIOR",
+      "opacities": {
+        "hex_frame": 0.25,
+        "hex_glass": 0.05,
+        "hex_solar": 0.15,
+        "pent_frame": 0.4,
+        "pent_glass": 0.05,
+        "interior": 1.0,
+        "wireframe": 0.35
+      },
+      "hex_translation_m": 0.3,
+      "pent_translation_m": 0.15,
+      "emissive": {
+        "wireframe_cyan": 1.0,
+        "led_green": 0.0,
+        "water_red": 0.0,
+        "water_blue": 0.0
+      },
+      "ease": "power2.inOut"
+    },
+    {
+      "phase": 5,
+      "name": "panel_teardown",
+      "scroll_range": [
+        0.5,
+        0.65
+      ],
+      "camera": "CAM_P5_PANEL",
+      "opacities": {
+        "hex_frame": 0.03,
+        "hex_glass": 0.03,
+        "hex_solar": 0.03,
+        "pent_frame": 0.03,
+        "pent_glass": 0.03,
+        "interior": 0.3,
+        "wireframe": 0.1
+      },
+      "hex_translation_m": 0.3,
+      "pent_translation_m": 0.15,
+      "emissive": {
+        "wireframe_cyan": 0.5,
+        "led_green": 0.0,
+        "water_red": 0.0,
+        "water_blue": 0.0
+      },
+      "procedural_layers": {
+        "target_face": "HEX_01",
+        "scale": 1.5,
+        "layer_offset_m": 0.3,
+        "layers_ordered": [
+          "Sacrificial_Debris_Pane",
+          "Outer_Structural_Frame",
+          "Transparent_Solar_Panel",
+          "Electrochromic_Layer",
+          "Insulating_Gas_Gap",
+          "Sliding_Opaque_Solar",
+          "Inner_Frame"
+        ]
+      },
+      "ease": "power3.out"
+    },
+    {
+      "phase": 6,
+      "name": "pentagon_greenhouse",
+      "scroll_range": [
+        0.65,
+        0.75
+      ],
+      "camera": "CAM_P6_GREENHOUSE",
+      "opacities": {
+        "hex_frame": 0.35,
+        "hex_glass": 0.1,
+        "hex_solar": 0.15,
+        "pent_frame": 0.9,
+        "pent_glass": 0.2,
+        "interior": 1.0,
+        "wireframe": 0.0
+      },
+      "hex_translation_m": 0.0,
+      "pent_translation_m": 0.0,
+      "emissive": {
+        "wireframe_cyan": 0.0,
+        "led_green": 2.5,
+        "water_red": 0.0,
+        "water_blue": 0.0
+      },
+      "pentagon_hinge": {
+        "target": "PENT_02",
+        "pivot_object": "PENT_02_HINGE_PIVOT",
+        "angle_deg": 90.0,
+        "axis": "local_x"
+      },
+      "ease": "power2.inOut"
+    },
+    {
+      "phase": 7,
+      "name": "systems_core",
+      "scroll_range": [
+        0.75,
+        0.85
+      ],
+      "camera": "CAM_P7_SYSTEMS",
+      "opacities": {
+        "hex_frame": 0.2,
+        "hex_glass": 0.05,
+        "hex_solar": 0.1,
+        "pent_frame": 0.25,
+        "pent_glass": 0.05,
+        "interior": 1.0,
+        "wireframe": 0.15
+      },
+      "hex_translation_m": 0.15,
+      "pent_translation_m": 0.08,
+      "emissive": {
+        "wireframe_cyan": 1.0,
+        "led_green": 1.0,
+        "water_red": 3.0,
+        "water_blue": 3.0
+      },
+      "beam_longitudinal_split": {
+        "target": "BEAM_TRUNK",
+        "scale_factor": 3.0,
+        "split_offset_m": 0.18
+      },
+      "ease": "power2.inOut"
+    },
+    {
+      "phase": 8,
+      "name": "reassembly",
+      "scroll_range": [
+        0.85,
+        0.92
+      ],
+      "camera": "CAM_P8_REASSEMBLY",
+      "opacities": {
+        "hex_frame": 1.0,
+        "hex_glass": 1.0,
+        "hex_solar": 1.0,
+        "pent_frame": 1.0,
+        "pent_glass": 1.0,
+        "interior": 0.5,
+        "wireframe": 0.0
+      },
+      "hex_translation_m": 0.0,
+      "pent_translation_m": 0.0,
+      "emissive": {
+        "wireframe_cyan": 0.0,
+        "led_green": 0.0,
+        "water_red": 0.0,
+        "water_blue": 0.0
+      },
+      "ease": "power4.out"
+    },
+    {
+      "phase": 9,
+      "name": "closing",
+      "scroll_range": [
+        0.92,
+        1.0
+      ],
+      "camera": "CAM_P9_CLOSING",
+      "opacities": {
+        "hex_frame": 1.0,
+        "hex_glass": 1.0,
+        "hex_solar": 1.0,
+        "pent_frame": 1.0,
+        "pent_glass": 1.0,
+        "interior": 0.0,
+        "wireframe": 0.0
+      },
+      "hex_translation_m": 0.0,
+      "pent_translation_m": 0.0,
+      "emissive": {
+        "wireframe_cyan": 0.0,
+        "led_green": 0.0,
+        "water_red": 0.0,
+        "water_blue": 0.0
+      },
+      "ease": "power2.inOut"
+    }
+  ],
+  "palette": {
+    "glass_metal": "#B8C0CC",
+    "wireframe_cyan": "#00F0FF",
+    "biology_green": "#00FF66",
+    "systems_orange": "#FF4D00"
+  },
+  "group_translation_rules": {
+    "hex_face": "Each face group = (HEX_NN_Frame, HEX_NN_Glass, HEX_NN_Solar). Translate the group by faceNormal * phase.hex_translation_m.",
+    "pent_face": "Each face group = (PENT_NN_Frame, PENT_NN_Glass). Translate by faceNormal * phase.pent_translation_m. PENT_DOCK is treated as the 'pent' for translation purposes but is made of multiple named members (PENT_DOCK_*) which translate together."
+  }
+}

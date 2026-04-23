@@ -1,0 +1,233 @@
+{
+  "version": "1.0.0",
+  "units": "meters",
+  "up_axis": "Y",
+  "handedness": "right",
+  "cameras": [
+    {
+      "phase": 1,
+      "name": "CAM_P1_HERO",
+      "position": [
+        38.0,
+        -26.0,
+        13.0
+      ],
+      "quaternion": [
+        0.533744,
+        0.281528,
+        0.372021,
+        0.705308
+      ],
+      "target": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "focal_length_mm": 35.0,
+      "sensor_width_mm": 36.0,
+      "distance_hint_m": 47.0,
+      "clip_start": 0.05,
+      "clip_end": 500.0
+    },
+    {
+      "phase": 2,
+      "name": "CAM_P2_BREATH",
+      "position": [
+        15.0,
+        -12.0,
+        5.5
+      ],
+      "quaternion": [
+        0.54256,
+        0.260768,
+        0.345909,
+        0.719706
+      ],
+      "target": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "focal_length_mm": 50.0,
+      "sensor_width_mm": 36.0,
+      "distance_hint_m": 18.0,
+      "clip_start": 0.05,
+      "clip_end": 500.0
+    },
+    {
+      "phase": 3,
+      "name": "CAM_P3_GEOMETRY",
+      "position": [
+        11.5,
+        -9.5,
+        4.0
+      ],
+      "quaternion": [
+        0.550662,
+        0.259359,
+        0.338072,
+        0.717783
+      ],
+      "target": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "focal_length_mm": 45.0,
+      "sensor_width_mm": 36.0,
+      "distance_hint_m": 14.0,
+      "clip_start": 0.05,
+      "clip_end": 500.0
+    },
+    {
+      "phase": 4,
+      "name": "CAM_P4_INTERIOR",
+      "position": [
+        9.0,
+        -7.5,
+        3.0
+      ],
+      "quaternion": [
+        0.56675,
+        0.265452,
+        0.330822,
+        0.706319
+      ],
+      "target": [
+        0.0,
+        0.0,
+        0.4
+      ],
+      "focal_length_mm": 35.0,
+      "sensor_width_mm": 36.0,
+      "distance_hint_m": 9.0,
+      "clip_start": 0.05,
+      "clip_end": 500.0
+    },
+    {
+      "phase": 5,
+      "name": "CAM_P5_PANEL",
+      "position": [
+        -3.5,
+        -3.5,
+        1.8
+      ],
+      "quaternion": [
+        0.530021,
+        -0.219542,
+        -0.313445,
+        0.756724
+      ],
+      "target": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "focal_length_mm": 50.0,
+      "sensor_width_mm": 36.0,
+      "distance_hint_m": 5.0,
+      "clip_start": 0.05,
+      "clip_end": 500.0
+    },
+    {
+      "phase": 6,
+      "name": "CAM_P6_GREENHOUSE",
+      "position": [
+        -8.19,
+        1.8,
+        5.28
+      ],
+      "quaternion": [
+        0.254858,
+        -0.438477,
+        -0.745128,
+        0.433094
+      ],
+      "target": [
+        -5.03,
+        0.0,
+        3.26
+      ],
+      "focal_length_mm": 35.0,
+      "sensor_width_mm": 36.0,
+      "distance_hint_m": 3.5,
+      "clip_start": 0.05,
+      "clip_end": 500.0
+    },
+    {
+      "phase": 7,
+      "name": "CAM_P7_SYSTEMS",
+      "position": [
+        2.8,
+        -2.8,
+        1.5
+      ],
+      "quaternion": [
+        0.653282,
+        0.270598,
+        0.270598,
+        0.653281
+      ],
+      "target": [
+        0.0,
+        0.0,
+        1.5
+      ],
+      "focal_length_mm": 35.0,
+      "sensor_width_mm": 36.0,
+      "distance_hint_m": 3.5,
+      "clip_start": 0.05,
+      "clip_end": 500.0
+    },
+    {
+      "phase": 8,
+      "name": "CAM_P8_REASSEMBLY",
+      "position": [
+        13.0,
+        -10.0,
+        5.0
+      ],
+      "quaternion": [
+        0.533926,
+        0.262906,
+        0.355,
+        0.720956
+      ],
+      "target": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "focal_length_mm": 50.0,
+      "sensor_width_mm": 36.0,
+      "distance_hint_m": 16.0,
+      "clip_start": 0.05,
+      "clip_end": 500.0
+    },
+    {
+      "phase": 9,
+      "name": "CAM_P9_CLOSING",
+      "position": [
+        34.0,
+        -24.0,
+        11.0
+      ],
+      "quaternion": [
+        0.541706,
+        0.280688,
+        0.364517,
+        0.703489
+      ],
+      "target": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "focal_length_mm": 35.0,
+      "sensor_width_mm": 36.0,
+      "distance_hint_m": 43.0,
+      "clip_start": 0.05,
+      "clip_end": 500.0
+    }
+  ]
+}

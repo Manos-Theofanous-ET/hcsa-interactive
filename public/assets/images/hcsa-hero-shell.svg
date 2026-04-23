@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <!-- Define the glow filter -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Define subtle grid pattern -->
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#00d4aa" stroke-width="0.5" opacity="0.08"/>
+    </pattern>
+
+    <!-- Radial gradient for background depth -->
+    <radialGradient id="bgGradient" cx="50%" cy="40%">
+      <stop offset="0%" style="stop-color:#0f1419;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0a0e17;stop-opacity:1" />
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="url(#bgGradient)"/>
+
+  <!-- Grid overlay -->
+  <rect width="800" height="600" fill="url(#grid)"/>
+
+  <!-- Buckyball vertices (12 pentagonal vertices + 20 hexagonal vertices) -->
+  <!-- Centered at (400, 300) with radius scaling -->
+
+  <!-- Pentagonal faces (darker service nodes) -->
+  <g id="pentagonal-faces" opacity="0.35" fill="#1a2332">
+    <!-- Top pentagon -->
+    <polygon points="400,100 460,140 440,200 360,200 340,140" />
+    <!-- Bottom pentagon -->
+    <polygon points="400,500 460,460 440,400 360,400 340,460" />
+    <!-- Upper right pentagon -->
+    <polygon points="530,180 600,160 620,230 560,280 480,250" />
+    <!-- Lower right pentagon -->
+    <polygon points="530,420 600,440 620,370 560,320 480,350" />
+    <!-- Upper left pentagon -->
+    <polygon points="270,180 200,160 180,230 240,280 320,250" />
+    <!-- Lower left pentagon -->
+    <polygon points="270,420 200,440 180,370 240,320 320,350" />
+    <!-- Mid-right upper pentagon -->
+    <polygon points="610,280 680,250 700,320 650,360 580,330" />
+    <!-- Mid-right lower pentagon -->
+    <polygon points="610,320 680,350 700,280 650,240 580,270" />
+    <!-- Mid-left upper pentagon -->
+    <polygon points="190,280 120,250 100,320 150,360 220,330" />
+    <!-- Mid-left lower pentagon -->
+    <polygon points="190,320 120,350 100,280 150,240 220,270" />
+    <!-- Right side pentagon -->
+    <polygon points="650,360 700,320 740,380 700,420 650,400" />
+    <!-- Left side pentagon -->
+    <polygon points="150,360 100,320 60,380 100,420 150,400" />
+  </g>
+
+  <!-- Hexagonal faces (semi-transparent glazing) -->
+  <g id="hexagonal-faces" opacity="0.25" fill="#00d4aa">
+    <!-- Top-upper hexagon -->
+    <polygon points="400,100 460,140 500,150 500,210 440,200 380,150" />
+    <!-- Top-right hexagon -->
+    <polygon points="500,150 570,140 620,180 600,240 530,220 500,210" />
+    <!-- Right-upper hexagon -->
+    <polygon points="620,180 680,150 740,200 720,260 650,270 620,230" />
+    <!-- Right-middle upper hexagon -->
+    <polygon points="700,320 760,300 780,360 750,400 690,380 720,340" />
+    <!-- Right-middle lower hexagon -->
+    <polygon points="700,280 760,300 750,360 720,320 680,300 690,260" />
+    <!-- Right-lower hexagon -->
+    <polygon points="720,260 780,240 800,300 770,360 700,340 720,280" />
+    <!-- Bottom-right hexagon -->
+    <polygon points="530,280 600,260 650,310 620,370 560,360 530,320" />
+    <!-- Bottom-center-right hexagon -->
+    <polygon points="440,400 500,390 560,420 530,480 460,460 440,420" />
+    <!-- Bottom-center-left hexagon -->
+    <polygon points="360,400 300,390 240,420 270,480 340,460 360,420" />
+    <!-- Bottom-left hexagon -->
+    <polygon points="270,280 200,260 150,310 180,370 240,360 270,320" />
+    <!-- Left-lower hexagon -->
+    <polygon points="100,260 40,280 20,340 70,380 130,360 150,310" />
+    <!-- Left-middle lower hexagon -->
+    <polygon points="100,320 20,300 30,360 70,400 130,380 120,340" />
+    <!-- Left-middle upper hexagon -->
+    <polygon points="100,280 40,300 50,240 100,200 150,220 130,280" />
+    <!-- Left-upper hexagon -->
+    <polygon points="180,180 120,150 60,200 80,260 150,270 180,230" />
+    <!-- Top-left hexagon -->
+    <polygon points="380,150 300,140 280,180 300,240 370,220 400,150" />
+    <!-- Center-left hexagon -->
+    <polygon points="300,240 240,280 270,360 320,350 340,280 320,250" />
+    <!-- Center-right hexagon -->
+    <polygon points="500,240 560,280 530,360 480,350 460,280 480,250" />
+    <!-- Top-center-left hexagon -->
+    <polygon points="380,150 440,140 460,180 440,240 380,220 360,180" />
+    <!-- Top-center-right hexagon -->
+    <polygon points="460,140 520,150 540,190 500,240 440,220 440,180" />
+    <!-- Bottom-center hexagon -->
+    <polygon points="400,420 460,400 500,430 480,490 400,500 360,490" />
+  </g>
+
+  <!-- Buckyball wireframe edges (teal with glow) -->
+  <g id="wireframe" stroke="#00d4aa" stroke-width="1.5" fill="none" filter="url(#glow)" opacity="0.9">
+    <!-- Top pentagon edges -->
+    <line x1="400" y1="100" x2="460" y2="140" />
+    <line x1="460" y1="140" x2="440" y2="200" />
+    <line x1="440" y1="200" x2="360" y2="200" />
+    <line x1="360" y1="200" x2="340" y2="140" />
+    <line x1="340" y1="140" x2="400" y2="100" />
+
+    <!-- Bottom pentagon edges -->
+    <line x1="400" y1="500" x2="460" y2="460" />
+    <line x1="460" y1="460" x2="440" y2="400" />
+    <line x1="440" y1="400" x2="360" y2="400" />
+    <line x1="360" y1="400" x2="340" y2="460" />
+    <line x1="340" y1="460" x2="400" y2="500" />
+
+    <!-- Upper right pentagon -->
+    <line x1="530" y1="180" x2="600" y2="160" />
+    <line x1="600" y1="160" x2="620" y2="230" />
+    <line x1="620" y1="230" x2="560" y2="280" />
+    <line x1="560" y1="280" x2="480" y2="250" />
+    <line x1="480" y1="250" x2="530" y2="180" />
+
+    <!-- Lower right pentagon -->
+    <line x1="530" y1="420" x2="600" y2="440" />
+    <line x1="600" y1="440" x2="620" y2="370" />
+    <line x1="620" y1="370" x2="560" y2="320" />
+    <line x1="560" y1="320" x2="480" y2="350" />
+    <line x1="480" y1="350" x2="530" y2="420" />
+
+    <!-- Upper left pentagon -->
+    <line x1="270" y1="180" x2="200" y2="160" />
+    <line x1="200" y1="160" x2="180" y2="230" />
+    <line x1="180" y1="230" x2="240" y2="280" />
+    <line x1="240" y1="280" x2="320" y2="250" />
+    <line x1="320" y1="250" x2="270" y2="180" />
+
+    <!-- Lower left pentagon -->
+    <line x1="270" y1="420" x2="200" y2="440" />
+    <line x1="200" y1="440" x2="180" y2="370" />
+    <line x1="180" y1="370" x2="240" y2="320" />
+    <line x1="240" y1="320" x2="320" y2="350" />
+    <line x1="320" y1="350" x2="270" y2="420" />
+
+    <!-- Mid-right pentagons connecting edges -->
+    <line x1="610" y1="280" x2="680" y2="250" />
+    <line x1="680" y1="250" x2="700" y2="320" />
+    <line x1="700" y1="320" x2="650" y2="360" />
+    <line x1="650" y1="360" x2="580" y2="330" />
+    <line x1="580" y1="330" x2="610" y2="280" />
+
+    <line x1="610" y1="320" x2="680" y2="350" />
+    <line x1="680" y1="350" x2="700" y2="280" />
+    <line x1="700" y1="280" x2="650" y2="240" />
+    <line x1="650" y1="240" x2="580" y2="270" />
+    <line x1="580" y1="270" x2="610" y2="320" />
+
+    <!-- Mid-left pentagons connecting edges -->
+    <line x1="190" y1="280" x2="120" y2="250" />
+    <line x1="120" y1="250" x2="100" y2="320" />
+    <line x1="100" y1="320" x2="150" y2="360" />
+    <line x1="150" y1="360" x2="220" y2="330" />
+    <line x1="220" y1="330" x2="190" y2="280" />
+
+    <line x1="190" y1="320" x2="120" y2="350" />
+    <line x1="120" y1="350" x2="100" y2="280" />
+    <line x1="100" y1="280" x2="150" y2="240" />
+    <line x1="150" y1="240" x2="220" y2="270" />
+    <line x1="220" y1="270" x2="190" y2="320" />
+
+    <!-- Right side pentagon -->
+    <line x1="650" y1="360" x2="700" y2="320" />
+    <line x1="700" y1="320" x2="740" y2="380" />
+    <line x1="740" y1="380" x2="700" y2="420" />
+    <line x1="700" y1="420" x2="650" y2="400" />
+    <line x1="650" y1="400" x2="650" y2="360" />
+
+    <!-- Left side pentagon -->
+    <line x1="150" y1="360" x2="100" y2="320" />
+    <line x1="100" y1="320" x2="60" y2="380" />
+    <line x1="60" y1="380" x2="100" y2="420" />
+    <line x1="100" y1="420" x2="150" y2="400" />
+    <line x1="150" y1="400" x2="150" y2="360" />
+
+    <!-- Connecting edges between faces -->
+    <line x1="400" y1="100" x2="460" y2="140" />
+    <line x1="460" y1="140" x2="530" y2="180" />
+    <line x1="530" y1="180" x2="600" y2="160" />
+
+    <line x1="340" y1="140" x2="270" y2="180" />
+    <line x1="270" y1="180" x2="200" y2="160" />
+
+    <line x1="440" y1="200" x2="530" y2="220" />
+    <line x1="360" y1="200" x2="270" y2="220" />
+
+    <line x1="620" y1="230" x2="680" y2="250" />
+    <line x1="180" y1="230" x2="120" y2="250" />
+
+    <line x1="400" y1="500" x2="460" y2="460" />
+    <line x1="460" y1="460" x2="530" y2="420" />
+    <line x1="530" y1="420" x2="600" y2="440" />
+
+    <line x1="340" y1="460" x2="270" y2="420" />
+    <line x1="270" y1="420" x2="200" y2="440" />
+
+    <line x1="440" y1="400" x2="530" y2="380" />
+    <line x1="360" y1="400" x2="270" y2="380" />
+
+    <line x1="620" y1="370" x2="680" y2="350" />
+    <line x1="180" y1="370" x2="120" y2="350" />
+  </g>
+
+  <!-- Dimension line and label -->
+  <g id="dimension">
+    <!-- Dimension line -->
+    <line x1="100" y1="550" x2="300" y2="550" stroke="#00d4aa" stroke-width="1" opacity="0.6"/>
+    <!-- End caps -->
+    <line x1="100" y1="545" x2="100" y2="555" stroke="#00d4aa" stroke-width="1" opacity="0.6"/>
+    <line x1="300" y1="545" x2="300" y2="555" stroke="#00d4aa" stroke-width="1" opacity="0.6"/>
+    <!-- Center marker -->
+    <line x1="200" y1="550" x2="200" y2="560" stroke="#00d4aa" stroke-width="1" opacity="0.6"/>
+
+    <!-- Label -->
+    <text x="200" y="580" text-anchor="middle" fill="#00d4aa" font-family="Arial, sans-serif" font-size="14" opacity="0.8">11.151 m</text>
+  </g>
+
+  <!-- Technical corner accents -->
+  <g id="corner-accents" stroke="#00d4aa" stroke-width="1" opacity="0.3">
+    <!-- Top left corner accent -->
+    <line x1="20" y1="20" x2="60" y2="20" />
+    <line x1="20" y1="20" x2="20" y2="60" />
+    <!-- Top right corner accent -->
+    <line x1="780" y1="20" x2="740" y2="20" />
+    <line x1="780" y1="20" x2="780" y2="60" />
+    <!-- Bottom left corner accent -->
+    <line x1="20" y1="580" x2="60" y2="580" />
+    <line x1="20" y1="540" x2="20" y2="580" />
+    <!-- Bottom right corner accent -->
+    <line x1="780" y1="580" x2="740" y2="580" />
+    <line x1="780" y1="540" x2="780" y2="580" />
+  </g>
+</svg>
