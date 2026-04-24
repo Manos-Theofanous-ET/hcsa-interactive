@@ -21,18 +21,31 @@ const phases = PhasesDoc.parse(phasesJson);
 
 /** Per-phase tuning for cinematic impact. The blender-automation export
  *  optimizes for preview-render composition; these overrides bring the
- *  camera closer for hero/closing so the habitat reads as the subject. */
+ *  camera closer for hero/closing and pull it back on the interior beats
+ *  so the viewer can read spatial context. Values > 1 push the camera
+ *  OUT; < 1 push it IN (multiplied against cameras.json position). */
 const PHASE_CAM_ZOOM: Partial<Record<number, number>> = {
   1: 0.48, // hero: habitat at ~40% of frame width, dominant silhouette
+  5: 2.0,  // panel teardown: was 5 m from shell → 10 m so the 7 layers
+           //                  read as a stack, not a zoomed-in mess.
+  6: 1.45, // greenhouse: was 3.5 m from pivot → 5 m so the hinged
+           //             pent + adjacent pentagons all read in-frame.
   9: 0.56, // closing: slightly wider than hero so earth limb reads at exit
 };
 
-/** Hero hides the deployable solar PV layer so the glass shell reads,
- *  matching brief §Phase 1: "glass reflections, shell reads as glazed". */
+/** Cinematic opacity overrides layered on top of phase_metadata.json so the
+ *  website can tune what-the-viewer-sees without rewriting the contract. */
 const PHASE_OPACITY_OVERRIDES: Partial<
   Record<number, Partial<PhaseSpec["opacities"]>>
 > = {
+  // Hero hides the deployable PV so the glass shell reads as glass
+  // (brief §Phase 1: "glass reflections, shell reads as glazed").
   1: { hex_solar: 0 },
+  // Panel teardown: raise the wireframe to 0.55 (was 0.1) so the viewer
+  // sees the 32-face shell outline even as the solid panel fades to 0.03.
+  // Without this the central hex+layers read as "floating debris", not
+  // "one panel breaking apart with the shell context holding around it".
+  5: { wireframe: 0.55 },
 };
 
 type Props = {

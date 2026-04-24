@@ -127,9 +127,12 @@ function applyPVCellGrid(
              vec3 inCell = fract(cellCoord);
              vec3 distToEdge = min(inCell, 1.0 - inCell);
              float edgeXY = min(distToEdge.x, distToEdge.y);
-             // Darken + de-metallize near the gutter so cell boundaries read.
+             // Subtle gutter: mild darkening, not the "broken tile" read we
+             // had at 0.38. 0.7 keeps the cell grid visible at mid-distance
+             // without turning each cell into a bright chip with a black
+             // surround when the camera is close.
              float gutterMask = smoothstep(${gutterFraction.toFixed(3)}, ${(gutterFraction * 0.4).toFixed(3)}, edgeXY);
-             diffuseColor.rgb *= mix(1.0, 0.38, gutterMask);
+             diffuseColor.rgb *= mix(1.0, 0.7, gutterMask);
            }`,
         )
         .replace(
@@ -596,15 +599,16 @@ export function Scene({ registry }: Props) {
       applyPVCellGrid(pv, 0.35, 0.06);
     }
 
-    // --- Procedural surface detail ---
-    // Inject cell-noise variation into metal materials so the aluminum
-    // bezels don't read as perfectly-uniform paint. Skipped on hex glass
-    // (transmissive — paint noise makes no sense) and layered on top of
-    // the PV grid for pent glass so cells aren't identical.
-    if (reg.materials.hexFrame) applyProceduralDetail(reg.materials.hexFrame, 0.08, 0.35);
-    if (reg.materials.pentFrame) applyProceduralDetail(reg.materials.pentFrame, 0.08, 0.35);
-    if (reg.materials.pentGlass) applyProceduralDetail(reg.materials.pentGlass, 0.06, 0.18);
-    if (reg.materials.hexSolar) applyProceduralDetail(reg.materials.hexSolar, 0.1, 0.2);
+    // --- Procedural surface detail (tuned down) ---
+    // Previous intensities read as "dusty / weathered / deteriorating" when
+    // the camera was close (Phase 5 teardown, Phase 6 greenhouse). User
+    // direction is "clean and porous", not weathered metal. Keep a whisper
+    // of cell-to-cell variation on frames only so they don't look plastic,
+    // drop variation entirely on glass/PV surfaces — those should read as
+    // engineered panels, not painted metal.
+    if (reg.materials.hexFrame) applyProceduralDetail(reg.materials.hexFrame, 0.02, 0.08);
+    if (reg.materials.pentFrame) applyProceduralDetail(reg.materials.pentFrame, 0.02, 0.08);
+    if (reg.materials.hexSolar) applyProceduralDetail(reg.materials.hexSolar, 0.04, 0.1);
 
     if (import.meta.env.DEV) {
       console.info(
