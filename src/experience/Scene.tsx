@@ -35,6 +35,17 @@ function upgradeToPhysical(
     tintB?: number;
     metalnessBoost?: number;
     roughnessScale?: number;
+    /** KHR_materials_transmission: true see-through glass (0 = opaque, 1 = full transmission). */
+    transmission?: number;
+    /** Index of refraction. 1.45 matches soda-lime / fused silica. */
+    ior?: number;
+    /** Physical thickness (m) of the transmissive layer. Tunes refraction feel. */
+    thickness?: number;
+    /** Roughness override (not a scale). Used when the source roughness is
+     *  incorrect for the target material (e.g. matte paint → mirror glass). */
+    roughnessAbsolute?: number;
+    /** Metalness override (not a boost). Used when switching materials. */
+    metalnessAbsolute?: number;
   } = {},
 ): MeshPhysicalMaterial {
   const phys = new MeshPhysicalMaterial();
@@ -49,8 +60,10 @@ function upgradeToPhysical(
     phys.metalness = Math.min(1, phys.metalness + options.metalnessBoost);
   }
   if (options.roughnessScale !== undefined) {
-    phys.roughness = Math.max(0.08, phys.roughness * options.roughnessScale);
+    phys.roughness = Math.max(0.02, phys.roughness * options.roughnessScale);
   }
+  if (options.metalnessAbsolute !== undefined) phys.metalness = options.metalnessAbsolute;
+  if (options.roughnessAbsolute !== undefined) phys.roughness = options.roughnessAbsolute;
   if (options.tintR !== undefined || options.tintG !== undefined || options.tintB !== undefined) {
     phys.color.setRGB(
       options.tintR ?? phys.color.r,
@@ -58,7 +71,87 @@ function upgradeToPhysical(
       options.tintB ?? phys.color.b,
     );
   }
+  if (options.transmission !== undefined) phys.transmission = options.transmission;
+  if (options.ior !== undefined) phys.ior = options.ior;
+  if (options.thickness !== undefined) phys.thickness = options.thickness;
   return phys;
+}
+
+/** Overlay a procedural photovoltaic cell grid on a Standard/Physical
+ *  material via onBeforeCompile. Cells run in a square grid in world space
+ *  at the configured size; cell gutters are slightly darker + slightly
+ *  more reflective than the cell interior so the panel reads as "tiled
+ *  silicon", not a single flat blue surface. Gutter width is a fraction
+ *  of the cell size so cells stay dominant visually.
+ *
+ *  This is deliberately additive to applyProceduralDetail — the per-cell
+ *  hash noise breaks up the grid so it doesn't look like printed graphics. */
+function applyPVCellGrid(
+  mat: MeshStandardMaterial | MeshPhysicalMaterial,
+  cellSizeM = 0.35,
+  gutterFraction = 0.06,
+): void {
+  const tagged = mat as unknown as { __hcsaPVApplied?: boolean };
+  if (tagged.__hcsaPVApplied) return;
+  tagged.__hcsaPVApplied = true;
+
+  const prevHook = mat.onBeforeCompile;
+  mat.onBeforeCompile = (shader, renderer) => {
+    if (prevHook) {
+      try { prevHook.call(mat, shader, renderer); } catch { /* ignore */ }
+    }
+    try {
+      shader.vertexShader = shader.vertexShader
+        .replace(
+          "#include <common>",
+          `#include <common>
+           varying vec3 vHcsaPVWorldPos;`,
+        )
+        .replace(
+          "#include <project_vertex>",
+          `#include <project_vertex>
+           vHcsaPVWorldPos = (modelMatrix * vec4(transformed, 1.0)).xyz;`,
+        );
+
+      shader.fragmentShader = shader.fragmentShader
+        .replace(
+          "#include <common>",
+          `#include <common>
+           varying vec3 vHcsaPVWorldPos;`,
+        )
+        .replace(
+          "#include <color_fragment>",
+          `#include <color_fragment>
+           {
+             vec3 cellCoord = vHcsaPVWorldPos / ${cellSizeM.toFixed(3)};
+             vec3 inCell = fract(cellCoord);
+             vec3 distToEdge = min(inCell, 1.0 - inCell);
+             float edgeXY = min(distToEdge.x, distToEdge.y);
+             // Darken + de-metallize near the gutter so cell boundaries read.
+             float gutterMask = smoothstep(${gutterFraction.toFixed(3)}, ${(gutterFraction * 0.4).toFixed(3)}, edgeXY);
+             diffuseColor.rgb *= mix(1.0, 0.38, gutterMask);
+           }`,
+        )
+        .replace(
+          "#include <roughnessmap_fragment>",
+          `#include <roughnessmap_fragment>
+           {
+             vec3 cellCoord2 = vHcsaPVWorldPos / ${cellSizeM.toFixed(3)};
+             vec3 inCell2 = fract(cellCoord2);
+             vec3 distToEdge2 = min(inCell2, 1.0 - inCell2);
+             float edgeXY2 = min(distToEdge2.x, distToEdge2.y);
+             float gutterMask2 = smoothstep(${gutterFraction.toFixed(3)}, ${(gutterFraction * 0.4).toFixed(3)}, edgeXY2);
+             // Smoother gutter metal, slightly rougher cell interior so the
+             // sun catches the cell grid when the habitat rotates.
+             roughnessFactor = mix(roughnessFactor, 0.18, gutterMask2);
+           }`,
+        );
+    } catch (e) {
+      console.error("[hcsa] PV grid shader injection failed:", e);
+      tagged.__hcsaPVApplied = false;
+    }
+  };
+  mat.needsUpdate = true;
 }
 
 /** Inject procedural surface-detail variation into a Standard/Physical
@@ -436,16 +529,47 @@ export function Scene({ registry }: Props) {
     const newPentFrame = upgradeFrame(reg.materials.pentFrame, "pent frame");
     if (newPentFrame) reg.materials.pentFrame = newPentFrame;
 
+    // --- Hex glass upgrade: real transmissive glass ---
+    // The hex face's `_Glass` slot is what the user sees through. Upgrade
+    // to MeshPhysicalMaterial with KHR transmission so the shell reads as
+    // an engineered glass aperture, not a painted panel. Pale cool tint so
+    // it still feels cold-vacuum glass, not living-room window.
+    const glassSwaps = new Map<MeshStandardMaterial, MeshPhysicalMaterial>();
+    if (reg.materials.hexGlass && !(reg.materials.hexGlass as MeshPhysicalMaterial).isMeshPhysicalMaterial) {
+      try {
+        const glass = upgradeToPhysical(reg.materials.hexGlass, {
+          transmission: 0.92,
+          ior: 1.45,
+          thickness: 0.02,
+          roughnessAbsolute: 0.05,
+          metalnessAbsolute: 0,
+          reflectivity: 0.6,
+          tintR: 0.92,
+          tintG: 0.96,
+          tintB: 1.0,
+        });
+        glass.envMapIntensity = 2.5;
+        glassSwaps.set(reg.materials.hexGlass, glass);
+        reg.materials.hexGlass = glass;
+        if (import.meta.env.DEV) console.info(`[hcsa] upgraded hex glass → transmissive MeshPhysicalMaterial`);
+      } catch (e) {
+        console.error(`[hcsa] failed to upgrade hex glass:`, e);
+      }
+    }
+
     // Swap the upgraded materials in on every mesh that referenced the
     // old MeshStandardMaterial. Skip non-mesh nodes, multi-material
     // meshes, and meshes whose material isn't in the swap map (that
     // includes the teardown slab clones, which stay on MeshStandard).
-    if (frameSwaps.size > 0) {
+    const allSwaps = new Map<MeshStandardMaterial, MeshPhysicalMaterial>();
+    for (const [k, v] of frameSwaps) allSwaps.set(k, v);
+    for (const [k, v] of glassSwaps) allSwaps.set(k, v);
+    if (allSwaps.size > 0) {
       scene.traverse((node: Object3D) => {
         const m = node as Mesh;
         if (!m.isMesh) return;
         if (Array.isArray(m.material)) return;
-        const swap = frameSwaps.get(m.material as MeshStandardMaterial);
+        const swap = allSwaps.get(m.material as MeshStandardMaterial);
         if (swap) {
           try {
             m.material = swap;
@@ -456,24 +580,30 @@ export function Scene({ registry }: Props) {
       });
     }
 
-    // Warm-white tint on the panel skin so it separates from the cool
-    // frame. No material swap — just mutate the existing MeshStandardMaterial.
-    if (reg.materials.hexGlass) {
-      reg.materials.hexGlass.color.setRGB(0.97, 0.95, 0.92);
-    }
+    // --- Pent glass → solar panel exterior ---
+    // Per user direction: hexagons are glass, pentagons are solar panels on
+    // the outside. Dark navy cell surface, moderate metalness so grazing
+    // sunlight catches the PV grid. Cell grid is a shader overlay so every
+    // pent face automatically tiles — no texture authoring required.
     if (reg.materials.pentGlass) {
-      reg.materials.pentGlass.color.setRGB(0.97, 0.95, 0.92);
+      const pv = reg.materials.pentGlass;
+      pv.color.setRGB(0.03, 0.05, 0.12);
+      pv.metalness = 0.55;
+      pv.roughness = 0.22;
+      pv.envMapIntensity = 1.2;
+      if ("emissive" in pv) pv.emissive.setRGB(0.0, 0.01, 0.03);
+      pv.needsUpdate = true;
+      applyPVCellGrid(pv, 0.35, 0.06);
     }
 
     // --- Procedural surface detail ---
-    // Inject cell-noise variation into every shell material so panels
-    // stop reading as perfectly-uniform paint. Different jitter strengths
-    // per material class: frame (metal) gets less color variance but
-    // more roughness variance; skin (paint) gets more color variance.
+    // Inject cell-noise variation into metal materials so the aluminum
+    // bezels don't read as perfectly-uniform paint. Skipped on hex glass
+    // (transmissive — paint noise makes no sense) and layered on top of
+    // the PV grid for pent glass so cells aren't identical.
     if (reg.materials.hexFrame) applyProceduralDetail(reg.materials.hexFrame, 0.08, 0.35);
     if (reg.materials.pentFrame) applyProceduralDetail(reg.materials.pentFrame, 0.08, 0.35);
-    if (reg.materials.hexGlass) applyProceduralDetail(reg.materials.hexGlass, 0.14, 0.28);
-    if (reg.materials.pentGlass) applyProceduralDetail(reg.materials.pentGlass, 0.14, 0.28);
+    if (reg.materials.pentGlass) applyProceduralDetail(reg.materials.pentGlass, 0.06, 0.18);
     if (reg.materials.hexSolar) applyProceduralDetail(reg.materials.hexSolar, 0.1, 0.2);
 
     if (import.meta.env.DEV) {
