@@ -2,11 +2,21 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import tailwind from "@tailwindcss/vite";
 import mdx from "@mdx-js/rollup";
+import remarkGfm from "remark-gfm";
 import path from "node:path";
 
 export default defineConfig({
   plugins: [
-    { enforce: "pre", ...mdx({ providerImportSource: "@mdx-js/react" }) },
+    {
+      enforce: "pre",
+      // remark-gfm enables GitHub-Flavored Markdown tables, strikethrough,
+      // task lists, and autolinks — without it, MDX renders `| col | col |`
+      // as raw text and the whole chapter reads as a wall of pipes.
+      ...mdx({
+        providerImportSource: "@mdx-js/react",
+        remarkPlugins: [remarkGfm],
+      }),
+    },
     react(),
     tailwind(),
   ],

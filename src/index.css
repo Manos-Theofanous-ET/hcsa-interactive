@@ -83,6 +83,57 @@ body {
   background-color: var(--color-accent-cyan);
 }
 
+/* --- MDX chapter tables -----------------------------------------------
+   Tables in MDX render as real <table> via remark-gfm. Style as editorial
+   spec sheets: mono, tight tracking, cyan 1px dividers, ALL-CAPS headers.
+   Scoped to the overlay so we don't restyle tables elsewhere accidentally. */
+.hcsa-overlay-layer table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  line-height: 1.5;
+  letter-spacing: 0.06em;
+  color: rgba(244, 245, 247, 0.92);
+  border-top: 1px solid color-mix(in srgb, var(--color-accent-cyan) 45%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-accent-cyan) 45%, transparent);
+}
+
+.hcsa-overlay-layer thead th {
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.64rem;
+  color: var(--color-accent-cyan);
+  padding: 0.65rem 0.85rem 0.55rem;
+  text-align: left;
+  vertical-align: bottom;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-accent-cyan) 45%, transparent);
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.hcsa-overlay-layer tbody td {
+  padding: 0.55rem 0.85rem;
+  vertical-align: top;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.hcsa-overlay-layer tbody tr:first-child td {
+  border-top: 0;
+}
+
+/* First column carries the label — brighten it so the eye hits it first. */
+.hcsa-overlay-layer tbody td:first-child {
+  color: rgba(244, 245, 247, 1);
+  font-weight: 500;
+}
+
+/* Numeric values in <strong> get the cyan signal color. */
+.hcsa-overlay-layer table strong {
+  color: var(--color-accent-cyan);
+  font-weight: 600;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hcsa-reduce-motion-hide {
     display: none;
