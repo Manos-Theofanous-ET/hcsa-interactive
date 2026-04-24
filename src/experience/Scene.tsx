@@ -77,85 +77,15 @@ function upgradeToPhysical(
   return phys;
 }
 
-/** Overlay a procedural photovoltaic cell grid on a Standard/Physical
- *  material via onBeforeCompile. Cells run in a square grid in world space
- *  at the configured size; cell gutters are slightly darker + slightly
- *  more reflective than the cell interior so the panel reads as "tiled
- *  silicon", not a single flat blue surface. Gutter width is a fraction
- *  of the cell size so cells stay dominant visually.
- *
- *  This is deliberately additive to applyProceduralDetail — the per-cell
- *  hash noise breaks up the grid so it doesn't look like printed graphics. */
-function applyPVCellGrid(
-  mat: MeshStandardMaterial | MeshPhysicalMaterial,
-  cellSizeM = 0.35,
-  gutterFraction = 0.06,
-): void {
-  const tagged = mat as unknown as { __hcsaPVApplied?: boolean };
-  if (tagged.__hcsaPVApplied) return;
-  tagged.__hcsaPVApplied = true;
-
-  const prevHook = mat.onBeforeCompile;
-  mat.onBeforeCompile = (shader, renderer) => {
-    if (prevHook) {
-      try { prevHook.call(mat, shader, renderer); } catch { /* ignore */ }
-    }
-    try {
-      shader.vertexShader = shader.vertexShader
-        .replace(
-          "#include <common>",
-          `#include <common>
-           varying vec3 vHcsaPVWorldPos;`,
-        )
-        .replace(
-          "#include <project_vertex>",
-          `#include <project_vertex>
-           vHcsaPVWorldPos = (modelMatrix * vec4(transformed, 1.0)).xyz;`,
-        );
-
-      shader.fragmentShader = shader.fragmentShader
-        .replace(
-          "#include <common>",
-          `#include <common>
-           varying vec3 vHcsaPVWorldPos;`,
-        )
-        .replace(
-          "#include <color_fragment>",
-          `#include <color_fragment>
-           {
-             vec3 cellCoord = vHcsaPVWorldPos / ${cellSizeM.toFixed(3)};
-             vec3 inCell = fract(cellCoord);
-             vec3 distToEdge = min(inCell, 1.0 - inCell);
-             float edgeXY = min(distToEdge.x, distToEdge.y);
-             // Subtle gutter: mild darkening, not the "broken tile" read we
-             // had at 0.38. 0.7 keeps the cell grid visible at mid-distance
-             // without turning each cell into a bright chip with a black
-             // surround when the camera is close.
-             float gutterMask = smoothstep(${gutterFraction.toFixed(3)}, ${(gutterFraction * 0.4).toFixed(3)}, edgeXY);
-             diffuseColor.rgb *= mix(1.0, 0.7, gutterMask);
-           }`,
-        )
-        .replace(
-          "#include <roughnessmap_fragment>",
-          `#include <roughnessmap_fragment>
-           {
-             vec3 cellCoord2 = vHcsaPVWorldPos / ${cellSizeM.toFixed(3)};
-             vec3 inCell2 = fract(cellCoord2);
-             vec3 distToEdge2 = min(inCell2, 1.0 - inCell2);
-             float edgeXY2 = min(distToEdge2.x, distToEdge2.y);
-             float gutterMask2 = smoothstep(${gutterFraction.toFixed(3)}, ${(gutterFraction * 0.4).toFixed(3)}, edgeXY2);
-             // Smoother gutter metal, slightly rougher cell interior so the
-             // sun catches the cell grid when the habitat rotates.
-             roughnessFactor = mix(roughnessFactor, 0.18, gutterMask2);
-           }`,
-        );
-    } catch (e) {
-      console.error("[hcsa] PV grid shader injection failed:", e);
-      tagged.__hcsaPVApplied = false;
-    }
-  };
-  mat.needsUpdate = true;
-}
+// (Removed: applyPVCellGrid world-space PV cell grid shader.)
+// The earlier implementation tiled cells in world space across the whole
+// pentagon surface, but every pent in the GLB is already geometrically
+// subdivided into 5 triangular panes separated by radial mullions — the
+// subdivision is part of the frame geometry, not a texture effect. Tiling
+// cells on top crossed triangle boundaries and broke that read. Each pent
+// pane now renders as a discrete clean solar tile; mullions in _Frame do
+// the cell boundaries. If we ever need visible PV sub-cell pattern per
+// triangle, reintroduce using per-face UVs (not world space).
 
 /** Inject procedural surface-detail variation into a Standard/Physical
  *  material via onBeforeCompile. The GLB ships no UVs or tangents on the
@@ -541,17 +471,25 @@ export function Scene({ registry }: Props) {
     if (reg.materials.hexGlass && !(reg.materials.hexGlass as MeshPhysicalMaterial).isMeshPhysicalMaterial) {
       try {
         const glass = upgradeToPhysical(reg.materials.hexGlass, {
-          transmission: 0.92,
+          // Previously transmission=0.92 made the glass ~invisible — each
+          // of the 6 triangular panes per hex blurred into the background,
+          // so the triangular subdivision was lost. User reference shows
+          // each triangle reading as a discrete tinted pane. Drop to 0.72
+          // so the glass has BODY — you see each triangle, lit blue, with
+          // reflections catching across its surface.
+          transmission: 0.72,
           ior: 1.45,
-          thickness: 0.02,
-          roughnessAbsolute: 0.05,
+          thickness: 0.05,
+          roughnessAbsolute: 0.06,
           metalnessAbsolute: 0,
-          reflectivity: 0.6,
-          tintR: 0.92,
-          tintG: 0.96,
+          reflectivity: 0.65,
+          // Cooler, more saturated blue so the triangles read as tinted
+          // glass rather than clear window — closer to the reference.
+          tintR: 0.62,
+          tintG: 0.82,
           tintB: 1.0,
         });
-        glass.envMapIntensity = 2.5;
+        glass.envMapIntensity = 2.8;
         glassSwaps.set(reg.materials.hexGlass, glass);
         reg.materials.hexGlass = glass;
         if (import.meta.env.DEV) console.info(`[hcsa] upgraded hex glass → transmissive MeshPhysicalMaterial`);
@@ -585,9 +523,16 @@ export function Scene({ registry }: Props) {
 
     // --- Pent glass → solar panel exterior ---
     // Per user direction: hexagons are glass, pentagons are solar panels on
-    // the outside. Dark navy cell surface, moderate metalness so grazing
-    // sunlight catches the PV grid. Cell grid is a shader overlay so every
-    // pent face automatically tiles — no texture authoring required.
+    // the outside. IMPORTANT: each pent is already 5 triangular panes
+    // separated by radial mullions in the GLB (see sync-geometry.ts —
+    // "every face is now 6 (hex) or 5 (pent) triangular glass panes"), so
+    // the subdivision is GEOMETRIC — handled by the _Frame material's
+    // mullion ribs. We deliberately do NOT apply a world-space cell-grid
+    // shader on top because it would tile across triangle boundaries,
+    // breaking the "5 discrete solar tiles" read.
+    //
+    // Styling is just dark-navy silicon PV surface with moderate metalness
+    // so grazing sunlight rims the edges. The mullions alone give the grid.
     if (reg.materials.pentGlass) {
       const pv = reg.materials.pentGlass;
       pv.color.setRGB(0.03, 0.05, 0.12);
@@ -596,7 +541,6 @@ export function Scene({ registry }: Props) {
       pv.envMapIntensity = 1.2;
       if ("emissive" in pv) pv.emissive.setRGB(0.0, 0.01, 0.03);
       pv.needsUpdate = true;
-      applyPVCellGrid(pv, 0.35, 0.06);
     }
 
     // --- Procedural surface detail (tuned down) ---
