@@ -30,6 +30,11 @@ function RiseWords({
   );
 }
 
+/** Hero — igloo-style edge-anchored title page. The old top nav was broken
+ *  (hrefs pointed at section IDs that no longer existed after the chapter
+ *  rename) and fought the scroll-driven film; the PhaseRail on the right
+ *  carries navigation now. Subtitle trimmed to a single mono fragment per
+ *  the audit's §D-15. */
 export function HeroChapter() {
   return (
     <section
@@ -37,20 +42,16 @@ export function HeroChapter() {
       data-chapter="1"
       className="relative flex min-h-screen flex-col justify-between px-6 py-8 md:px-10 md:py-10"
     >
+      {/* TL: site mark */}
       <header className="flex items-start justify-between gap-6">
         <div className="data text-[10px] uppercase tracking-[0.35em] text-white/75">
-          HCSA Interactive
+          HCSA
           <span className="mx-2 text-white/30">/</span>
           <span className="text-white/50">Brown University</span>
         </div>
-        <nav className="data hidden gap-5 text-[10px] uppercase tracking-[0.3em] text-white/55 md:flex">
-          <a href="#architecture" className="transition hover:text-white">Interior</a>
-          <a href="#panel-v3" className="transition hover:text-white">Panel</a>
-          <a href="#prototyping" className="transition hover:text-white">Validation</a>
-          <a href="#footer" className="transition hover:text-white">Contact</a>
-        </nav>
       </header>
 
+      {/* Display title, anchored low-left. The canvas behind is the subject. */}
       <div className="pointer-events-none flex flex-1 items-end">
         <div className="max-w-md space-y-3">
           <p
@@ -70,15 +71,15 @@ export function HeroChapter() {
             />
           </h1>
           <p
-            className="hcsa-rise max-w-sm text-sm leading-relaxed text-white/60"
+            className="hcsa-rise data text-[10px] uppercase tracking-[0.3em] text-white/55"
             style={{ ["--stagger" as string]: "1100ms" }}
           >
-            A mostly transparent orbital habitat built from 32 panels.
-            Scroll to watch it come apart.
+            Thirty-two panels. One joint.
           </p>
         </div>
       </div>
 
+      {/* BL: scroll cue. BR: phase count (decorative, mirrors igloo corner chrome). */}
       <footer className="flex items-end justify-between">
         <div className="flex items-center gap-3 text-white/45">
           <span className="data text-[10px] uppercase tracking-[0.35em]">Scroll</span>
@@ -86,8 +87,8 @@ export function HeroChapter() {
             <span className="block h-full w-full origin-left scale-x-0 bg-[color:var(--color-accent-cyan)] [animation:hcsa-scroll-cue_2.4s_ease-in-out_infinite]" />
           </span>
         </div>
-        <div className="data hidden text-right text-[9px] uppercase tracking-[0.35em] text-white/25 md:block">
-          32 panels · 9 phases
+        <div className="data hidden text-right text-[9px] uppercase tracking-[0.35em] text-white/30 md:block">
+          01 / 09
         </div>
       </footer>
     </section>

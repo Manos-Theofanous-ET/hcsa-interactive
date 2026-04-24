@@ -1,36 +1,69 @@
 import type { ReactNode } from "react";
 
+/** Igloo-style corner chapter: section fills the viewport, 3D scene is
+ *  the subject, and text sits at edge corners as tiny anchored labels.
+ *  On narrow viewports the corners collapse into a single left-aligned
+ *  stack so nothing gets clipped.
+ *
+ *  Layout (md+):
+ *    TL: phase eyebrow (PHASE 02 · HABITAT)
+ *    TR: display statement (Fraunces serif, 1–2 lines)
+ *    BL: spec table (passed via children — usually a tiny MDX <table>)
+ *    BR: why-it-matters one-liner + optional micro-nav
+ *
+ *  Mobile: TL → statement → spec → why, stacked. */
 type Props = {
   id: string;
   index: number;
+  /** Short phase name, rendered uppercase in the eyebrow. */
   title: string;
-  kicker: string;
+  /** 1–2 line display headline. Can contain `\n` for a manual break. */
+  statement: string;
+  /** One-line "why it matters", shown bottom-right in mono. */
+  why?: string;
+  /** MDX body, usually a single minimal spec table. */
   children?: ReactNode;
 };
 
-export function ChapterStub({ id, index, title, kicker, children }: Props) {
+export function ChapterStub({ id, index, title, statement, why, children }: Props) {
+  const phaseCode = String(index).padStart(2, "0");
   return (
     <section
       id={id}
       data-chapter={index}
-      className="relative flex min-h-screen flex-col justify-center px-8 md:px-16"
+      className="hcsa-corner-chapter relative min-h-screen"
     >
-      <div className="max-w-2xl">
-        <p className="data text-xs uppercase tracking-[0.3em] text-[color:var(--color-accent-cyan)]">
-          Phase {String(index).padStart(2, "0")}
+      {/* TL: phase eyebrow */}
+      <div className="hcsa-corner hcsa-corner-tl">
+        <p className="data text-[10px] uppercase tracking-[0.35em] text-[color:var(--color-accent-cyan)]">
+          Phase&nbsp;{phaseCode}
+          <span className="mx-2 text-white/25">/</span>
+          <span className="text-white/70">{title}</span>
         </p>
-        <h2 className="mt-3 font-serif text-[clamp(2rem,5vw,4rem)] font-normal leading-tight tracking-tight">
-          {title}
-        </h2>
-        <p className="mt-5 data text-sm uppercase tracking-[0.2em] text-white/60">{kicker}</p>
-        {children ? (
-          <div className="mt-8 space-y-4 text-base leading-relaxed text-white/80 md:text-lg [&_strong]:font-semibold [&_strong]:text-white">
-            {children}
-          </div>
-        ) : (
-          <p className="mt-6 text-white/40">Copy pending — placeholder stub.</p>
-        )}
       </div>
+
+      {/* TR: statement (display serif, opinionated line-height) */}
+      <div className="hcsa-corner hcsa-corner-tr">
+        <h2 className="font-serif text-[clamp(1.5rem,2.6vw,2.6rem)] font-normal leading-[1.05] tracking-tight text-white">
+          {statement.split("\n").map((line, i) => (
+            <span key={i} className="block">
+              {line}
+            </span>
+          ))}
+        </h2>
+      </div>
+
+      {/* BL: spec table (MDX body) */}
+      <div className="hcsa-corner hcsa-corner-bl">{children}</div>
+
+      {/* BR: why + micro-nav */}
+      {why ? (
+        <div className="hcsa-corner hcsa-corner-br">
+          <p className="data max-w-[32ch] text-right text-[10px] uppercase tracking-[0.18em] leading-relaxed text-white/55">
+            {why}
+          </p>
+        </div>
+      ) : null}
     </section>
   );
 }

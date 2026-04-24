@@ -1,51 +1,11 @@
-Every hex pane resists roughly **1,332 kN** at one atmosphere. Pentagons
-carry about **883 kN**. The v3 dual-path joint separates structural
-load from pressure seal so redundancy is intentional, not incidental.
+| # | Layer |
+|---|---|
+| **01** | Sacrificial debris pane · silica |
+| **02** | Outer frame · 6061-T6 |
+| **03** | Transparent PV |
+| **04** | Electrochromic tint |
+| **05** | Insulating gas gap |
+| **06** | Sliding opaque PV |
+| **07** | Inner frame · crew side |
 
-### Seven layers, vacuum to crew
-
-The panel is an engineered stack — **140 mm** total depth — with every
-layer doing a specific job. Scroll has pulled them apart vertically so
-you can read each one in isolation.
-
-| # | Layer | Function |
-|---|---|---|
-| 1 | Sacrificial debris pane | MMOD first-impact; replaceable |
-| 2 | Outer structural frame | 6061-T6 aluminium, load path |
-| 3 | Transparent photovoltaic | Power generation through the window |
-| 4 | Electrochromic tint | Software-controlled opacity |
-| 5 | Insulating gas gap | Thermal decoupling |
-| 6 | Sliding opaque solar | Deployable shade / power boost |
-| 7 | Inner structural frame | Crew-facing, pressure boundary |
-
-### Joint hardware language
-
-Every 2.25 m edge carries the same sealed interface — so a panel swap
-in orbit doesn't need a bespoke gasket or fastener stock.
-
-- **Frame:** 6061-T6 aluminium, **140 mm** total depth
-- **Lockbolts:** NAS9306C-06 on Ø **4.83 mm** holes
-- **Fastener coupon basis:** 14 fasteners over 550 mm at ~**39 mm pitch**
-- **Primary seal:** dual flat fluorosilicone gaskets, **1.6 mm** thick,
-  **10 mm** wide, **14 mm** centreline spacing, **25–35 %** compression
-  target
-- **Tertiary breach seal:** RTV in a semi-circular recess, **3 mm**
-  radius × **3 mm** depth, **8 mm** inboard of inner-gasket centreline
-- **Wiring conduit:** **10 mm × 10 mm**
-
-Numbers above are locked in [CANONICAL.md](/#/canonical) §Joint /
-Section Values. Any render or blueprint that disagrees is the thing
-that needs fixing — not the number.
-
-### Why seven layers, not five
-
-Two extra layers look redundant on paper. They aren't:
-
-1. **Layer 1 exists because layer 2 cannot be consumable.** MMOD risk
-   demands replacement without touching structure.
-2. **Layer 4 exists because layer 6 cannot be instant.** Sliding shade
-   takes seconds. Electrochromic tint takes milliseconds.
-
-Remove either and the panel only works in one failure mode.
-
-Next: the pentagons. One family of them is explicitly living.
+Total depth **140 mm**. Joint: NAS9306C-06 lockbolts on Ø **4.83 mm** holes. Dual fluorosilicone gaskets + RTV tertiary seal.

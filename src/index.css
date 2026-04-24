@@ -83,6 +83,50 @@ body {
   background-color: var(--color-accent-cyan);
 }
 
+/* --- Corner-anchored chapter layout ------------------------------------
+   Igloo pacing: each chapter section is a full viewport with 3D as the
+   subject; text lives at the four edge corners with wide breathing room
+   between them. Collapses to a single left-aligned stack on narrow
+   viewports so nothing gets clipped or overlaps the canvas mid-scroll. */
+.hcsa-corner-chapter {
+  /* Padding carves a safe margin so no corner crosses the viewport edge. */
+  padding: clamp(1.25rem, 3.2vw, 3rem);
+}
+
+.hcsa-corner {
+  position: absolute;
+  max-width: min(46ch, 45vw);
+}
+
+.hcsa-corner-tl { top: clamp(1.25rem, 3.2vw, 3rem); left: clamp(1.25rem, 3.2vw, 3rem); }
+.hcsa-corner-tr { top: clamp(1.25rem, 3.2vw, 3rem); right: clamp(1.25rem, 3.2vw, 3rem); text-align: right; }
+.hcsa-corner-bl { bottom: clamp(1.25rem, 3.2vw, 3rem); left: clamp(1.25rem, 3.2vw, 3rem); }
+.hcsa-corner-br { bottom: clamp(1.25rem, 3.2vw, 3rem); right: clamp(1.25rem, 3.2vw, 3rem); }
+
+/* Tables anchored in corners are tighter than the free-prose variant. */
+.hcsa-corner table {
+  margin: 0;
+  max-width: min(46ch, 45vw);
+  font-size: 0.68rem;
+}
+
+/* Mobile: stop pretending it's a corner layout and stack. */
+@media (max-width: 767px) {
+  .hcsa-corner {
+    position: static;
+    max-width: none;
+    margin-bottom: 1.5rem;
+  }
+  .hcsa-corner-tr { text-align: left; }
+  .hcsa-corner-br { text-align: left; }
+  .hcsa-corner-chapter {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    justify-content: space-between;
+  }
+}
+
 /* --- MDX chapter tables -----------------------------------------------
    Tables in MDX render as real <table> via remark-gfm. Style as editorial
    spec sheets: mono, tight tracking, cyan 1px dividers, ALL-CAPS headers.

@@ -9,29 +9,96 @@ import Thermal from "@content/chapters/07-thermal.mdx";
 import Validation from "@content/chapters/08-validation.mdx";
 import Contact from "@content/chapters/09-contact.mdx";
 
+/** Corner-anchored chapters. Statement + why live as structured props here
+ *  (one source of truth). MDX bodies are ONLY the tiny spec table — the
+ *  prose that used to fill the middle is gone on purpose (igloo pacing).
+ *  Any phase that needs more detail later can get a "deep dive" drawer. */
 const CHAPTERS = [
-  { id: "habitat", idx: 2, title: "The Habitat", kicker: "11.151 m · 32 faces · 629 m³", Body: Habitat },
-  { id: "assembly", idx: 3, title: "Earth-Built, Orbit-Assembled", kicker: "Fabricate · Stack · Launch · Snap · Weld", Body: Assembly },
-  { id: "interior", idx: 4, title: "Inside the Shell", kicker: "~520 m³ habitable · 8 zones", Body: Interior },
-  { id: "panel", idx: 5, title: "The Panel", kicker: "v3 joint · 7-layer glazing · NAS9306C-06", Body: Panel },
-  { id: "bio", idx: 6, title: "Living Systems", kicker: "Bioregenerative ECLSS", Body: Bio },
-  { id: "thermal", idx: 7, title: "Thermal & Water", kicker: "15 L/day distillation · closed loop", Body: Thermal },
-  { id: "validate", idx: 8, title: "Coupon → Habitat", kicker: "P1 → P7 · currently P5", Body: Validation },
-  { id: "contact", idx: 9, title: "Get Involved", kicker: "Research · Sponsorship · Alliance", Body: Contact },
+  {
+    id: "habitat",
+    idx: 2,
+    title: "Habitat",
+    statement: "Twenty hexagons.\nTwelve pentagons.\nOne joint, thirty-two times.",
+    why: "One validated joint unlocks every panel.",
+    Body: Habitat,
+  },
+  {
+    id: "assembly",
+    idx: 3,
+    title: "Assembly",
+    statement: "Earth-built.\nOrbit-assembled.",
+    why: "Same joint 32×. One tool. One gasket SKU.",
+    Body: Assembly,
+  },
+  {
+    id: "interior",
+    idx: 4,
+    title: "Interior",
+    statement: "Observation at the shell.\nMachines at the core.",
+    why: "Reconfigurable without breaching the hull.",
+    Body: Interior,
+  },
+  {
+    id: "panel",
+    idx: 5,
+    title: "Panel V3",
+    statement: "Seven layers.\nVacuum to crew.",
+    why: "Remove any layer — the panel only works in one failure mode.",
+    Body: Panel,
+  },
+  {
+    id: "bio",
+    idx: 6,
+    title: "Living Systems",
+    statement: "One pentagon per zone.\nThree trays. Full-spectrum.",
+    why: "Bio takes the baseline; physico-chemical takes the peaks.",
+    Body: Bio,
+  },
+  {
+    id: "thermal",
+    idx: 7,
+    title: "Thermal / Water",
+    statement: "Red carries heat out.\nBlue returns distillate.",
+    why: "The core isn't hidden plumbing. It's the spine.",
+    Body: Thermal,
+  },
+  {
+    id: "validate",
+    idx: 8,
+    title: "Validation",
+    statement: "P1 to P7.\nCurrently P5.",
+    why: "Until a coupon matches the model, the model is a hypothesis.",
+    Body: Validation,
+  },
+  {
+    id: "contact",
+    idx: 9,
+    title: "Get Involved",
+    statement: "Brown University.\nLooking for collaborators.",
+    why: "We want pushback. Reach through Brown.",
+    Body: Contact,
+  },
 ] as const;
 
 export function Overlay() {
   return (
     <main className="hcsa-overlay-layer">
       <HeroChapter />
-      {CHAPTERS.map(({ id, idx, title, kicker, Body }) => (
-        <ChapterStub key={id} id={id} index={idx} title={title} kicker={kicker}>
+      {CHAPTERS.map(({ id, idx, title, statement, why, Body }) => (
+        <ChapterStub
+          key={id}
+          id={id}
+          index={idx}
+          title={title}
+          statement={statement}
+          why={why}
+        >
           <Body />
         </ChapterStub>
       ))}
-      <footer className="px-8 py-24 text-center md:px-16">
+      <footer className="relative z-10 px-8 py-16 text-center md:px-16">
         <p className="data text-[10px] uppercase tracking-[0.3em] text-white/35">
-          HCSA Interactive · Brown University · 2026
+          HCSA · Brown University · {new Date().getFullYear()}
         </p>
       </footer>
     </main>
