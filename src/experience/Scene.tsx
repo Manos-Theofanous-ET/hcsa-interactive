@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef } from "react";
 import {
   AdditiveBlending,
   BackSide,
+  Color,
   MeshPhysicalMaterial,
   MeshStandardMaterial,
   Quaternion,
@@ -491,39 +492,39 @@ export function Scene({ registry }: Props) {
     const newPentFrame = upgradeFrame(reg.materials.pentFrame, "pent frame");
     if (newPentFrame) reg.materials.pentFrame = newPentFrame;
 
-    // --- Hex glass upgrade: real transmissive glass ---
-    // The hex face's `_Glass` slot is what the user sees through. Upgrade
-    // to MeshPhysicalMaterial with KHR transmission so the shell reads as
-    // an engineered glass aperture, not a painted panel. Pale cool tint so
-    // it still feels cold-vacuum glass, not living-room window.
+    // --- Hex glass: fresh stock MeshPhysicalMaterial, no GLB inheritance ---
+    //
+    // Why not upgradeToPhysical here: the GLB material HCSA_V3_WebGlass
+    // carries properties that, combined with KHR transmission, were producing
+    // a shader compile error ("ior field not in structure /
+    // getIBLVolumeRefraction no overload found"). The shell meshes ship with
+    // no UVs, which transmission's shader chunks depend on — copying the
+    // source material's state onto a MeshPhysicalMaterial kept the UV-less
+    // maps and the broken state. Constructed fresh, all props set via the
+    // constructor so Three.js compiles the shader once with final values.
+    //
+    // Parameters per audit direction: transmission 0.9, roughness 0.05,
+    // thickness 0.4, ior 1.45 — real glass numbers, not theatrical ones.
     const glassSwaps = new Map<MeshStandardMaterial, MeshPhysicalMaterial>();
     if (reg.materials.hexGlass && !(reg.materials.hexGlass as MeshPhysicalMaterial).isMeshPhysicalMaterial) {
-      try {
-        const glass = upgradeToPhysical(reg.materials.hexGlass, {
-          // Previously transmission=0.92 made the glass ~invisible — each
-          // of the 6 triangular panes per hex blurred into the background,
-          // so the triangular subdivision was lost. User reference shows
-          // each triangle reading as a discrete tinted pane. Drop to 0.72
-          // so the glass has BODY — you see each triangle, lit blue, with
-          // reflections catching across its surface.
-          transmission: 0.72,
-          ior: 1.45,
-          thickness: 0.05,
-          roughnessAbsolute: 0.06,
-          metalnessAbsolute: 0,
-          reflectivity: 0.65,
-          // Cooler, more saturated blue so the triangles read as tinted
-          // glass rather than clear window — closer to the reference.
-          tintR: 0.62,
-          tintG: 0.82,
-          tintB: 1.0,
-        });
-        glass.envMapIntensity = 2.8;
-        glassSwaps.set(reg.materials.hexGlass, glass);
-        reg.materials.hexGlass = glass;
-        if (import.meta.env.DEV) console.info(`[hcsa] upgraded hex glass → transmissive MeshPhysicalMaterial`);
-      } catch (e) {
-        console.error(`[hcsa] failed to upgrade hex glass:`, e);
+      const oldGlass = reg.materials.hexGlass;
+      const glass = new MeshPhysicalMaterial({
+        color: new Color(0.62, 0.82, 1.0),
+        transmission: 0.9,
+        ior: 1.45,
+        thickness: 0.4,
+        roughness: 0.05,
+        metalness: 0,
+        transparent: true,
+        envMapIntensity: 2.2,
+      });
+      glass.name = "HCSA_V3_WebGlass_stock";
+      glassSwaps.set(oldGlass, glass);
+      reg.materials.hexGlass = glass;
+      if (import.meta.env.DEV) {
+        console.info(
+          "[hcsa] hex glass: stock MeshPhysicalMaterial (transmission=0.9, ior=1.45, thickness=0.4, roughness=0.05)",
+        );
       }
     }
 
