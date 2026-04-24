@@ -58,7 +58,11 @@ const PHASE_OPACITY_OVERRIDES: Partial<
   // sees the 32-face shell outline even as the solid panel fades to 0.03.
   // Without this the central hex+layers read as "floating debris", not
   // "one panel breaking apart with the shell context holding around it".
-  5: { wireframe: 0.55 },
+  // interior=0 kills any bleed from the beam-water loops / placeholder
+  // core that would otherwise clip through the teardown stack at 30 %
+  // (the "red disc through the shell" issue before transparent glass
+  // made it dramatically more visible).
+  5: { wireframe: 0.55, interior: 0 },
 };
 
 type Props = {
@@ -150,7 +154,10 @@ export function PhaseController({ registry, progressRef }: Props) {
       const uRaw = (t - pStart) / Math.max(pEnd - pStart, 1e-6);
       const uShell = clamp((uRaw - 0.85) / 0.15, 0, 1);
       const eShell = easeInOut(uShell);
-      const aO = a.phase.opacities;
+      // Shell-hold: read from the OVERRIDE-APPLIED source (aO includes the
+      // `interior: 0` override) so the hold-then-transition math runs
+      // against our intended phase-5 values, not the raw JSON.
+      const aO = { ...a.phase.opacities, ...(PHASE_OPACITY_OVERRIDES[5] ?? {}) };
       const bO = b.phase.opacities;
       p.opacities.hex_frame = lerp(aO.hex_frame, bO.hex_frame, eShell);
       p.opacities.hex_glass = lerp(aO.hex_glass, bO.hex_glass, eShell);
@@ -158,6 +165,11 @@ export function PhaseController({ registry, progressRef }: Props) {
       p.opacities.pent_frame = lerp(aO.pent_frame, bO.pent_frame, eShell);
       p.opacities.pent_glass = lerp(aO.pent_glass, bO.pent_glass, eShell);
       p.opacities.wireframe = lerp(aO.wireframe, bO.wireframe, eShell);
+      // Interior stays at the override value (0) for the first 85 % of
+      // phase 5 so the teardown beat is clean of the placeholder core +
+      // beam-water + plant-tray clutter, then transitions to phase 6's
+      // value in the final 15 % so the greenhouse reveal isn't a hard cut.
+      p.opacities.interior = lerp(aO.interior, bO.interior, eShell);
     }
 
     applyPhase(p, registry.current);

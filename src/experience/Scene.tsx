@@ -283,15 +283,18 @@ export function Scene({ registry }: Props) {
         } else if (name.startsWith("BEAM_WATER_RED") && !reg.materials.waterRed) {
           reg.materials.waterRed = mat;
           // Fade with interior: these 3 water-beam stripes are only meant
-          // to be seen during Phase 7 (interior=1). Previously they showed
-          // on every phase because we never made them transparent.
+          // to be seen during Phase 7 (interior=1). renderOrder=-1 forces
+          // them BEHIND glass in the transparent queue so they don't clip
+          // through the shell on phases where interior>0 but glass>0 too.
           mat.transparent = true;
           mat.opacity = 0;
+          mesh.renderOrder = -1;
           reg.interiorMeshes.push({ mesh, material: mat, baseOpacity: 1.0 });
         } else if (name.startsWith("BEAM_WATER_BLUE") && !reg.materials.waterBlue) {
           reg.materials.waterBlue = mat;
           mat.transparent = true;
           mat.opacity = 0;
+          mesh.renderOrder = -1;
           reg.interiorMeshes.push({ mesh, material: mat, baseOpacity: 1.0 });
         } else if (name === "BEAM_TRUNK") {
           // Phase 7 systems core: BEAM_TRUNK scales 3× longitudinally.
@@ -301,6 +304,7 @@ export function Scene({ registry }: Props) {
           reg.beamTrunk = { node, initialScale: node.scale.clone() };
           mat.transparent = true;
           mat.opacity = 0;
+          mesh.renderOrder = -1;
           reg.interiorMeshes.push({ mesh, material: mat, baseOpacity: 1.0 });
         } else if (/^PLANT_TRAY_\d+/.test(name)) {
           // Phase 6 greenhouse: each tray carries its own grow-LED material.
@@ -309,6 +313,7 @@ export function Scene({ registry }: Props) {
             reg.plantLedMaterials.push(mat);
             mat.transparent = true;
             mat.opacity = 0;
+            mesh.renderOrder = -1;
             reg.interiorMeshes.push({ mesh, material: mat, baseOpacity: 1.0 });
           }
         } else {
@@ -344,10 +349,15 @@ export function Scene({ registry }: Props) {
             ) {
               // Interior clutter (ramps, pods, figures, rack primitives,
               // placeholder geometry). Hide + fade by interior opacity.
+              // renderOrder = -1 forces these to render BEFORE glass in
+              // the transparent queue — fixes the "red disc clipping
+              // through the shell" bug on phase 5 / 7 where centroid-
+              // distance sort was putting interior AFTER glass panes.
               mat.transparent = true;
               const baseOpacity = mat.opacity > 0 ? mat.opacity : 1.0;
               mat.opacity = 0;
               mesh.visible = false;
+              mesh.renderOrder = -1;
               reg.interiorMeshes.push({ mesh, material: mat, baseOpacity });
               unmatchedInteriorCandidates.push(name);
             }
