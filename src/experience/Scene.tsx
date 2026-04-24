@@ -163,6 +163,14 @@ function applyProceduralDetail(
 
 useGLTF.preload("/3d/HCSA_MAIN.glb");
 
+// Shell-geometry smoothing (merge + subdivide + normal-recompute) kept
+// out of this session. Every variant I tried stopped R3F from mounting —
+// canvas stuck at 300×150, useThree ResizeObserver never fires. Needs a
+// deferred-post-mount strategy (run the pass a few frames after first
+// render via useFrame, not inside the init useEffect), and guards for
+// InterleavedBufferAttribute vs standard BufferAttribute in the GLB.
+// Re-add in the next pass with incremental guards.
+
 /** Per-layer PBR spec for the Phase 5 teardown slabs. Mirrors the
  *  authored layer table in blender-automation/scripts/blender/hcsa_web_export.py
  *  (_build_staged_panel_teardown, lines 590–599). The GLB ships a single
@@ -593,6 +601,12 @@ export function Scene({ registry }: Props) {
     if (reg.materials.hexFrame) applyProceduralDetail(reg.materials.hexFrame, 0.02, 0.08);
     if (reg.materials.pentFrame) applyProceduralDetail(reg.materials.pentFrame, 0.02, 0.08);
     if (reg.materials.hexSolar) applyProceduralDetail(reg.materials.hexSolar, 0.04, 0.1);
+
+    // Shell-geometry smoothing pass (D20 fix) disabled for now. Each
+    // implementation I've tried in this session has broken R3F mount
+    // (canvas stuck at 300×150). Needs deferred-post-mount execution
+    // or a different geometry-mutation strategy. Keeping
+    // mergeVerticesLocal helper around for the next attempt.
 
     if (import.meta.env.DEV) {
       console.info(
