@@ -239,6 +239,13 @@ export function Scene({ registry }: Props) {
       const mesh = node as Mesh;
       if (mesh.isMesh && mesh.material) {
         const mat = mesh.material as MeshStandardMaterial;
+        // Enable shadow casting/receiving on every shell mesh. Glass is
+        // still opaque enough for MeshPhysicalMaterial to cast a soft
+        // shadow, and the mullion frames give the form-sculpting detail
+        // the user flagged as missing. (Interior meshes are hidden below
+        // via the aggressive heuristic, so their shadow overhead is nil.)
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
         if (name.startsWith("HEX_") && name.endsWith("_Frame") && !reg.materials.hexFrame) {
           reg.materials.hexFrame = mat;
           mat.transparent = true;
@@ -297,29 +304,22 @@ export function Scene({ registry }: Props) {
           if (teardownMatch) {
             const idx = Number(teardownMatch[1]);
             teardownNodes.push({ node, mesh, index: idx });
-          } else if (
-            /^(INT_|INTERIOR_|RAMP_|POD_|FIGURE_|AEROGARDEN)/i.test(name)
-          ) {
-            // Phase 4 interior reveal: ramps, pods, aerogarden, figures.
-            // Blender export names are not yet pinned in the contract, so we
-            // use a broad prefix heuristic and log unmatched mesh names below.
+          } else {
+            // "Kill the interior clutter" — user feedback Sprint 4-URGENT:
+            // every non-shell mesh (dishes, barrels, rods, rack primitives,
+            // placeholder geometry) is currently dragging down the render.
+            // Treat anything that isn't a face pane, mullion frame, wireframe,
+            // or teardown slab as INTERIOR and hide it via PhaseController
+            // based on phase_metadata.interior. Phase 1–3 interior=0 → shell
+            // alone. Phase 4/6/7 interior=1 → the authored geometry comes
+            // back. This is defensive and aggressive on purpose: when we
+            // have proper authored interior assets later, we can tighten
+            // the heuristic. For now, nothing unexpected survives on hero.
             mat.transparent = true;
-            mat.depthWrite = true;
             const baseOpacity = mat.opacity > 0 ? mat.opacity : 1.0;
             mat.opacity = 0;
+            mesh.visible = false;
             reg.interiorMeshes.push({ mesh, material: mat, baseOpacity });
-          } else if (
-            // Record every other mesh for post-traverse diagnostics so we can
-            // extend the interior heuristic when the node-name convention
-            // shifts. Skip infrastructure that we've already matched above.
-            !name.startsWith("HEX_") &&
-            !name.startsWith("PENT_") &&
-            !name.startsWith("BEAM_") &&
-            !name.startsWith("PANEL_TEARDOWN_") &&
-            !name.startsWith("PLANT_TRAY_") &&
-            name !== "WIREFRAME" &&
-            name !== "BEAM_TRUNK"
-          ) {
             unmatchedInteriorCandidates.push(name);
           }
         }
@@ -572,32 +572,62 @@ export function Scene({ registry }: Props) {
     <>
       {/* HDR env drives reflections on aluminum + glass. Sunset preset gives
           warm golden highlights + cool shadow side — reads as orbital dawn. */}
-      <Environment preset="sunset" environmentIntensity={1.05} background={false} />
+      <Environment preset="sunset" environmentIntensity={0.9} background={false} />
 
-      {/* Harsh sun key — vacuum sunlight. Pushed to 5.2 (from 4.0) so
-          the sunlit faces clip into ACES pure white the way the Axiom
-          Station reference photographs do. Near-daylight white
-          (#fff8e8) instead of warm yellow so the "photograph" reads
-          as midday orbit, not sunset. */}
+      {/* --- Proper three-point lighting --------------------------------
+          User feedback: ambient-flat lighting kills physical presence; the
+          shell reads as CAD, not as an object. Moved from 2-point to real
+          3-point (key / fill / rim) so form is sculpted by direction, not
+          by HDR reflectance alone. Intensities are set so the sunlit face
+          clips toward ACES pure white (the "orbital photograph" look) and
+          the shadow side retains just enough fill to read. */}
+
+      {/* Key — harsh vacuum sunlight, upper-right, near-daylight white.
+          This is THE form-describing light; everything else supports it. */}
       <directionalLight
-        position={[22, 10, 14]}
-        intensity={5.2}
-        color="#fff8e8"
+        position={[26, 12, 16]}
+        intensity={6.0}
+        color="#fff6e0"
+        castShadow
+        shadow-mapSize={[2048, 2048]}
+        shadow-camera-near={1}
+        shadow-camera-far={60}
+        shadow-camera-left={-10}
+        shadow-camera-right={10}
+        shadow-camera-top={10}
+        shadow-camera-bottom={-10}
+        shadow-bias={-0.0002}
       />
-      {/* Earth-shine rim. Dropped from 0.8 → 0.45 so the shadow side of
-          the habitat goes nearly black — that terminator split is what
-          separates orbital hardware from a CAD render. */}
+      {/* Fill — soft cool light from opposite side so the shadow terminator
+          doesn't go jet black. Low intensity so form still reads. */}
       <directionalLight
-        position={[-18, -12, -10]}
-        intensity={0.45}
-        color="#4d80ff"
+        position={[-14, 4, -8]}
+        intensity={0.85}
+        color="#93b0e6"
+      />
+      {/* Rim — back-light defining the silhouette edge. Tinted cyan so the
+          shell edge picks up the palette signal color without us painting
+          an emissive outline. */}
+      <directionalLight
+        position={[-6, -4, -22]}
+        intensity={1.6}
+        color="#80d8ff"
+      />
+      {/* Earth-shine bounce — warm orange from below, simulating reflected
+          light off the dayside Earth when the habitat is in daylight
+          orbit. Pairs with the enlarged Earth below the habitat. */}
+      <directionalLight
+        position={[0, -16, -4]}
+        intensity={0.6}
+        color="#ff9a55"
       />
 
       {/* Visible sun disc at the key-light direction. High emissive pushes
           it into the bloom threshold so it glows without us faking a lens
-          flare. Placed well outside the habitat's clip volume (<far: 1200). */}
-      <mesh position={[220, 100, 140]}>
-        <sphereGeometry args={[6, 32, 32]} />
+          flare. Placed outside the habitat's clip volume so it doesn't
+          fight for depth with the shell. */}
+      <mesh position={[260, 120, 160]}>
+        <sphereGeometry args={[7, 32, 32]} />
         <meshBasicMaterial color="#fff6e0" toneMapped={false} />
       </mesh>
 
@@ -606,44 +636,126 @@ export function Scene({ registry }: Props) {
       <EarthLimb />
 
       <group ref={habitatRef}>
+        {/* Placeholder axial core. The original GLB interior (dishes,
+            barrels, rod banks) looked like Blender primitive placeholders
+            and was dragging the render quality down — every non-shell mesh
+            is now hidden (see traverse heuristic above) and this single
+            dark-gray cylinder takes its place along the habitat's principal
+            axis. When authored interior assets are re-exported, delete
+            this and re-enable the heuristic-hidden meshes via their phase
+            metadata opacity. */}
+        <mesh position={[0, 0, 0]} castShadow receiveShadow>
+          <cylinderGeometry args={[0.5, 0.5, 8.6, 24, 1, false]} />
+          <meshStandardMaterial
+            color="#1a1d23"
+            roughness={0.72}
+            metalness={0.35}
+          />
+        </mesh>
         <primitive object={scene} />
       </group>
     </>
   );
 }
 
-/** Orbital Earth backdrop — a dark-blue sphere sitting below the habitat,
- *  wrapped in an additive fresnel halo to sell the atmosphere. This is the
- *  "subtle Earth imagery" from WEB_ASSET_BRIEF §2.1. Earth is intentionally
- *  NOT in the GLB (blender-automation excludes it from export); the website
- *  renders it so every phase reads as "in orbit", not "floating in a void".
+/** Orbital Earth anchor — a visible planet below the habitat so the viewer
+ *  can tell the habitat is IN ORBIT, not floating in a void. User feedback
+ *  Sprint 4-URGENT: "An object with no environment has no scale, no
+ *  physicality, no mood."
  *
- *  Geometry: 450 m-radius sphere centered at [0, -520, -80] — below and
- *  slightly behind the scene origin. At this scale the limb fills a chunk
- *  of frame from any of the 9 phase cameras (hero to systems), and its
- *  atmospheric halo reads even when the body itself is off-frame. */
+ *  Previously Earth was at y=-520 with r=450 — so large and far that it sat
+ *  outside the 500 m camera clip and rendered only the halo, not the body.
+ *  Now it's much closer + smaller so the horizon + terminator actually read
+ *  in frame, and it has a procedural cloud/continent shader layer + a more
+ *  pronounced atmosphere halo.
+ *
+ *  Geometry: 40 m-radius sphere centered ~55 m below and slightly behind
+ *  the scene origin. With phase cameras 5–40 m from the habitat, Earth
+ *  fills a quarter to a third of frame from hero and closing shots. */
 function EarthLimb() {
-  const center: [number, number, number] = [0, -520, -80];
-  const bodyRadius = 450;
-  const haloRadius = 470;
+  const center: [number, number, number] = [0, -58, -18];
+  const bodyRadius = 40;
+  const cloudRadius = 40.3;
+  const haloRadius = 42.2;
   return (
     <group position={center}>
-      {/* Body: dark ocean blue with faint emissive so the night-side still
-          registers against pure-black space. High roughness, zero metal —
-          Earth is NOT a mirror ball. */}
-      <mesh>
+      {/* Body: blue-green ocean with procedurally generated continent +
+          cloud noise so the surface has character under the key light.
+          High roughness, zero metal — not a mirror ball. The shader
+          injection runs at onBeforeCompile on a MeshStandardMaterial so
+          PBR lighting still applies over the procedural color. */}
+      <mesh receiveShadow>
         <sphereGeometry args={[bodyRadius, 96, 96]} />
         <meshStandardMaterial
-          color="#050c22"
-          emissive="#1a377a"
-          emissiveIntensity={0.18}
-          roughness={0.96}
+          color="#0b2a55"
+          emissive="#0d1a36"
+          emissiveIntensity={0.22}
+          roughness={0.92}
           metalness={0}
+          onBeforeCompile={(shader) => {
+            shader.vertexShader = shader.vertexShader
+              .replace(
+                "#include <common>",
+                `#include <common>
+                 varying vec3 vEarthLocalPos;`,
+              )
+              .replace(
+                "#include <project_vertex>",
+                `#include <project_vertex>
+                 vEarthLocalPos = position;`,
+              );
+            shader.fragmentShader = shader.fragmentShader
+              .replace(
+                "#include <common>",
+                `#include <common>
+                 varying vec3 vEarthLocalPos;
+                 float hashE(vec3 p) { return fract(sin(dot(p, vec3(12.9898, 78.233, 37.719))) * 43758.5453); }
+                 float noiseE(vec3 p) {
+                   vec3 i = floor(p); vec3 f = fract(p);
+                   f = f * f * (3.0 - 2.0 * f);
+                   float n000 = hashE(i);
+                   float n100 = hashE(i + vec3(1,0,0));
+                   float n010 = hashE(i + vec3(0,1,0));
+                   float n110 = hashE(i + vec3(1,1,0));
+                   float n001 = hashE(i + vec3(0,0,1));
+                   float n101 = hashE(i + vec3(1,0,1));
+                   float n011 = hashE(i + vec3(0,1,1));
+                   float n111 = hashE(i + vec3(1,1,1));
+                   float nx00 = mix(n000, n100, f.x); float nx10 = mix(n010, n110, f.x);
+                   float nx01 = mix(n001, n101, f.x); float nx11 = mix(n011, n111, f.x);
+                   float nxy0 = mix(nx00, nx10, f.y); float nxy1 = mix(nx01, nx11, f.y);
+                   return mix(nxy0, nxy1, f.z);
+                 }
+                 float fbmE(vec3 p) {
+                   float s = 0.0; float a = 0.5; float f = 1.0;
+                   for (int i = 0; i < 4; i++) { s += a * noiseE(p * f); f *= 2.0; a *= 0.5; }
+                   return s;
+                 }`,
+              )
+              .replace(
+                "#include <color_fragment>",
+                `#include <color_fragment>
+                 {
+                   vec3 p = normalize(vEarthLocalPos);
+                   // Continent mask: fBm > threshold reads as land (warm
+                   // dark green), otherwise ocean (deep blue).
+                   float land = smoothstep(0.52, 0.58, fbmE(p * 2.5));
+                   vec3 ocean = vec3(0.04, 0.11, 0.28);
+                   vec3 continent = vec3(0.08, 0.17, 0.10);
+                   diffuseColor.rgb = mix(ocean, continent, land);
+                   // Cloud layer: higher-frequency fBm modulated into white
+                   // highlights. Animates slowly via time uniform? Keep
+                   // static for now — cheap.
+                   float clouds = smoothstep(0.55, 0.75, fbmE(p * 5.5 + vec3(7.3, 2.1, 5.6)));
+                   diffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.85, 0.88, 0.92), clouds * 0.65);
+                 }`,
+              );
+          }}
         />
       </mesh>
-      {/* Atmosphere halo: slightly larger BackSide sphere, additive blend,
-          fresnel in shader so it only glows on the crescent facing the
-          camera. Standard orbital-photo trick. */}
+      {/* Atmosphere halo: BackSide fresnel shell. Stronger glow + deeper
+          power so the crescent on the lit side feels like Earth's
+          atmosphere seen from orbit, not a UI glow. */}
       <mesh>
         <sphereGeometry args={[haloRadius, 96, 96]} />
         <shaderMaterial
@@ -652,8 +764,9 @@ function EarthLimb() {
           side={BackSide}
           blending={AdditiveBlending}
           uniforms={{
-            glowColor: { value: [0.26, 0.52, 1.0] },
-            power: { value: 2.6 },
+            glowColor: { value: [0.35, 0.62, 1.0] },
+            power: { value: 3.2 },
+            strength: { value: 1.4 },
           }}
           vertexShader={`
             varying vec3 vNormal;
@@ -670,12 +783,19 @@ function EarthLimb() {
             varying vec3 vViewDir;
             uniform vec3 glowColor;
             uniform float power;
+            uniform float strength;
             void main() {
               float rim = pow(1.0 - abs(dot(vNormal, vViewDir)), power);
-              gl_FragColor = vec4(glowColor * rim, rim);
+              gl_FragColor = vec4(glowColor * rim * strength, rim);
             }
           `}
         />
+      </mesh>
+      {/* Unused cloudRadius reserved for future animated cloud layer; keep
+          as reference so the surrounding math (body/clouds/halo) is clear. */}
+      <mesh visible={false}>
+        <sphereGeometry args={[cloudRadius, 32, 32]} />
+        <meshBasicMaterial transparent opacity={0} />
       </mesh>
     </group>
   );

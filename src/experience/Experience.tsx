@@ -66,6 +66,7 @@ export function Experience() {
       <div className="hcsa-canvas-layer">
         <Canvas
           dpr={[1, 2]}
+          shadows
           gl={{
             antialias: true,
             alpha: false,

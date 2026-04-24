@@ -40,7 +40,14 @@ const PHASE_OPACITY_OVERRIDES: Partial<
 > = {
   // Hero hides the deployable PV so the glass shell reads as glass
   // (brief §Phase 1: "glass reflections, shell reads as glazed").
-  1: { hex_solar: 0 },
+  // Also raise wireframe to 0.25 so the polyhedral edges read as
+  // INTENTIONAL design — without any wireframe glow the 32 flat faces
+  // read as "low-poly", with it they read as "engineered polyhedron".
+  1: { hex_solar: 0, wireframe: 0.25 },
+  // Mission breath and closing both keep the wireframe at ~0.2 for the
+  // same reason — the shell needs the edge signal to not look faceted.
+  2: { wireframe: 0.55 },
+  9: { wireframe: 0.22 },
   // Panel teardown: raise the wireframe to 0.55 (was 0.1) so the viewer
   // sees the 32-face shell outline even as the solid panel fades to 0.03.
   // Without this the central hex+layers read as "floating debris", not
