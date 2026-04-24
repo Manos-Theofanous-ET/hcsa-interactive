@@ -1,7 +1,7 @@
 import { Canvas, useThree } from "@react-three/fiber";
-import { EffectComposer, Bloom, ChromaticAberration, Noise, Vignette } from "@react-three/postprocessing";
+import { EffectComposer, Bloom, Noise, Vignette } from "@react-three/postprocessing";
 import { Suspense, useEffect, useRef } from "react";
-import { ACESFilmicToneMapping, Vector2 } from "three";
+import { ACESFilmicToneMapping } from "three";
 import { Scene } from "./Scene";
 import { PhaseController } from "./PhaseController";
 import { ScrollProgress } from "./ScrollProgress";
@@ -28,10 +28,6 @@ function DevStateBridge() {
   }, [camera, gl, scene, size]);
   return null;
 }
-
-// Memoized outside render so postprocessing doesn't re-allocate on each frame.
-// Halved from 0.0006 — at hero the title copy was picking up a color fringe.
-const CHROMA_OFFSET = new Vector2(0.0003, 0.0003);
 
 export function Experience() {
   const registry = useRef<SceneRegistry>(emptyRegistry());
@@ -113,11 +109,10 @@ export function Experience() {
                 radius={0.85}
                 mipmapBlur
               />
-              <ChromaticAberration
-                offset={CHROMA_OFFSET}
-                radialModulation={false}
-                modulationOffset={0}
-              />
+              {/* ChromaticAberration removed — the cyan edges were picking
+                  up magenta/green fringing that reads as a "sci-fi demo"
+                  filter, not cinematic. Audit flagged it three iterations
+                  in a row; disabling for this round, can revisit later. */}
               {/* Film grain — the cue that turns a CG render into a
                   "captured" image. Opacity kept low so it reads as sensor
                   noise, not stylized VHS. */}

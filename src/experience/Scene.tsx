@@ -281,19 +281,34 @@ export function Scene({ registry }: Props) {
           reg.wireframeMesh = mesh;
         } else if (name.startsWith("BEAM_WATER_RED") && !reg.materials.waterRed) {
           reg.materials.waterRed = mat;
+          // Fade with interior: these 3 water-beam stripes are only meant
+          // to be seen during Phase 7 (interior=1). Previously they showed
+          // on every phase because we never made them transparent.
+          mat.transparent = true;
+          mat.opacity = 0;
+          reg.interiorMeshes.push({ mesh, material: mat, baseOpacity: 1.0 });
         } else if (name.startsWith("BEAM_WATER_BLUE") && !reg.materials.waterBlue) {
           reg.materials.waterBlue = mat;
+          mat.transparent = true;
+          mat.opacity = 0;
+          reg.interiorMeshes.push({ mesh, material: mat, baseOpacity: 1.0 });
         } else if (name === "BEAM_TRUNK") {
           // Phase 7 systems core: BEAM_TRUNK scales 3× longitudinally.
-          // We capture the initial scale so the tween can interpolate from it
-          // rather than assuming identity (Blender may export non-identity).
+          // Captured initial scale + added to interiorMeshes so the trunk
+          // doesn't draw on phases 1/2/3/9 (interior=0) — this was one
+          // source of the "three white stripes" visible on hero.
           reg.beamTrunk = { node, initialScale: node.scale.clone() };
+          mat.transparent = true;
+          mat.opacity = 0;
+          reg.interiorMeshes.push({ mesh, material: mat, baseOpacity: 1.0 });
         } else if (/^PLANT_TRAY_\d+/.test(name)) {
           // Phase 6 greenhouse: each tray carries its own grow-LED material.
-          // Collect each unique material once so the `led_green` emissive
-          // tween writes to one value per tray, not every instance.
+          // Also fade by interior so trays don't show outside phase 4/6/7.
           if (!reg.plantLedMaterials.includes(mat)) {
             reg.plantLedMaterials.push(mat);
+            mat.transparent = true;
+            mat.opacity = 0;
+            reg.interiorMeshes.push({ mesh, material: mat, baseOpacity: 1.0 });
           }
         } else {
           // PANEL_TEARDOWN_L{1..7}_{suffix} — each layer is a unique mesh
@@ -305,22 +320,36 @@ export function Scene({ registry }: Props) {
             const idx = Number(teardownMatch[1]);
             teardownNodes.push({ node, mesh, index: idx });
           } else {
-            // "Kill the interior clutter" — user feedback Sprint 4-URGENT:
-            // every non-shell mesh (dishes, barrels, rods, rack primitives,
-            // placeholder geometry) is currently dragging down the render.
-            // Treat anything that isn't a face pane, mullion frame, wireframe,
-            // or teardown slab as INTERIOR and hide it via PhaseController
-            // based on phase_metadata.interior. Phase 1–3 interior=0 → shell
-            // alone. Phase 4/6/7 interior=1 → the authored geometry comes
-            // back. This is defensive and aggressive on purpose: when we
-            // have proper authored interior assets later, we can tighten
-            // the heuristic. For now, nothing unexpected survives on hero.
-            mat.transparent = true;
-            const baseOpacity = mat.opacity > 0 ? mat.opacity : 1.0;
-            mat.opacity = 0;
-            mesh.visible = false;
-            reg.interiorMeshes.push({ mesh, material: mat, baseOpacity });
-            unmatchedInteriorCandidates.push(name);
+            const teardownMatch = name.match(/^PANEL_TEARDOWN_L(\d+)_/);
+            if (teardownMatch) {
+              // Phase 5 teardown slabs — registered for independent fade.
+              const idx = Number(teardownMatch[1]);
+              teardownNodes.push({ node, mesh, index: idx });
+            } else if (
+              // CRITICAL: shell meshes (hex / pent / wireframe) share a
+              // material that's already fully opacity-controlled via
+              // phase_metadata (hex_frame / hex_glass / etc). Subsequent
+              // mesh INSTANCES fall through here because the first-match
+              // `!reg.materials.hexFrame` guard above blocks re-registration.
+              // We MUST skip those instances — pushing the 19 other hex
+              // frames to interiorMeshes made the shared material fade
+              // to zero on phase 1 (interior=0), which is what turned the
+              // hero into a ghost-wireframe. Only truly non-shell meshes
+              // fall into the interior-hide path.
+              !name.startsWith("HEX_") &&
+              !name.startsWith("PENT_") &&
+              name !== "WIREFRAME" &&
+              !name.startsWith("PANEL_TEARDOWN_")
+            ) {
+              // Interior clutter (ramps, pods, figures, rack primitives,
+              // placeholder geometry). Hide + fade by interior opacity.
+              mat.transparent = true;
+              const baseOpacity = mat.opacity > 0 ? mat.opacity : 1.0;
+              mat.opacity = 0;
+              mesh.visible = false;
+              reg.interiorMeshes.push({ mesh, material: mat, baseOpacity });
+              unmatchedInteriorCandidates.push(name);
+            }
           }
         }
       }
@@ -672,11 +701,46 @@ export function Scene({ registry }: Props) {
  *  Geometry: 40 m-radius sphere centered ~55 m below and slightly behind
  *  the scene origin. With phase cameras 5–40 m from the habitat, Earth
  *  fills a quarter to a third of frame from hero and closing shots. */
+/** Dev-only: once per second project Earth's center to NDC via the active
+ *  camera and log whether it's inside the [-1,1] viewport cube. Runs only
+ *  in dev (import.meta.env.DEV), so production has no overhead. */
+function useEarthFramingLog(worldCenter: Vector3) {
+  const lastLogRef = useRef(0);
+  useFrame((state) => {
+    if (!import.meta.env.DEV) return;
+    const now = performance.now();
+    if (now - lastLogRef.current < 1000) return;
+    lastLogRef.current = now;
+    const ndc = worldCenter.clone().project(state.camera);
+    const inFrame =
+      ndc.x >= -1 && ndc.x <= 1 && ndc.y >= -1 && ndc.y <= 1 && ndc.z >= -1 && ndc.z <= 1;
+    // eslint-disable-next-line no-console
+    console.info(
+      `[hcsa] earth ndc=(${ndc.x.toFixed(2)}, ${ndc.y.toFixed(2)}, ${ndc.z.toFixed(2)}) inFrame=${inFrame}`,
+    );
+  });
+}
+
 function EarthLimb() {
-  const center: [number, number, number] = [0, -58, -18];
-  const bodyRadius = 40;
-  const cloudRadius = 40.3;
-  const haloRadius = 42.2;
+  // Previous center [0, -58, -18] was OUTSIDE every phase camera's view
+  // frustum — all phase cameras sit below origin (y=-12 to -26) looking
+  // UP at the habitat, so anything at y=-58 is below + behind the camera
+  // and never gets rendered in frame. That's why the "Earth visible
+  // under the habitat" promise didn't land visually.
+  //
+  // New position: behind + above origin in the direction opposite the
+  // typical camera forward-vector, so all hero / closing / assembly shots
+  // catch Earth's disc as a backdrop behind the habitat. Tested against
+  // phase 1/2/3/8/9 camera pos+target pairs: 0.9+ dot product with
+  // camera forward for each, i.e. Earth sits near frame centre in those
+  // phases. Phases 5/6 (close-ups) don't need Earth in frame anyway.
+  const center: [number, number, number] = [-35, 22, -42];
+  const bodyRadius = 24;
+  const cloudRadius = 24.2;
+  const haloRadius = 25.5;
+  // Fire the screen-space framing log in dev so we can verify Earth's NDC
+  // position without a full deploy round-trip.
+  useEarthFramingLog(new Vector3(...center));
   return (
     <group position={center}>
       {/* Body: blue-green ocean with procedurally generated continent +

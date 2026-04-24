@@ -30,7 +30,13 @@ const PHASE_CAM_ZOOM: Partial<Record<number, number>> = {
            //                  read as a stack, not a zoomed-in mess.
   6: 1.45, // greenhouse: was 3.5 m from pivot → 5 m so the hinged
            //             pent + adjacent pentagons all read in-frame.
-  9: 0.56, // closing: slightly wider than hero so earth limb reads at exit
+  // Closing: PAYOFF shot. Pull back so the habitat reads as a small
+  // object in orbit with Earth as the backdrop — not a hero close-up.
+  // Was 0.56 (tighter than hero); raise to 0.85 so Earth's disc has
+  // room on the left of frame and the habitat reads as "thing IN a
+  // place", not "thing in a void". Audit §D: "this is the moment that
+  // leaves the viewer feeling real, go fund it."
+  9: 0.85,
 };
 
 /** Cinematic opacity overrides layered on top of phase_metadata.json so the
