@@ -1,3 +1,5 @@
+import Intro from "@content/chapters/01-hero.mdx";
+
 /** Split a string into word-spans, each receiving an incremental
  *  animation-delay so the line unfolds word-by-word. Whitespace is
  *  preserved with non-breaking spaces between spans. */
@@ -49,16 +51,27 @@ export function HeroChapter() {
           <span className="mx-2 text-white/30">/</span>
           <span className="text-white/50">Brown University</span>
         </div>
+        {/* Sponsors land here first: give them a direct path to the
+            gallery and the sponsor section below the 3D story. */}
+        <nav aria-label="Quick links" className="data flex gap-5 text-[10px] uppercase tracking-[0.3em]">
+          <a href="#work" className="text-white/70 hover:text-white">Our work</a>
+          <a
+            href="#sponsor"
+            className="rounded-full border border-[color:var(--color-accent-cyan)] px-3 py-1.5 text-[color:var(--color-accent-cyan)] hover:bg-[color:var(--color-accent-cyan)] hover:text-black"
+          >
+            Sponsor us
+          </a>
+        </nav>
       </header>
 
       {/* Display title, anchored low-left. The canvas behind is the subject. */}
-      <div className="pointer-events-none flex flex-1 items-end">
-        <div className="max-w-md space-y-3">
+      <div className="pointer-events-none flex flex-1 items-end pb-8">
+        <div className="max-w-md space-y-4">
           <p
             className="hcsa-rise data text-[10px] uppercase tracking-[0.35em] text-[color:var(--color-accent-cyan)]"
             style={{ ["--stagger" as string]: "0ms" }}
           >
-            Phase 01 · Hero
+            Human-Centric Space Architecture
           </p>
           <h1 className="font-serif text-[clamp(1.75rem,3.6vw,3.25rem)] font-normal leading-[1.05] tracking-tight text-white">
             <RiseWords text="Living the good life" baseDelayMs={180} stepMs={90} />
@@ -70,19 +83,19 @@ export function HeroChapter() {
               className="italic text-white/90"
             />
           </h1>
-          <p
-            className="hcsa-rise data text-[10px] uppercase tracking-[0.3em] text-white/55"
+          <div
+            className="hcsa-rise hcsa-hero-intro max-w-sm text-base leading-relaxed text-white/75"
             style={{ ["--stagger" as string]: "1100ms" }}
           >
-            Thirty-two panels. One joint.
-          </p>
+            <Intro />
+          </div>
         </div>
       </div>
 
       {/* BL: scroll cue. BR: phase count (decorative, mirrors igloo corner chrome). */}
       <footer className="flex items-end justify-between">
         <div className="flex items-center gap-3 text-white/45">
-          <span className="data text-[10px] uppercase tracking-[0.35em]">Scroll</span>
+          <span className="data text-[10px] uppercase tracking-[0.35em]">Scroll to explore</span>
           <span className="block h-[1px] w-10 bg-white/30">
             <span className="block h-full w-full origin-left scale-x-0 bg-[color:var(--color-accent-cyan)] [animation:hcsa-scroll-cue_2.4s_ease-in-out_infinite]" />
           </span>

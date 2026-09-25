@@ -16,6 +16,10 @@ const SECTIONS = [
   { id: "thermal", label: "Phase 7 — Thermal" },
   { id: "validate", label: "Phase 8 — Validation" },
   { id: "contact", label: "Phase 9 — Contact" },
+  { id: "about", label: "About" },
+  { id: "work", label: "Our work (gallery)" },
+  { id: "sponsor", label: "Sponsor us" },
+  { id: "team", label: "Team" },
 ] as const;
 
 test.describe("Landing a11y", () => {
@@ -59,7 +63,7 @@ test.describe("Landing a11y", () => {
     const viewport = page.viewportSize();
     test.skip(!viewport || viewport.width < 768, "PhaseRail hidden below md");
 
-    const dots = page.locator('[aria-label^="Jump to phase"]');
+    const dots = page.locator('[aria-label^="Jump to part"]');
     const count = await dots.count();
     expect(count, "9 phase-rail dots").toBe(9);
     // Focusable via tab (indirect check — element is a real <button>).

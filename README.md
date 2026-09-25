@@ -49,17 +49,22 @@ src/
     ScrollProgress.tsx         ScrollTrigger wiring
     sceneRegistry.ts           named mesh lookup table
   chapters/
-    HeroChapter.tsx            phase 1 (implemented)
-    ChapterStub.tsx            placeholder for phases 2–9
+    HeroChapter.tsx            part 1 (title + intro)
+    ChapterStub.tsx            corner layout for parts 2–9
   overlay/
-    Overlay.tsx                HTML overlay above the canvas
-    PhaseRail.tsx              left-side phase indicator
+    Overlay.tsx                HTML overlay above the canvas (#film + sections)
+    PhaseRail.tsx              right-side chapter indicator
+  sections/                    reading sections after the 3D film
+    AboutSection.tsx           plain-language project summary
+    GallerySection.tsx         all project images, tabs + full-screen viewer
+    SponsorSection.tsx         what support pays for, what sponsors get, contact
+    TeamSection.tsx            team roster from content/data/team.ts
   lib/
     cameras.ts                 zod schema + loader for cameras.json
     phases.ts                  zod schema + loader for phase_metadata.json
 content/
   chapters/                    MDX copy per phase
-  data/                        structured data
+  data/                        team.ts, gallery.ts, sponsors.ts (edit copy here)
   numerics.ts                  canonical numeric citations
 src/
   3d/                          bundled at build time — zod-validated on import
@@ -69,11 +74,16 @@ public/
   3d/
     HCSA_MAIN.glb              habitat geometry (~2.3 MB, Draco-compressed)
     manifest.json              hash + size for drift detection
-  assets/                      renders, blueprints, concept images
+  assets/                      renders, blueprints, concept images (originals)
+    web/                       WebP copies used by the gallery (generated)
+  draco/                       self-hosted Draco decoder for the GLB
+  hdri/                        self-hosted lighting map (no CDN dependency)
   fallback/                    reduced-motion poster stills + 9s MP4
 scripts/
   sync-geometry.ts             pulls updated GLB + JSONs from the
                                blender-automation repo
+  optimize-images.py           rebuilds public/assets/web/ from the originals
+                               (pip install pillow; python scripts/optimize-images.py)
 ```
 
 ---
@@ -82,15 +92,25 @@ scripts/
 
 | # | Phase | Scroll % | Section id |
 |---|---|---|---|
-| 1 | Hero / Launch | 0–10 | `#hero` |
-| 2 | Mission / Breath | 10–20 | `#mission` |
-| 3 | Geometry Reveal | 20–35 | `#topology` |
-| 4 | Interior Architecture | 35–50 | `#architecture` |
-| 5 | Panel Teardown | 50–65 | `#panel-v3` |
-| 6 | Pentagon Greenhouse | 65–75 | `#eclss-plants` |
-| 7 | Systems Core | 75–85 | `#eclss-water` |
-| 8 | Reassembly | 85–92 | `#prototyping` |
-| 9 | Closing | 92–100 | `#footer` |
+| 1 | Intro | 0–10 | `#hero` |
+| 2 | The Station | 10–20 | `#habitat` |
+| 3 | How It Gets Built | 20–35 | `#assembly` |
+| 4 | Inside | 35–50 | `#interior` |
+| 5 | The Window Panel | 50–65 | `#panel` |
+| 6 | Gardens | 65–75 | `#bio` |
+| 7 | Heat and Water | 75–85 | `#thermal` |
+| 8 | Testing | 85–92 | `#validate` |
+| 9 | Get Involved | 92–100 | `#contact` |
+
+The scroll percentages are measured over the `#film` wrapper only. After the
+film come the reading sections: `#about`, `#work` (gallery), `#sponsor` and
+`#team`. They have a solid background and do not move the 3D timeline.
+
+### Adding new work to the gallery
+
+1. Drop the original image into `public/assets/images/` (or `blueprints/`).
+2. Run `python scripts/optimize-images.py`.
+3. Add an entry to `content/data/gallery.ts` with a short plain caption.
 
 ---
 

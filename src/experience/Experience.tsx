@@ -9,6 +9,7 @@ import { emptyRegistry, type SceneRegistry } from "./sceneRegistry";
 import { HotspotLabel } from "./HotspotLabel";
 import { HOTSPOTS } from "./hotspots";
 import { ReducedMotionFallback, usePrefersReducedMotion } from "./ReducedMotionFallback";
+import { SceneErrorBoundary } from "./SceneErrorBoundary";
 
 /** Dev-only: expose the R3F render state (camera, gl, scene) on window so
  *  browser-tab diagnostics can probe what's actually rendering. Keeps the
@@ -59,69 +60,71 @@ export function Experience() {
   return (
     <>
       <ScrollProgress progressRef={progressRef} />
-      <div className="hcsa-canvas-layer">
-        <Canvas
-          dpr={[1, 2]}
-          shadows
-          gl={{
-            antialias: true,
-            alpha: false,
-            powerPreference: "high-performance",
-            // ACES Filmic + exposure 1.15: single biggest lever for
-            // "cinema" feel vs raw Blender-preview look. Compresses the
-            // highlight shoulder instead of clipping, gives richer
-            // mid-tones. Default three.js toneMapping (Linear) is why
-            // PBR scenes look flat "CAD" out of the box.
-            toneMapping: ACESFilmicToneMapping,
-            toneMappingExposure: 1.15,
-          }}
-          camera={{ fov: 40, near: 0.05, far: 1200, position: [22, -15, 8] }}
-        >
-          {/* True black space — was #02040a (slight blue tint) which made
-              the earth backdrop fight the void instead of sitting in it. */}
-          <color attach="background" args={["#000000"]} />
-          {/* No fog: space has none. Fog was smearing the habitat into the
-              background and killing the crisp specular reads. */}
-          <DevStateBridge />
-          <Suspense fallback={null}>
-            <Scene registry={registry} />
-            <PhaseController registry={registry} progressRef={progressRef} />
-            {/* Hotspots: drei `<Html>` chips anchored at world-space points.
-                Fade themselves in/out via useFrame → no React state during
-                scroll. Placed inside Suspense so they share the GLB's mount
-                timing and don't flash in before the scene is ready. */}
-            {HOTSPOTS.map((h, i) => (
-              <HotspotLabel
-                key={`${h.label}-${i}`}
-                {...h}
-                progressRef={progressRef}
-              />
-            ))}
-            <EffectComposer multisampling={0}>
-              {/* Bloom tuned for the new visible Sun mesh + specular rim
-                  highlights on the aluminum bezels. Threshold 0.9 catches
-                  the sun (emissive, toneMapped=false pushes it past 1.0)
-                  and strong sun-lit panel edges, but not the matte skin. */}
-              <Bloom
-                intensity={0.48}
-                luminanceThreshold={0.9}
-                luminanceSmoothing={0.35}
-                radius={0.85}
-                mipmapBlur
-              />
-              {/* ChromaticAberration removed — the cyan edges were picking
-                  up magenta/green fringing that reads as a "sci-fi demo"
-                  filter, not cinematic. Audit flagged it three iterations
-                  in a row; disabling for this round, can revisit later. */}
-              {/* Film grain — the cue that turns a CG render into a
-                  "captured" image. Opacity kept low so it reads as sensor
-                  noise, not stylized VHS. */}
-              <Noise opacity={0.035} premultiply />
-              <Vignette eskil={false} offset={0.18} darkness={0.55} />
-            </EffectComposer>
-          </Suspense>
-        </Canvas>
-      </div>
+      <SceneErrorBoundary fallback={<ReducedMotionFallback progressRef={progressRef} />}>
+        <div className="hcsa-canvas-layer">
+          <Canvas
+            dpr={[1, 2]}
+            shadows
+            gl={{
+              antialias: true,
+              alpha: false,
+              powerPreference: "high-performance",
+              // ACES Filmic + exposure 1.15: single biggest lever for
+              // "cinema" feel vs raw Blender-preview look. Compresses the
+              // highlight shoulder instead of clipping, gives richer
+              // mid-tones. Default three.js toneMapping (Linear) is why
+              // PBR scenes look flat "CAD" out of the box.
+              toneMapping: ACESFilmicToneMapping,
+              toneMappingExposure: 1.15,
+            }}
+            camera={{ fov: 40, near: 0.05, far: 1200, position: [22, -15, 8] }}
+          >
+            {/* True black space — was #02040a (slight blue tint) which made
+                the earth backdrop fight the void instead of sitting in it. */}
+            <color attach="background" args={["#000000"]} />
+            {/* No fog: space has none. Fog was smearing the habitat into the
+                background and killing the crisp specular reads. */}
+            <DevStateBridge />
+            <Suspense fallback={null}>
+              <Scene registry={registry} />
+              <PhaseController registry={registry} progressRef={progressRef} />
+              {/* Hotspots: drei `<Html>` chips anchored at world-space points.
+                  Fade themselves in/out via useFrame → no React state during
+                  scroll. Placed inside Suspense so they share the GLB's mount
+                  timing and don't flash in before the scene is ready. */}
+              {HOTSPOTS.map((h, i) => (
+                <HotspotLabel
+                  key={`${h.label}-${i}`}
+                  {...h}
+                  progressRef={progressRef}
+                />
+              ))}
+              <EffectComposer multisampling={0}>
+                {/* Bloom tuned for the new visible Sun mesh + specular rim
+                    highlights on the aluminum bezels. Threshold 0.9 catches
+                    the sun (emissive, toneMapped=false pushes it past 1.0)
+                    and strong sun-lit panel edges, but not the matte skin. */}
+                <Bloom
+                  intensity={0.48}
+                  luminanceThreshold={0.9}
+                  luminanceSmoothing={0.35}
+                  radius={0.85}
+                  mipmapBlur
+                />
+                {/* ChromaticAberration removed — the cyan edges were picking
+                    up magenta/green fringing that reads as a "sci-fi demo"
+                    filter, not cinematic. Audit flagged it three iterations
+                    in a row; disabling for this round, can revisit later. */}
+                {/* Film grain — the cue that turns a CG render into a
+                    "captured" image. Opacity kept low so it reads as sensor
+                    noise, not stylized VHS. */}
+                <Noise opacity={0.035} premultiply />
+                <Vignette eskil={false} offset={0.18} darkness={0.55} />
+              </EffectComposer>
+            </Suspense>
+          </Canvas>
+        </div>
+      </SceneErrorBoundary>
     </>
   );
 }

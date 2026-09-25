@@ -6,7 +6,7 @@ import type { ReactNode } from "react";
  *  stack so nothing gets clipped.
  *
  *  Layout (md+):
- *    TL: phase eyebrow (PHASE 02 · HABITAT)
+ *    TL: part eyebrow (PART 02 / THE STATION)
  *    TR: display statement (Fraunces serif, 1–2 lines)
  *    BL: spec table (passed via children — usually a tiny MDX <table>)
  *    BR: why-it-matters one-liner + optional micro-nav
@@ -36,7 +36,7 @@ export function ChapterStub({ id, index, title, statement, why, children }: Prop
       {/* TL: phase eyebrow */}
       <div className="hcsa-corner hcsa-corner-tl">
         <p className="data text-[10px] uppercase tracking-[0.35em] text-[color:var(--color-accent-cyan)]">
-          Phase&nbsp;{phaseCode}
+          Part&nbsp;{phaseCode}
           <span className="mx-2 text-white/25">/</span>
           <span className="text-white/70">{title}</span>
         </p>

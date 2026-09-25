@@ -161,7 +161,9 @@ function applyProceduralDetail(
   mat.needsUpdate = true;
 }
 
-useGLTF.preload("/3d/HCSA_MAIN.glb");
+// Draco decoder is self-hosted (copied from three/examples/jsm/libs/draco/gltf)
+// so the model does not depend on the gstatic CDN being reachable.
+useGLTF.preload("/3d/HCSA_MAIN.glb", "/draco/");
 
 // Shell-geometry smoothing (merge + subdivide + normal-recompute) kept
 // out of this session. Every variant I tried stopped R3F from mounting —
@@ -201,7 +203,7 @@ const TEARDOWN_SPEC: readonly TeardownSpec[] = [
 type Props = { registry: React.MutableRefObject<SceneRegistry> };
 
 export function Scene({ registry }: Props) {
-  const gltf = useGLTF("/3d/HCSA_MAIN.glb");
+  const gltf = useGLTF("/3d/HCSA_MAIN.glb", "/draco/");
   const habitatRef = useRef<Group>(null);
 
   const scene = useMemo(() => gltf.scene.clone(true), [gltf]);
@@ -625,8 +627,10 @@ export function Scene({ registry }: Props) {
   return (
     <>
       {/* HDR env drives reflections on aluminum + glass. Sunset preset gives
-          warm golden highlights + cool shadow side — reads as orbital dawn. */}
-      <Environment preset="sunset" environmentIntensity={0.9} background={false} />
+          warm golden highlights + cool shadow side — reads as orbital dawn.
+          Self-hosted copy of drei's "sunset" preset (Poly Haven, CC0) so the
+          scene does not depend on the raw.githack.com CDN. */}
+      <Environment files="/hdri/venice_sunset_1k.hdr" environmentIntensity={0.9} background={false} />
 
       {/* --- Proper three-point lighting --------------------------------
           User feedback: ambient-flat lighting kills physical presence; the

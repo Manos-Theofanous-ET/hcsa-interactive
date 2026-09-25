@@ -1,6 +1,8 @@
-| Property | Value |
+import { NUMERICS as N } from "@content/numerics";
+
+| What | How big |
 |---|---|
-| Outer Ø | **11.151 m** |
-| Edges | **2.25 m** × 90 |
-| Faces | **20** hex + **12** pent |
-| Docking | **1** pent, integrated |
+| Width | **{N.diameter.display}** across |
+| Panels | **{N.hex_count.display}** six-sided, **{N.pent_count.display}** five-sided |
+| Space inside | **{N.volume_habitable_min.display}** you can use |
+| Crew | **{N.crew_min.display} to {N.crew_max.display}** people |

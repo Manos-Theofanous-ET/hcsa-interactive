@@ -8,74 +8,79 @@ import Bio from "@content/chapters/06-bio.mdx";
 import Thermal from "@content/chapters/07-thermal.mdx";
 import Validation from "@content/chapters/08-validation.mdx";
 import Contact from "@content/chapters/09-contact.mdx";
+import { NUMERICS as N, PLAIN } from "@content/numerics";
+import { AboutSection } from "@/sections/AboutSection";
+import { GallerySection } from "@/sections/GallerySection";
+import { SponsorSection } from "@/sections/SponsorSection";
+import { TeamSection } from "@/sections/TeamSection";
 
 /** Corner-anchored chapters. Statement + why live as structured props here
- *  (one source of truth). MDX bodies are ONLY the tiny spec table — the
- *  prose that used to fill the middle is gone on purpose (igloo pacing).
- *  Any phase that needs more detail later can get a "deep dive" drawer. */
+ *  (one source of truth). MDX bodies are ONLY the tiny spec table (igloo
+ *  pacing). Copy is written for sponsors and non-engineers: plain words,
+ *  every number pulled from content/numerics.ts. */
 const CHAPTERS = [
   {
     id: "habitat",
     idx: 2,
-    title: "Habitat",
-    statement: "Twenty hexagons.\nTwelve pentagons.\nOne joint, thirty-two times.",
-    why: "One validated joint unlocks every panel.",
+    title: "The Station",
+    statement: `A glass and aluminium ball,\n${N.diameter.display} across.`,
+    why: "Windows on every side, so the crew can see Earth and the stars from almost anywhere inside.",
     Body: Habitat,
   },
   {
     id: "assembly",
     idx: 3,
-    title: "Assembly",
-    statement: "Earth-built.\nOrbit-assembled.",
-    why: "Same joint 32×. One tool. One gasket SKU.",
+    title: "How It Gets Built",
+    statement: "Made on Earth.\nPut together in orbit.",
+    why: `All ${N.face_count.display} panels connect the same way, so one tool and one set of spare parts covers the whole station.`,
     Body: Assembly,
   },
   {
     id: "interior",
     idx: 4,
-    title: "Interior",
-    statement: "Observation at the shell.\nMachines at the core.",
-    why: "Reconfigurable without breaching the hull.",
+    title: "Inside",
+    statement: "Living space by the windows.\nMachines in the middle.",
+    why: "Rooms can be rearranged without touching the outer shell.",
     Body: Interior,
   },
   {
     id: "panel",
     idx: 5,
-    title: "Panel V3",
-    statement: "Seven layers.\nVacuum to crew.",
-    why: "Remove any layer — the panel only works in one failure mode.",
+    title: "The Window Panel",
+    statement: `Each panel is a\n${N.panel_layers.display}-layer sandwich.`,
+    why: `The air inside pushes on each large panel with the weight of about ${PLAIN.hex_force_tonnes} tonnes. The frame carries that load so the glass does not have to.`,
     Body: Panel,
   },
   {
     id: "bio",
     idx: 6,
-    title: "Living Systems",
-    statement: "One pentagon per zone.\nThree trays. Full-spectrum.",
-    why: "Bio takes the baseline; physico-chemical takes the peaks.",
+    title: "Gardens",
+    statement: "Plants help keep\nthe crew alive.",
+    why: "Gardens make oxygen, clean the air and grow fresh food. Machines cover the rest.",
     Body: Bio,
   },
   {
     id: "thermal",
     idx: 7,
-    title: "Thermal / Water",
-    statement: "Red carries heat out.\nBlue returns distillate.",
-    why: "The core isn't hidden plumbing. It's the spine.",
+    title: "Heat and Water",
+    statement: "Sunlight cleans\nthe water.",
+    why: "One side faces the sun, the other faces cold space. That difference boils and condenses water with almost no electricity.",
     Body: Thermal,
   },
   {
     id: "validate",
     idx: 8,
-    title: "Validation",
-    statement: "P1 to P7.\nCurrently P5.",
-    why: "Until a coupon matches the model, the model is a hypothesis.",
+    title: "Testing",
+    statement: `${N.roadmap_total.display} steps from idea to orbit.\nWe are on step ${N.roadmap_current.display}.`,
+    why: "We test every idea on real hardware before we trust it.",
     Body: Validation,
   },
   {
     id: "contact",
     idx: 9,
     title: "Get Involved",
-    statement: "Brown University.\nLooking for collaborators.",
-    why: "We want pushback. Reach through Brown.",
+    statement: "Help us build\nthe next step.",
+    why: "Keep scrolling to see our work, what your support pays for, and how to reach us.",
     Body: Contact,
   },
 ] as const;
@@ -83,24 +88,35 @@ const CHAPTERS = [
 export function Overlay() {
   return (
     <main className="hcsa-overlay-layer">
-      <HeroChapter />
-      {CHAPTERS.map(({ id, idx, title, statement, why, Body }) => (
-        <ChapterStub
-          key={id}
-          id={id}
-          index={idx}
-          title={title}
-          statement={statement}
-          why={why}
-        >
-          <Body />
-        </ChapterStub>
-      ))}
-      <footer className="relative z-10 px-8 py-16 text-center md:px-16">
-        <p className="data text-[10px] uppercase tracking-[0.3em] text-white/35">
-          HCSA · Brown University · {new Date().getFullYear()}
-        </p>
-      </footer>
+      {/* #film is the scroll-driven 3D story. ScrollProgress and PhaseRail
+          measure progress against this element only, so the sections
+          after it do not stretch the nine-phase timeline. */}
+      <div id="film">
+        <HeroChapter />
+        {CHAPTERS.map(({ id, idx, title, statement, why, Body }) => (
+          <ChapterStub
+            key={id}
+            id={id}
+            index={idx}
+            title={title}
+            statement={statement}
+            why={why}
+          >
+            <Body />
+          </ChapterStub>
+        ))}
+      </div>
+      <div className="hcsa-after-film">
+        <AboutSection />
+        <GallerySection />
+        <SponsorSection />
+        <TeamSection />
+        <footer className="px-6 py-16 text-center md:px-16">
+          <p className="data text-[10px] uppercase tracking-[0.3em] text-white/45">
+            Human-Centric Space Architecture, Brown University, {new Date().getFullYear()}
+          </p>
+        </footer>
+      </div>
     </main>
   );
 }

@@ -193,3 +193,59 @@ body {
     animation: none !important;
   }
 }
+
+/* --- Sections after the 3D film ----------------------------------------
+   Solid background so the fixed canvas does not show through the long
+   reading sections (gallery, sponsor, team). */
+.hcsa-after-film {
+  position: relative;
+  background: var(--color-ink-0);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hcsa-section {
+  max-width: 76rem;
+  margin: 0 auto;
+  padding: clamp(4rem, 9vw, 7rem) clamp(1.25rem, 4vw, 3rem);
+  scroll-margin-top: 1rem;
+}
+
+.hcsa-section + .hcsa-section {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.hcsa-viewer {
+  width: 100vw;
+  height: 100vh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: rgba(0, 0, 0, 0.94);
+  color: var(--color-ink-9);
+}
+.hcsa-viewer::backdrop {
+  background: rgba(0, 0, 0, 0.8);
+}
+.hcsa-viewer-btn {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.85);
+  flex-shrink: 0;
+}
+.hcsa-viewer-btn:hover,
+.hcsa-viewer-btn:focus-visible {
+  border-color: var(--color-accent-cyan);
+  color: var(--color-accent-cyan);
+  outline: none;
+}
+
+/* Hero intro paragraph (MDX) */
+.hcsa-hero-intro p {
+  margin: 0;
+}

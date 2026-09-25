@@ -179,6 +179,43 @@ export const NUMERICS = {
     display: "10",
     source: "BIO_LIFE_SUPPORT_PLANTS/core_design/BIO-LS.md",
   },
+  panel_layers: {
+    value: 7,
+    unit: "layers",
+    label: "Layers in each window panel",
+    display: "7",
+    source: "SOURCE_OF_TRUTH/structure_baselines/Panels.md",
+  },
+  coupon_size: {
+    value: 550,
+    unit: "mm",
+    label: "Physical joint test piece (P5 coupon)",
+    display: "550 mm",
+    source: "public/assets/blueprints/page-14.png (Validation Roadmap)",
+  },
+  roadmap_current: {
+    value: 5,
+    unit: "step",
+    label: "Current roadmap step",
+    display: "5",
+    source: "content/chapters/08-validation.mdx (P1–P7 roadmap)",
+  },
+  roadmap_total: {
+    value: 7,
+    unit: "steps",
+    label: "Roadmap steps",
+    display: "7",
+    source: "content/chapters/08-validation.mdx (P1–P7 roadmap)",
+  },
 } as const satisfies Record<string, Numeric>;
 
 export type NumericId = keyof typeof NUMERICS;
+
+/** Plain-language comparisons derived from the values above, so copy for
+ *  non-engineers still traces back to a cited number. */
+export const PLAIN = {
+  /** Hex pressure load expressed as a weight (kN / g → tonnes). */
+  hex_force_tonnes: Math.round(NUMERICS.hex_force_1atm.value / 9.81),
+  /** Enclosed volume as a fraction of a 2,500 m³ Olympic pool (50 × 25 × 2 m). */
+  pool_fraction: NUMERICS.volume_enclosed.value / 2500,
+} as const;

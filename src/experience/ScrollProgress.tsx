@@ -6,7 +6,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 type Props = { progressRef: React.MutableRefObject<number> };
 
-/** Binds a ScrollTrigger to the document so scroll [0..1] writes `progressRef.current`.
+/** Binds a ScrollTrigger to the `#film` wrapper so scroll [0..1] writes `progressRef.current`.
  *  No React state — refs only, to honor the "no setState during scroll" rule.
  *
  *  NOTE on `end: "max"`: the site CSS sets `html, body, #root { height: 100% }`,
@@ -18,10 +18,13 @@ type Props = { progressRef: React.MutableRefObject<number> };
  *  across the full overlay height. */
 export function ScrollProgress({ progressRef }: Props) {
   useEffect(() => {
+    // Progress runs over the nine-chapter film only. The reading sections
+    // after it (about, gallery, sponsor, team) hold the final phase.
+    const film = document.getElementById("film");
     const st = ScrollTrigger.create({
-      trigger: document.body,
+      trigger: film ?? document.body,
       start: "top top",
-      end: "max",
+      end: film ? "bottom bottom" : "max",
       scrub: true,
       onUpdate: (self) => {
         progressRef.current = self.progress;

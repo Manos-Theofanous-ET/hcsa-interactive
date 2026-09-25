@@ -1,7 +1,8 @@
-| Flow | Value |
+import { NUMERICS as N } from "@content/numerics";
+
+| Water | Amount |
 |---|---|
-| Passive distillation | **~15 L/day** |
-| Closed-loop recirc | **480–720 L/day** |
-| Red loop | Heat reject (warm out) |
-| Blue loop | Chilled distillate (return) |
-| Loop cadence | 1.25 Hz, alternating |
+| Clean water made with sunlight | **~{N.water_distill_per_day.display}** |
+| Water reused in the loop | **{N.water_loop_per_day.display}** |
+| Red pipes | Carry heat out |
+| Blue pipes | Bring clean water back |

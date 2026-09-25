@@ -13,9 +13,9 @@ export const projectAffiliation =
 
 export const leadership: TeamMember[] = [
   {
-    name: 'Manos',
+    name: 'Manos Theofanous',
     role: 'Project lead',
-    focus: 'Systems integration; panel design; primary author',
+    focus: 'Brings the whole design together, panel design, lead author',
   },
 ]
 
@@ -31,14 +31,14 @@ export const facultyAdvisors: TeamMember[] = [
 ]
 
 export const collaborators: TeamMember[] = [
-  { name: 'Katie', role: 'Structural analysis, materials, docking, shading' },
-  { name: 'Marina', role: 'Concept development, visualization lead, and interior zoning' },
-  { name: 'Keren', role: 'Architectural concept model and zoning visuals' },
+  { name: 'Katie', role: 'Strength checks, materials, docking and shading' },
+  { name: 'Marina', role: 'Concept development, visuals lead and interior layout' },
+  { name: 'Keren', role: 'Architectural concept model and layout visuals' },
   { name: 'Jake', role: 'Fabrication lead' },
-  { name: 'Aris', role: '3D model and interior zoning visuals' },
+  { name: 'Aris', role: '3D model and interior layout visuals' },
   { name: 'Katerina', role: 'Funding and outreach' },
-  { name: 'Xenia', role: '3D model and interior zoning visuals' },
-  { name: 'Nefeli', role: 'Paper 3D model and interior zoning visuals' },
+  { name: 'Xenia', role: '3D model and interior layout visuals' },
+  { name: 'Nefeli', role: 'Paper scale model and interior layout visuals' },
   { name: 'Gerasimos', role: 'Life support and plant life' },
   { name: 'Skye', role: 'Life support and plant life' },
   { name: 'Lauren', role: 'Life support and water treatment' },

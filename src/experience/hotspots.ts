@@ -1,7 +1,9 @@
+import { NUMERICS as N } from "@content/numerics";
 import type { HotspotLabelProps } from "./HotspotLabel";
 
-/** Hotspot definitions for Phase 3/5/6/7. Every number is cited to
- *  CANONICAL.md or the shipped data JSONs so nothing is invented.
+/** Hotspot definitions for Phase 3/5/6/7. Labels are plain language for
+ *  sponsors; every number comes from content/numerics.ts (which carries
+ *  the CANONICAL.md / SOURCE_OF_TRUTH citation).
  *
  *  Positions use world-space coordinates in metres. For shell-surface
  *  hotspots we pick points at roughly the outer radius (5.58 m) along
@@ -22,29 +24,29 @@ export const HOTSPOTS: readonly HotspotDef[] = [
   // --- Phase 3: Geometry Reveal (20–35 %) ---
   {
     position: [5.58, 0.0, 0.0],
-    label: "11.15 m Ø",
-    source: "Outer diameter · CANONICAL §Dimensions",
+    label: `${N.diameter.display} across`,
+    source: "Width of the whole station",
     phaseRange: [0.2, 0.35],
     tone: "cyan",
   },
   {
     position: [2.8, 3.4, 3.4],
-    label: "2.25 m edge",
-    source: "Canonical edge length · 90 edges · CANONICAL §Dimensions",
+    label: `${N.edge.display} edges`,
+    source: `Every frame edge is the same length, ${N.edges.display} edges in total`,
     phaseRange: [0.2, 0.35],
     tone: "cyan",
   },
   {
     position: [0.0, 5.4, 0.8],
-    label: "20 HEX · 12 PENT",
-    source: "Truncated icosahedron · 32 faces · CANONICAL §Shell Topology",
+    label: `${N.hex_count.display} six-sided, ${N.pent_count.display} five-sided`,
+    source: `${N.face_count.display} panels make up the shell`,
     phaseRange: [0.2, 0.35],
     tone: "cyan",
   },
   {
     position: [-3.8, 0.0, 4.0],
-    label: "1 docking face",
-    source: "Exactly one pent is the dock · CANONICAL §Docking Face",
+    label: "Docking port",
+    source: "One five-sided panel is where spacecraft connect",
     phaseRange: [0.2, 0.35],
     tone: "cyan",
   },
@@ -54,36 +56,36 @@ export const HOTSPOTS: readonly HotspotDef[] = [
   // a single face normal. Place labels near that stack.
   {
     position: [0.0, 0.0, 2.6],
-    label: "140 mm depth",
-    source: "v3 frame · CANONICAL §Hex Face Stackup",
+    label: `${N.frame_depth.display} thick`,
+    source: "Total thickness of one window panel",
     phaseRange: [0.5, 0.65],
     tone: "cyan",
   },
   {
     position: [0.5, 0.3, 2.0],
-    label: "7 layers · vacuum → crew",
-    source: "Sacrificial → solar → tint → gas → shade → frame · CANONICAL",
+    label: `${N.panel_layers.display} layers, space to cabin`,
+    source: "Shield, frame, solar cells, tint, gas layer, shade, inner frame",
     phaseRange: [0.5, 0.65],
     tone: "cyan",
   },
   {
     position: [-0.6, 0.0, 2.4],
-    label: "6061-T6 aluminium",
-    source: "Frame material · CANONICAL §Joint / Section Values",
+    label: "Aluminium frame",
+    source: "Carries the air pressure load so the glass does not have to",
     phaseRange: [0.5, 0.65],
     tone: "cyan",
   },
   {
-    position: [0.0, -0.4, 1.4],
-    label: "NAS9306C-06 · Ø 4.83 mm",
-    source: "Lockbolt hole basis · 39 mm pitch · CANONICAL",
+    position: [-0.4, -1.1, 1.4],
+    label: "Locking bolts",
+    source: "Aerospace bolts join each panel to its neighbours",
     phaseRange: [0.5, 0.65],
     tone: "cyan",
   },
   {
     position: [0.8, 0.0, 1.8],
-    label: "Dual fluorosilicone · 1.6 mm",
-    source: "Gasket stack · RTV tertiary seal · CANONICAL",
+    label: "Triple air seal",
+    source: "Two rubber seals plus a sealant layer keep the air in",
     phaseRange: [0.5, 0.65],
     tone: "cyan",
   },
@@ -92,22 +94,22 @@ export const HOTSPOTS: readonly HotspotDef[] = [
   // Camera target is [-5.03, 0, 3.26]; the hinge opens PENT_02 90° outward.
   {
     position: [-5.0, 0.0, 4.0],
-    label: "PENT_02 · 90° hinge",
-    source: "Greenhouse bloom · phase_metadata §pentagon_hinge",
+    label: "Garden panel opens",
+    source: "A five-sided panel swings open to show the garden trays",
     phaseRange: [0.65, 0.75],
     tone: "green",
   },
   {
     position: [-4.4, 0.8, 3.2],
-    label: "Bioregenerative ECLSS",
-    source: "Plant trays · biology-green LEDs · WEB_ASSET_BRIEF §Phase 6",
+    label: "Plants clean the air",
+    source: "Garden trays under grow lights make oxygen and food",
     phaseRange: [0.65, 0.75],
     tone: "green",
   },
   {
     position: [-5.5, -0.9, 2.4],
-    label: "Plant-lit pentagon",
-    source: "Pent module family · CANONICAL §Pent Face Module Types",
+    label: "Garden alcove",
+    source: "Five-sided panels can hold gardens, shields, services or the dock",
     phaseRange: [0.65, 0.75],
     tone: "green",
   },
@@ -116,29 +118,29 @@ export const HOTSPOTS: readonly HotspotDef[] = [
   // Camera target [0, 0, 1.5] — near the axial trunk.
   {
     position: [0.4, 0.6, 2.4],
-    label: "BEAM_TRUNK · 3× extend",
-    source: "Systems longitudinal split · phase_metadata §phase 7",
+    label: "Central column",
+    source: "Carries air, water, power and storage through the station",
     phaseRange: [0.75, 0.85],
     tone: "orange",
   },
   {
     position: [-0.8, 0.0, 1.8],
-    label: "Closed-loop distillate",
-    source: "15 L/day water · WEB_ASSET_BRIEF §Phase 7",
+    label: "Clean water loop",
+    source: `About ${N.water_distill_per_day.display} of clean water made with sunlight`,
     phaseRange: [0.75, 0.85],
     tone: "blue",
   },
   {
     position: [1.0, -0.4, 1.2],
-    label: "Thermal · 1.25 Hz pulse",
-    source: "Red/blue water loops · alternating · scene.phase 7",
+    label: "Heat out, water back",
+    source: "Red pipes carry heat out, blue pipes bring clean water back",
     phaseRange: [0.75, 0.85],
     tone: "orange",
   },
   {
     position: [0.0, 0.8, 0.6],
-    label: "Axial core",
-    source: "Habitat principal axis · CANONICAL §Axial Core",
+    label: "Station core",
+    source: "The main axis that runs through the middle of the station",
     phaseRange: [0.75, 0.85],
     tone: "cyan",
   },
