@@ -24,7 +24,7 @@ const CHAPTERS = [
     idx: 2,
     title: "The Station",
     statement: `A glass and aluminium ball,\n${N.diameter.display} across.`,
-    why: "Windows on every side, so the crew can see Earth and the stars from almost anywhere inside.",
+    why: "Windows on every side, so visitors can see Earth and the stars from almost anywhere inside.",
     Body: Habitat,
   },
   {
@@ -39,8 +39,8 @@ const CHAPTERS = [
     id: "interior",
     idx: 4,
     title: "Inside",
-    statement: "Living space by the windows.\nMachines in the middle.",
-    why: "Rooms can be rearranged without touching the outer shell.",
+    statement: "People by the windows.\nMachines in the middle.",
+    why: "One open room with many uses. It can be rearranged without touching the outer shell.",
     Body: Interior,
   },
   {
@@ -55,8 +55,8 @@ const CHAPTERS = [
     id: "bio",
     idx: 6,
     title: "Gardens",
-    statement: "Plants help keep\nthe crew alive.",
-    why: "Gardens make oxygen, clean the air and grow fresh food. Machines cover the rest.",
+    statement: "Plants clean the air\nand grow fresh food.",
+    why: "Gardens make oxygen and bring daylight and green into the room. Machines cover the rest.",
     Body: Bio,
   },
   {

@@ -36,7 +36,7 @@ export const GALLERY: GalleryCategory[] = [
       { file: "images-concept-observatory", caption: "Walkways and gardens under a glass sky", w: 480, h: 720 },
       { file: "images-concept-plants", caption: "Terraced gardens along the inner wall", w: 583, h: 720 },
       { file: "images-concept-interior", caption: "A quiet garden corner at night", w: 720, h: 720 },
-      { file: "images-facility-render-day", caption: "Garden column, ramp and living pods", w: 720, h: 480 },
+      { file: "images-facility-render-day", caption: "Garden column, ramp and seating pods", w: 720, h: 480 },
       { file: "images-facility-render-night", caption: "The same layout at night", w: 720, h: 480 },
       { file: "images-facility-annotated-dimensions", caption: "Early sketch with the sizes of the ramp and pods", w: 720, h: 473 },
     ],

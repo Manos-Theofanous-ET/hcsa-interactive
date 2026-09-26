@@ -8,7 +8,7 @@ export function AboutSection() {
       <SectionHeader
         id="about"
         eyebrow="About the project"
-        title="A space station designed around the people who live in it."
+        title="A space station designed around the people who visit it."
       />
       <div className="grid gap-12 md:grid-cols-[1.4fr_1fr]">
         <div className="space-y-5 text-lg leading-relaxed text-white/80">
@@ -18,9 +18,9 @@ export function AboutSection() {
             can always see Earth and the stars.
           </p>
           <p>
-            It is a multi-use facility. The same shell can hold homes for a crew of {N.crew_min.display} to{" "}
-            {N.crew_max.display}, space for research, gardens that grow food, and room to exercise and
-            rest. Because it is made from {N.face_count.display} panels that all connect the same way, it
+            It is a multi-use facility for short-stay visits. There are no sleeping quarters. Instead,
+            the station is one open room for watching Earth, moving freely, relaxing among living plants,
+            gatherings and research. Because it is made from {N.face_count.display} panels that all connect the same way, it
             can be built in factories on Earth, launched in pieces and put together in orbit.
           </p>
           <p>
