@@ -12,6 +12,8 @@ export type GalleryCategory = {
   id: string;
   title: string;
   blurb: string;
+  /** Optional link shown under the blurb (for example to the static pages). */
+  link?: { href: string; label: string };
   items: GalleryItem[];
 };
 
@@ -42,11 +44,28 @@ export const GALLERY: GalleryCategory[] = [
     ],
   },
   {
+    id: "blueprints",
+    title: "Blueprints",
+    blurb: "The current drawings (Rev S, September 2026), taken from the CAD model, with dimensions in millimetres. Every drawing, with a plain explanation of each, is on the blueprints page.",
+    link: { href: "/blueprints/", label: "Open all the blueprints" },
+    items: [
+      { file: "revs-3d_render-01_shell_exterior", caption: "The whole shell, 11,151 mm across: 20 glass hexagons and 12 solid pentagons", w: 720, h: 480 },
+      { file: "revs-3d_render-02_shell_cutaway", caption: "The shell cut in half; the parts the cut goes through are orange", w: 720, h: 480 },
+      { file: "revs-3d_render-03_hex_panel_cabin_side", caption: "One hexagon panel from the cabin side: frames, ribs and six glass panes", w: 720, h: 529 },
+      { file: "revs-2d_sketch-01_simple_joint_section", caption: "The joint between two panels, cut through a bolt", w: 720, h: 480 },
+      { file: "revs-3d_render-07_seam_closeup_cut", caption: "A piece of seam cut through a bolt: two frames, two O-rings and a sealant bead", w: 720, h: 480 },
+      { file: "revs-3d_render-09_corner_node_inside", caption: "A corner where three panels meet, from inside", w: 720, h: 480 },
+      { file: "revs-3d_render-18_T0_ring_on_ring_cut", caption: "Test T0: a 50 mm glass disc in the ring-on-ring fixture", w: 720, h: 535 },
+      { file: "revs-3d_render-10_T1_slice_150", caption: "Test T1: a full-size 150 mm slice of the seam, ready to be pulled apart", w: 720, h: 480 },
+      { file: "revs-3d_render-14_T2_rig_pinned", caption: "Test T2: one panel at quarter scale in its water rig", w: 720, h: 480 },
+    ],
+  },
+  {
     id: "model",
     title: "3D model",
     blurb: "The engineering model the scroll story above is built from.",
     items: [
-      { file: "images-hcsa_buckyball_revg_outreach_web", caption: "The full shell: 20 six-sided and 12 five-sided panels", w: 720, h: 720 },
+      { file: "images-hcsa_buckyball_revg_outreach_web", caption: "The full shell: 20 six-sided glass panels and 12 solid five-sided panels", w: 720, h: 720 },
       { file: "images-hcsa_exterior_technical_nominal", caption: "Outside view of the frame and window panels", w: 720, h: 477 },
       { file: "images-hcsa_exploded_assembly_technical", caption: "The shell with one panel lifted out", w: 720, h: 468 },
       { file: "images-hcsa_interior_facility_reva_hero", caption: "Cut-away showing the layout inside", w: 720, h: 720 },
@@ -57,11 +76,11 @@ export const GALLERY: GalleryCategory[] = [
   },
   {
     id: "panels",
-    title: "Window panels",
-    blurb: "The building block of the station. Every panel connects the same way.",
+    title: "Panels",
+    blurb: "The building block of the station. Every panel connects the same way. The six-sided panels are the windows; the five-sided ones are solid and house the solar panels and fold-out shields.",
     items: [
       { file: "images-hcsa_single_hex_panel_revg_outreach_web", caption: "One six-sided panel", w: 720, h: 720 },
-      { file: "images-hcsa_single_pent_panel_revg_outreach_web", caption: "One five-sided panel", w: 720, h: 720 },
+      { file: "images-hcsa_single_pent_panel_revg_outreach_web", caption: "One five-sided panel. In the design it is solid, not glass: it houses solar panels and a fold-out shield", w: 720, h: 720 },
       { file: "images-hcsa_single_hex_panel_exploded", caption: "Six-sided panel with its layers pulled apart", w: 720, h: 480 },
       { file: "images-hcsa_single_hex_panel_top_orthographic", caption: "Six-sided panel seen from above", w: 720, h: 720 },
       { file: "images-hcsa_single_hex_panel_section", caption: "A slice through the panel edge", w: 720, h: 480 },
@@ -80,8 +99,8 @@ export const GALLERY: GalleryCategory[] = [
   },
   {
     id: "sheets",
-    title: "Engineering sheets",
-    blurb: "Our detailed technical sheets, for readers who want the full numbers.",
+    title: "Earlier sheets",
+    blurb: "Our technical sheets from March 2026. Some numbers have changed since; the current drawings are in the Blueprints tab.",
     items: [
       { file: "blueprints-page-01", caption: "Project overview", w: 720, h: 402 },
       { file: "blueprints-page-02", caption: "Why a glass sphere instead of metal tubes", w: 720, h: 402 },

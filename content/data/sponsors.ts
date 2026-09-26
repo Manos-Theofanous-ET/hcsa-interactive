@@ -9,27 +9,27 @@ import { NUMERICS as N } from "../numerics";
 export const CONTACT_EMAIL = "";
 
 export const nowWorkingOn: string[] = [
-  `Building a ${N.coupon_size.display} test piece of the panel joint and checking that it holds air under pressure.`,
-  "Running computer stress tests on the panel for air pressure, docking and heat.",
-  `Updating the life support plan for the full ${N.volume_enclosed.display} of the station.`,
+  "Testing the seam between two panels: full-size slices of the joint pulled apart in a load frame, and a " + N.coupon_size.display + " piece of it checked for air leaks.",
+  "Measuring how strong our glass really is, on 50 mm glass discs broken in a small load frame.",
+  "Modelling the whole shell on the computer to see how the panels share the load, then testing one panel at quarter scale under water pressure.",
 ];
 
 export const fundingUses: { title: string; body: string }[] = [
   {
-    title: "Test pieces",
-    body: "Aluminium, glass, seals and bolts for full-size samples of the panel joint.",
+    title: "Joint test pieces",
+    body: "Aluminium frames, steel pull blocks, bolts, O-rings and sealant for full-size slices of the seam between two panels.",
   },
   {
     title: "Machining",
-    body: "Precision cutting of frame parts so the test pieces match the design.",
+    body: "CNC machining of eight joint frames and a quarter-scale panel, so the test pieces match the drawings.",
   },
   {
-    title: "Pressure testing",
-    body: "Lab time to fill the test pieces with air and prove they do not leak or break.",
+    title: "Glass for strength tests",
+    body: "50 mm glass discs, 30 or more of each glass, to measure how strong the glass really is.",
   },
   {
-    title: "Next prototype",
-    body: "A larger structural model of the shell, the step after the current tests.",
+    title: "A water pressure rig",
+    body: "A steel tub and rings to load one panel at quarter scale up to twice normal air pressure.",
   },
 ];
 

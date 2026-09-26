@@ -1,0 +1,549 @@
+{
+ "subjects": [
+  {
+   "key": "shell",
+   "tested_by": "No physical test this year; an FEA size study comes first.",
+   "title": "The whole shell",
+   "hero": "3d_render/01_shell_exterior",
+   "what": "The complete pressure shell: a truncated icosahedron, 11,151 mm across the corners, with every edge 2,250 mm long. 32 flat panels joined along 90 seams that meet at 60 corners: 20 glass hexagons, which are the windows, and 12 solid pentagons, which house the solar panels and the deployable shields. Every seam has 29 bolts, so the shell has 2,610 of them.",
+   "why": [
+    "A sphere is the best shape for holding air in: the pressure pulls on the wall evenly everywhere. This shape is close to a sphere but is built only from flat panels, and flat glass is what glass makers can make at this size.",
+    "It uses just two panel shapes, so every hexagon is the same part and every pentagon is the same part. That keeps the design modular.",
+    "The 2,250 mm edge sets the panel size: a hexagon 4.5 m corner to corner.",
+    "The pentagons are not windows. Each one houses solar panels and a deployable shield that folds out to cover the hexagons around it. Every hexagon borders three pentagons, so the twelve pentagons can reach every window. In the model each pentagon is still only its structure (frames, ribs and a 4 mm plate), because the housing is not designed yet."
+   ],
+   "where": "This is the whole structure. Every other page is a piece of it.",
+   "tests": [
+    "No physical test of the whole shell this year.",
+    "The open question is how the shell passes the load between panels. Depending on the path, the pull across a seam is anywhere from 35 to 277 kN per metre. An FEA size study (one panel, a seven-panel cap, the full shell) settles it first.",
+    "A 1:10 closed shell under water (1.12 m across) only if the study says a cap is not enough. Spring 2027 at the earliest."
+   ],
+   "numbers": [
+    "Inside 1 atm (101.3 kPa), outside vacuum",
+    "1.33 MN pushing out on each hexagon",
+    "Up to 277 kN/m across each seam (upper bound)",
+    "Model mass as drawn about 26,700 kg (not an estimate: the ribs are still the old, too-weak ones)"
+   ]
+  },
+  {
+   "key": "hex",
+   "tested_by": "T2 tests one at 1:4 scale; T0 tests the glass.",
+   "title": "The hexagon panel",
+   "hero": "3d_render/03_hex_panel_cabin_side",
+   "what": "One glass panel: 4,500 mm corner to corner, 3,897 mm across the flats, 140 mm deep. Six edge frames around the outside, six ribs running from a 160 mm hub to the corners, and six triangular windows. In this model each window has two panes: L1, a 6 mm fused silica outer pane under the outer flange, and L7, the 31 mm borosilicate pressure pane that sits on the seat lip. The layers between them (gas gap, solar and tint glass, shutters) are left out of this model.",
+   "why": [
+    "One pane 4.5 m across would be far too thick and heavy. The ribs split the window into six triangles, each about 2.2 square metres.",
+    "The pressure pane sits on the cabin side of its seat lip, so the cabin air presses it onto the seat instead of pushing it off.",
+    "The frame is 140 mm deep because it has to hold the whole glazing stack.",
+    "The ribs are spokes: nothing holds the hub, so each rib carries its share of the pane load all the way to a corner. That is why the hand numbers say the current rib is far too weak (about 2,900 MPa at 1 atm). The week 6 rib study makes them deeper or adds a ring."
+   ],
+   "where": "20 of these make up most of the shell.",
+   "tests": [
+    "T2 tests one at 1:4 scale, with aluminium panes in place of glass, to see how the panes bend onto the frame and ribs.",
+    "T0 measures how strong the glass really is.",
+    "A full-size panel test only with an industrial partner."
+   ],
+   "numbers": [
+    "Pane stress about 53 MPa at 1 atm",
+    "Pane bending 7.2 mm against a 3.1 mm limit if the seat acts like a hinge",
+    "1.33 MN on the panel at 1 atm"
+   ]
+  },
+  {
+   "key": "pent",
+   "tested_by": "Not tested on its own; its seams are covered by T1.",
+   "title": "The pentagon panel",
+   "hero": "3d_render/05_pent_panel_cabin_side",
+   "what": "One solid panel, not a window: 3,641 mm corner to corner, 3,462 mm from a corner to the opposite flat, 140 mm deep. In the design it houses solar panels and a deployable shield that folds out over the five hexagons around it. The model has only its structure so far: five edge frames, five ribs to a hub, and a 4 mm 6061-T6 face plate. The housing, the solar panels and the shields are not drawn yet.",
+   "why": [
+    "Putting the solar panels and the shields on the pentagons keeps all 20 hexagons clear as windows.",
+    "Each pentagon sits in the middle of five hexagons, so a shield stowed there can fold out over its neighbours. Every hexagon borders three pentagons.",
+    "Same frames, same joint and same depth as the hexagons, so every seam in the shell is the same.",
+    "Its frames are always the grooved B type, so all five frames of every pentagon are one part.",
+    "Open: where the housing sits (inside the 140 mm frame depth or proud of the shell), and what a shield folding out puts into the pentagon frame and the corners."
+   ],
+   "where": "12 of these: one at the top (PENT-00), one at the bottom, the rest spread evenly between the hexagons.",
+   "tests": [
+    "Not tested on its own this year. Its seams are the same as the hexagon seams, so T1 covers them.",
+    "The housing, the solar panels and the shield mechanism get their own design and tests later. A shield folding out over five hexagons loads the pentagon frame in ways T0 to T2 do not cover."
+   ],
+   "numbers": [
+    "About 0.88 MN pushing out on each pentagon at 1 atm"
+   ]
+  },
+  {
+   "key": "joint",
+   "tested_by": "T1 seam slices and the 550 mm joint article.",
+   "title": "The simple joint, in section",
+   "hero": "2d_render/06_seam_section",
+   "what": "A cut through one seam at a bolt. Two frames sit face to face on the joint plane. Each frame has a 20 mm web, an outer flange 50 x 10 mm at the outside face and a seat lip 50 x 10 mm that holds the pressure pane. One 5/16 in bolt every 75 mm. Frame B has two O-ring grooves and the RTV bead; Frame A is flat.",
+   "why": [
+    "Two flat faces bolted together is the simplest joint that still seals. Nothing slides or keys into anything, so it is easy to machine and to check.",
+    "Three seals in a row: two O-rings and an RTV bead. One can fail without a leak. A small port between the O-rings lets each one be leak-checked on its own.",
+    "All the grooves are in one frame (B), so the two frames never have to line up groove to groove. A pentagon is always B; between two hexagons the lower-numbered one is A.",
+    "The joint face lies on the plane through the seam and the centre of the shell. Then the three joint faces at every corner meet on one line and the corner closes. It is why the flanges sit at an angle (20.9 degrees on a hexagon) and the section looks like a Y.",
+    "Dropped from the older Rev C joint: tongue and groove, key boss, cable conduit, looped groove ends and guide pins."
+   ],
+   "where": "This section runs the full length of all 90 seams.",
+   "tests": [
+    "T1 pulls short slices of it apart and checks the seal while it is loaded.",
+    "The 550 mm joint article checks that it goes together and holds pressure."
+   ],
+   "numbers": [
+    "Up to 277 kN/m across the joint at 1 atm (upper bound)",
+    "20.7 kN per bolt, almost three times the 7.4 kN in TRUTH",
+    "Seals at 18, 32 and 42 mm and the bolt at 58 mm from the outside tip"
+   ]
+  },
+  {
+   "key": "seam",
+   "tested_by": "T1 size series with 1, 2 and 3 bolts.",
+   "title": "One seam along its length",
+   "hero": "3d_render/06_seam_closeup",
+   "what": "One full seam is 2,250 mm long with 29 bolts at 75 mm. The end bolts are 75 mm from each corner. The O-ring grooves run the whole length and stop 30 mm short of each corner.",
+   "why": [
+    "The 75 mm bolt spacing is set in TRUTH.",
+    "29 bolts, not 30: with 30, the end nuts of two hexagon-pentagon seams run into each other at every pentagon corner. With 29 there is 75 mm to each corner and nothing touches. TRUTH says about 30, so this needs a decision."
+   ],
+   "where": "90 of these, one along every edge of the shell.",
+   "tests": [
+    "The T1 slices have 1, 2 and 3 bolts. If the load and gap per bolt stay the same as the slice gets longer, the whole 29-bolt seam behaves like the slices."
+   ],
+   "numbers": [
+    "620 kN across a whole 2,250 mm seam at 1 atm (upper bound)",
+    "29 bolts per seam, 2,610 in the shell"
+   ]
+  },
+  {
+   "key": "corner",
+   "tested_by": "A corner test (T3) later, once the corner seal is designed.",
+   "title": "The corner, where three panels meet",
+   "hero": "2d_render/07_corner_node_plan_outside",
+   "what": "The corner where HEX-09, HEX-14 and PENT-10 meet, cut out as a 1.4 m square around the corner point. The panes are left out so the frames show.",
+   "why": [
+    "Because every joint face lies on a plane through the centre of the shell, the three seams meet on one line through the corner and close with no gap.",
+    "The ribs stop short of the corner and have pockets cut round the end bolts, so nothing clashes.",
+    "The corner seal is still open (item O10): the O-rings of the three seams stop 30 mm from the corner, and nothing yet seals the small triangle where they meet."
+   ],
+   "where": "There are 60 corners in the shell, all like this one (two hexagons and a pentagon).",
+   "tests": [
+    "A corner test (T3) comes after T1 and T2 agree with the model, and after the corner seal is designed.",
+    "If the in-plane load runs along the seams, each corner takes about 621 kN, which could make the corners the most loaded places in the shell."
+   ],
+   "numbers": [
+    "100 mm across the two outer flanges of a seam",
+    "75 mm from the corner to the first bolt"
+   ]
+  },
+  {
+   "key": "t0",
+   "tested_by": "This is the test: ring-on-ring to ASTM C1499, 30 or more discs per glass.",
+   "title": "T0: glass coupons, ring-on-ring",
+   "hero": "3d_render/18_T0_ring_on_ring_cut",
+   "what": "A 50 mm glass disc, 3 mm thick, sits on a 40 mm support ring and is pressed from above by a 20 mm load ring (ASTM C1499). The fixture is 70 mm across.",
+   "why": [
+    "The pane stress (about 53 MPa at 1 atm) is the number we trust least. Glass breaks at its worst flaw, so its strength scatters and drops as the piece gets bigger.",
+    "Ring-on-ring loads the middle of the disc evenly in every direction, like a pane bending under pressure, and away from the edges, so the edge finish does not decide the result.",
+    "30 or more discs per glass give a Weibull strength (ASTM C1239) that can be scaled up to a 2 square metre pane. For example, discs at 150 MPa with a Weibull modulus of 7 mean about 42 MPa for a full pane, before any safety factor.",
+    "One set at four loading speeds measures slow crack growth (ASTM C1368): glass under steady load gets weaker over time."
+   ],
+   "where": "It tests the material of the glass panes, not a part of the structure.",
+   "tests": [
+    "Run in a small load frame (5 kN) in October.",
+    "0.9 kN puts 50 MPa in the middle of a disc; loads run up to about 1 to 4 kN."
+   ],
+   "numbers": [
+    "50 mm disc, 3 mm thick",
+    "40 mm support ring, 20 mm load ring",
+    "30 or more discs per candidate glass"
+   ]
+  },
+  {
+   "key": "t1",
+   "tested_by": "This is the test: pulled apart in a 100 kN frame and leak-checked while loaded.",
+   "title": "T1: seam slice pull test",
+   "hero": "3d_render/10_T1_slice_150",
+   "what": "A full-size slice of one seam: 75, 150 or 225 mm long (1, 2 or 3 bolts). The outer flange and the seat lip run out to 200 mm as grip legs, a steel pull block bolts between them, and end dams close the O-ring grooves at the cut ends. 410 mm overall.",
+   "why": [
+    "Bolts, O-rings and grooves do not scale down, so the seam is tested at full size.",
+    "A whole seam at 1 atm pulls about 620 kN, far beyond a lab frame. A 150 mm slice pulls 41.5 kN, which a 100 kN frame can do.",
+    "Three lengths, after Tengxiao Li's advice: test a few sizes and see when the response per bolt stops changing.",
+    "The pull goes in through the flange and lip, the same parts that carry the panel's load in the shell.",
+    "The grooves run out of the cut ends, so rubber-faced end plates clamped by M8 rods close them and the space between the O-rings can hold pressure."
+   ],
+   "where": "A short piece of the seam, cut from anywhere along its length.",
+   "tests": [
+    "Run 1: pull through both legs, midway between flange and lip.",
+    "Run 2: remove the lip bolts and pull through the flange only, so the joint pries open.",
+    "Measure load and stroke, the gap at the outside and cabin faces, the strain in one bolt, and the pressure between the O-rings.",
+    "Pass: a straight-line response to the 1 atm load that returns to zero, no leak at 1 atm, inner O-ring gap under 0.33 mm (provisional), no yield below proof, the model within 10 percent."
+   ],
+   "numbers": [
+    "150 mm slice: 41.5 kN at 1 atm, run to 2 atm (83 kN)",
+    "75 mm run to 2.4 atm, 225 mm to 1.5 atm"
+   ]
+  },
+  {
+   "key": "t550",
+   "tested_by": "This is the test: dry fit, then a leak test between the O-rings.",
+   "title": "T1: the 550 mm joint article",
+   "hero": "3d_render/12_T1_joint_article_550",
+   "what": "550 mm of the joint with no grip legs: both frames, 7 bolts at 75 mm, both O-rings, the RTV bead and end dams. 100 mm across the flanges, 140 mm deep.",
+   "why": [
+    "Pulled at the full seam load it would need 152 to 365 kN, too much for a 100 kN frame. So it is used for fit and seal, not strength.",
+    "It is long enough to show whether a straight run of the joint goes together and seals the way the drawings say."
+   ],
+   "where": "A longer piece of the same seam.",
+   "tests": [
+    "Dry fit: assemble, tighten the bolts, check how much the O-rings are squeezed.",
+    "Leak test: 1 atm between the two O-rings, watch the pressure decay (load case LC5)."
+   ],
+   "numbers": [
+    "7 bolts",
+    "11 kg"
+   ]
+  },
+  {
+   "key": "t2p",
+   "tested_by": "This is the test article: loaded with water in the T2 rig.",
+   "title": "T2: one panel at 1:4",
+   "hero": "3d_render/13_T2_panel_1to4",
+   "what": "A hexagon panel at quarter scale: 1,125 mm corner to corner, 974 mm across the flats, 124 mm deep. 12 mm frame webs with a 40 x 10 mm support flange for the rig, six T ribs 110 mm deep, and six 8 mm aluminium panes on neoprene setting strips, held by 3 x 10 mm beads. 47 kg.",
+   "why": [
+    "Every length divided by 4 gives the same stresses at the same pressure, and a 1.1 m panel fits in a shop. The force at 1 atm is 83 kN instead of 1.33 MN.",
+    "Aluminium panes bend almost like the 31 mm glass would at this scale (7.4 mm would match exactly), do not shatter, and can go past 1 atm.",
+    "The ribs are new: sized by hand as spokes so they stay elastic to 2 atm (91 MPa at 1 atm, 183 MPa at 2 atm).",
+    "Some things do not scale cleanly (setting strips, beads, web widths). That is one of the questions for Prof. Henann."
+   ],
+   "where": "A model of one hexagon panel.",
+   "tests": [
+    "Loaded with water in the T2 rig (next pages).",
+    "Gauges: strain rosettes on a pane centre (both faces) and the opposite pane, rib flanges at mid-length, the frame web at mid-edge and near a corner; deflection at the hub and a pane centre."
+   ],
+   "numbers": [
+    "83 kN at 1 atm, 167 kN at 2 atm",
+    "Pane stress 53 MPa at 1 atm, the same as full size"
+   ]
+  },
+  {
+   "key": "t2r",
+   "tested_by": "This is the test rig: pinned and clamped runs up to 2 atm.",
+   "title": "T2: the hexagonal water rig",
+   "hero": "3d_render/15_T2_rig_pinned_cut",
+   "what": "A hexagonal steel tub (12 mm walls, 25 mm floor, 175 mm deep) with a 25 mm box flange. The panel sits cabin side down on a 1 mm rubber membrane, the membrane has its own clamp ring, and a hexagonal top ring is bolted down with 24 M16 bolts. 1,409 x 1,220 mm, 350 mm tall; about 490 kg of steel and 165 L of water.",
+   "why": [
+    "Water hardly compresses, so if something breaks almost no stored energy is released. Air at the same pressure would store far more.",
+    "The rings are hexagonal so they follow the panel all the way round.",
+    "The membrane carries the water pressure onto the panes and keeps the water in. It does no structural work.",
+    "The membrane has its own clamp ring so its seal holds even when the panel lifts.",
+    "Two edge conditions. Pinned: the panel's support flange bears on 12 mm round bars, so the edge can rotate like a hinge. Clamped: the top ring bears straight on the flange, so the edge cannot rotate. The real edge in the shell is somewhere between, and the pane only meets its bending limit if it acts close to clamped."
+   ],
+   "where": "Test equipment, not part of the facility.",
+   "tests": [
+    "Write down the model prediction for every gauge before any water goes in.",
+    "Fill and bleed all the air; check the relief valve lifts at 220 kPa.",
+    "Pinned first: 0 to 1 atm in 0.25 atm steps, hold 2 minutes a step, unload the same way, three times. Then clamped, the same.",
+    "Only then 1.5 and 2 atm, in 0.1 atm steps above 1 atm. Dial gauges read against a bridge clamped to the panel frame, so rig movement drops out."
+   ],
+   "numbers": [
+    "700 kg when full",
+    "24 M16 bolts, 3.5 kN each at 1 atm",
+    "Relief valve at 220 kPa"
+   ]
+  }
+ ],
+ "pages": [
+  [
+   "shell",
+   "2d_sketch",
+   "04_shell_elevation",
+   "The whole shell seen from the side, drawn by hand from the model. The shaded pentagons are the solid ones that house the solar panels and shields; dashed lines are edges at the back; the lines inside each hexagon are its ribs. The pentagon at the top (PENT-00) is seen edge-on, which is why the top is flat."
+  ],
+  [
+   "shell",
+   "2d_render",
+   "01_shell_elevation",
+   "The same side view, shaded. The glass hexagons are see-through, so you can see the far side of the shell through them. The dark pentagons are the solid solar panel and shield housings. The blue line through the middle is the size across two opposite corners."
+  ],
+  [
+   "shell",
+   "2d_render",
+   "02_shell_plan_top",
+   "Looking straight down on the top. PENT-00 is in the middle, with five hexagons around it. This is the view that shows the pattern: every pentagon is ringed by hexagons, and no two pentagons touch."
+  ],
+  [
+   "shell",
+   "3d",
+   "01_shell_exterior",
+   "The whole shell from outside, as a line drawing and as a render. The glass hexagons are the windows; the solid pentagons (shaded in the drawing, dark in the render) house the solar panels and the shields. The dimensions are the size across the corners, the height from the top pentagon to the bottom one, and one edge."
+  ],
+  [
+   "shell",
+   "3d",
+   "02_shell_cutaway",
+   "The shell cut in half, seen from the side that was removed, so you look into the far half like a bowl. Orange marks the panels and frames the cut goes through, so the rim of the cut is easy to follow. Inside you can see the edge frames and ribs of each panel, the seams between them and the backs of the pentagons. The blue line runs from the centre of the shell to one corner."
+  ],
+  [
+   "hex",
+   "2d_sketch",
+   "03_hex_panel_plan",
+   "The hexagon panel from the cabin side, cut 60 mm into the frame so the edge frames and ribs show as outlines. The pressure panes are dashed below. The ribs run from the hub to the six corners."
+  ],
+  [
+   "hex",
+   "2d_render",
+   "03_hex_panel_plan_exterior",
+   "The panel from outside. The six triangles are the L1 outer panes; the grey bands are the outer flanges of the edge frames and the ribs."
+  ],
+  [
+   "hex",
+   "2d_render",
+   "04_hex_panel_plan_cabin",
+   "The panel from the cabin side. What you see here are the L7 pressure panes, the ones that hold the air in."
+  ],
+  [
+   "hex",
+   "3d",
+   "03_hex_panel_cabin_side",
+   "The panel from above the cabin side. The frame depth and the six ribs are easier to read in the line drawing; the render shows the glass."
+  ],
+  [
+   "hex",
+   "3d",
+   "04_hex_panel_exterior_side",
+   "The panel from the outside, tilted. The outer flanges make a continuous rim; the panes sit under it."
+  ],
+  [
+   "pent",
+   "2d_sketch",
+   "03b_pent_panel_plan",
+   "The pentagon panel from the cabin side, cut 60 mm in. Five frames, five ribs to the hub, and the face plate behind them. The solar panel and shield housing that goes on this panel is not drawn yet."
+  ],
+  [
+   "pent",
+   "2d_render",
+   "05_pent_panel_plan_exterior",
+   "The pentagon from outside: the face plate (drawn dark so it does not read as glass) inside the rim of the frames. In the design this is where the solar panels and the stowed shield sit."
+  ],
+  [
+   "pent",
+   "3d",
+   "05_pent_panel_cabin_side",
+   "The pentagon from the cabin side, tilted, showing the ribs standing up from the plate. The plate is shaded (dark in the render) to show it is solid, not glass."
+  ],
+  [
+   "joint",
+   "2d_sketch",
+   "01_simple_joint_section",
+   "The joint cut through a bolt, drawn by hand at about 2:1. Cabin at the top, vacuum at the bottom; the dashed line is the joint plane. Frame A (left) is flat; Frame B (right) has the grooves. The blue numbers on the right give where each seal and the bolt sit, measured along the joint plane from the outside tip."
+  ],
+  [
+   "joint",
+   "2d_render",
+   "06_seam_section",
+   "The same cut, rendered. Red are the two O-rings, yellow is the RTV bead, dark grey is the bolt with its washers and nut. The Y shape comes from the flanges sitting at 20.9 degrees to the joint plane."
+  ],
+  [
+   "joint",
+   "3d",
+   "07_seam_closeup_cut",
+   "A short piece of seam cut through a bolt, so you see the section and the length together: webs face to face, the bolt row, and the O-rings and bead on the cut face."
+  ],
+  [
+   "seam",
+   "2d_sketch",
+   "02_seam_elevation",
+   "One whole seam seen from the B side, cut just inside the B web so you look at the grooves. The dots are the 29 bolt holes; the end ones are 75 mm from each corner."
+  ],
+  [
+   "seam",
+   "3d",
+   "06_seam_closeup",
+   "A 600 mm piece of a seam. The nuts line up along one side at 75 mm; the outer flanges are at the bottom and the seat lips at the top."
+  ],
+  [
+   "corner",
+   "2d_sketch",
+   "05_corner_node",
+   "The corner seen from outside, looking straight down the line from the shell centre through the corner. The three seams and the hex ribs meet at the point in the middle."
+  ],
+  [
+   "corner",
+   "2d_render",
+   "07_corner_node_plan_outside",
+   "The same view, coloured: A frames blue, B frames tan, ribs grey, the pentagon plate dark. Each seam is one blue frame against one tan frame, and the pentagon's frames are tan on both of its seams."
+  ],
+  [
+   "corner",
+   "2d_render",
+   "07b_corner_node_plan_inside",
+   "The corner from the cabin side. Here you see the inner ends of the webs, the seat lips and the three ribs running into the corner."
+  ],
+  [
+   "corner",
+   "3d",
+   "08_corner_node_outside",
+   "The corner from outside, tilted. The three seams fan out from the corner; the pentagon plate fills one side."
+  ],
+  [
+   "corner",
+   "3d",
+   "09_corner_node_inside",
+   "The corner from inside. The bolt rows run along the three seams toward the corner; the end bolts stop 75 mm short of it."
+  ],
+  [
+   "t0",
+   "2d_sketch",
+   "08_T0_section",
+   "The ring-on-ring fixture cut in half. The disc sits on the support ring; the load ring presses down in the middle with force F."
+  ],
+  [
+   "t0",
+   "2d_render",
+   "11_T0_section",
+   "The same cut, rendered. The light blue strip is the glass disc; you can see the rounded contact of each ring."
+  ],
+  [
+   "t0",
+   "3d",
+   "17_T0_ring_on_ring",
+   "The fixture assembled. The disc is the pale ring you can see between the support body and the load ring."
+  ],
+  [
+   "t0",
+   "3d",
+   "18_T0_ring_on_ring_cut",
+   "The fixture cut in half, so the two rings and the disc show. The load ring is half the diameter of the support ring."
+  ],
+  [
+   "t1",
+   "2d_sketch",
+   "06_T1_slice_section",
+   "The 150 mm slice cut through a bolt. The joint is in the middle; the legs run out left and right to the steel pull blocks. The red arrows are the two pull positions: run 1 between flange and lip, run 2 on the flange only."
+  ],
+  [
+   "t1",
+   "2d_render",
+   "08_T1_slice_section",
+   "The same cut, turned the way it hangs in the test frame, with the pull vertical. The pull blocks are at top and bottom; the joint is in the middle."
+  ],
+  [
+   "t1",
+   "3d",
+   "10_T1_slice_150",
+   "The 150 mm slice as it hangs in the frame. The two bolts are in the middle; the end dam and its rods are on the near face."
+  ],
+  [
+   "t1",
+   "3d",
+   "11_T1_slice_150_cut",
+   "The same slice cut through a bolt, so the joint section, the bolt and the grip legs show together."
+  ],
+  [
+   "t550",
+   "3d",
+   "12_T1_joint_article_550",
+   "The 550 mm article: a straight run of the joint with 7 bolts, capped by end dams at both ends."
+  ],
+  [
+   "t2p",
+   "3d",
+   "13_T2_panel_1to4",
+   "The 1:4 panel from above. Deep T ribs, a frame with a wide support flange all round, and the six aluminium panes."
+  ],
+  [
+   "t2r",
+   "2d_sketch",
+   "07_T2_rig_section",
+   "The rig cut through two opposite edges, pinned setup. Water below, the panel cabin side down on the membrane, the round bar under the top ring at each edge."
+  ],
+  [
+   "t2r",
+   "2d_render",
+   "09_T2_rig_pinned_section",
+   "The pinned setup cut through two opposite edges, rendered. Look for the small circle at each edge: that is the 12 mm round bar the panel pivots on."
+  ],
+  [
+   "t2r",
+   "2d_render",
+   "10_T2_rig_clamped_section",
+   "The clamped setup, same cut. No round bar: the top ring sits straight on the panel's support flange, and the membrane clamp ring is thinner to suit."
+  ],
+  [
+   "t2r",
+   "3d",
+   "14_T2_rig_pinned",
+   "The rig assembled with the panel in place. The 24 bolts run round the hexagonal top ring."
+  ],
+  [
+   "t2r",
+   "3d",
+   "15_T2_rig_pinned_cut",
+   "The pinned rig cut in half (water hidden). You can see the tub, the flange, the membrane clamp ring and the top ring stacked at the edge."
+  ],
+  [
+   "t2r",
+   "3d",
+   "16_T2_rig_clamped_cut",
+   "The clamped rig cut in half. The top ring sits lower, straight on the panel flange."
+  ]
+ ],
+ "overview": {
+  "intro": "The facility is a closed shell 11.15 m across, the shape of a football: 20 glass hexagons, which are the windows, and 12 solid pentagons, which house the solar panels and the deployable shields that fold out over the windows. Inside is air at 1 atm; outside is vacuum. So the air pushes out on every panel, about 1.33 MN on each hexagon, and the shell is in tension. It fails by breaking glass, leaking at a seam or pulling a seam apart, not by buckling.",
+  "chain": [
+   [
+    "The shell",
+    "3d_render/01_shell_exterior",
+    "32 panels, 90 seams, 60 corners"
+   ],
+   [
+    "A panel",
+    "3d_render/03_hex_panel_cabin_side",
+    "frames, ribs and panes"
+   ],
+   [
+    "A seam",
+    "3d_render/06_seam_closeup",
+    "two frames bolted face to face"
+   ],
+   [
+    "The joint",
+    "2d_render/06_seam_section",
+    "bolts, two O-rings, RTV"
+   ],
+   [
+    "A corner",
+    "2d_render/07_corner_node_plan_outside",
+    "three seams meet"
+   ]
+  ],
+  "tests": [
+   [
+    "T0 glass coupons",
+    "3d_render/18_T0_ring_on_ring_cut",
+    "How strong the glass is"
+   ],
+   [
+    "T1 seam slices",
+    "3d_render/10_T1_slice_150",
+    "Bolts and seals under the seam pull"
+   ],
+   [
+    "T2 one panel at 1:4",
+    "3d_render/14_T2_rig_pinned",
+    "How a panel bends onto its frame and ribs"
+   ],
+   [
+    "FEA size study",
+    "3d_render/02_shell_cutaway",
+    "How the whole shell shares the load"
+   ]
+  ],
+  "reading": [
+   "2D sketch: a hand-style drawing cut from the model.",
+   "2D render: a flat, shaded view or section.",
+   "3D sketch and 3D render: the same tilted view as a line drawing and as a render, shown one above the other.",
+   "Blue lines are dimensions in millimetres, taken from the model. A dimension drawn on a tilted view still gives the true length."
+  ]
+ }
+}

@@ -1,0 +1,230 @@
+{
+"2d_sketch-04_shell_elevation": [
+720,
+480
+],
+"2d_render-01_shell_elevation": [
+720,
+480
+],
+"2d_render-02_shell_plan_top": [
+720,
+480
+],
+"3d_sketch-01_shell_exterior": [
+720,
+480
+],
+"3d_render-01_shell_exterior": [
+720,
+480
+],
+"3d_sketch-02_shell_cutaway": [
+720,
+480
+],
+"3d_render-02_shell_cutaway": [
+720,
+480
+],
+"2d_sketch-03_hex_panel_plan": [
+720,
+480
+],
+"2d_render-03_hex_panel_plan_exterior": [
+720,
+563
+],
+"2d_render-04_hex_panel_plan_cabin": [
+720,
+563
+],
+"3d_sketch-03_hex_panel_cabin_side": [
+720,
+529
+],
+"3d_render-03_hex_panel_cabin_side": [
+720,
+529
+],
+"3d_sketch-04_hex_panel_exterior_side": [
+720,
+516
+],
+"3d_render-04_hex_panel_exterior_side": [
+720,
+516
+],
+"2d_sketch-03b_pent_panel_plan": [
+720,
+480
+],
+"2d_render-05_pent_panel_plan_exterior": [
+720,
+586
+],
+"3d_sketch-05_pent_panel_cabin_side": [
+720,
+514
+],
+"3d_render-05_pent_panel_cabin_side": [
+720,
+514
+],
+"2d_sketch-01_simple_joint_section": [
+720,
+480
+],
+"2d_render-06_seam_section": [
+720,
+518
+],
+"3d_sketch-07_seam_closeup_cut": [
+720,
+480
+],
+"3d_render-07_seam_closeup_cut": [
+720,
+480
+],
+"2d_sketch-02_seam_elevation": [
+720,
+480
+],
+"3d_sketch-06_seam_closeup": [
+720,
+572
+],
+"3d_render-06_seam_closeup": [
+720,
+572
+],
+"2d_sketch-05_corner_node": [
+720,
+480
+],
+"2d_render-07_corner_node_plan_outside": [
+720,
+480
+],
+"2d_render-07b_corner_node_plan_inside": [
+720,
+480
+],
+"3d_sketch-08_corner_node_outside": [
+720,
+480
+],
+"3d_render-08_corner_node_outside": [
+720,
+480
+],
+"3d_sketch-09_corner_node_inside": [
+720,
+480
+],
+"3d_render-09_corner_node_inside": [
+720,
+480
+],
+"2d_sketch-08_T0_section": [
+720,
+480
+],
+"2d_render-11_T0_section": [
+720,
+565
+],
+"3d_sketch-17_T0_ring_on_ring": [
+720,
+541
+],
+"3d_render-17_T0_ring_on_ring": [
+720,
+541
+],
+"3d_sketch-18_T0_ring_on_ring_cut": [
+720,
+535
+],
+"3d_render-18_T0_ring_on_ring_cut": [
+720,
+535
+],
+"2d_sketch-06_T1_slice_section": [
+720,
+480
+],
+"2d_render-08_T1_slice_section": [
+720,
+486
+],
+"3d_sketch-10_T1_slice_150": [
+720,
+480
+],
+"3d_render-10_T1_slice_150": [
+720,
+480
+],
+"3d_sketch-11_T1_slice_150_cut": [
+720,
+501
+],
+"3d_render-11_T1_slice_150_cut": [
+720,
+480
+],
+"3d_sketch-12_T1_joint_article_550": [
+720,
+530
+],
+"3d_render-12_T1_joint_article_550": [
+720,
+530
+],
+"3d_sketch-13_T2_panel_1to4": [
+720,
+525
+],
+"3d_render-13_T2_panel_1to4": [
+720,
+525
+],
+"2d_sketch-07_T2_rig_section": [
+720,
+480
+],
+"2d_render-09_T2_rig_pinned_section": [
+720,
+426
+],
+"2d_render-10_T2_rig_clamped_section": [
+720,
+426
+],
+"3d_sketch-14_T2_rig_pinned": [
+720,
+480
+],
+"3d_render-14_T2_rig_pinned": [
+720,
+480
+],
+"3d_sketch-15_T2_rig_pinned_cut": [
+720,
+480
+],
+"3d_render-15_T2_rig_pinned_cut": [
+720,
+480
+],
+"3d_sketch-16_T2_rig_clamped_cut": [
+720,
+382
+],
+"3d_render-16_T2_rig_clamped_cut": [
+720,
+382
+]
+}

@@ -1,4 +1,4 @@
-import { collaborators, facultyAdvisors, leadership, projectAffiliation } from "@content/data/team";
+import { collaborators, earlierTeam, facultyAdvisors, leadership, projectAffiliation } from "@content/data/team";
 import { SectionHeader } from "./SectionHeader";
 
 export function TeamSection() {
@@ -25,6 +25,9 @@ export function TeamSection() {
           </li>
         ))}
       </ul>
+      <p className="mt-10 max-w-3xl text-sm leading-relaxed text-white/50">
+        Earlier team members, credited on the concept art and models: {earlierTeam}.
+      </p>
     </section>
   );
 }

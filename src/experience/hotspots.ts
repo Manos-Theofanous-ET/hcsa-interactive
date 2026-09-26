@@ -94,8 +94,8 @@ export const HOTSPOTS: readonly HotspotDef[] = [
   // Camera target is [-5.03, 0, 3.26]; the hinge opens PENT_02 90° outward.
   {
     position: [-5.0, 0.0, 4.0],
-    label: "Garden panel opens",
-    source: "A five-sided panel swings open to show the garden trays",
+    label: "Five-sided panel",
+    source: "Solid, not a window: it houses solar panels and a fold-out shield",
     phaseRange: [0.65, 0.75],
     tone: "green",
   },
@@ -108,8 +108,8 @@ export const HOTSPOTS: readonly HotspotDef[] = [
   },
   {
     position: [-5.5, -0.9, 2.4],
-    label: "Garden alcove",
-    source: "Five-sided panels can hold gardens, shields, services or the dock",
+    label: "Shields for the windows",
+    source: "Every window borders three five-sided panels, so a shield can fold out over it",
     phaseRange: [0.65, 0.75],
     tone: "green",
   },

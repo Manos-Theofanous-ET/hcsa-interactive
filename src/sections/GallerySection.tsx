@@ -34,7 +34,7 @@ export function GallerySection() {
         id="work"
         eyebrow="Our work"
         title="Everything we have made so far."
-        intro="Concept art, the 3D model, the window panels, our physical model and the full engineering sheets. Click any image to see it larger."
+        intro="Concept art, the current blueprints, the 3D model, the panels, our physical model and our earlier technical sheets. Click any image to see it larger."
       />
 
       <div role="tablist" aria-label="Gallery categories" className="mb-8 flex flex-wrap gap-2">
@@ -55,6 +55,16 @@ export function GallerySection() {
 
       <div id="work-panel" role="tabpanel" aria-label={category?.title}>
         {category ? <p className="mb-6 max-w-2xl text-base text-white/65">{category.blurb}</p> : null}
+        {category?.link ? (
+          <p className="-mt-3 mb-6">
+            <a
+              href={category.link.href}
+              className="data text-[12px] uppercase tracking-[0.2em] text-[color:var(--color-accent-cyan)] underline underline-offset-4"
+            >
+              {category.link.label}
+            </a>
+          </p>
+        ) : null}
         <ul className="columns-1 gap-4 sm:columns-2 lg:columns-3">
           {items.map((item, i) => (
             <li key={item.file} className="mb-4 break-inside-avoid">

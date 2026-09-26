@@ -168,3 +168,19 @@ Deploys to Vercel. `vercel.json` is committed. Preview URLs generated per branch
 2. `pnpm typecheck` must pass.
 3. For scroll/3D changes, test with reduced-motion enabled too.
 4. Open a PR — Vercel will auto-deploy a preview URL.
+
+## Plan and blueprints pages
+
+`/plan/` (the fall 2026 plan and what we ask sponsors for, with sizes) and
+`/blueprints/` (every Rev S drawing with dimensions and a plain explanation)
+are plain HTML in `public/plan/` and `public/blueprints/`, so they load fast on
+a phone and print well. They are generated, not hand-edited:
+
+- `python scripts/static-pages/convert_images.py <path to the CAD repo's simple/ folder>`
+  turns the dimensioned PNG drawings into WebP in `public/blueprints/img/`.
+- `python scripts/static-pages/gen_pages.py` writes both pages. The drawing text
+  lives in `scripts/static-pages/blueprints-data.json`; the milestones and the
+  list of what we need are in `gen_pages.py`.
+
+The full drawing book is `public/downloads/HCSA-Rev-S-drawings-explained-26-Sep-2026.pdf`.
+`vercel.json` rewrites `/plan` and `/blueprints` to those pages ahead of the SPA fallback.

@@ -41,6 +41,14 @@ export function AboutSection() {
               </li>
             ))}
           </ul>
+          <p className="mt-6 flex flex-wrap gap-3">
+            <a href="/plan/" className="data rounded-sm border border-[color:var(--color-accent-cyan)] px-4 py-2 text-[11px] uppercase tracking-[0.2em] text-white hover:bg-[color:var(--color-accent-cyan)]/10">
+              The fall plan
+            </a>
+            <a href="/blueprints/" className="data rounded-sm border border-[color:var(--color-accent-cyan)] px-4 py-2 text-[11px] uppercase tracking-[0.2em] text-white hover:bg-[color:var(--color-accent-cyan)]/10">
+              The blueprints
+            </a>
+          </p>
         </div>
       </div>
     </section>

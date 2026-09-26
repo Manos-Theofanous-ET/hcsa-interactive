@@ -51,6 +51,19 @@ export function SponsorSection() {
         </ul>
       </div>
 
+      <div className="mt-16 grid gap-6 md:grid-cols-2">
+        <a href="/plan/#need" className="block rounded-sm border border-white/15 bg-white/[0.03] p-6 hover:border-[color:var(--color-accent-cyan)]">
+          <p className="data mb-2 text-[11px] uppercase tracking-[0.25em] text-[color:var(--color-accent-cyan)]">The plan</p>
+          <h3 className="font-serif text-2xl text-white">What we are building this fall, and exactly what we need</h3>
+          <p className="mt-2 text-base text-white/70">Every part, material and size for the three tests, with the date we need it by.</p>
+        </a>
+        <a href="/blueprints/" className="block rounded-sm border border-white/15 bg-white/[0.03] p-6 hover:border-[color:var(--color-accent-cyan)]">
+          <p className="data mb-2 text-[11px] uppercase tracking-[0.25em] text-[color:var(--color-accent-cyan)]">The blueprints</p>
+          <h3 className="font-serif text-2xl text-white">Every drawing, with dimensions</h3>
+          <p className="mt-2 text-base text-white/70">The shell, the panels, the joint, a corner and every test piece, each explained in plain words.</p>
+        </a>
+      </div>
+
       <div id="contact-us" className="mt-16 rounded-sm border border-[color:var(--color-accent-cyan)]/40 bg-[color:var(--color-accent-cyan)]/[0.05] p-8">
         <h3 className="font-serif text-2xl text-white">Get in touch</h3>
         {CONTACT_EMAIL ? (
