@@ -53,8 +53,10 @@ export function HeroChapter() {
         </div>
         {/* Sponsors land here first: give them a direct path to the
             gallery and the sponsor section below the 3D story. */}
-        <nav aria-label="Quick links" className="data flex gap-5 text-[10px] uppercase tracking-[0.3em]">
-          <a href="#work" className="text-white/70 hover:text-white">Our work</a>
+        <nav aria-label="Quick links" className="data flex flex-wrap items-center justify-end gap-x-5 gap-y-2 text-[10px] uppercase tracking-[0.3em]">
+          <a href="/plan/" className="text-white/70 hover:text-white">The plan</a>
+          <a href="/blueprints/" className="text-white/70 hover:text-white">Blueprints</a>
+          <a href="#work" className="hidden text-white/70 hover:text-white sm:inline">Our work</a>
           <a
             href="#sponsor"
             className="rounded-full border border-[color:var(--color-accent-cyan)] px-3 py-1.5 text-[color:var(--color-accent-cyan)] hover:bg-[color:var(--color-accent-cyan)] hover:text-black"
