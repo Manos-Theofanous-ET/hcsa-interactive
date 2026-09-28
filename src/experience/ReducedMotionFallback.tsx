@@ -66,8 +66,8 @@ export function ReducedMotionFallback({ progressRef }: Props) {
   return (
     <div
       className="hcsa-canvas-layer"
-      aria-label="HCSA station, still images for reduced motion"
-      role="img"
+      role="region"
+      aria-label="HCSA station, still images"
     >
       {PHASE_RANGES.map(([phase], i) => (
         <img
@@ -76,7 +76,8 @@ export function ReducedMotionFallback({ progressRef }: Props) {
             imgRefs.current[i] = el;
           }}
           src={`/fallback/phase_${phase}.png`}
-          alt={`Still image of step ${phase}`}
+          alt=""
+          aria-hidden="true"
           loading={phase === 1 ? "eager" : "lazy"}
           style={{
             position: "fixed",

@@ -102,12 +102,12 @@ export function HotspotLabel({
   };
 
   const chipStyle: CSSProperties = {
-    padding: "4px 8px",
-    background: "rgba(0, 0, 0, 0.72)",
+    padding: "5px 9px",
+    background: "rgba(0, 0, 0, 0.8)",
     border: `1px solid ${accent}`,
     borderRadius: 2,
     fontFamily: "var(--font-mono)",
-    fontSize: 10,
+    fontSize: 11,
     letterSpacing: "0.08em",
     textTransform: "uppercase",
     color: "#f4f5f7",
@@ -117,9 +117,10 @@ export function HotspotLabel({
   };
 
   return (
-    <Html position={position} center={false} distanceFactor={10} zIndexRange={[10, 0]}>
+    <Html position={position} center={false} zIndexRange={[10, 0]}>
       <div
         ref={wrapRef}
+        className="hcsa-hotspot"
         style={wrapStyle}
         role="note"
         aria-label={`${label}: ${source}`}
@@ -134,7 +135,7 @@ export function HotspotLabel({
         >
           <span aria-hidden style={dotStyle} />
           <span aria-hidden style={lineStyle} />
-          <span tabIndex={0} style={chipStyle}>
+          <span style={chipStyle}>
             {label}
           </span>
         </div>

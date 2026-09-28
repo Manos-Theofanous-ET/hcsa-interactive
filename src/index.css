@@ -107,7 +107,32 @@ body {
 .hcsa-corner table {
   margin: 0;
   max-width: min(46ch, 45vw);
-  font-size: 0.68rem;
+  font-size: 0.8rem;
+}
+
+/* Legibility over the 3D scene: the spec table and the caption sit on a
+   dark glass card; the eyebrow and headline get a soft shadow. */
+.hcsa-corner-bl,
+.hcsa-corner-br {
+  background: rgba(3, 6, 10, 0.78);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+}
+.hcsa-corner-bl { padding: 0.35rem 0.4rem 0.6rem; }
+.hcsa-corner-bl > p { margin: 0.6rem 0.85rem 0; }
+.hcsa-corner-br { padding: 0.8rem 1rem; }
+.hcsa-corner-tl,
+.hcsa-corner-tr {
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.9), 0 0 2px rgba(0, 0, 0, 0.7);
+}
+.hcsa-overlay-layer .hcsa-corner-bl table { margin: 0; border-top: 0; border-bottom: 0; }
+.hcsa-overlay-layer .hcsa-corner-bl thead th { background: transparent; }
+
+/* 3D labels are for the big screen; on phones the tables carry the facts. */
+@media (max-width: 767px) {
+  .hcsa-hotspot { display: none !important; }
 }
 
 /* Mobile: stop pretending it's a corner layout and stack. */
@@ -116,6 +141,16 @@ body {
     position: static;
     max-width: none;
     margin-bottom: 1.5rem;
+  }
+  .hcsa-corner table { max-width: none; width: 100%; font-size: 0.82rem; }
+  /* On phones the headline sits over the busiest part of the scene. */
+  .hcsa-corner-tr {
+    background: rgba(3, 6, 10, 0.6);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border-radius: 6px;
+    padding: 0.6rem 0.8rem;
+    align-self: flex-start;
   }
   .hcsa-corner-tr { text-align: left; }
   .hcsa-corner-br { text-align: left; }
@@ -136,7 +171,7 @@ body {
   border-collapse: collapse;
   margin: 1.5rem 0;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   line-height: 1.5;
   letter-spacing: 0.06em;
   color: rgba(244, 245, 247, 0.92);
@@ -146,8 +181,8 @@ body {
 
 .hcsa-overlay-layer thead th {
   text-transform: uppercase;
-  letter-spacing: 0.18em;
-  font-size: 0.64rem;
+  letter-spacing: 0.16em;
+  font-size: 0.7rem;
   color: var(--color-accent-cyan);
   padding: 0.65rem 0.85rem 0.55rem;
   text-align: left;
@@ -265,3 +300,45 @@ body {
 
 /* Keeps the hero title and intro legible over the bright Earth. */
 .hcsa-hero-text { text-shadow: 0 1px 14px rgba(0, 0, 0, 0.85), 0 0 2px rgba(0, 0, 0, 0.6); }
+
+/* Top bar that appears past the hero (see overlay/SiteBar.tsx). */
+.hcsa-sitebar {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 40;
+  background: rgba(0, 0, 0, 0.82);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transform: translateY(-100%);
+  transition: transform 260ms ease;
+}
+.hcsa-sitebar[data-show="true"] { transform: translateY(0); }
+.hcsa-sitebar-inner {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  height: 52px;
+  padding: 0 clamp(1rem, 3.2vw, 3rem);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+.hcsa-sitebar a { color: rgba(244, 245, 247, 0.85); text-decoration: none; white-space: nowrap; }
+.hcsa-sitebar a:hover { color: #fff; }
+.hcsa-sitebar a:focus-visible { outline: 1px solid var(--color-accent-cyan); outline-offset: 4px; }
+.hcsa-sitebar-brand { font-weight: 700; margin-right: auto; color: #fff !important; }
+.hcsa-sitebar-cta {
+  border: 1px solid var(--color-accent-cyan);
+  border-radius: 999px;
+  padding: 6px 12px;
+  color: var(--color-accent-cyan) !important;
+}
+.hcsa-sitebar-cta:hover { background: var(--color-accent-cyan); color: #000 !important; }
+@media (max-width: 639px) {
+  .hcsa-sitebar-inner { gap: 1rem; letter-spacing: 0.12em; font-size: 10.5px; }
+  .hcsa-sitebar-wide { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hcsa-sitebar { transition: none; }
+}

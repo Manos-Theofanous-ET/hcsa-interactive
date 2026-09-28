@@ -68,6 +68,7 @@ th{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:up
 td.date{font-family:var(--mono);font-size:14px;white-space:nowrap;color:var(--ink2)}
 .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
 .group{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--cyan);padding-top:22px}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 .tag{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:2px 6px;border-radius:2px;border:1px solid var(--line);color:var(--ink3);white-space:nowrap}
 .tag.done{border-color:rgba(0,240,255,.6);color:var(--cyan)}
 figure{margin:0}
@@ -373,7 +374,7 @@ def plan():
 <section id="milestones"><div class="wrap">
 <p class="eyebrow">By 11 December</p>
 <h2>What we will finish this fall.</h2>
-<div class="tablewrap"><table class="stack"><thead><tr><th>Date</th><th>What</th><th></th></tr></thead><tbody>{ms}</tbody></table></div>
+<div class="tablewrap"><table class="stack"><thead><tr><th>Date</th><th>What</th><th><span class="sr">Status</span></th></tr></thead><tbody>{ms}</tbody></table></div>
 <p class="muted" style="margin-top:16px">After this fall: in spring 2027 we run the T1 and T2 tests under pressure, check the computer model against them, and design the corner seal. In spring 2028 the work becomes a capstone project.</p>
 </div></section>
 

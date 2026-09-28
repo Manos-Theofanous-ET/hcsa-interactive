@@ -46,17 +46,17 @@ export function HeroChapter() {
     >
       {/* TL: site mark */}
       <header className="flex items-start justify-between gap-6">
-        <div className="data text-[10px] uppercase tracking-[0.35em] text-white/75">
+        <div className="data text-[11px] uppercase tracking-[0.3em] text-white/90">
           HCSA
-          <span className="mx-2 text-white/30">/</span>
-          <span className="text-white/50">Brown University</span>
+          <span className="mx-2 text-white/40">/</span>
+          <span className="text-white/70">Brown University</span>
         </div>
         {/* Sponsors land here first: give them a direct path to the
             gallery and the sponsor section below the 3D story. */}
-        <nav aria-label="Quick links" className="data flex flex-wrap items-center justify-end gap-x-5 gap-y-2 text-[10px] uppercase tracking-[0.3em]">
-          <a href="/plan/" className="text-white/70 hover:text-white">The plan</a>
-          <a href="/blueprints/" className="text-white/70 hover:text-white">Blueprints</a>
-          <a href="#work" className="hidden text-white/70 hover:text-white sm:inline">Our work</a>
+        <nav aria-label="Quick links" className="data flex flex-wrap items-center justify-end gap-x-5 gap-y-2 text-[11px] uppercase tracking-[0.25em]">
+          <a href="/plan/" className="text-white/85 hover:text-white">The plan</a>
+          <a href="/blueprints/" className="text-white/85 hover:text-white">Blueprints</a>
+          <a href="#work" className="hidden text-white/85 hover:text-white sm:inline">Our work</a>
           <a
             href="#sponsor"
             className="rounded-full border border-[color:var(--color-accent-cyan)] px-3 py-1.5 text-[color:var(--color-accent-cyan)] hover:bg-[color:var(--color-accent-cyan)] hover:text-black"
@@ -96,13 +96,13 @@ export function HeroChapter() {
 
       {/* BL: scroll cue. BR: phase count (decorative, mirrors igloo corner chrome). */}
       <footer className="flex items-end justify-between">
-        <div className="flex items-center gap-3 text-white/45">
-          <span className="data text-[10px] uppercase tracking-[0.35em]">Scroll to explore</span>
+        <div className="flex items-center gap-3 text-white/75">
+          <span className="data text-[11px] uppercase tracking-[0.3em]">Scroll to explore</span>
           <span className="block h-[1px] w-10 bg-white/30">
             <span className="block h-full w-full origin-left scale-x-0 bg-[color:var(--color-accent-cyan)] [animation:hcsa-scroll-cue_2.4s_ease-in-out_infinite]" />
           </span>
         </div>
-        <div className="data hidden text-right text-[9px] uppercase tracking-[0.35em] text-white/30 md:block">
+        <div className="data hidden text-right text-[10px] uppercase tracking-[0.3em] text-white/55 md:block">
           01 / 09
         </div>
       </footer>

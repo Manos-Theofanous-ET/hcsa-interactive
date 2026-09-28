@@ -55,20 +55,6 @@ export const HOTSPOTS: readonly HotspotDef[] = [
   // The seven teardown slabs stack radially outward from world origin along
   // a single face normal. Place labels near that stack.
   {
-    position: [0.0, 0.0, 2.6],
-    label: `${N.frame_depth.display} thick`,
-    source: "Total thickness of one window panel",
-    phaseRange: [0.5, 0.65],
-    tone: "cyan",
-  },
-  {
-    position: [0.5, 0.3, 2.0],
-    label: `${N.panel_layers.display} layers, space to cabin`,
-    source: "Shield, frame, solar cells, tint, gas layer, shade, inner frame",
-    phaseRange: [0.5, 0.65],
-    tone: "cyan",
-  },
-  {
     position: [-0.6, 0.0, 2.4],
     label: "Aluminium frame",
     source: "Carries the air pressure load so the glass does not have to",
@@ -136,12 +122,5 @@ export const HOTSPOTS: readonly HotspotDef[] = [
     source: "Red pipes carry heat out, blue pipes bring clean water back",
     phaseRange: [0.75, 0.85],
     tone: "orange",
-  },
-  {
-    position: [0.0, 0.8, 0.6],
-    label: "Station core",
-    source: "The main axis that runs through the middle of the station",
-    phaseRange: [0.75, 0.85],
-    tone: "cyan",
   },
 ];

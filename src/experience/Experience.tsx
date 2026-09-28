@@ -61,7 +61,7 @@ export function Experience() {
     <>
       <ScrollProgress progressRef={progressRef} />
       <SceneErrorBoundary fallback={<ReducedMotionFallback progressRef={progressRef} />}>
-        <div className="hcsa-canvas-layer">
+        <div className="hcsa-canvas-layer" aria-hidden="true">
           <Canvas
             dpr={[1, 2]}
             shadows

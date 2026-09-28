@@ -1,6 +1,7 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect } from "react";
+import { sceneProgress } from "@/lib/filmProgress";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -27,12 +28,13 @@ export function ScrollProgress({ progressRef }: Props) {
       end: film ? "bottom bottom" : "max",
       scrub: true,
       onUpdate: (self) => {
-        progressRef.current = self.progress;
+        // Scene phases follow the chapter on screen (see lib/filmProgress).
+        progressRef.current = sceneProgress(self.progress);
       },
     });
 
     // Sync progressRef with any existing scroll on mount.
-    progressRef.current = st.progress;
+    progressRef.current = sceneProgress(st.progress);
 
     // Refresh once after first paint so ScrollTrigger measures the final
     // overlay height (MDX + images + fonts may still be settling).

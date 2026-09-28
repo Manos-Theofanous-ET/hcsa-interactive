@@ -48,7 +48,7 @@ export function GallerySection() {
             onClick={() => setTab(c.id)}
             className="data rounded-full border px-4 py-2 text-[11px] uppercase tracking-[0.2em] transition-colors aria-selected:border-[color:var(--color-accent-cyan)] aria-selected:text-[color:var(--color-accent-cyan)] border-white/20 text-white/70 hover:text-white"
           >
-            {c.title} <span className="text-white/40">{c.items.length}</span>
+            {c.title} <span className="text-white/65">{c.items.length}</span>
           </button>
         ))}
       </div>
@@ -75,7 +75,7 @@ export function GallerySection() {
               >
                 <img
                   src={src(item.file, true)}
-                  alt={item.caption}
+                  alt=""
                   width={item.w}
                   height={item.h}
                   loading="lazy"
@@ -117,7 +117,7 @@ export function GallerySection() {
               </button>
               <span className="text-center text-base">
                 {current.caption}
-                <span className="data ml-3 text-xs text-white/40">
+                <span className="data ml-3 text-xs text-white/65">
                   {(open ?? 0) + 1} / {items.length}
                 </span>
               </span>

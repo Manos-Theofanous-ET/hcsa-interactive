@@ -1,6 +1,7 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef } from "react";
+import { chapterRawProgress, sceneProgress } from "@/lib/filmProgress";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -50,10 +51,12 @@ export function PhaseRail() {
       onLeave: () => setVisible(false),
       onEnterBack: () => setVisible(true),
       onUpdate: (self) => {
-        const p = self.progress;
+        const raw = self.progress;
         if (fillRef.current) {
-          fillRef.current.style.transform = `scaleY(${p})`;
+          fillRef.current.style.transform = `scaleY(${raw})`;
         }
+        // Same mapping as the scene, so the rail names the chapter on screen.
+        const p = sceneProgress(raw);
         // Find the active phase by range containment; swap the pulse
         // styling only when it changes (cheap attribute mutation).
         const active = PHASES.find((ph) => p >= ph.start && p <= ph.end) ?? PHASES[PHASES.length - 1]!;
@@ -77,12 +80,12 @@ export function PhaseRail() {
     return () => st.kill();
   }, []);
 
-  // Smooth-scroll to a phase's scroll-range midpoint on dot click.
-  const jumpTo = (start: number, end: number) => {
+  // Smooth-scroll to the chapter itself on dot click.
+  const jumpTo = (idx: number) => {
     const film = document.getElementById("film");
-    const target = (film?.offsetHeight ?? document.documentElement.scrollHeight) - window.innerHeight;
-    const mid = (start + end) / 2;
-    window.scrollTo({ top: target * mid, behavior: "smooth" });
+    const span = (film?.offsetHeight ?? document.documentElement.scrollHeight) - window.innerHeight;
+    const top = (film?.offsetTop ?? 0) + span * chapterRawProgress(idx);
+    window.scrollTo({ top, behavior: "smooth" });
   };
 
   return (
@@ -93,7 +96,7 @@ export function PhaseRail() {
     >
       <span
         ref={labelRef}
-        className="data pointer-events-none text-[9px] uppercase tracking-[0.35em] text-white/70"
+        className="data pointer-events-none text-[10px] uppercase tracking-[0.3em] text-white/85 [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]"
       >
         Intro
       </span>
@@ -114,13 +117,13 @@ export function PhaseRail() {
             }}
             type="button"
             aria-label={`Jump to part ${ph.idx}: ${ph.label}`}
-            onClick={() => jumpTo(ph.start, ph.end)}
-            className="hcsa-rail-dot absolute left-1/2 h-[6px] w-[6px] -translate-x-1/2 rounded-full bg-white/30 hover:bg-white/80 focus:outline-none focus-visible:ring-1 focus-visible:ring-[color:var(--color-accent-cyan)]"
-            style={{ top: `calc(${(i / (PHASES.length - 1)) * 100}% - 3px)` }}
+            onClick={() => jumpTo(ph.idx)}
+            className="hcsa-rail-dot absolute left-1/2 h-[8px] w-[8px] -translate-x-1/2 rounded-full bg-white/45 hover:bg-white/90 focus:outline-none focus-visible:ring-1 focus-visible:ring-[color:var(--color-accent-cyan)]"
+            style={{ top: `calc(${(i / (PHASES.length - 1)) * 100}% - 4px)` }}
           />
         ))}
       </div>
-      <span className="data pointer-events-none text-[9px] uppercase tracking-[0.35em] text-white/30">
+      <span className="data pointer-events-none text-[10px] uppercase tracking-[0.3em] text-white/60 [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]">
         <span ref={countRef}>1</span> / {PHASES.length}
       </span>
     </nav>
