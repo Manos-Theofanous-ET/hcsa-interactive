@@ -189,23 +189,23 @@ export const NUMERICS = {
   coupon_size: {
     value: 550,
     unit: "mm",
-    label: "Physical joint test piece (P5 coupon)",
+    label: "Physical joint test piece (T1 joint article)",
     display: "550 mm",
     source: "public/assets/blueprints/page-14.png (Validation Roadmap)",
   },
   roadmap_current: {
-    value: 5,
+    value: 3,
     unit: "step",
     label: "Current roadmap step",
-    display: "5",
-    source: "content/chapters/08-validation.mdx (P1–P7 roadmap)",
+    display: "3",
+    source: "content/chapters/08-validation.mdx (fall plan, public/plan/, 28 Sep 2026)",
   },
   roadmap_total: {
     value: 7,
     unit: "steps",
     label: "Roadmap steps",
     display: "7",
-    source: "content/chapters/08-validation.mdx (P1–P7 roadmap)",
+    source: "content/chapters/08-validation.mdx (fall plan, public/plan/, 28 Sep 2026)",
   },
 } as const satisfies Record<string, Numeric>;
 

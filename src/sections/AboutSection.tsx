@@ -26,7 +26,7 @@ export function AboutSection() {
           <p>
             We are a student team at Brown University, supported by Brown's UTRA research program and
             our faculty advisors. We are on step {N.roadmap_current.display} of {N.roadmap_total.display}:
-            building and testing a real piece of the panel joint.
+            testing our glass and the seam between two panels, on real hardware.
           </p>
         </div>
         <div className="rounded-sm border border-white/10 bg-white/[0.03] p-6">

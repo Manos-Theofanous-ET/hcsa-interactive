@@ -21,7 +21,7 @@ export function SponsorSection() {
         id="sponsor"
         eyebrow="Sponsor us"
         title="Help turn a design into hardware."
-        intro="The design is done and tested on the computer. The next steps need real parts, real machining and real pressure tests. That is where your support goes."
+        intro="The design is drawn in full, down to every bolt. The next steps need real parts, real machining and real tests. That is where your support goes."
       />
 
       <div className="grid gap-14 lg:grid-cols-2">

@@ -68,7 +68,7 @@ export function HeroChapter() {
 
       {/* Display title, anchored low-left. The canvas behind is the subject. */}
       <div className="pointer-events-none flex flex-1 items-end pb-8">
-        <div className="max-w-md space-y-4">
+        <div className="hcsa-hero-text max-w-md space-y-4">
           <p
             className="hcsa-rise data text-[10px] uppercase tracking-[0.35em] text-[color:var(--color-accent-cyan)]"
             style={{ ["--stagger" as string]: "0ms" }}

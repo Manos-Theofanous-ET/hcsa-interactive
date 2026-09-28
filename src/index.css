@@ -249,3 +249,19 @@ body {
 .hcsa-hero-intro p {
   margin: 0;
 }
+
+/* Reduced-motion poster: the "Play teardown" button sits above the hero's
+   01 / 09 counter on wider screens (the counter is hidden on phones). */
+.hcsa-teardown-btn {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 20;
+  pointer-events: auto;
+}
+@media (min-width: 768px) {
+  .hcsa-teardown-btn { bottom: 64px; }
+}
+
+/* Keeps the hero title and intro legible over the bright Earth. */
+.hcsa-hero-text { text-shadow: 0 1px 14px rgba(0, 0, 0, 0.85), 0 0 2px rgba(0, 0, 0, 0.6); }

@@ -122,7 +122,7 @@ export function HotspotLabel({
         ref={wrapRef}
         style={wrapStyle}
         role="note"
-        aria-label={`${label} — ${source}`}
+        aria-label={`${label}: ${source}`}
       >
         <div
           style={{

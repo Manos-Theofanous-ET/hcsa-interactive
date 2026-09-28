@@ -66,7 +66,7 @@ export function ReducedMotionFallback({ progressRef }: Props) {
   return (
     <div
       className="hcsa-canvas-layer"
-      aria-label="HCSA habitat — reduced-motion poster view"
+      aria-label="HCSA station, still images for reduced motion"
       role="img"
     >
       {PHASE_RANGES.map(([phase], i) => (
@@ -76,7 +76,7 @@ export function ReducedMotionFallback({ progressRef }: Props) {
             imgRefs.current[i] = el;
           }}
           src={`/fallback/phase_${phase}.png`}
-          alt={`Phase ${phase} — reduced-motion still`}
+          alt={`Still image of step ${phase}`}
           loading={phase === 1 ? "eager" : "lazy"}
           style={{
             position: "fixed",
@@ -94,15 +94,7 @@ export function ReducedMotionFallback({ progressRef }: Props) {
       {/* Manual play-on-demand teardown video. Behind a button so it does
           NOT auto-play — only user-initiated motion is allowed when the
           prefers-reduced-motion media query is active. */}
-      <div
-        style={{
-          position: "fixed",
-          bottom: 24,
-          right: 24,
-          pointerEvents: "auto",
-          zIndex: 20,
-        }}
-      >
+      <div className="hcsa-teardown-btn">
         {!videoOpen ? (
           <button
             type="button"

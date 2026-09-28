@@ -13,7 +13,7 @@ PUB = os.path.join(HERE, "..", "..", "public")
 DATA = json.load(open(os.path.join(HERE, "blueprints-data.json")))
 SIZES = json.load(open(os.path.join(HERE, "image-sizes.json")))
 PDF = "/downloads/HCSA-Rev-S-drawings-explained-26-Sep-2026.pdf"
-UPDATED = "26 September 2026"
+UPDATED = "28 September 2026"
 
 
 def e(s):
@@ -91,7 +91,7 @@ footer{padding:40px 0 64px;color:var(--ink3);font-size:15px}
 #lb .bar{position:absolute;top:10px;right:12px;display:flex;gap:8px}
 #lb .bar button{font-family:var(--mono);font-size:13px;background:rgba(255,255,255,.08);color:var(--ink);border:1px solid var(--line);padding:8px 12px;border-radius:2px;cursor:pointer}
 section,header{scroll-margin-top:64px}
-@media(max-width:640px){.top .wrap{gap:14px}.top a{font-size:11px;letter-spacing:.1em}
+@media(max-width:640px){.top a.wide-only{display:none}.top .wrap{gap:14px}.top a{font-size:11px;letter-spacing:.1em}
 table.stack thead{display:none}table.stack tr{display:block;border-bottom:1px solid var(--line);padding:12px 0}
 table.stack td{display:block;border:0;padding:2px 0}table.stack td.date{white-space:normal;color:var(--cyan)}
 table.stack td.group{padding-top:18px}}
@@ -123,7 +123,7 @@ LIGHTBOX = """
 
 def page(title, desc, current, body, lightbox=False):
     nav = [("/", "HCSA", "brand"), ("/plan/", "The plan", ""), ("/blueprints/", "Blueprints", ""),
-           ("/#work", "Concept art", ""), ("/#sponsor", "Sponsor", "")]
+           ("/#work", "Concept art", "wide-only"), ("/#sponsor", "Sponsor", "")]
     cur = ' aria-current="page"'
     links = "".join(
         f'<a href="{h}" class="{c}"{cur if h == current else ""}>{e(t)}</a>' for h, t, c in nav)
@@ -138,7 +138,9 @@ def page(title, desc, current, body, lightbox=False):
 <meta name="description" content="{e(desc)}">
 <meta property="og:title" content="{e(title)}">
 <meta property="og:description" content="{e(desc)}">
-<meta property="og:image" content="/blueprints/img/3d_render-01_shell_exterior.webp">
+<meta property="og:image" content="https://hcsa-site.vercel.app/og-blueprints.jpg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <style>{CSS}</style>
 </head>
@@ -247,10 +249,10 @@ def blueprints():
 
 # ---------------------------------------------------------------- plan
 MILESTONES = [
-    ("27 Sep", "15 requirements for the seam, each with its source", "Drafted"),
-    ("27 Sep", "Load cases for the seam, with the two hand estimates reconciled", "Drafted"),
+    ("27 Sep", "15 requirements for the seam, each with its source", "Sent to advisor"),
+    ("27 Sep", "Load cases for the seam, with the two hand estimates reconciled", "Sent to advisor"),
     ("4 Oct", "Glass and frame materials chosen, from published design data", ""),
-    ("11 Oct", "Design strength of the glass, from the T0 discs, scaled up to a full pane", ""),
+    ("11 Oct", "Design strength of the glass from published data, scaled up to a full pane; the T0 discs check it later in October", ""),
     ("18 Oct", "First computer model (FEA) of the seam and one panel; rib depth settled", ""),
     ("25 Oct", "Seam design Rev D, with the open decisions closed", ""),
     ("1 Nov", "Parts memo, with the bolt part number confirmed", ""),
