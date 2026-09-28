@@ -96,7 +96,7 @@ export function PhaseRail() {
     >
       <span
         ref={labelRef}
-        className="data pointer-events-none text-[10px] uppercase tracking-[0.3em] text-white/85 [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]"
+        className="data pointer-events-none text-[10px] uppercase tracking-[0.1em] text-white/85 [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]"
       >
         Intro
       </span>
@@ -106,7 +106,7 @@ export function PhaseRail() {
         <span
           aria-hidden
           ref={fillRef}
-          className="hcsa-rail-fill absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-[color:var(--color-accent-cyan)]"
+          className="hcsa-rail-fill absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-white/70"
         />
         {/* 9 dots, evenly spaced along the rail */}
         {PHASES.map((ph, i) => (
@@ -123,7 +123,7 @@ export function PhaseRail() {
           />
         ))}
       </div>
-      <span className="data pointer-events-none text-[10px] uppercase tracking-[0.3em] text-white/60 [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]">
+      <span className="data pointer-events-none text-[10px] uppercase tracking-[0.1em] text-white/60 [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]">
         <span ref={countRef}>1</span> / {PHASES.length}
       </span>
     </nav>

@@ -46,7 +46,7 @@ export function GallerySection() {
             aria-selected={c.id === tab}
             aria-controls="work-panel"
             onClick={() => setTab(c.id)}
-            className="data rounded-full border px-4 py-2 text-[11px] uppercase tracking-[0.2em] transition-colors aria-selected:border-[color:var(--color-accent-cyan)] aria-selected:text-[color:var(--color-accent-cyan)] border-white/20 text-white/70 hover:text-white"
+            className="data rounded-full border px-4 py-2 text-[11px] uppercase tracking-[0.1em] transition-colors aria-selected:border-[color:var(--color-accent-cyan)] aria-selected:text-[color:var(--color-accent-cyan)] border-white/20 text-white/70 hover:text-white"
           >
             {c.title} <span className="text-white/65">{c.items.length}</span>
           </button>
@@ -59,7 +59,7 @@ export function GallerySection() {
           <p className="-mt-3 mb-6">
             <a
               href={category.link.href}
-              className="data text-[12px] uppercase tracking-[0.2em] text-[color:var(--color-accent-cyan)] underline underline-offset-4"
+              className="data text-[12px] uppercase tracking-[0.1em] text-[color:var(--color-accent-cyan)] underline underline-offset-4"
             >
               {category.link.label}
             </a>

@@ -35,7 +35,7 @@ export function ChapterStub({ id, index, title, statement, why, children }: Prop
     >
       {/* TL: phase eyebrow */}
       <div className="hcsa-corner hcsa-corner-tl">
-        <p className="data text-[11px] uppercase tracking-[0.3em] text-[color:var(--color-accent-cyan)]">
+        <p className="data text-[11px] uppercase tracking-[0.1em] text-[color:var(--color-accent-cyan)]">
           Part&nbsp;{phaseCode}
           <span className="mx-2 text-white/25">/</span>
           <span className="text-white/85">{title}</span>

@@ -30,7 +30,7 @@ export function AboutSection() {
           </p>
         </div>
         <div className="rounded-sm border border-white/10 bg-white/[0.03] p-6">
-          <h3 className="data mb-4 text-[11px] uppercase tracking-[0.25em] text-white/60">
+          <h3 className="data mb-4 text-[11px] uppercase tracking-[0.1em] text-white/60">
             What we are working on now
           </h3>
           <ul className="space-y-4 text-base leading-relaxed text-white/80">
@@ -42,10 +42,10 @@ export function AboutSection() {
             ))}
           </ul>
           <p className="mt-6 flex flex-wrap gap-3">
-            <a href="/plan/" className="data rounded-sm border border-[color:var(--color-accent-cyan)] px-4 py-2 text-[11px] uppercase tracking-[0.2em] text-white hover:bg-[color:var(--color-accent-cyan)]/10">
+            <a href="/plan/" className="data rounded-sm border border-[color:var(--color-accent-cyan)] px-4 py-2 text-[11px] uppercase tracking-[0.1em] text-white hover:bg-[color:var(--color-accent-cyan)]/10">
               The fall plan
             </a>
-            <a href="/blueprints/" className="data rounded-sm border border-[color:var(--color-accent-cyan)] px-4 py-2 text-[11px] uppercase tracking-[0.2em] text-white hover:bg-[color:var(--color-accent-cyan)]/10">
+            <a href="/blueprints/" className="data rounded-sm border border-[color:var(--color-accent-cyan)] px-4 py-2 text-[11px] uppercase tracking-[0.1em] text-white hover:bg-[color:var(--color-accent-cyan)]/10">
               The blueprints
             </a>
           </p>

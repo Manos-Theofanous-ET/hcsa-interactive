@@ -201,7 +201,8 @@ function applyPhase(p: PhaseLike, reg: SceneRegistry) {
   // Emissive strength (cyan wireframe + water loops + plant LEDs).
   const wf = reg.materials.wireframe;
   if (wf && "emissiveIntensity" in wf) {
-    wf.emissiveIntensity = p.emissive.wireframe_cyan;
+    // Scaled down: the edges should read as a quiet highlight, not a glow.
+    wf.emissiveIntensity = p.emissive.wireframe_cyan * 0.3;
   }
   // Plant-tray grow LEDs (Phase 6 greenhouse reveal). Applied to every tray
   // material we collected; water loops get their pulse in applyWaterPulse.

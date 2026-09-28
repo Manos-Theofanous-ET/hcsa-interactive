@@ -4,13 +4,17 @@
   --color-ink-0: #000000;
   --color-ink-1: #0a0b0d;
   --color-ink-2: #14161a;
-  --color-ink-9: #f4f5f7;
-  --color-accent-cyan: #00f0ff;
-  --color-accent-biology: #00ff66;
-  --color-accent-thermal: #ff4d00;
-  --color-accent-water: #1a8cff;
+  --color-ink-9: #f1efea;
+  /* One restrained accent (warm stone) for eyebrows, the active state and
+     the call to action. The token keeps its old name so every component
+     picks up the new colour. */
+  --color-accent-cyan: #c9b48f;
+  --color-accent-biology: #9cbf95;
+  --color-accent-thermal: #d08a63;
+  --color-accent-water: #8eaed6;
   --font-serif: "Fraunces", ui-serif, Georgia, serif;
-  --font-mono: "Space Mono", ui-monospace, "SFMono-Regular", monospace;
+  --font-sans: "Inter Variable", "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: var(--font-sans);
 }
 
 html, body, #root {
@@ -41,8 +45,10 @@ body {
 
 /* Monospace for data labels (diagnostic mode). */
 .data {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
+  font-weight: 500;
   letter-spacing: 0.02em;
+  font-feature-settings: "tnum" 1;
 }
 
 @keyframes hcsa-scroll-cue {
@@ -68,7 +74,7 @@ body {
   will-change: transform, opacity, filter;
 }
 
-/* Phase rail: cyan fill scales from top based on scroll progress. */
+/* Phase rail: fill scales from top based on scroll progress. */
 .hcsa-rail-fill {
   transform-origin: top;
   transform: scaleY(0);
@@ -79,8 +85,8 @@ body {
   transition: transform 0.3s ease, background-color 0.3s ease;
 }
 .hcsa-rail-dot[data-active="true"] {
-  transform: scale(1.6);
-  background-color: var(--color-accent-cyan);
+  transform: scale(1.5);
+  background-color: #fff;
 }
 
 /* --- Corner-anchored chapter layout ------------------------------------
@@ -170,24 +176,26 @@ body {
   width: 100%;
   border-collapse: collapse;
   margin: 1.5rem 0;
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
+  font-family: var(--font-sans);
+  font-size: 0.86rem;
   line-height: 1.5;
-  letter-spacing: 0.06em;
-  color: rgba(244, 245, 247, 0.92);
-  border-top: 1px solid color-mix(in srgb, var(--color-accent-cyan) 45%, transparent);
-  border-bottom: 1px solid color-mix(in srgb, var(--color-accent-cyan) 45%, transparent);
+  letter-spacing: 0;
+  font-feature-settings: "tnum" 1;
+  color: rgba(241, 239, 234, 0.86);
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
 }
 
 .hcsa-overlay-layer thead th {
   text-transform: uppercase;
-  letter-spacing: 0.16em;
-  font-size: 0.7rem;
-  color: var(--color-accent-cyan);
+  letter-spacing: 0.1em;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: rgba(241, 239, 234, 0.6);
   padding: 0.65rem 0.85rem 0.55rem;
   text-align: left;
   vertical-align: bottom;
-  border-bottom: 1px solid color-mix(in srgb, var(--color-accent-cyan) 45%, transparent);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
   background: rgba(0, 0, 0, 0.3);
 }
 
@@ -209,7 +217,7 @@ body {
 
 /* Numeric values in <strong> get the cyan signal color. */
 .hcsa-overlay-layer table strong {
-  color: var(--color-accent-cyan);
+  color: #fff;
   font-weight: 600;
 }
 
@@ -264,7 +272,7 @@ body {
   background: rgba(0, 0, 0, 0.8);
 }
 .hcsa-viewer-btn {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 1.1rem;
   width: 2.75rem;
   height: 2.75rem;
@@ -320,8 +328,8 @@ body {
   gap: 1.5rem;
   height: 52px;
   padding: 0 clamp(1rem, 3.2vw, 3rem);
-  font-size: 11px;
-  letter-spacing: 0.22em;
+  font-size: 12px;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 .hcsa-sitebar a { color: rgba(244, 245, 247, 0.85); text-decoration: none; white-space: nowrap; }
@@ -336,7 +344,7 @@ body {
 }
 .hcsa-sitebar-cta:hover { background: var(--color-accent-cyan); color: #000 !important; }
 @media (max-width: 639px) {
-  .hcsa-sitebar-inner { gap: 1rem; letter-spacing: 0.12em; font-size: 10.5px; }
+  .hcsa-sitebar-inner { gap: 1rem; letter-spacing: 0.05em; font-size: 11px; }
   .hcsa-sitebar-wide { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {

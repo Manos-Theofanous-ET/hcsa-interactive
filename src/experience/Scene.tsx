@@ -289,6 +289,9 @@ export function Scene({ registry }: Props) {
           reg.materials.wireframe = mat;
           mat.transparent = true;
           mat.opacity = 0;
+          // Soft silver edge highlight rather than a neon cyan outline.
+          if ("color" in mat && mat.color) (mat.color as Color).set("#d9dde3");
+          if ("emissive" in mat && mat.emissive) (mat.emissive as Color).set("#cfd6de");
           reg.wireframeMesh = mesh;
         } else if (name.startsWith("BEAM_WATER_RED") && !reg.materials.waterRed) {
           reg.materials.waterRed = mat;
@@ -668,8 +671,8 @@ export function Scene({ registry }: Props) {
           an emissive outline. */}
       <directionalLight
         position={[-6, -4, -22]}
-        intensity={1.6}
-        color="#80d8ff"
+        intensity={1.3}
+        color="#dfe6ef"
       />
       {/* Earth-shine bounce — warm orange from below, simulating reflected
           light off the dayside Earth when the habitat is in daylight

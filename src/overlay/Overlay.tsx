@@ -112,7 +112,7 @@ export function Overlay() {
         <SponsorSection />
         <TeamSection />
         <footer className="px-6 py-16 text-center md:px-16">
-          <p className="data text-[11px] uppercase tracking-[0.3em] text-white/65">
+          <p className="data text-[11px] uppercase tracking-[0.1em] text-white/65">
             Human-Centric Space Architecture, Brown University, {new Date().getFullYear()}
           </p>
         </footer>

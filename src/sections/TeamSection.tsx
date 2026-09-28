@@ -10,7 +10,7 @@ export function TeamSection() {
         {leads.map((m) => (
           <li key={m.name} className="rounded-sm border border-white/10 bg-white/[0.03] p-5">
             <p className="font-serif text-xl text-white">{m.name}</p>
-            <p className="data mt-1 text-[11px] uppercase tracking-[0.2em] text-[color:var(--color-accent-cyan)]">
+            <p className="data mt-1 text-[11px] uppercase tracking-[0.1em] text-[color:var(--color-accent-cyan)]">
               {m.role}
             </p>
             {m.focus ? <p className="mt-2 text-sm text-white/65">{m.focus}</p> : null}

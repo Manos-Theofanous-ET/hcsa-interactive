@@ -34,7 +34,7 @@ export type HotspotLabelProps = {
 };
 
 const TONE_HEX: Record<NonNullable<HotspotLabelProps["tone"]>, string> = {
-  cyan: "var(--color-accent-cyan)",
+  cyan: "rgba(241, 239, 234, 0.85)",
   green: "var(--color-accent-biology)",
   orange: "var(--color-accent-thermal)",
   blue: "var(--color-accent-water)",
@@ -89,7 +89,7 @@ export function HotspotLabel({
     height: 8,
     borderRadius: "50%",
     background: accent,
-    boxShadow: `0 0 8px ${accent}`,
+    boxShadow: "none",
     flex: "0 0 auto",
   };
 
@@ -106,10 +106,10 @@ export function HotspotLabel({
     background: "rgba(0, 0, 0, 0.8)",
     border: `1px solid ${accent}`,
     borderRadius: 2,
-    fontFamily: "var(--font-mono)",
-    fontSize: 11,
-    letterSpacing: "0.08em",
-    textTransform: "uppercase",
+    fontFamily: "var(--font-sans)",
+    fontSize: 12,
+    fontWeight: 500,
+    letterSpacing: "0.01em",
     color: "#f4f5f7",
     backdropFilter: "blur(4px)",
     WebkitBackdropFilter: "blur(4px)",

@@ -2,8 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "@fontsource/fraunces/400.css";
 import "@fontsource/fraunces/600.css";
-import "@fontsource/space-mono/400.css";
-import "@fontsource/space-mono/700.css";
+import "@fontsource-variable/inter/wght.css";
 import "./index.css";
 import { App } from "./App";
 
