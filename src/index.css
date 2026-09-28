@@ -583,3 +583,34 @@ html.hcsa-js [data-reveal][data-revealed="true"] { opacity: 1; transform: none; 
 .hcsa-footer a:hover { color: #fff; }
 .hcsa-footer-head { margin: 0 0 0.8rem; font-weight: 600; color: rgba(241, 239, 234, 0.9); }
 .hcsa-footer-base { margin: 3.5rem 0 0; font-size: 13px; color: rgba(241, 239, 234, 0.6); }
+
+/* Blueprint preview at the top of "Our work" (sections/BlueprintPreview.tsx) */
+.hcsa-bp { margin-bottom: 1rem; }
+.hcsa-bp-thumb { display: block; width: 100%; text-align: left; cursor: zoom-in; }
+.hcsa-bp-thumb img { border-radius: 2px; background: #f4f1ea; transition: opacity 300ms ease, transform 600ms var(--ease-out); }
+.hcsa-bp-thumb:hover img { opacity: 0.9; transform: translateY(-2px); }
+.hcsa-bp-thumb:focus-visible { outline: 2px solid var(--color-accent-cyan); outline-offset: 4px; }
+.hcsa-files { list-style: none; margin: 0; padding: 0; }
+.hcsa-files li:last-child .hcsa-file { border-bottom: 1px solid rgba(255, 255, 255, 0.14); }
+.hcsa-file {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.15rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  text-decoration: none;
+}
+.hcsa-file-title { font-family: var(--font-serif); font-size: 1.3rem; line-height: 1.25; color: #fff; transition: color 250ms ease; }
+.hcsa-file-meta { display: block; margin: 0.2rem 0 0; font-family: var(--font-sans); font-size: 13px; font-weight: 500; color: rgba(241, 239, 234, 0.55); font-feature-settings: "tnum" 1; white-space: nowrap; }
+.hcsa-file-action { flex: none; font-family: var(--font-sans); font-size: 14px; font-weight: 500; color: var(--color-accent-cyan); white-space: nowrap; }
+.hcsa-file-action span { display: inline-block; transition: transform 350ms var(--ease-out); }
+.hcsa-file:hover .hcsa-file-title { color: var(--color-accent-cyan); }
+.hcsa-file:hover .hcsa-file-action span { transform: translateX(4px); }
+.hcsa-file:focus-visible { outline: 1px solid var(--color-accent-cyan); outline-offset: 4px; }
+@media (max-width: 639px) {
+  .hcsa-file-meta { display: block; margin: 0.15rem 0 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hcsa-bp-thumb img, .hcsa-file-action span { transition: none; }
+}

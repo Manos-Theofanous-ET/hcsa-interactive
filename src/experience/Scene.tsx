@@ -212,8 +212,11 @@ export function Scene({ registry }: Props) {
     const reg = registry.current;
     reg.root = scene;
 
-    const hexFaceNodes: Record<string, Object3D> = {};
-    const pentFaceNodes: Record<string, Object3D> = {};
+    // Every node of a face (frame and skin) moves together in the push-out.
+    // Before, only the first node per face was registered, so the frames
+    // moved out and the glass stayed behind.
+    const hexFaceNodes: Object3D[] = [];
+    const pentFaceNodes: Object3D[] = [];
     const teardownNodes: Array<{ node: Object3D; mesh: Mesh; index: number }> = [];
     /** Nodes flagged during the traverse for post-traverse hinge assembly. */
     const pent02Meshes: Object3D[] = [];
@@ -226,17 +229,8 @@ export function Scene({ registry }: Props) {
     scene.traverse((node: Object3D) => {
       const name = node.name;
 
-      const hexMatch = name.match(/^HEX_(\d+)_(Frame|Glass|Solar)$/);
-      if (hexMatch) {
-        const [, nn] = hexMatch;
-        if (!hexFaceNodes[nn!]) hexFaceNodes[nn!] = node;
-      }
-
-      const pentMatch = name.match(/^PENT_(\d+)_(Frame|Glass)$/);
-      if (pentMatch) {
-        const [, nn] = pentMatch;
-        if (!pentFaceNodes[nn!]) pentFaceNodes[nn!] = node;
-      }
+      if (/^HEX_(\d+)_(Frame|Glass|Solar)$/.test(name)) hexFaceNodes.push(node);
+      if (/^PENT_(\d+)_(Frame|Glass)$/.test(name)) pentFaceNodes.push(node);
 
       // Phase 6 hinge collection. PENT_02_HINGE_PIVOT is a Blender empty
       // whose +X axis is the hinge axis per phase_metadata.json; the meshes
@@ -389,11 +383,11 @@ export function Scene({ registry }: Props) {
       return { node, faceNormal, initialPosition };
     };
 
-    reg.hexFaces = Object.values(hexFaceNodes)
+    reg.hexFaces = hexFaceNodes
       .map(extractFace)
       .filter((f): f is NonNullable<ReturnType<typeof extractFace>> => f !== null);
 
-    reg.pentFaces = Object.values(pentFaceNodes)
+    reg.pentFaces = pentFaceNodes
       .map(extractFace)
       .filter((f): f is NonNullable<ReturnType<typeof extractFace>> => f !== null);
 
@@ -596,6 +590,22 @@ export function Scene({ registry }: Props) {
       pv.needsUpdate = true;
     }
 
+    // --- Interior track: clean off-white instead of the red plaster texture ---
+    // The Blender export maps a red, patchy plaster photo onto the walking
+    // and cycling track, which reads as rust from inside the shell.
+    scene.traverse((node: Object3D) => {
+      const m = node as Mesh;
+      if (!m.isMesh || Array.isArray(m.material)) return;
+      const mat = m.material as MeshStandardMaterial;
+      if (mat.name === "HCSA_V3_Interior_White_Composite" && mat.map) {
+        mat.map = null;
+        mat.color.setRGB(0.86, 0.85, 0.82);
+        mat.roughness = 0.7;
+        mat.metalness = 0;
+        mat.needsUpdate = true;
+      }
+    });
+
     // --- Procedural surface detail (tuned down) ---
     // Previous intensities read as "dusty / weathered / deteriorating" when
     // the camera was close (Phase 5 teardown, Phase 6 greenhouse). User
@@ -615,7 +625,7 @@ export function Scene({ registry }: Props) {
 
     if (import.meta.env.DEV) {
       console.info(
-        `[hcsa] scene: hex=${reg.hexFaces.length}/20, pent=${reg.pentFaces.length}/11, teardown=${reg.teardownLayers.length}/7`,
+        `[hcsa] scene: hex nodes=${reg.hexFaces.length}/40, pent nodes=${reg.pentFaces.length}/22, teardown=${reg.teardownLayers.length}/7`,
       );
       const w = window as unknown as { __hcsa?: Record<string, unknown> };
       w.__hcsa = { ...(w.__hcsa ?? {}), scene };

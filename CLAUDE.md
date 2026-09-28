@@ -15,6 +15,9 @@ fullscreen canvas with HTML overlay.
   author geometry in this repo. Run `pnpm sync:geometry` to pull the
   pinned artifacts; the script fails if the GLB sha256 drifts
   (forces an intentional re-pin).
+  The 32 shell faces in `public/3d/HCSA_MAIN.glb` are then replaced by
+  the Rev S CAD shell with `scripts/revs-shell/build_site_glb.mjs` (see
+  the README there). Run it after every sync.
 - **`../internal_release_revB/`** is the team's engineering source of
   truth. Cited numerics live in `content/numerics.ts` with source file
   paths attached — update values there, not in copy.

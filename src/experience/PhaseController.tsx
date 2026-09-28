@@ -247,7 +247,15 @@ function applyHinge(
   const hinge = reg.pent02Hinge;
   if (!hinge) return;
 
-  const angleDeg = phase === 6 ? easedAngle(t, range) * HINGE_MAX_DEG : 0;
+  if (phase !== 6) {
+    // Outside the greenhouse chapter only undo the rotation; the position
+    // comes from applyPhase, so PENT_02 moves out with the other panels.
+    for (let i = 0; i < hinge.meshes.length; i += 1) {
+      hinge.meshes[i]!.quaternion.copy(hinge.initialPoses[i]!.quaternion);
+    }
+    return;
+  }
+  const angleDeg = easedAngle(t, range) * HINGE_MAX_DEG;
   const angleRad = (angleDeg * Math.PI) / 180;
   _scratchQuat.setFromAxisAngle(hinge.axisWorld, angleRad);
 
