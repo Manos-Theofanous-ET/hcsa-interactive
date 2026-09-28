@@ -1,17 +1,17 @@
 import { NUMERICS as N } from "@content/numerics";
 import { nowWorkingOn } from "@content/data/sponsors";
-import { SectionHeader } from "./SectionHeader";
+import { EditorialSection, SubHeading } from "./SectionHeader";
 
 export function AboutSection() {
   return (
-    <section id="about" aria-labelledby="about-title" className="hcsa-section">
-      <SectionHeader
-        id="about"
-        eyebrow="About the project"
-        title="A space station designed around the people who visit it."
-      />
-      <div className="grid gap-12 md:grid-cols-[1.4fr_1fr]">
-        <div className="space-y-5 text-lg leading-relaxed text-white/80">
+    <EditorialSection
+      id="about"
+      index="01"
+      label="About the project"
+      title="A space station designed around the people who visit it."
+    >
+      <div className="grid gap-14 lg:grid-cols-[1.35fr_1fr]">
+        <div className="space-y-5 text-lg leading-relaxed text-white/80" data-reveal>
           <p>
             Most space stations are rows of metal tubes with a few small windows. Human-Centric Space
             Architecture (HCSA) is a round station whose walls are mostly windows, so the people inside
@@ -29,28 +29,23 @@ export function AboutSection() {
             testing our glass and the seam between two panels, on real hardware.
           </p>
         </div>
-        <div className="rounded-sm border border-white/10 bg-white/[0.03] p-6">
-          <h3 className="data mb-4 text-[11px] uppercase tracking-[0.1em] text-white/60">
-            What we are working on now
-          </h3>
-          <ul className="space-y-4 text-base leading-relaxed text-white/80">
+        <div data-reveal>
+          <SubHeading>What we are working on now</SubHeading>
+          <ol className="hcsa-numbered">
             {nowWorkingOn.map((item) => (
-              <li key={item} className="flex gap-3">
-                <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[color:var(--color-accent-cyan)]" />
-                <span>{item}</span>
-              </li>
+              <li key={item}>{item}</li>
             ))}
-          </ul>
-          <p className="mt-6 flex flex-wrap gap-3">
-            <a href="/plan/" className="data rounded-sm border border-[color:var(--color-accent-cyan)] px-4 py-2 text-[11px] uppercase tracking-[0.1em] text-white hover:bg-[color:var(--color-accent-cyan)]/10">
-              The fall plan
+          </ol>
+          <p className="mt-8 flex flex-wrap gap-x-8 gap-y-3">
+            <a href="/plan/" className="hcsa-textlink">
+              The fall plan <span aria-hidden>→</span>
             </a>
-            <a href="/blueprints/" className="data rounded-sm border border-[color:var(--color-accent-cyan)] px-4 py-2 text-[11px] uppercase tracking-[0.1em] text-white hover:bg-[color:var(--color-accent-cyan)]/10">
-              The blueprints
+            <a href="/blueprints/" className="hcsa-textlink">
+              The blueprints <span aria-hidden>→</span>
             </a>
           </p>
         </div>
       </div>
-    </section>
+    </EditorialSection>
   );
 }

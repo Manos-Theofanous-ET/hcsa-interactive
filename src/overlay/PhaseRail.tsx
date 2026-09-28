@@ -15,14 +15,14 @@ gsap.registerPlugin(ScrollTrigger);
  *  ScrollTrigger onUpdate callback. */
 const PHASES = [
   { idx: 1, label: "Intro", start: 0.0, end: 0.1 },
-  { idx: 2, label: "The Station", start: 0.1, end: 0.2 },
-  { idx: 3, label: "How It Gets Built", start: 0.2, end: 0.35 },
+  { idx: 2, label: "The station", start: 0.1, end: 0.2 },
+  { idx: 3, label: "How it gets built", start: 0.2, end: 0.35 },
   { idx: 4, label: "Inside", start: 0.35, end: 0.5 },
-  { idx: 5, label: "Window Panel", start: 0.5, end: 0.65 },
+  { idx: 5, label: "The window panel", start: 0.5, end: 0.65 },
   { idx: 6, label: "Gardens", start: 0.65, end: 0.75 },
-  { idx: 7, label: "Heat and Water", start: 0.75, end: 0.85 },
+  { idx: 7, label: "Heat and water", start: 0.75, end: 0.85 },
   { idx: 8, label: "Testing", start: 0.85, end: 0.92 },
-  { idx: 9, label: "Get Involved", start: 0.92, end: 1.0 },
+  { idx: 9, label: "Get involved", start: 0.92, end: 1.0 },
 ] as const;
 
 export function PhaseRail() {
@@ -96,7 +96,7 @@ export function PhaseRail() {
     >
       <span
         ref={labelRef}
-        className="data pointer-events-none text-[10px] uppercase tracking-[0.1em] text-white/85 [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]"
+        className="data pointer-events-none text-[12px] text-white/85 [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]"
       >
         Intro
       </span>
@@ -123,7 +123,7 @@ export function PhaseRail() {
           />
         ))}
       </div>
-      <span className="data pointer-events-none text-[10px] uppercase tracking-[0.1em] text-white/60 [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]">
+      <span className="data pointer-events-none text-[12px] tabular-nums text-white/60 [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]">
         <span ref={countRef}>1</span> / {PHASES.length}
       </span>
     </nav>

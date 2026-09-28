@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { GALLERY, type GalleryItem } from "@content/data/gallery";
-import { SectionHeader } from "./SectionHeader";
+import { EditorialSection } from "./SectionHeader";
 
 const src = (file: string, thumb = false) => `/assets/web/${file}${thumb ? "-thumb" : ""}.webp`;
 
@@ -29,15 +29,14 @@ export function GallerySection() {
   );
 
   return (
-    <section id="work" aria-labelledby="work-title" className="hcsa-section">
-      <SectionHeader
-        id="work"
-        eyebrow="Our work"
-        title="Everything we have made so far."
-        intro="Concept art, the current blueprints, the 3D model, the panels, our physical model and our earlier technical sheets. Click any image to see it larger."
-      />
-
-      <div role="tablist" aria-label="Gallery categories" className="mb-8 flex flex-wrap gap-2">
+    <EditorialSection
+      id="work"
+      index="02"
+      label="Our work"
+      title="Everything we have made so far."
+      intro="Concept art, the current blueprints, the 3D model, the panels, our physical model and our earlier technical sheets. Click any image to see it larger."
+    >
+      <div role="tablist" aria-label="Gallery categories" className="hcsa-tabs">
         {GALLERY.map((c) => (
           <button
             key={c.id}
@@ -46,9 +45,9 @@ export function GallerySection() {
             aria-selected={c.id === tab}
             aria-controls="work-panel"
             onClick={() => setTab(c.id)}
-            className="data rounded-full border px-4 py-2 text-[11px] uppercase tracking-[0.1em] transition-colors aria-selected:border-[color:var(--color-accent-cyan)] aria-selected:text-[color:var(--color-accent-cyan)] border-white/20 text-white/70 hover:text-white"
+            className="hcsa-tab"
           >
-            {c.title} <span className="text-white/65">{c.items.length}</span>
+            {c.title} <span className="hcsa-tab-count">{c.items.length}</span>
           </button>
         ))}
       </div>
@@ -59,9 +58,9 @@ export function GallerySection() {
           <p className="-mt-3 mb-6">
             <a
               href={category.link.href}
-              className="data text-[12px] uppercase tracking-[0.1em] text-[color:var(--color-accent-cyan)] underline underline-offset-4"
+              className="hcsa-textlink"
             >
-              {category.link.label}
+              {category.link.label} <span aria-hidden>→</span>
             </a>
           </p>
         ) : null}
@@ -107,9 +106,10 @@ export function GallerySection() {
         {current ? (
           <figure className="flex h-full flex-col items-center justify-center gap-4 p-4 md:p-10">
             <img
+              key={current.file}
               src={src(current.file)}
               alt={current.caption}
-              className="max-h-[80vh] max-w-full object-contain"
+              className="hcsa-viewer-img max-h-[80vh] max-w-full object-contain"
             />
             <figcaption className="flex w-full max-w-4xl items-center justify-between gap-4 text-white/80">
               <button type="button" onClick={() => step(-1)} className="hcsa-viewer-btn" aria-label="Previous image">
@@ -117,7 +117,7 @@ export function GallerySection() {
               </button>
               <span className="text-center text-base">
                 {current.caption}
-                <span className="data ml-3 text-xs text-white/65">
+                <span className="ml-3 text-xs text-white/65 tabular-nums">
                   {(open ?? 0) + 1} / {items.length}
                 </span>
               </span>
@@ -136,6 +136,6 @@ export function GallerySection() {
           </figure>
         ) : null}
       </dialog>
-    </section>
+    </EditorialSection>
   );
 }

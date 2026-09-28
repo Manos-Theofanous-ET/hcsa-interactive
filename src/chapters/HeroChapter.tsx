@@ -46,20 +46,22 @@ export function HeroChapter() {
     >
       {/* TL: site mark */}
       <header className="flex items-start justify-between gap-6">
-        <div className="data text-[11px] uppercase tracking-[0.1em] text-white/90">
-          HCSA
-          <span className="mx-2 text-white/40">/</span>
-          <span className="text-white/70">Brown University</span>
+        <div className="data text-[14px] text-white/90">
+          <span className="font-semibold tracking-[0.06em]">HCSA</span>
+          <span className="hidden sm:inline">
+            <span className="mx-2 text-white/35">/</span>
+            <span className="text-white/65">Brown University</span>
+          </span>
         </div>
         {/* Sponsors land here first: give them a direct path to the
             gallery and the sponsor section below the 3D story. */}
-        <nav aria-label="Quick links" className="data flex flex-wrap items-center justify-end gap-x-5 gap-y-2 text-[11px] uppercase tracking-[0.1em]">
-          <a href="/plan/" className="text-white/85 hover:text-white">The plan</a>
-          <a href="/blueprints/" className="text-white/85 hover:text-white">Blueprints</a>
-          <a href="#work" className="hidden text-white/85 hover:text-white sm:inline">Our work</a>
+        <nav aria-label="Quick links" className="data flex flex-wrap items-center justify-end gap-x-6 gap-y-2 text-[14px]">
+          <a href="/plan/" className="text-white/85 transition-colors duration-300 hover:text-white">The plan</a>
+          <a href="/blueprints/" className="text-white/85 transition-colors duration-300 hover:text-white">Blueprints</a>
+          <a href="#work" className="hidden text-white/85 transition-colors duration-300 hover:text-white sm:inline">Our work</a>
           <a
             href="#sponsor"
-            className="rounded-full border border-[color:var(--color-accent-cyan)] px-3 py-1.5 text-[color:var(--color-accent-cyan)] hover:bg-[color:var(--color-accent-cyan)] hover:text-black"
+            className="border border-[color:var(--color-accent-cyan)] px-4 py-2 text-[color:var(--color-accent-cyan)] transition-colors duration-300 hover:bg-[color:var(--color-accent-cyan)] hover:text-black"
           >
             Sponsor us
           </a>
@@ -70,7 +72,7 @@ export function HeroChapter() {
       <div className="pointer-events-none flex flex-1 items-end pb-8">
         <div className="hcsa-hero-text max-w-md space-y-4">
           <p
-            className="hcsa-rise data text-[10px] uppercase tracking-[0.1em] text-[color:var(--color-accent-cyan)]"
+            className="hcsa-rise data text-[13px] text-[color:var(--color-accent-cyan)]"
             style={{ ["--stagger" as string]: "0ms" }}
           >
             Human-Centric Space Architecture
@@ -97,12 +99,12 @@ export function HeroChapter() {
       {/* BL: scroll cue. BR: phase count (decorative, mirrors igloo corner chrome). */}
       <footer className="flex items-end justify-between">
         <div className="flex items-center gap-3 text-white/75">
-          <span className="data text-[11px] uppercase tracking-[0.1em]">Scroll to explore</span>
+          <span className="data text-[13px]">Scroll to explore</span>
           <span className="block h-[1px] w-10 bg-white/30">
             <span className="block h-full w-full origin-left scale-x-0 bg-[color:var(--color-accent-cyan)] [animation:hcsa-scroll-cue_2.4s_ease-in-out_infinite]" />
           </span>
         </div>
-        <div className="data hidden text-right text-[10px] uppercase tracking-[0.1em] text-white/55 md:block">
+        <div className="data hidden text-right text-[13px] tabular-nums text-white/55 md:block">
           01 / 09
         </div>
       </footer>

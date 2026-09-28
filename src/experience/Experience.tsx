@@ -5,6 +5,7 @@ import { ACESFilmicToneMapping } from "three";
 import { Scene } from "./Scene";
 import { PhaseController } from "./PhaseController";
 import { ScrollProgress } from "./ScrollProgress";
+import { ProgressDamper } from "./ProgressDamper";
 import { emptyRegistry, type SceneRegistry } from "./sceneRegistry";
 import { HotspotLabel } from "./HotspotLabel";
 import { HOTSPOTS } from "./hotspots";
@@ -33,6 +34,8 @@ function DevStateBridge() {
 export function Experience() {
   const registry = useRef<SceneRegistry>(emptyRegistry());
   const progressRef = useRef(0);
+  // Raw (mapped) scroll position; the scene eases toward it (ProgressDamper).
+  const targetRef = useRef(0);
   const reducedMotion = usePrefersReducedMotion();
 
   // Dev-only: expose stable refs on window for in-browser diagnosis.
@@ -59,8 +62,8 @@ export function Experience() {
 
   return (
     <>
-      <ScrollProgress progressRef={progressRef} />
-      <SceneErrorBoundary fallback={<ReducedMotionFallback progressRef={progressRef} />}>
+      <ScrollProgress progressRef={targetRef} />
+      <SceneErrorBoundary fallback={<ReducedMotionFallback progressRef={targetRef} />}>
         <div className="hcsa-canvas-layer" aria-hidden="true">
           <Canvas
             dpr={[1, 2]}
@@ -85,6 +88,7 @@ export function Experience() {
             {/* No fog: space has none. Fog was smearing the habitat into the
                 background and killing the crisp specular reads. */}
             <DevStateBridge />
+            <ProgressDamper targetRef={targetRef} progressRef={progressRef} />
             <Suspense fallback={null}>
               <Scene registry={registry} />
               <PhaseController registry={registry} progressRef={progressRef} />
