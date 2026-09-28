@@ -305,6 +305,36 @@ body {
 @media (min-width: 768px) {
   .hcsa-teardown-btn { bottom: 64px; }
 }
+.hcsa-fallback-scrim {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(to top, rgba(0, 0, 0, 0.86) 0%, rgba(0, 0, 0, 0.6) 32%, rgba(0, 0, 0, 0) 62%),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0) 18%);
+}
+.hcsa-plain-btn {
+  font: 500 13px/1 var(--font-sans);
+  color: var(--color-ink-9);
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: background-color 0.3s var(--ease-out), border-color 0.3s var(--ease-out);
+}
+.hcsa-plain-btn:hover { background: rgba(0, 0, 0, 0.8); border-color: rgba(255, 255, 255, 0.6); }
+.hcsa-plain-btn:focus-visible { outline: 2px solid var(--color-accent-cyan); outline-offset: 2px; }
+
+.hcsa-hero-scrim {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 62%;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0.5) 45%, rgba(0, 0, 0, 0) 100%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .hcsa-hero-scrim { display: none; }
+}
 
 /* Keeps the hero title and intro legible over the bright Earth. */
 .hcsa-hero-text { text-shadow: 0 1px 14px rgba(0, 0, 0, 0.85), 0 0 2px rgba(0, 0, 0, 0.6); }

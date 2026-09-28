@@ -92,6 +92,10 @@ export function ReducedMotionFallback({ progressRef }: Props) {
         />
       ))}
 
+      {/* Dark gradient under the text so white type stays readable over
+          the bright stills (the live scene sits on black, the stills do not). */}
+      <div className="hcsa-fallback-scrim" aria-hidden="true" />
+
       {/* Manual play-on-demand teardown video. Behind a button so it does
           NOT auto-play — only user-initiated motion is allowed when the
           prefers-reduced-motion media query is active. */}
@@ -100,23 +104,10 @@ export function ReducedMotionFallback({ progressRef }: Props) {
           <button
             type="button"
             onClick={() => setVideoOpen(true)}
-            className="data"
-            style={{
-              padding: "8px 14px",
-              background: "rgba(0,0,0,0.65)",
-              border: "1px solid var(--color-accent-cyan)",
-              borderRadius: 2,
-              color: "#f4f5f7",
-              fontSize: 10,
-              letterSpacing: "0.25em",
-              textTransform: "uppercase",
-              cursor: "pointer",
-              backdropFilter: "blur(4px)",
-              WebkitBackdropFilter: "blur(4px)",
-            }}
+            className="hcsa-plain-btn"
             aria-label="Play the 9-second teardown video"
           >
-            Play teardown ·&nbsp;9 s
+            Play the teardown (9 s)
           </button>
         ) : (
           <div
@@ -140,27 +131,14 @@ export function ReducedMotionFallback({ progressRef }: Props) {
               style={{
                 maxWidth: "min(100%, 1280px)",
                 maxHeight: "100%",
-                outline: "1px solid var(--color-accent-cyan)",
+                outline: "1px solid rgba(255,255,255,0.18)",
               }}
             />
             <button
               type="button"
               onClick={() => setVideoOpen(false)}
-              className="data"
-              style={{
-                position: "absolute",
-                top: 24,
-                right: 24,
-                padding: "8px 14px",
-                background: "rgba(0,0,0,0.65)",
-                border: "1px solid #fff",
-                borderRadius: 2,
-                color: "#fff",
-                fontSize: 10,
-                letterSpacing: "0.25em",
-                textTransform: "uppercase",
-                cursor: "pointer",
-              }}
+              className="hcsa-plain-btn"
+              style={{ position: "absolute", top: 24, right: 24 }}
               aria-label="Close teardown video"
             >
               Close

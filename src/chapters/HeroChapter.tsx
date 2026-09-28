@@ -44,8 +44,12 @@ export function HeroChapter() {
       data-chapter="1"
       className="relative flex min-h-screen flex-col justify-between px-6 py-8 md:px-10 md:py-10"
     >
+      {/* Phones: the title sits over the station and Earth, so a soft dark
+          gradient keeps it readable. Wider screens have room beside it. */}
+      <div aria-hidden="true" className="hcsa-hero-scrim md:hidden" />
+
       {/* TL: site mark */}
-      <header className="flex items-start justify-between gap-6">
+      <header className="relative z-[1] flex items-start justify-between gap-6">
         <div className="data text-[14px] text-white/90">
           <span className="font-semibold tracking-[0.06em]">HCSA</span>
           <span className="hidden sm:inline">
@@ -69,7 +73,7 @@ export function HeroChapter() {
       </header>
 
       {/* Display title, anchored low-left. The canvas behind is the subject. */}
-      <div className="pointer-events-none flex flex-1 items-end pb-8">
+      <div className="pointer-events-none relative z-[1] flex flex-1 items-end pb-8">
         <div className="hcsa-hero-text max-w-md space-y-4">
           <p
             className="hcsa-rise data text-[13px] text-[color:var(--color-accent-cyan)]"
@@ -97,7 +101,7 @@ export function HeroChapter() {
       </div>
 
       {/* BL: scroll cue. BR: phase count (decorative, mirrors igloo corner chrome). */}
-      <footer className="flex items-end justify-between">
+      <footer className="relative z-[1] flex items-end justify-between">
         <div className="flex items-center gap-3 text-white/75">
           <span className="data text-[13px]">Scroll to explore</span>
           <span className="block h-[1px] w-10 bg-white/30">

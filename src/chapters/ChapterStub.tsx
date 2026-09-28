@@ -15,7 +15,7 @@ import type { ReactNode } from "react";
 type Props = {
   id: string;
   index: number;
-  /** Short phase name, rendered uppercase in the eyebrow. */
+  /** Short phase name, shown next to the chapter number. */
   title: string;
   /** 1–2 line display headline. Can contain `\n` for a manual break. */
   statement: string;
