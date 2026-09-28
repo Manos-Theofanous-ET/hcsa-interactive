@@ -13,10 +13,10 @@ export function TeamSection() {
       <RuledList items={leads} columns={2} />
       <div className="mt-12">
         <SubHeading>Team</SubHeading>
-        <RuledList items={team} columns={4} />
+        <RuledList items={team} columns={2} />
       </div>
       <p className="mt-10 max-w-3xl text-sm leading-relaxed text-white/55" data-reveal>
-        Earlier team members, credited on the concept art and models: {earlierTeam}.
+        Previous work from {earlierTeam}, credited on the concept art and models.
       </p>
     </EditorialSection>
   );

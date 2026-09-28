@@ -27,10 +27,7 @@ export const facultyAdvisors: TeamMember[] = [
 ]
 
 export const collaborators: TeamMember[] = [
-  { name: 'Finn', role: 'Panels and glazing' },
   { name: 'Marina', role: 'Head of interior' },
-  { name: 'Androniki', role: 'Interior concept and physical models' },
-  { name: 'Amalia', role: 'Interior CAD' },
 ]
 
 /** Members of the team before its September 2026 remake, credited on the concept work. */
