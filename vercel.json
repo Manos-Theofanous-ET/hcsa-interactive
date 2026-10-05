@@ -22,6 +22,14 @@
       "destination": "/blueprints/index.html"
     },
     {
+      "source": "/tests",
+      "destination": "/tests/index.html"
+    },
+    {
+      "source": "/tests/",
+      "destination": "/tests/index.html"
+    },
+    {
       "source": "/((?!api/)(?!.*\\..*).*)",
       "destination": "/index.html"
     }

@@ -74,6 +74,7 @@ export function SiteBar() {
         </a>
         <a href="/plan/">The plan</a>
         <a href="/blueprints/">Blueprints</a>
+        <a href="/tests/">The tests</a>
         <a href="#work" className="hcsa-sitebar-wide">
           Our work
         </a>

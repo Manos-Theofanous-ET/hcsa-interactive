@@ -21,6 +21,13 @@ export type DownloadItem = { title: string; meta: string; body: string; href: st
 
 export const DOWNLOADS: DownloadItem[] = [
   {
+    title: "The tests, as a film",
+    meta: "Web page, 23 min",
+    body: "Every test step by step: how each piece is made, what it tells us, plan B, what it costs and when. Chapter buttons, and the words written out underneath.",
+    href: "/tests/",
+    action: "Watch",
+  },
+  {
     title: "The drawings, explained",
     meta: "PDF, 53 pages, 8.6 MB",
     body: "Every sketch and render of the shell, the panels, the joint and the three tests, with dimensions and a short note on each.",
