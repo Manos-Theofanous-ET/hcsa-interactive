@@ -8,6 +8,8 @@
  * docking family) and blueprint page 15 (still has a placeholder line)
  * are left out on purpose; see SKIP in the script.
  */
+import { NUMERICS as N } from "../numerics";
+
 export type GalleryCategory = {
   id: string;
   title: string;
@@ -46,12 +48,12 @@ export const GALLERY: GalleryCategory[] = [
   {
     id: "blueprints",
     title: "Blueprints",
-    blurb: "The current drawings (Rev S, September 2026), taken from the CAD model, with dimensions in millimetres. Every drawing, with a plain explanation of each, is on the blueprints page.",
+    blurb: "The Rev S drawings (September 2026, superseded by Rev D on 14 October 2026), taken from the CAD model, with dimensions in millimetres. The Rev D sheets and every Rev S drawing, with a plain explanation of each, are on the blueprints page.",
     link: { href: "/blueprints/", label: "Open all the blueprints" },
     items: [
       { file: "revs-3d_render-01_shell_exterior", caption: "The whole shell, 11,151 mm across: 20 glass hexagons and 12 solid pentagons", w: 720, h: 480 },
       { file: "revs-3d_render-02_shell_cutaway", caption: "The shell cut in half; the parts the cut goes through are orange", w: 720, h: 480 },
-      { file: "revs-3d_render-03_hex_panel_cabin_side", caption: "One hexagon panel from the cabin side: frames, ribs and six glass panes", w: 720, h: 529 },
+      { file: "revs-3d_render-03_hex_panel_cabin_side", caption: "One hexagon panel from the cabin side: frames, ribs and six glass panes (Rev S; Rev D has " + N.panes_per_hex.display + ")", w: 720, h: 529 },
       { file: "revs-2d_sketch-01_simple_joint_section", caption: "The joint between two panels, cut through a bolt", w: 720, h: 480 },
       { file: "revs-3d_render-07_seam_closeup_cut", caption: "A piece of seam cut through a bolt: two frames, two O-rings and a sealant bead", w: 720, h: 480 },
       { file: "revs-3d_render-09_corner_node_inside", caption: "A corner where three panels meet, from inside", w: 720, h: 480 },
@@ -63,7 +65,7 @@ export const GALLERY: GalleryCategory[] = [
   {
     id: "model",
     title: "3D model",
-    blurb: "The current CAD model (Rev S, September 2026): all 32 panels and 90 seams. The 3D scene at the top of this page is built from it.",
+    blurb: "The CAD model (Rev S, September 2026; the Rev D sizes are on the blueprints page): all 32 panels and 90 seams. The 3D scene at the top of this page is built from it.",
     items: [
       { file: "revs-clean-3d-01_shell_exterior", caption: "The whole shell, 11.15 m across: 20 glass hexagons and 12 solid pentagons", w: 720, h: 480 },
       { file: "revs-clean-3d-02_shell_cutaway", caption: "The shell cut in half; the parts the cut goes through are orange", w: 720, h: 480 },
@@ -79,7 +81,7 @@ export const GALLERY: GalleryCategory[] = [
     title: "Panels",
     blurb: "The building block of the station. Every panel connects the same way. The six-sided panels are the windows; the five-sided ones are solid and house the solar panels and fold-out shields.",
     items: [
-      { file: "revs-clean-3d-03_hex_panel_cabin_side", caption: "One hexagon panel from the cabin side: edge frames, six ribs and the glass panes", w: 720, h: 480 },
+      { file: "revs-clean-3d-03_hex_panel_cabin_side", caption: "One hexagon panel from the cabin side: edge frames, six ribs and the glass panes (Rev S; Rev D splits each bay into four)", w: 720, h: 480 },
       { file: "revs-clean-3d-04_hex_panel_exterior_side", caption: "The same panel from outside", w: 720, h: 480 },
       { file: "revs-clean-3d-05_pent_panel_cabin_side", caption: "One pentagon panel. It is solid; the model shows its frames, ribs and plate so far", w: 720, h: 480 },
       { file: "revs-clean-2d-03_hex_panel_plan_exterior", caption: "Hexagon panel, flat view from outside", w: 720, h: 480 },

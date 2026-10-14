@@ -182,5 +182,10 @@ a phone and print well. They are generated, not hand-edited:
   lives in `scripts/static-pages/blueprints-data.json`; the milestones and the
   list of what we need are in `gen_pages.py`.
 
-The full drawing book is `public/downloads/HCSA-Rev-S-drawings-explained-26-Sep-2026.pdf`.
+The Rev D sheets (14 Oct 2026) are listed in `REVD_SHEETS` in `gen_pages.py`; their WebP
+files are `public/blueprints/img/revd-NN_slug.webp` (and `-thumb.webp`). The Rev D pack and
+design spec are `public/downloads/HCSA-Rev-D-blueprint-pack-14-Oct-2026.pdf` and
+`public/downloads/HCSA-Rev-D-design-spec-14-Oct-2026.pdf`. The Rev S drawing book,
+`public/downloads/HCSA-Rev-S-drawings-explained-26-Sep-2026.pdf`, is kept for reference.
+`public/tests/index.html` is not generated; edit it by hand.
 `vercel.json` rewrites `/plan` and `/blueprints` to those pages ahead of the SPA fallback.

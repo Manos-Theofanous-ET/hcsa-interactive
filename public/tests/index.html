@@ -47,6 +47,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--b
 .top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
 .top h1 { font-family: var(--display); font-weight: 600; font-size: 26px; margin: 0; letter-spacing: 0.2px; }
 .top .meta { font-family: var(--mono); font-size: 13px; color: var(--ink3); }
+.revd-note { font-size: 15px; line-height: 1.5; color: var(--ink2); border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 6px; padding: 10px 14px; margin: 0 0 14px; } .revd-note strong { color: var(--ink); font-weight: 500; } .revd-note a { color: var(--accent); }
 .stage { position: relative; width: 100%; aspect-ratio: 16 / 9; max-width: 100%; background: #000; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
 .stage canvas { width: 100%; height: 100%; display: block; }
 .stage .big { position: absolute; inset: 0; display: grid; place-items: center; cursor: pointer; }
@@ -83,6 +84,7 @@ button.primary { background: var(--accent); color: #1a1407; border-color: var(--
     <h1>HCSA test film: the facility, every test, how each is built and what it is for</h1>
     <div class="meta">v2, 5 Oct 2026 · Rev S joint and test articles · dates computed from durations · list prices read 5 Oct</div>
   </div>
+  <div class="revd-note" role="note"><strong>14 Oct 2026: Rev D.</strong> The whole-shell stress model (9 to 12 October, three solvers) showed the Rev S design does not hold 1 atm, and Rev D replaces it: 24 glass panes per hexagon on 375 mm ribs, 25.4 mm glass, a solid node at every corner and a hardpoint at every mid-seam, with the bolts as seal clamps. This film is the 5 October plan and is kept as made; three things in it change. T0 moves from glass discs to borosilicate bars in four-point bend, run in ENGN 1440 in spring 2027. The T2 article becomes the 24-pane 1:4 hexagon. T1 tests the Rev D seam at the service load of 12 kN per bolt and at the upper bound. See the <a href="/blueprints/#revd">Rev D pack</a> on the blueprints page.</div>
   <div class="stage" id="stage">
     <canvas id="film" width="1920" height="1080" aria-label="HCSA test film"></canvas>
     <div class="big" id="big" role="button" tabindex="0" aria-label="Play"><span>Play</span></div>
