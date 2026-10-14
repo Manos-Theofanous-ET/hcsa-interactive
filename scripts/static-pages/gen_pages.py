@@ -208,13 +208,13 @@ REVD_SHEETS = [
     ("03_hex_section", "Sheet 03", "Section A-A along a main rib, corner to centre: the 375 mm main rib, the 140 mm edge frame and the 25.4 mm pressure pane on its seat."),
     ("04_rib_sections", "Sheet 04", "Rib sections: main hexagon rib I 375 (200 x 15 flanges, 8 web), main pentagon rib I 400 (80 x 25, 8 web), secondary rib I 160 (64 x 8, 6 web); allowable 160 MPa."),
     ("05_seam_joint", "Sheet 05", "Seam joint in section: frames A and B, the 5/16-24 A286 seal-clamp bolt every 75 mm, two 5.33 mm cords in 7.1 x 4.0 mm glands, the RTV566 bead, and the load path: 63 % of the 623 kN per seam to the corner nodes, 31 % to the hardpoint, 5 % to the bolts."),
-    ("06_corner_node", "Sheet 06", "Corner node, plan on the vertex and section along a seam (PROPOSAL): one machined 6061-T651 block per panel corner taking the first 100 mm of both frames, 5.8 kg; vertex ties 4 x 5/8-18 A286 per joint face for 196 kN."),
-    ("07_hardpoint", "Sheet 07", "Seam mid hardpoint at x 1,125 mm, plan and section (PROPOSAL): a 40 mm lug on frame A between a 2 x 25 mm clevis on frame B, 30 mm A286 pin in double shear, 170 to 195 kN across the seam and no moment."),
+    ("06_corner_node", "Sheet 06", "Corner node, plan on the vertex and section along a seam (PROPOSAL): one machined 6061-T651 block per panel corner taking the first 100 mm of both frames, 5.8 kg; vertex ties 4 x 5/8-18 A286 per joint face for 196 kN in tension only; the corner moment goes through block-to-block face contact."),
+    ("07_hardpoint", "Sheet 07", "Seam mid hardpoint at x 1,125 mm, plan and section (PROPOSAL): a 40 mm lug on frame A between a 2 x 25 mm clevis on frame B, 40 mm A286 pin (bending 349 MPa at 195 kN; a 30 mm pin would be past yield), 152 to 195 kN across the seam and no moment; lug and clevis below the three seal lines."),
     ("08_glazing", "Sheet 08", "Glazing stack and the pane edge at the frame: 6 mm fused silica debris pane, 12 mm gas gap, PV and electrochromic layers, the shutter, and the 25.4 mm BOROFLOAT 33 pressure pane on a 2 mm strip with a 20 mm bite."),
-    ("09_pent_plan", "Sheet 09", "Pentagon panel plan from the cabin side: 5 main ribs, 15 secondary ribs, 20 bays and a 10 mm face plate (Rev S 4 mm); 621 kg before the solar, shield and docking equipment."),
+    ("09_pent_plan", "Sheet 09", "Pentagon panel plan from the cabin side: 5 main ribs, 15 secondary ribs, 20 bays and a 10 mm face plate (Rev S 4 mm); 651 kg before the solar, shield and docking equipment."),
     ("10_test_articles", "Sheet 10", "The test articles against the facility: T0 glass bars in four-point bend, T1 seam slices and the 550 mm article at full size, T2 the 24-pane hexagon at 1:4, T3 one corner at full size."),
-    ("11_materials_mass", "Sheet 11", "Materials, heat treatment and mass: 6061-T651 for the prototype, 2219-T851 for flight, A286 fasteners, BOROFLOAT 33 glass; hexagon 1,838 kg, pentagon 621 kg, structure 33.3 t, facility about 50.9 t."),
-    ("12_open_decisions", "Sheet 12", "The open decisions and which test or submodel settles each: hardpoint pinned or stiff, glass thickness, seal cord, bolt designation, frame bow, corner seal, tie and pin sizes, mass."),
+    ("11_materials_mass", "Sheet 11", "Materials, heat treatment and mass: 6061-T651 for the prototype, 2219-T851 for flight, A286 fasteners, BOROFLOAT 33 glass; hexagon 1,838 kg, pentagon 651 kg, structure 34.0 t, facility 50.4 t itemised."),
+    ("12_open_decisions", "Sheet 12", "The open decisions and which test or submodel settles each: hardpoint pinned or stiff, glass thickness, seal cord, bolt designation, frame bow, corner seal, tie and pin sizes, mass, the shear key, and the factor-of-safety basis."),
 ]
 
 REVD_INTRO = (
@@ -223,11 +223,11 @@ REVD_INTRO = (
     "103 mm ribs are far past yield, and the open corners put 100 to 138 kN on end bolts that break at 34 kN. Rev D takes the branch the "
     "specification already allowed for. Each hexagon is split into 24 triangular panes of 1,125 mm side on 375 mm main ribs and 160 mm "
     "secondary ribs; the pressure pane is 25.4 mm BOROFLOAT 33; and the pull across each seam, 623 kN, goes through a solid machined node "
-    "at every corner and a pinned hardpoint at every mid-seam, so the 26 bolts along a seam only clamp the seals. The structure is 33.3 t "
-    "and the facility about 50.9 t. Every item on the sheets carries a status. LOCKED is geometry unchanged from Rev S. FEA is what the "
+    "at every corner and a pinned hardpoint at every mid-seam (both proposed details, sized on 16 October), so the 26 bolts along a seam only clamp the seals. The structure is 34.0 t "
+    "and the facility about 50.4 t. Every item on the sheets carries a status. LOCKED is geometry unchanged from Rev S. FEA is what the "
     "October runs set: the rib sections, the glass thickness, the pane count and the load split. PROPOSAL is a detail drawn to carry an "
     "FEA load and still to be sized in the 16 October submodels and in a physical test: the corner node and its vertex ties, the "
-    "hardpoint, the 26-bolt count and the wider seal glands. OPEN is a decision not yet taken, with the Rev D default stated; the eight "
+    "hardpoint, the 26-bolt count and the wider seal glands. OPEN is a decision not yet taken, with the Rev D default stated; the ten "
     "open decisions are listed at the bottom of this page. Rev D is not locked in TRUTH until the revision is signed."
 )
 
@@ -238,8 +238,10 @@ OPEN_ITEMS = [
     "The seam bolt part number. The old NAS9306C-06 is a rivet standard and the wrong size; the parts memo of 1 November names the bolt.",
     "The frame bow between corners: 1.4 to 2.0 mm predicted against the 1 mm sealing limit. Keep the frame 140 mm deep and test (default), or deepen it. After T1 and submodel C2.",
     "The corner seal at the vertex plug, where the three seal loops meet.",
-    "The sizes of the vertex ties and the hardpoint pin. Submodels C1 and C3 on 16 October.",
-    "Mass: the Rev D structure is 33.3 t, up from a Rev S figure that did not hold. A rib study led by transparency (narrower, deeper ribs) is the next pass to bring it down.",
+    "The vertex ties (tension only; the corner moment goes through the block faces) and the 40 mm hardpoint pin. Submodels C1 and C3 on 16 October.",
+    "Mass: the Rev D structure is 34.0 t and the facility 50.4 t, up from a Rev S figure that did not hold. A rib study led by transparency (narrower, deeper ribs) is the next pass to bring it down.",
+    "The shear key: none in Rev D (the vertex dowels and the hardpoint pin carry seam shear). Reinstated only if submodel C2 or the whole-shell shear check needs it.",
+    "The factor-of-safety basis: 1.5 on yield at 1 atm as used, or NASA-STD-5001 1.5 proof and 2.0 ultimate. To be agreed with the faculty advisers before the 8 November drawings.",
 ]
 
 OPEN_ITEMS_REVS = [
