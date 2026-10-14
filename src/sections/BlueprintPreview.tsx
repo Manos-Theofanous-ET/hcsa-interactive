@@ -11,7 +11,7 @@ export function BlueprintPreview({ onOpen }: { onOpen: (index: number) => void }
         Blueprints you can download or ask for
       </h3>
       <p className="mt-3 max-w-2xl text-base leading-relaxed text-white/65" data-reveal>
-        Drawn from the CAD model (Rev S, September 2026), with dimensions in millimetres. Click a drawing to see it full size.
+        Rev D, 14 October 2026: the baseline sized by the whole-shell stress model, with dimensions in millimetres. Click a sheet to see it full size.
       </p>
 
       <ul className="mt-8 grid grid-cols-2 gap-x-4 gap-y-6 lg:grid-cols-3">

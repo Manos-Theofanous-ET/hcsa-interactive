@@ -26,7 +26,8 @@ export function AboutSection() {
           <p>
             We are a student team at Brown University, supported by Brown's UTRA research program and
             our faculty advisors. We are on step {N.roadmap_current.display} of {N.roadmap_total.display}:
-            testing our glass and the seam between two panels, on real hardware.
+            building and testing the seam between two panels at full size, on real hardware, now that the
+            whole-shell stress model has set the sizes (Rev D, 14 Oct 2026).
           </p>
         </div>
         <div data-reveal>
