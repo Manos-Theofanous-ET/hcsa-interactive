@@ -29,18 +29,24 @@ export type GalleryItem = {
 export const GALLERY: GalleryCategory[] = [
   {
     id: "concepts",
-    title: "Concept art",
-    blurb: "What life inside the station could look and feel like.",
+    title: "Interior concept",
+    blurb: "Marina Kouroumali's working images for the interior, the ones to look at when we talk about the inside. Some were made with AI image tools; they show the working concept, not a final design.",
     items: [
-      { file: "images-concept-exterior", caption: "The station in orbit, filled with gardens", w: 480, h: 720 },
-      { file: "prototype-whatsapp-image-2026-04-03-at-3-17-43-pm", caption: "People floating, climbing and cycling inside", w: 720, h: 720 },
-      { file: "prototype-whatsapp-image-2026-04-03-at-3-18-17-pm", caption: "The ring track and garden column above Earth", w: 691, h: 720 },
+      { file: "prototype-whatsapp-image-2026-04-03-at-3-17-43-pm", caption: "Moving freely: people float, climb and cycle around the garden column (Marina Kouroumali)", w: 720, h: 720 },
+      { file: "prototype-whatsapp-image-2026-04-03-at-3-18-17-pm", caption: "The track and the garden column, with Earth below (Marina Kouroumali)", w: 691, h: 720 },
+      { file: "images-facility-render-night", caption: "Two pods beside the garden column, with the ramp spiralling round it (Marina Kouroumali)", w: 720, h: 480 },
+      { file: "images-facility-annotated-dimensions", caption: "Marina's sketch with first sizes for the ramp, the pods and the column", w: 720, h: 473 },
+      { file: "images-facility-render-day", caption: "The same pods and ramp by day (Marina Kouroumali)", w: 720, h: 480 },
+    ],
+  },
+  {
+    id: "earlier-concepts",
+    title: "Earlier concepts",
+    blurb: "Mood images from before the working concept. They show ideas we explored, not the current design.",
+    items: [
       { file: "images-concept-observatory", caption: "Walkways and gardens under a glass sky", w: 480, h: 720 },
       { file: "images-concept-plants", caption: "Terraced gardens along the inner wall", w: 583, h: 720 },
-      { file: "images-concept-interior", caption: "A quiet garden corner at night", w: 720, h: 720 },
-      { file: "images-facility-render-day", caption: "Garden column, ramp and seating pods", w: 720, h: 480 },
-      { file: "images-facility-render-night", caption: "The same layout at night", w: 720, h: 480 },
-      { file: "images-facility-annotated-dimensions", caption: "Early sketch with the sizes of the ramp and pods", w: 720, h: 473 },
+      { file: "images-concept-interior", caption: "Ropes in a garden corner at night", w: 720, h: 720 },
     ],
   },
   {
