@@ -45,7 +45,7 @@ export function GallerySection() {
       index="02"
       label="Our work"
       title="Everything we have made so far."
-      intro="Concept art, the current blueprints, the 3D model, the panels, our physical model and our earlier technical sheets. Click any image to see it larger."
+      intro="The interior concept, earlier concepts, the current blueprints, the 3D model, the panels, our physical model and our earlier technical sheets. Click any image to see it larger."
     >
       <BlueprintPreview onOpen={(i) => setViewer({ items: PREVIEW_VIEW, index: i })} />
 

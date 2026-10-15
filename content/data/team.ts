@@ -27,9 +27,9 @@ export const facultyAdvisors: TeamMember[] = [
 ]
 
 export const collaborators: TeamMember[] = [
-  { name: 'Marina', role: 'Head of interior' },
+  { name: 'Marina Kouroumali', role: 'Head of interior' },
 ]
 
-/** Members of the team before its September 2026 remake, credited on the concept work. */
+/** Members of the team before its September 2026 remake. */
 export const earlierTeam =
   'Katie, Keren, Jake, Aris, Katerina, Xenia, Nefeli, Gerasimos, Skye, Lauren, Padelis and Marco Cross, PhD'
