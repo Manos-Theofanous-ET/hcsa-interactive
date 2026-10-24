@@ -73,7 +73,7 @@ export const supporters: Supporter[] = [
   { name: "MEPLA Pro", kind: "Software licence", body: "A student licence of SJ MEPLA, the structural glass analysis program, for the pane calculations.", href: "https://www.mepla.net" },
   { name: "Dewesoft", kind: "Loan", body: "A " + N.daq_channels.display + " strain recorder and its software, lent in 3 to 4 week batches for the tests. Agreed in principle.", href: "https://dewesoft.com" },
   { name: "OSH Cut", kind: "Discount", body: "Half price on laser-cut parts until 31 Dec 2026.", href: "https://www.oshcut.com" },
-  { name: "PCBWay", kind: "Discount", body: "A capped discount on circuit boards for the strain gauge electronics.", href: "https://www.pcbway.com" },
+  { name: "PCBWay", kind: "Discount", body: "Half price on CNC machining, 3D printing and circuit boards under the Future Innovators Program, capped at $2,000 for the project.", href: "https://www.pcbway.com" },
   { name: "Heintges", kind: "Advice", body: "A glazing review of the pane and its seat.", href: "https://www.heintges.com" },
   { name: "Parker", kind: "Advice", body: "Seal advice: butyl BA500 loops in place of fluorosilicone cord.", href: "https://www.parker.com" },
 ];

@@ -420,7 +420,7 @@ export const NUMERICS = {
     unit: "mm",
     label: "SUPREMAX 33 ground and polished, from the 34.9 mm rolled sheet",
     display: "29.4 mm",
-    source: "Swift Glass, Charlie Burke, 14 and 20 Oct 2026",
+    source: "SCHOTT standard formats email, Tina Gallo, 20 Oct 2026 (Swift Glass, Charlie Burke, 14 and 20 Oct: about 1.25 in, the two figures still to be reconciled)",
   },
   swift_max_square: {
     value: 787,

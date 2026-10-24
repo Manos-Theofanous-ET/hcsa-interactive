@@ -374,7 +374,7 @@ NEEDS = [
         ("6061-T6 aluminium, and CNC machining of 8 edge frames", "Six slice frames about 205 x 140 mm in section, 75, 150 and 225 mm long (two of each), and two frames about 60 x 140 x 550 mm. O-ring grooves 6.6 x 4.0 mm, bolt holes 8.03 mm at 75 mm. About 27 kg finished; STEP files ready now.", "8 Nov release"),
         ("4140 steel pull blocks, quenched and tempered", "Six blocks 83 x 80 mm in section, 75, 150 and 225 mm long, each with an M24 tapped hole. About 45 kg.", "8 Nov release"),
         ("5/16 in (-10) A286 bolts, nuts and washers", "30 sets (13 used, the rest spares). Part number confirmed 1 November.", "November"),
-        ("Butyl seal loops (Parker BA500)", "Two closed loops per joint, moulded to the groove; sizes with the 8 November drawings. Fluorosilicone cord is no longer needed.", "November"),
+        ("Butyl seal loops (Parker BA500)", "Two closed loops per joint, spliced from 0.210 in extruded cord; sizes with the 8 November drawings. Fluorosilicone cord is no longer needed.", "November"),
         ("RTV566 silicone with its primer", "One kit, plus a syringe and tips for a 3 mm bead.", "November"),
         ("Fixture hardware", "50 M12 class 10.9 bolts, 1 m of M8 threaded rod with nuts, eight steel end plates 84 x 38 x 10 mm, 3 mm neoprene sheet 300 x 300 mm.", "November"),
     ]),
