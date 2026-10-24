@@ -8,7 +8,7 @@ import AxeBuilder from "@axe-core/playwright";
 
 const SECTIONS = [
   { id: "hero", label: "Phase 1 — Hero" },
-  { id: "habitat", label: "Phase 2 — Habitat" },
+  { id: "habitat", label: "Phase 2, The station" },
   { id: "assembly", label: "Phase 3 — Assembly" },
   { id: "interior", label: "Phase 4 — Interior" },
   { id: "panel", label: "Phase 5 — Panel" },
