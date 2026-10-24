@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { GALLERY, type GalleryItem } from "@content/data/gallery";
 import { DRAWING_PREVIEW, drawingFull } from "@content/data/downloads";
 import { BlueprintPreview } from "./BlueprintPreview";
-import { EditorialSection, SubHeading } from "./SectionHeader";
+import { ArrowIcon, CloseIcon, EditorialSection, SubHeading } from "./SectionHeader";
 
 const src = (file: string, thumb = false) => `/assets/web/${file}${thumb ? "-thumb" : ""}.webp`;
 
@@ -45,7 +45,7 @@ export function GallerySection() {
       index="02"
       label="Our work"
       title="Everything we have made so far."
-      intro="The interior concept, earlier concepts, the current blueprints, the 3D model, the panels, our physical model and our earlier technical sheets. Click any image to see it larger."
+      intro="Here you can see the interior concept, our earlier concepts, the current blueprints, the 3D model, the panels, our physical model and our earlier technical sheets. Click any image to see it larger."
     >
       <BlueprintPreview onOpen={(i) => setViewer({ items: PREVIEW_VIEW, index: i })} />
 
@@ -76,7 +76,7 @@ export function GallerySection() {
               href={category.link.href}
               className="hcsa-textlink"
             >
-              {category.link.label} <span aria-hidden>→</span>
+              {category.link.label} <span aria-hidden><ArrowIcon /></span>
             </a>
           </p>
         ) : null}
@@ -129,16 +129,16 @@ export function GallerySection() {
             />
             <figcaption className="flex w-full max-w-4xl items-center justify-between gap-4 text-white/80">
               <button type="button" onClick={() => step(-1)} className="hcsa-viewer-btn" aria-label="Previous image">
-                ←
+                <ArrowIcon dir="left" />
               </button>
               <span className="text-center text-base">
                 {current.caption}
                 <span className="ml-3 text-xs text-white/65 tabular-nums">
-                  {(viewer?.index ?? 0) + 1} / {viewer?.items.length ?? 0}
+                  {(viewer?.index ?? 0) + 1} of {viewer?.items.length ?? 0}
                 </span>
               </span>
               <button type="button" onClick={() => step(1)} className="hcsa-viewer-btn" aria-label="Next image">
-                →
+                <ArrowIcon />
               </button>
             </figcaption>
             <button
@@ -147,7 +147,7 @@ export function GallerySection() {
               className="hcsa-viewer-btn absolute right-4 top-4"
               aria-label="Close image viewer"
             >
-              ✕
+              <CloseIcon />
             </button>
           </figure>
         ) : null}

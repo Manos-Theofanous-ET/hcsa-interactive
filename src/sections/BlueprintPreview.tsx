@@ -1,5 +1,5 @@
 import { DOWNLOADS, DRAWING_PREVIEW, ON_REQUEST, drawingThumb } from "@content/data/downloads";
-import { RuledList, SubHeading } from "./SectionHeader";
+import { ArrowIcon, RuledList, SubHeading } from "./SectionHeader";
 
 /** A look at the blueprints before the gallery tabs, so a sponsor sees
  *  what exists, what they can download now and what they can ask for.
@@ -11,7 +11,7 @@ export function BlueprintPreview({ onOpen }: { onOpen: (index: number) => void }
         Blueprints you can download or ask for
       </h3>
       <p className="mt-3 max-w-2xl text-base leading-relaxed text-white/65" data-reveal>
-        Rev D, 14 October 2026: the baseline sized by the whole-shell stress model, with dimensions in millimetres. Click a sheet to see it full size.
+        These are the Rev D sheets of 14 October 2026. Rev D is the design we have signed, and a stress model of the whole shell set its sizes. Dimensions are in millimetres. Click a sheet to see it full size.
       </p>
 
       <ul className="mt-8 grid grid-cols-2 gap-x-4 gap-y-6 lg:grid-cols-3">
@@ -46,7 +46,7 @@ export function BlueprintPreview({ onOpen }: { onOpen: (index: number) => void }
                     <span className="mt-1 block text-[0.98rem] leading-relaxed text-white/68">{f.body}</span>
                   </span>
                   <span className="hcsa-file-action">
-                    {f.action} <span aria-hidden="true">→</span>
+                    {f.action} <span aria-hidden="true"><ArrowIcon /></span>
                   </span>
                 </a>
               </li>
@@ -58,7 +58,7 @@ export function BlueprintPreview({ onOpen }: { onOpen: (index: number) => void }
           <RuledList items={ON_REQUEST} columns={1} />
           <p className="mt-6" data-reveal>
             <a href="#contact-us" className="hcsa-textlink">
-              How to reach us <span aria-hidden="true">→</span>
+              How to reach us <span aria-hidden="true"><ArrowIcon /></span>
             </a>
           </p>
         </div>

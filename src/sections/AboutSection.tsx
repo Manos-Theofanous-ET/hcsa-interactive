@@ -1,6 +1,6 @@
 import { NUMERICS as N } from "@content/numerics";
 import { nowWorkingOn } from "@content/data/sponsors";
-import { EditorialSection, SubHeading } from "./SectionHeader";
+import { ArrowIcon, EditorialSection, SubHeading } from "./SectionHeader";
 
 export function AboutSection() {
   return (
@@ -18,16 +18,17 @@ export function AboutSection() {
             can always see Earth and the stars.
           </p>
           <p>
-            It is a multi-use facility for short-stay visits. There are no sleeping quarters. Instead,
-            the station is one open room for watching Earth, moving freely, relaxing among living plants,
-            gatherings and research. Because it is made from {N.face_count.display} panels that all connect the same way, it
-            can be built in factories on Earth, launched in pieces and put together in orbit.
+            It is a facility with many uses, built for short visits, and it has no sleeping quarters.
+            The station is one open room where people watch Earth, move freely, relax among living plants,
+            meet and do research. It is made from {N.face_count.display} panels that all connect the same way.
+            That means it can be built in factories on Earth, launched in pieces and put together in orbit.
           </p>
           <p>
-            We are a student team at Brown University, supported by Brown's UTRA research program and
-            our faculty advisors. We are on step {N.roadmap_current.display} of {N.roadmap_total.display}:
-            building and testing the seam between two panels at full size, on real hardware, now that the
-            whole-shell stress model has set the sizes (Rev D, 14 Oct 2026).
+            We are a student team at Brown University, supported by Brown's UTRA research program and by
+            our faculty advisors. We are on step {N.roadmap_current.display} of {N.roadmap_total.display}.
+            A stress model of the whole shell set the sizes in Rev D, the version of our design that we
+            signed on 14 October 2026. Now we are building the seam between two panels at full size, so we
+            can test it on real hardware.
           </p>
         </div>
         <div data-reveal>
@@ -39,10 +40,10 @@ export function AboutSection() {
           </ol>
           <p className="mt-8 flex flex-wrap gap-x-8 gap-y-3">
             <a href="/plan/" className="hcsa-textlink">
-              The fall plan <span aria-hidden>→</span>
+              The fall plan <span aria-hidden><ArrowIcon /></span>
             </a>
             <a href="/blueprints/" className="hcsa-textlink">
-              The blueprints <span aria-hidden>→</span>
+              The blueprints <span aria-hidden><ArrowIcon /></span>
             </a>
           </p>
         </div>

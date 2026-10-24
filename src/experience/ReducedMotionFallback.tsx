@@ -105,9 +105,9 @@ export function ReducedMotionFallback({ progressRef }: Props) {
             type="button"
             onClick={() => setVideoOpen(true)}
             className="hcsa-plain-btn"
-            aria-label="Play the 9-second teardown video"
+            aria-label="Play a 9-second film of the station coming apart"
           >
-            Play the teardown (9 s)
+            Watch it come apart (9 seconds)
           </button>
         ) : (
           <div
@@ -122,7 +122,7 @@ export function ReducedMotionFallback({ progressRef }: Props) {
             }}
             role="dialog"
             aria-modal="true"
-            aria-label="Teardown video"
+            aria-label="Film of the station coming apart"
           >
             <video
               src="/fallback/hcsa_teardown_preview.mp4"
@@ -139,7 +139,7 @@ export function ReducedMotionFallback({ progressRef }: Props) {
               onClick={() => setVideoOpen(false)}
               className="hcsa-plain-btn"
               style={{ position: "absolute", top: 24, right: 24 }}
-              aria-label="Close teardown video"
+              aria-label="Close the film"
             >
               Close
             </button>

@@ -1,5 +1,47 @@
 import type { ReactNode } from "react";
 
+/** Small line icons drawn as SVG, so no arrow or cross characters end up in
+ *  the page text. They inherit the text colour and size, and are hidden
+ *  from screen readers (the link or button carries the words). */
+export function ArrowIcon({ dir = "right" }: { dir?: "left" | "right" }) {
+  return (
+    <svg
+      aria-hidden="true"
+      focusable="false"
+      viewBox="0 0 16 16"
+      width="0.9em"
+      height="0.9em"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      style={{ display: "inline-block", verticalAlign: "-0.1em", transform: dir === "left" ? "scaleX(-1)" : undefined }}
+    >
+      <path d="M2 8h11M9 4l4 4-4 4" />
+    </svg>
+  );
+}
+
+export function CloseIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      focusable="false"
+      viewBox="0 0 16 16"
+      width="0.9em"
+      height="0.9em"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      style={{ display: "inline-block", verticalAlign: "-0.1em" }}
+    >
+      <path d="M3.5 3.5l9 9M12.5 3.5l-9 9" />
+    </svg>
+  );
+}
+
 type SectionProps = {
   id: string;
   /** Two-digit section number shown in the margin, e.g. "01". */
@@ -74,7 +116,7 @@ export function LinkRow({ href, title, body }: { href: string; title: string; bo
         <span className="mt-1 block text-base text-white/65">{body}</span>
       </span>
       <span aria-hidden className="hcsa-linkrow-arrow">
-        →
+        <ArrowIcon />
       </span>
     </a>
   );
