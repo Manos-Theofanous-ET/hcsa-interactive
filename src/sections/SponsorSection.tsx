@@ -1,4 +1,4 @@
-import { fundingUses, sponsorBenefits, waysToHelp, CONTACT_EMAIL } from "@content/data/sponsors";
+import { fundingUses, sponsorBenefits, supporters, waysToHelp, CONTACT_EMAIL } from "@content/data/sponsors";
 import { EditorialSection, LinkRow, RuledList, SubHeading } from "./SectionHeader";
 
 export function SponsorSection() {
@@ -24,6 +24,27 @@ export function SponsorSection() {
       <div className="mt-16">
         <SubHeading>Ways to help</SubHeading>
         <RuledList items={waysToHelp} columns={4} />
+      </div>
+
+      <div className="mt-16">
+        <SubHeading>Who is helping already</SubHeading>
+        <ul className="hcsa-ruled hcsa-ruled-2">
+          {supporters.map((s) => (
+            <li key={s.name} data-reveal>
+              <p className="font-serif text-[1.3rem] leading-snug text-white">
+                {s.href ? (
+                  <a href={s.href} rel="noopener" className="hcsa-textlink">
+                    {s.name}
+                  </a>
+                ) : (
+                  s.name
+                )}
+              </p>
+              <p className="hcsa-ruled-meta">{s.kind}</p>
+              <p className="mt-2 text-[1.02rem] leading-relaxed text-white/68">{s.body}</p>
+            </li>
+          ))}
+        </ul>
       </div>
 
       <div className="mt-16">

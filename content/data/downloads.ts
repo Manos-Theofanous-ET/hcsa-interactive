@@ -66,6 +66,13 @@ export const DOWNLOADS: DownloadItem[] = [
     href: "/plan/#need",
     action: "Open",
   },
+  {
+    title: "Meetings register (23 Oct 2026)",
+    meta: "Google Doc",
+    body: "What each October meeting changed: the load frames, the glass tests, the seal, the pane, the suppliers and the dates. Opens in Google Docs.",
+    href: "https://docs.google.com/document/d/1HVu05Gn9fgm8OwNxXRq6qbaqKN4YYxC943rhsSCkQ5s/edit",
+    action: "Open",
+  },
 ];
 
 export const ON_REQUEST: { title: string; body: string }[] = [
