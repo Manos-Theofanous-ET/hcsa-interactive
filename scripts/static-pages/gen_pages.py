@@ -352,12 +352,12 @@ MILESTONES = [
 TESTS = [
     ("t0", "T0: how strong is our glass?", "3d_render-17_T0_ring_on_ring",
      "Borosilicate glass bars, 1 in wide and 1/8 in thick, bent in four-point bending until they break, the way ENGN 1440 does it. 30 or more per edge finish, so we know the real strength and how much it scatters. That scatter picks the final pane size: 531 mm as planned, 708 mm if the glass is consistent, 425 mm if it is not. The disc test drawn here is off: the fixture would cost thousands and the small frame at Brown is 0.5 kN, not 5 kN. The 60 BOROFLOAT and 15 sapphire discs already received stay for a second look.",
-     "Spring 2027, with Prof. Padture's class. Bars this fall on the 0.5 kN frame are still being weighed."),
+     "Spring 2027, in the Brown materials lab course ENGN 1440. Bars this fall on the 0.5 kN frame are still being weighed."),
     ("t1", "T1: does the seam hold when it is pulled apart?", "3d_render-10_T1_slice_150",
      "Full-size slices of the seam, 75, 150 and 225 mm long, pulled in the 100 kN load frame at Brown while we check the seal between the two butyl loops. Plus a 550 mm piece of the seam to check it goes together and holds air. The seal changed on 23 Oct: two butyl BA500 loops and the silicone bead, in place of fluorosilicone cord, because a closed loop has no cut ends to leak at the corners (Parker's advice).",
      "Built this fall from the 8 November drawings. Pulled late January to February 2027: the frame is free after 18 November, and Dewesoft lends the 16-channel strain recorder in 3 to 4 week batches, booked a month ahead."),
     ("t2p", "T2: how does a window panel bend?", "3d_render-14_T2_rig_pinned",
-     "A hexagon panel at quarter scale, 1.1 m across, with aluminium in place of glass, loaded with water up to 2 atm in a steel tub. It shows how the panes bend onto the frame and ribs.",
+     "A hexagon panel at quarter scale, 1.1 m across, with aluminium in place of glass, loaded with water up to 2 atm in a steel tub. It shows how the panes bend onto the frame and ribs. The article is redrawn for the Rev E pane before 8 November.",
      "Spring 2027."),
     ("shell", "FEA: how does the whole shell share the load?", "3d_render-02_shell_cutaway",
      "Computer models of one panel, a cap of seven panels and the full shell. They tell us how much load the seams and corners really carry, which sets the bolt size.",
@@ -385,7 +385,7 @@ NEEDS = [
         ("Rubber and small parts", "1 mm EPDM sheet 1.5 x 1.3 m; neoprene strip 1.5 x 10 mm, 8 m; 24 M16 class 8.8 bolts and nuts; six 12 mm ground steel bars 548 mm long; a relief valve set at 220 kPa; brass fittings and a pressure gauge.", "January"),
     ]),
     ("For measuring", [
-        ("Strain gauges", "About 20 rosettes and 10 single gauges. The 16-channel strain recorder is on loan from Dewesoft, in 3 to 4 week batches.", "November"),
+        ("Strain gauges", "Rosettes and single gauges; the final count is being settled with the test plan. The 16-channel strain recorder is on loan from Dewesoft, in 3 to 4 week batches.", "November"),
         ("Dial gauges or LVDTs, and a pressure sensor", "Four displacement gauges; one 0 to 300 kPa pressure transducer.", "January"),
     ]),
     ("Time, software and funds", [
@@ -409,7 +409,7 @@ REVD_NOTE = (
 OCT_NOTE = (
     "Two design decisions, labelled Rev E, decided 23 October, drawings 8 November. The pressure pane becomes 22 mm BOROFLOAT 33 on "
     "531 mm panes: each 2,250 mm triangle is split into 16 panes, 96 per hexagon and 1,920 on the shell, because the glass makers can "
-    "finish a square no larger than 787 mm and a smaller pane makes the glass thinner and safer. 708 mm panes are the upside and 425 mm the "
+    "finish thick glass only in small sheets (a polished square no larger than 787 mm), and a smaller pane carries less stress at the same thickness. 708 mm panes are the upside and 425 mm the "
     "fallback; the pick is final once T0 measures how much the glass strength scatters. The seal becomes two butyl BA500 loops with the "
     "RTV566 bead kept as the third seal, in place of fluorosilicone cord, on Parker's advice. The blueprints and the 3D model stay Rev D "
     "until the 8 November pack. Cabin pressure stays 1 atm. "
