@@ -15,7 +15,8 @@ SIZES = json.load(open(os.path.join(HERE, "image-sizes.json")))
 PDF = "/downloads/HCSA-Rev-S-drawings-explained-26-Sep-2026.pdf"
 PDF_REVD = "/downloads/HCSA-Rev-D-blueprint-pack-14-Oct-2026.pdf"
 PDF_REVD_SPEC = "/downloads/HCSA-Rev-D-design-spec-14-Oct-2026.pdf"
-UPDATED = "14 October 2026"
+UPDATED = "23 October 2026"
+REVD_DATED = "14 October 2026"
 REVS_DATED = "28 September 2026"
 
 
@@ -158,7 +159,7 @@ def page(title, desc, current, body, lightbox=False):
 </main>
 <footer><div class="wrap">
 <p>Human-Centric Space Architecture (HCSA), a student research project at Brown University, supported by a Brown UTRA award and developed with RISD. Faculty advisor: Prof. Rick Fleeter. Project lead: Manos Theofanous.</p>
-<p>Updated {UPDATED}. The Rev D sheets are drawn from the Rev D design spec (14 October 2026); the Rev S drawings ({REVS_DATED}) are taken from the CAD model and are kept for reference. Every dimension is in millimetres.</p>
+<p>Updated {UPDATED}. The Rev D sheets are drawn from the Rev D design spec ({REVD_DATED}); the Rev S drawings ({REVS_DATED}) are taken from the CAD model and are kept for reference. Every dimension is in millimetres.</p>
 </div></footer>
 {LIGHTBOX if lightbox else ""}
 <script>
@@ -233,8 +234,8 @@ REVD_INTRO = (
 
 OPEN_ITEMS = [
     "The mid-seam hardpoint: pinned (the Rev D default) or moment-carrying. It sets the secondary rib, 160 or 200 mm deep. Submodel C3 on 16 October.",
-    "The pressure glass: 25.4 mm with a stiffer setting strip (default) or 28 to 34.9 mm. After submodel C4 and the T0 bar tests.",
-    "The seal cord: butyl BA500 as a closed loop (default) or fluorosilicone. Before the 8 November drawings.",
+    "The pressure glass: decided 23 October for Rev E. 22 mm BOROFLOAT 33 on 531 mm panes (16 per 2,250 mm triangle, 96 per hexagon); 708 mm panes as upside, 425 mm as fallback, final pick after the T0 bars give the Weibull m. Drawings 8 November; the Rev D sheets above still show 25.4 mm on 1,125 mm panes.",
+    "The seal cord: decided 23 October for Rev E. Two butyl BA500 closed loops with the RTV566 bead as the third seal; fluorosilicone is out, on Parker's advice. Drawings 8 November.",
     "The seam bolt part number. The old NAS9306C-06 is a rivet standard and the wrong size; the parts memo of 1 November names the bolt.",
     "The frame bow between corners: 1.4 to 2.0 mm predicted against the 1 mm sealing limit. Keep the frame 140 mm deep and test (default), or deepen it. After T1 and submodel C2.",
     "The corner seal at the vertex plug, where the three seal loops meet.",
@@ -272,7 +273,7 @@ def blueprints():
     toc = "".join(f'<li><a href="#{k}">{e(SHORT[k])}</a></li>' for _, ks in ORDER for k in ks)
     parts = [f"""
 <header class="hero"><div class="wrap">
-<p class="eyebrow">Blueprints, Rev D, {UPDATED}</p>
+<p class="eyebrow">Blueprints, Rev D, {REVD_DATED}</p>
 <h1>The shell, the joint and the tests, with dimensions.</h1>
 <p class="lead">{e(ov["intro"])} Rev D (14 October 2026) is the first design sized by a stress model of the whole shell: 24 glass panes per hexagon on deep ribs, a solid node at every corner and a hardpoint at every mid-seam.</p>
 <ul class="facts"><li>11,151 mm across</li><li>2,250 mm edges</li><li>20 glass hexagons, 24 panes each</li><li>12 solid pentagons</li><li>90 seams, 60 corners</li><li>2,340 seal-clamp bolts</li></ul>
@@ -284,13 +285,14 @@ def blueprints():
 <h2>Rev D, 14 Oct 2026: the FEA-sized baseline</h2>
 <p class="tested">13 sheets, A3. Click any sheet to open it full size.</p>
 <p>{e(REVD_INTRO)}</p>
+<p class="muted">Two of the open decisions were taken on 23 October for Rev E, drawings due 8 November: the pressure pane becomes 22 mm BOROFLOAT 33 on 531 mm panes (96 per hexagon), and the seal becomes two butyl BA500 loops with the RTV566 bead. The sheets below still show the Rev D pane and seal until the new pack. See the plan for the reasons.</p>
 <div class="thumbs">{revd_thumbs()}</div>
 </div></section>
 <section><div class="wrap grid2">
 <div><h2>How to read the drawings</h2><ul class="dots"><li>Rev D sheets: one A3 drawing each, with a title block giving the sheet, the material and heat treatment of the parts on it, and the status of every item (LOCKED, FEA, PROPOSAL or OPEN). Not to scale; read the dimensions.</li>{"".join(f"<li>Rev S {e(t[0].lower() + t[1:])}</li>" for t in ov["reading"])}</ul>
 <p class="muted">Click any drawing to open it full size. Arrow keys step through them.</p></div>
 <div><h2>How the pieces fit</h2>
-<p>The shell is 32 panels. Each panel has frames on its edges; two frames bolted together make a seam; three seams meet at a corner. The stress model of the whole shell (9 to 12 October) says how the load is shared: most of the pull across a seam goes into the corner nodes, a third into the mid-seam hardpoint, and the bolts only clamp the seals. We test the parts that decide whether it holds: the seam (T1, this fall, at the Rev D load), the glass (T0, bars in four-point bend, spring 2027), one panel (T2, the 24-pane hexagon at 1:4, spring 2027) and a corner (T3, 2027). Every test is run on the computer first, and passes when the measurement lands within 10 % of the prediction.</p>
+<p>The shell is 32 panels. Each panel has frames on its edges; two frames bolted together make a seam; three seams meet at a corner. The stress model of the whole shell (9 to 12 October) says how the load is shared: most of the pull across a seam goes into the corner nodes, a third into the mid-seam hardpoint, and the bolts only clamp the seals. We test the parts that decide whether it holds: the seam (T1, built this fall, pulled in January and February 2027 at the Rev D load), the glass (T0, bars in four-point bend, spring 2027), one panel (T2, a hexagon at 1:4, spring 2027) and a corner (T3, 2027). Every test is run on the computer first, nothing is machined before its digital twin has a signed sheet, and a test passes when the measurement lands within 10 % of the prediction.</p>
 <p class="muted">Rev D is a design in progress, not a flight design. The open decisions are listed at the bottom of this page.</p></div>
 </div></section>
 <section id="revs" class="subject" style="padding-bottom:0"><div class="wrap">
@@ -335,44 +337,44 @@ MILESTONES = [
     ("27 Sep", "15 requirements for the seam, each with its source", "Sent to advisor"),
     ("27 Sep", "Load cases for the seam, with the two hand estimates reconciled", "Sent to advisor"),
     ("4 Oct", "Glass and frame materials chosen, from published design data", ""),
-    ("11 Oct", "Design strength of the glass from published data, scaled up to a full pane; the T0 discs check it later in October", ""),
-    ("18 Oct", "First computer model (FEA) of the seam and one panel; rib depth settled", ""),
-    ("25 Oct", "Seam design Rev D, with the open decisions closed", ""),
+    ("11 Oct", "Design strength of the glass from published data, scaled up to a full pane; the T0 bars check it in spring 2027", ""),
+    ("12 Oct", "Stress model of the whole shell on three solvers; Rev D sizes (14 Oct)", "Done"),
+    ("23 Oct", "Pane and seal decided for Rev E: 22 mm glass on 531 mm panes, two butyl loops and a silicone bead", "Decided"),
     ("1 Nov", "Parts memo, with the bolt part number confirmed", ""),
-    ("8 Nov", "Drawings, parts list and quotes released; go or no-go for building", ""),
-    ("22 Nov", "Test plan for spring 2027", ""),
+    ("8 Nov", "Drawings, parts list and quotes released (the Rev E pack); go or no-go for building. Nothing is machined before its digital twin has a signed sheet", ""),
+    ("18 Nov", "The 100 kN load frame at Brown becomes free", ""),
+    ("22 Nov", "Test plan for spring 2027; test dates set with Dewesoft for the strain recorder loan", ""),
     ("6 Dec", "If the shop delivers: the 550 mm joint article built, bolt tension against seal squeeze measured", ""),
     ("11 Dec", "Fall report, 10 to 15 pages", ""),
+    ("Jan to Feb 27", "The seam slices pulled apart in the 100 kN frame, with the Dewesoft recorder on loan", ""),
 ]
 
 TESTS = [
     ("t0", "T0: how strong is our glass?", "3d_render-17_T0_ring_on_ring",
-     "Glass discs 50 mm across and 3 mm thick, pressed in the middle until they break. 30 or more per type of glass, so we know the real strength and how much it scatters.",
-     "October, in a small load frame."),
+     "Borosilicate glass bars, 1 in wide and 1/8 in thick, bent in four-point bending until they break, the way ENGN 1440 does it. 30 or more per edge finish, so we know the real strength and how much it scatters. That scatter picks the final pane size: 531 mm as planned, 708 mm if the glass is consistent, 425 mm if it is not. The disc test drawn here is off: the fixture would cost thousands and the small frame at Brown is 0.5 kN, not 5 kN. The 60 BOROFLOAT and 15 sapphire discs already received stay for a second look.",
+     "Spring 2027, with Prof. Padture's class. Bars this fall on the 0.5 kN frame are still being weighed."),
     ("t1", "T1: does the seam hold when it is pulled apart?", "3d_render-10_T1_slice_150",
-     "Full-size slices of the seam, 75, 150 and 225 mm long, pulled in a 100 kN load frame while we check the seal between the O-rings. Plus a 550 mm piece of the seam to check it goes together and holds air.",
-     "Parts ordered after the 8 November release; tests as soon as they arrive."),
+     "Full-size slices of the seam, 75, 150 and 225 mm long, pulled in the 100 kN load frame at Brown while we check the seal between the two butyl loops. Plus a 550 mm piece of the seam to check it goes together and holds air. The seal changed on 23 Oct: two butyl BA500 loops and the silicone bead, in place of fluorosilicone cord, because a closed loop has no cut ends to leak at the corners (Parker's advice).",
+     "Built this fall from the 8 November drawings. Pulled late January to February 2027: the frame is free after 18 November, and Dewesoft lends the 16-channel strain recorder in 3 to 4 week batches, booked a month ahead."),
     ("t2p", "T2: how does a window panel bend?", "3d_render-14_T2_rig_pinned",
      "A hexagon panel at quarter scale, 1.1 m across, with aluminium in place of glass, loaded with water up to 2 atm in a steel tub. It shows how the panes bend onto the frame and ribs.",
      "Spring 2027."),
     ("shell", "FEA: how does the whole shell share the load?", "3d_render-02_shell_cutaway",
      "Computer models of one panel, a cap of seven panels and the full shell. They tell us how much load the seams and corners really carry, which sets the bolt size.",
-     "October and November."),
+     "Ran 9 to 12 October (Rev D). Every physical test now gets its own computer twin first, and nothing is machined before that twin has a signed sheet."),
 ]
 
 # What we need, grouped by test. (item, size and quantity, needed by)
 NEEDS = [
-    ("For T0, the glass discs", [
-        ("Borosilicate glass discs (for example Borofloat 33)", "50 mm across (or 50 mm squares), 3 mm thick, all with the same surface finish. 60 pieces: 30 for strength, 30 for four loading speeds. Edge chips are fine: the test only loads the middle.", "Mid October"),
-        ("Fused silica discs", "Same size, 30 pieces.", "Mid October"),
-        ("ALON or sapphire discs, for comparison", "Same size, 10 to 15 pieces.", "November"),
-        ("Hardened tool steel for the test rings", "Two small rings, 70 mm across; machining.", "Early October"),
+    ("For T0, the glass bars", [
+        ("Borosilicate glass bars (Borofloat 33)", "1 in wide, 1/8 in thick, about 4 in long, with the same edge finish within a set. 30 or more per edge finish. The 60 Borofloat discs (SCHOTT) and 15 sapphire discs (Meller Optics) already received are in hand.", "Early 2027"),
+        ("Four-point bend fixture", "The ENGN 1440 fixture, or one like it, for a 0.5 kN frame.", "Early 2027"),
     ]),
     ("For T1, the seam slices and the 550 mm joint article", [
         ("6061-T6 aluminium, and CNC machining of 8 edge frames", "Six slice frames about 205 x 140 mm in section, 75, 150 and 225 mm long (two of each), and two frames about 60 x 140 x 550 mm. O-ring grooves 6.6 x 4.0 mm, bolt holes 8.03 mm at 75 mm. About 27 kg finished; STEP files ready now.", "8 Nov release"),
         ("4140 steel pull blocks, quenched and tempered", "Six blocks 83 x 80 mm in section, 75, 150 and 225 mm long, each with an M24 tapped hole. About 45 kg.", "8 Nov release"),
         ("5/16 in (-10) A286 bolts, nuts and washers", "30 sets (13 used, the rest spares). Part number confirmed 1 November.", "November"),
-        ("Fluorosilicone (FVMQ) O-ring cord", "5.33 mm (0.210 in) cross-section, 70 Shore A, 5 m.", "November"),
+        ("Butyl seal loops (Parker BA500)", "Two closed loops per joint, moulded to the groove; sizes with the 8 November drawings. Fluorosilicone cord is no longer needed.", "November"),
         ("RTV566 silicone with its primer", "One kit, plus a syringe and tips for a 3 mm bead.", "November"),
         ("Fixture hardware", "50 M12 class 10.9 bolts, 1 m of M8 threaded rod with nuts, eight steel end plates 84 x 38 x 10 mm, 3 mm neoprene sheet 300 x 300 mm.", "November"),
     ]),
@@ -383,11 +385,11 @@ NEEDS = [
         ("Rubber and small parts", "1 mm EPDM sheet 1.5 x 1.3 m; neoprene strip 1.5 x 10 mm, 8 m; 24 M16 class 8.8 bolts and nuts; six 12 mm ground steel bars 548 mm long; a relief valve set at 220 kPa; brass fittings and a pressure gauge.", "January"),
     ]),
     ("For measuring", [
-        ("Strain gauges and a strain amplifier board", "About 20 rosettes and 10 single gauges; a 16-channel strain-gauge amplifier board (PCB).", "November"),
+        ("Strain gauges", "About 20 rosettes and 10 single gauges. The 16-channel strain recorder is on loan from Dewesoft, in 3 to 4 week batches.", "November"),
         ("Dial gauges or LVDTs, and a pressure sensor", "Four displacement gauges; one 0 to 300 kPa pressure transducer.", "January"),
     ]),
     ("Time, software and funds", [
-        ("Test frame time", "A 100 kN universal test frame for T1 and a 5 kN frame for T0.", "October to December"),
+        ("Test frame time", "The 100 kN frame at Brown for T1, free after 18 November, booked for late January to February 2027. T0 bars run on a 0.5 kN frame in spring 2027.", "January to February"),
         ("FEA software", "One academic seat for structural and thermal analysis, for the shell size study.", "October"),
         ("Funding", "Pays for machining, the steel rig and anything not donated. Every dollar goes to parts and shop time.", "Any time"),
         ("Expert advice", "A 20 minute review from people who know bolted joints, seals, structural glass or pressure testing.", "Any time"),
@@ -403,6 +405,25 @@ REVD_NOTE = (
     "per bolt and at the upper bound. The 1:1 seam slices and the 550 mm article go ahead this fall as planned, to the Rev D section. "
     "See the Rev D pack on the blueprints page."
 )
+
+OCT_NOTE = (
+    "Two design decisions, labelled Rev E, decided 23 October, drawings 8 November. The pressure pane becomes 22 mm BOROFLOAT 33 on "
+    "531 mm panes: each 2,250 mm triangle is split into 16 panes, 96 per hexagon and 1,920 on the shell, because the glass makers can "
+    "finish a square no larger than 787 mm and a smaller pane makes the glass thinner and safer. 708 mm panes are the upside and 425 mm the "
+    "fallback; the pick is final once T0 measures how much the glass strength scatters. The seal becomes two butyl BA500 loops with the "
+    "RTV566 bead kept as the third seal, in place of fluorosilicone cord, on Parker's advice. The blueprints and the 3D model stay Rev D "
+    "until the 8 November pack. Cabin pressure stays 1 atm. "
+    "Three things in the test plan change. The glass test moves from discs to bars in four-point bend, 1 in by 1/8 in, the way ENGN 1440 "
+    "runs it, in spring 2027: the disc fixture would cost thousands, and the small frame at Brown is 0.5 kN, not the 5 kN the plan assumed. "
+    "The seam pulls move to late January to February 2027 on the 100 kN frame at Brown, which is free after 18 November; Dewesoft lends the "
+    "16-channel strain recorder in 3 to 4 week batches with a month's notice. This fall is fabrication. "
+    "And one rule: every physical test is completed on the computer first, and nothing is machined before its digital twin has a signed sheet."
+)
+
+SUPPLIER_LIMITS = [
+    "SUPREMAX 33: rolled at 34.9 mm in 1,000 x 1,500 mm sheets; ground and polished to 29.4 mm at 787 x 787 mm, the largest part Swift Glass can finish (SCHOTT, Tina Gallo, 20 Oct; Swift Glass, Charlie Burke, 14 and 20 Oct).",
+    "BOROFLOAT 33: 25.4 mm in 1,150 x 850 mm sheets; 21 mm in 1,700 x 1,300 mm; 15 mm in 2,300 x 1,700 mm (SCHOTT, 20 Oct).",
+]
 
 
 def plan():
@@ -428,16 +449,23 @@ def plan():
     concept_html = "".join(f'<figure><img src="{s}" loading="lazy" alt="{e(c)}"><figcaption class="muted" style="font-size:15px;margin-top:8px">{e(c)}</figcaption></figure>' for s, c in concept)
     body = f"""
 <header class="hero"><div class="wrap">
-<p class="eyebrow">The plan, fall 2026. Written {REVS_DATED}, Rev D note added {UPDATED}</p>
-<h1>This fall we build and test the seam between two panels.</h1>
-<p class="lead">We take the joint where two panels meet from a design on paper to hardware we have built and measured, and we do the analysis it depends on (loads, glass strength, frame material) so the tests mean something.</p>
+<p class="eyebrow">The plan, fall 2026. Written {REVS_DATED}, Rev D note added {REVD_DATED}, updated {UPDATED}</p>
+<h1>This fall we build the seam between two panels. We pull it apart in January.</h1>
+<p class="lead">We take the joint where two panels meet from a design on paper to hardware we have built and measured, and we do the analysis it depends on (loads, glass strength, frame material) so the tests mean something. Every test runs on the computer first.</p>
 <p style="margin-top:24px"><a class="btn" href="#need">What we need from sponsors</a><a class="btn" href="/blueprints/">See the blueprints</a><a class="btn" href="{PDF_REVD}">Rev D blueprint pack (PDF)</a></p>
 </div></header>
+
+<section id="oct" style="padding:32px 0"><div class="wrap">
+<p class="eyebrow">23 Oct 2026: what the October meetings changed</p>
+<p>{e(OCT_NOTE)}</p>
+<p class="label" style="margin-top:18px">Supplier limits, for the pane sizes under study</p>
+<ul class="dots">{"".join(f"<li>{e(t)}</li>" for t in SUPPLIER_LIMITS)}</ul>
+</div></section>
 
 <section id="revd" style="padding:32px 0"><div class="wrap">
 <p class="eyebrow">14 Oct 2026: Rev D</p>
 <p>{e(REVD_NOTE)}</p>
-<p class="muted">The sizes and dates below this note are from the {REVS_DATED} plan and are kept as written; where they differ, the Rev D pack is current.</p>
+<p class="muted">The sizes below this note are from the {REVS_DATED} plan and are kept as written; where they differ, the Rev D pack is current and the 23 October note above is newer still. The test cards and dates below were updated on {UPDATED}.</p>
 </div></section>
 
 <section id="concept"><div class="wrap">
@@ -474,7 +502,7 @@ def plan():
 <p class="eyebrow">By 11 December</p>
 <h2>What we will finish this fall.</h2>
 <div class="tablewrap"><table class="stack"><thead><tr><th>Date</th><th>What</th><th><span class="sr">Status</span></th></tr></thead><tbody>{ms}</tbody></table></div>
-<p class="muted" style="margin-top:16px">After this fall: in spring 2027 we run the T1 and T2 tests under pressure, check the computer model against them, and design the corner seal. In spring 2028 the work becomes a capstone project.</p>
+<p class="muted" style="margin-top:16px">After this fall: in late January and February 2027 we pull the T1 slices in the 100 kN frame; in spring 2027 we break the T0 bars, run T2 under water pressure, check the computer model against all of them, and design the corner seal. In spring 2028 the work becomes a capstone project.</p>
 </div></section>
 
 <section id="need"><div class="wrap">
