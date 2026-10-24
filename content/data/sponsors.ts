@@ -10,8 +10,8 @@ export const CONTACT_EMAIL = "";
 
 export const nowWorkingOn: string[] = [
   "Testing the seam between two panels: full-size slices of the joint pulled apart in a load frame, and a " + N.coupon_size.display + " piece of it checked for air leaks.",
-  "Measuring how strong our glass really is, on 50 mm glass discs broken in a small load frame.",
-  "Modelling the whole shell on the computer to see how the panels share the load, then testing one panel at quarter scale under water pressure.",
+  "Sizing the corner node and the mid-seam hardpoint that the whole-shell stress model (9 to 12 Oct) showed carry the seam pull, so the November test pieces are the Rev D seam.",
+  "Measuring how strong our glass really is, on borosilicate bars bent to breaking in a small load frame (spring 2027), then testing one panel at quarter scale, with " + N.panes_per_hex.display + " panes, under water pressure.",
 ];
 
 export const fundingUses: { title: string; body: string }[] = [
@@ -25,7 +25,7 @@ export const fundingUses: { title: string; body: string }[] = [
   },
   {
     title: "Glass for strength tests",
-    body: "50 mm glass discs, 30 or more of each glass, to measure how strong the glass really is.",
+    body: "Borosilicate glass bars, 30 or more per edge finish, bent to breaking to measure how strong the glass really is and how much it scatters.",
   },
   {
     title: "A water pressure rig",

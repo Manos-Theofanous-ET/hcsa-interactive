@@ -2,12 +2,14 @@ import { NUMERICS as N } from "@content/numerics";
 
 | # | Layer (outside to inside) |
 |---|---|
-| **01** | Outer shield that takes hits from space dust |
-| **02** | Aluminium frame that carries the load |
-| **03** | See-through solar cells |
-| **04** | Tint that darkens on demand |
-| **05** | Insulating gas layer |
+| **01** | Outer shield pane that takes hits from space dust |
+| **02** | Aluminium edge frame, **{N.frame_depth.display}** deep, that carries the load |
+| **03** | Insulating gas layer |
+| **04** | See-through solar cells |
+| **05** | Tint that darkens on demand |
 | **06** | Sliding solar shade for privacy |
-| **07** | Inner frame on the cabin side |
+| **07** | Pressure glass, **{N.l7_thickness.display}** borosilicate, on the ribs |
 
-The whole panel is **{N.frame_depth.display}** thick.
+Each hexagon holds **{N.panes_per_hex.display}** triangular panes, **{N.pane_side.display}** on a side, on ribs **{N.main_rib_depth.display}** deep.
+
+The pull across each seam, **{N.seam_tension.display}**, goes through a solid node at each corner and a pinned hardpoint at mid-seam, both proposed details to be sized in the 16 October submodels. The **{N.bolts_per_seam.display}** bolts along a seam only clamp the seals.

@@ -48,7 +48,7 @@ const CHAPTERS = [
     idx: 5,
     title: "The window panel",
     statement: `Each panel is a\n${N.panel_layers.display}-layer sandwich.`,
-    why: `The air inside pushes on each large panel with the weight of about ${PLAIN.hex_force_tonnes} tonnes. The frame carries that load so the glass does not have to.`,
+    why: `The air inside pushes on each large panel with the weight of about ${PLAIN.hex_force_tonnes} tonnes. The frames and the proposed corner nodes and mid-seam hardpoints carry that pull; the bolts only clamp the seals.`,
     Body: Panel,
   },
   {

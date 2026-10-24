@@ -226,5 +226,57 @@
 "3d_render-16_T2_rig_clamped_cut": [
 720,
 382
+],
+"revd-00_cover": [
+720,
+509
+],
+"revd-01_shell": [
+720,
+509
+],
+"revd-02_hex_plan": [
+720,
+509
+],
+"revd-03_hex_section": [
+720,
+509
+],
+"revd-04_rib_sections": [
+720,
+509
+],
+"revd-05_seam_joint": [
+720,
+509
+],
+"revd-06_corner_node": [
+720,
+509
+],
+"revd-07_hardpoint": [
+720,
+509
+],
+"revd-08_glazing": [
+720,
+509
+],
+"revd-09_pent_plan": [
+720,
+509
+],
+"revd-10_test_articles": [
+720,
+509
+],
+"revd-11_materials_mass": [
+720,
+509
+],
+"revd-12_open_decisions": [
+720,
+509
 ]
 }

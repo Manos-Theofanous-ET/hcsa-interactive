@@ -1,9 +1,13 @@
+import { NUMERICS as N } from "@content/numerics";
+
 | Step | Status |
 |---|---|
 | **1** Design and scale model | Done |
-| **2** Computer model of the whole shell, every bolt | Done |
-| **3** Glass strength tests | **This fall** |
-| **4** Seam test pieces | This fall |
-| **5** Computer stress model of the shell | This fall |
-| **6** One panel at quarter scale under water pressure | Spring 2027 |
+| **2** CAD model of the whole shell, every bolt | Done |
+| **3** Stress model of the whole shell on three solvers (9 to 12 Oct) | Done, Rev D |
+| **4** Seam test pieces, full size, at the Rev D load | **This fall** |
+| **5** Glass strength on bars, in four-point bend | Spring 2027 |
+| **6** One panel at quarter scale, **{N.panes_per_hex.display}** panes, under water pressure | Spring 2027 |
 | **7** Testing for space | Later |
+
+Digital first: the model files its prediction for every gauge before a test. The test passes when the measurement lands within **{N.test_pass_tolerance.display}** of it. A miss changes the model, never the data.

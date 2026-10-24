@@ -13,7 +13,10 @@ PUB = os.path.join(HERE, "..", "..", "public")
 DATA = json.load(open(os.path.join(HERE, "blueprints-data.json")))
 SIZES = json.load(open(os.path.join(HERE, "image-sizes.json")))
 PDF = "/downloads/HCSA-Rev-S-drawings-explained-26-Sep-2026.pdf"
-UPDATED = "28 September 2026"
+PDF_REVD = "/downloads/HCSA-Rev-D-blueprint-pack-14-Oct-2026.pdf"
+PDF_REVD_SPEC = "/downloads/HCSA-Rev-D-design-spec-14-Oct-2026.pdf"
+UPDATED = "14 October 2026"
+REVS_DATED = "28 September 2026"
 
 
 def e(s):
@@ -127,7 +130,7 @@ LIGHTBOX = """
 
 def page(title, desc, current, body, lightbox=False):
     nav = [("/", "HCSA", "brand"), ("/plan/", "The plan", ""), ("/blueprints/", "Blueprints", ""),
-           ("/#work", "Concept art", "wide-only"), ("/#sponsor", "Sponsor", "")]
+           ("/tests/", "The tests", ""), ("/#work", "Concept art", "wide-only"), ("/#sponsor", "Sponsor", "")]
     cur = ' aria-current="page"'
     links = "".join(
         f'<a href="{h}" class="{c}"{cur if h == current else ""}>{e(t)}</a>' for h, t, c in nav)
@@ -155,7 +158,7 @@ def page(title, desc, current, body, lightbox=False):
 </main>
 <footer><div class="wrap">
 <p>Human-Centric Space Architecture (HCSA), a student research project at Brown University, supported by a Brown UTRA award and developed with RISD. Faculty advisor: Prof. Rick Fleeter. Project lead: Manos Theofanous.</p>
-<p>Updated {UPDATED}. Drawings are Rev S, taken from the CAD model; every dimension is in millimetres.</p>
+<p>Updated {UPDATED}. The Rev D sheets are drawn from the Rev D design spec (14 October 2026); the Rev S drawings ({REVS_DATED}) are taken from the CAD model and are kept for reference. Every dimension is in millimetres.</p>
 </div></footer>
 {LIGHTBOX if lightbox else ""}
 <script>
@@ -197,7 +200,51 @@ SHORT = {"shell": "The whole shell", "hex": "Hexagon panel", "pent": "Pentagon p
          "seam": "One seam", "corner": "A corner", "t0": "T0 glass discs", "t1": "T1 seam slice",
          "t550": "T1 550 mm article", "t2p": "T2 panel at 1:4", "t2r": "T2 water rig"}
 
+# Rev D sheets (public/blueprints/img/revd-NN_slug.webp, from the Rev D blueprint pack, 14 Oct 2026).
+REVD_SHEETS = [
+    ("00_cover", "Sheet 00", "Cover: index of the 13 sheets, what changed from Rev S to Rev D, drawing conventions and the status tags (LOCKED, FEA, PROPOSAL, OPEN)."),
+    ("01_shell", "Sheet 01", "The shell in elevation and plan with panel names: 20 hexagons, 12 pentagons, 90 seams and 60 corners; 11,151 mm across, every edge 2,250 mm."),
+    ("02_hex_plan", "Sheet 02", "Hexagon panel plan from the cabin side: 6 main ribs from the centre to each corner, 18 secondary ribs of 1,125 mm, 24 triangular panes of 1,125 mm side."),
+    ("03_hex_section", "Sheet 03", "Section A-A along a main rib, corner to centre: the 375 mm main rib, the 140 mm edge frame and the 25.4 mm pressure pane on its seat."),
+    ("04_rib_sections", "Sheet 04", "Rib sections: main hexagon rib I 375 (200 x 15 flanges, 8 web), main pentagon rib I 400 (80 x 25, 8 web), secondary rib I 160 (64 x 8, 6 web); allowable 160 MPa."),
+    ("05_seam_joint", "Sheet 05", "Seam joint in section: frames A and B, the 5/16-24 A286 seal-clamp bolt every 75 mm, two 5.33 mm cords in 7.1 x 4.0 mm glands, the RTV566 bead, and the load path: 63 % of the 623 kN per seam to the corner nodes, 31 % to the hardpoint, 5 % to the bolts."),
+    ("06_corner_node", "Sheet 06", "Corner node, plan on the vertex and section along a seam (PROPOSAL): one machined 6061-T651 block per panel corner taking the first 100 mm of both frames, 5.8 kg; vertex ties 4 x 5/8-18 A286 per joint face for 196 kN in tension only; the corner moment goes through block-to-block face contact."),
+    ("07_hardpoint", "Sheet 07", "Seam mid hardpoint at x 1,125 mm, plan and section (PROPOSAL): a 40 mm lug on frame A between a 2 x 25 mm clevis on frame B, 40 mm A286 pin (bending 349 MPa at 195 kN; a 30 mm pin would be past yield), 152 to 195 kN across the seam and no moment; lug and clevis below the three seal lines."),
+    ("08_glazing", "Sheet 08", "Glazing stack and the pane edge at the frame: 6 mm fused silica debris pane, 12 mm gas gap, PV and electrochromic layers, the shutter, and the 25.4 mm BOROFLOAT 33 pressure pane on a 2 mm strip with a 20 mm bite."),
+    ("09_pent_plan", "Sheet 09", "Pentagon panel plan from the cabin side: 5 main ribs, 15 secondary ribs, 20 bays and a 10 mm face plate (Rev S 4 mm); 651 kg before the solar, shield and docking equipment."),
+    ("10_test_articles", "Sheet 10", "The test articles against the facility: T0 glass bars in four-point bend, T1 seam slices and the 550 mm article at full size, T2 the 24-pane hexagon at 1:4, T3 one corner at full size."),
+    ("11_materials_mass", "Sheet 11", "Materials, heat treatment and mass: 6061-T651 for the prototype, 2219-T851 for flight, A286 fasteners, BOROFLOAT 33 glass; hexagon 1,838 kg, pentagon 651 kg, structure 34.0 t, facility 50.4 t itemised."),
+    ("12_open_decisions", "Sheet 12", "The open decisions and which test or submodel settles each: hardpoint pinned or stiff, glass thickness, seal cord, bolt designation, frame bow, corner seal, tie and pin sizes, mass, the shear key, and the factor-of-safety basis."),
+]
+
+REVD_INTRO = (
+    "The whole-shell stress model, run on three solvers from 9 to 12 October and reviewed independently, showed that the Rev S design "
+    "cannot hold 1 atm: the 31 mm glass in the six-pane hexagon reaches 54 MPa against 35 allowable and bends 7.3 mm against 3.1, the "
+    "103 mm ribs are far past yield, and the open corners put 100 to 138 kN on end bolts that break at 34 kN. Rev D takes the branch the "
+    "specification already allowed for. Each hexagon is split into 24 triangular panes of 1,125 mm side on 375 mm main ribs and 160 mm "
+    "secondary ribs; the pressure pane is 25.4 mm BOROFLOAT 33; and the pull across each seam, 623 kN, goes through a solid machined node "
+    "at every corner and a pinned hardpoint at every mid-seam (both proposed details, sized on 16 October), so the 26 bolts along a seam only clamp the seals. The structure is 34.0 t "
+    "and the facility about 50.4 t. Every item on the sheets carries a status. LOCKED is geometry unchanged from Rev S. FEA is what the "
+    "October runs set: the rib sections, the glass thickness, the pane count and the load split. PROPOSAL is a detail drawn to carry an "
+    "FEA load and still to be sized in the 16 October submodels and in a physical test: the corner node and its vertex ties, the "
+    "hardpoint, the 26-bolt count and the wider seal glands. OPEN is a decision not yet taken, with the Rev D default stated; the ten "
+    "open decisions are listed at the bottom of this page. Rev D is not locked in TRUTH until the revision is signed."
+)
+
 OPEN_ITEMS = [
+    "The mid-seam hardpoint: pinned (the Rev D default) or moment-carrying. It sets the secondary rib, 160 or 200 mm deep. Submodel C3 on 16 October.",
+    "The pressure glass: 25.4 mm with a stiffer setting strip (default) or 28 to 34.9 mm. After submodel C4 and the T0 bar tests.",
+    "The seal cord: butyl BA500 as a closed loop (default) or fluorosilicone. Before the 8 November drawings.",
+    "The seam bolt part number. The old NAS9306C-06 is a rivet standard and the wrong size; the parts memo of 1 November names the bolt.",
+    "The frame bow between corners: 1.4 to 2.0 mm predicted against the 1 mm sealing limit. Keep the frame 140 mm deep and test (default), or deepen it. After T1 and submodel C2.",
+    "The corner seal at the vertex plug, where the three seal loops meet.",
+    "The vertex ties (tension only; the corner moment goes through the block faces) and the 40 mm hardpoint pin. Submodels C1 and C3 on 16 October.",
+    "Mass: the Rev D structure is 34.0 t and the facility 50.4 t, up from a Rev S figure that did not hold. A rib study led by transparency (narrower, deeper ribs) is the next pass to bring it down.",
+    "The shear key: none in Rev D (the vertex dowels and the hardpoint pin carry seam shear). Reinstated only if submodel C2 or the whole-shell shear check needs it.",
+    "The factor-of-safety basis: 1.5 on yield at 1 atm as used, or NASA-STD-5001 1.5 proof and 2.0 ultimate. To be agreed with the faculty advisers before the 8 November drawings.",
+]
+
+OPEN_ITEMS_REVS = [
     "Bolts per seam: the model has 29 (with 30 the end nuts clash at every pentagon corner); the specification says about 30. Needs a decision.",
     "The corner seal: the O-rings of the three seams stop 30 mm short of each corner, and nothing seals the small triangle between them yet.",
     "The ribs in the full-size panels are the old ones and far too weak as spokes. A rib study this fall makes them deeper or adds a ring. Until then the model mass (about 26,700 kg) is not an estimate.",
@@ -207,24 +254,49 @@ OPEN_ITEMS = [
 ]
 
 
+def revd_thumbs():
+    out = []
+    for slug, kind, note in REVD_SHEETS:
+        stem = f"revd-{slug}"
+        w, h = SIZES[stem]
+        cap = f"{kind}. {note}"
+        out.append(
+            f'<figure><button type="button" data-full="/blueprints/img/{stem}.webp" data-cap="{e(cap)}" aria-label="Open {e(kind)} full size">'
+            f'<img src="/blueprints/img/{stem}-thumb.webp" width="{w}" height="{h}" loading="lazy" decoding="async" alt="{e(note)}"></button>'
+            f'<figcaption><span class="kind">{e(kind)}</span>{e(note)}</figcaption></figure>')
+    return "".join(out)
+
+
 def blueprints():
     ov = DATA["overview"]
     toc = "".join(f'<li><a href="#{k}">{e(SHORT[k])}</a></li>' for _, ks in ORDER for k in ks)
     parts = [f"""
 <header class="hero"><div class="wrap">
-<p class="eyebrow">Blueprints, Rev S, {UPDATED}</p>
+<p class="eyebrow">Blueprints, Rev D, {UPDATED}</p>
 <h1>The shell, the joint and the tests, with dimensions.</h1>
-<p class="lead">{e(ov["intro"])}</p>
-<ul class="facts"><li>11,151 mm across</li><li>2,250 mm edges</li><li>20 glass hexagons</li><li>12 solid pentagons</li><li>90 seams</li><li>60 corners</li><li>2,610 bolts</li></ul>
-<p style="margin-top:24px"><a class="btn" href="{PDF}">Download all drawings, explained (PDF, 53 pages, 8.6 MB)</a><a class="btn" href="/plan/">Read the plan</a></p>
-<ul class="toc" aria-label="Jump to">{toc}</ul>
+<p class="lead">{e(ov["intro"])} Rev D (14 October 2026) is the first design sized by a stress model of the whole shell: 24 glass panes per hexagon on deep ribs, a solid node at every corner and a hardpoint at every mid-seam.</p>
+<ul class="facts"><li>11,151 mm across</li><li>2,250 mm edges</li><li>20 glass hexagons, 24 panes each</li><li>12 solid pentagons</li><li>90 seams, 60 corners</li><li>2,340 seal-clamp bolts</li></ul>
+<p style="margin-top:24px"><a class="btn" href="{PDF_REVD}">Download the Rev D blueprint pack (PDF, 13 sheets, 0.3 MB)</a><a class="btn" href="{PDF_REVD_SPEC}">The Rev D design spec (PDF)</a><a class="btn" href="/plan/">Read the plan</a></p>
+<ul class="toc" aria-label="Jump to"><li><a href="#revd">Rev D sheets</a></li><li><a href="#revs">Rev S drawings</a></li>{toc}<li><a href="#open">Still open</a></li></ul>
 </div></header>
+<section id="revd" class="subject"><div class="wrap">
+<p class="eyebrow">The baseline</p>
+<h2>Rev D, 14 Oct 2026: the FEA-sized baseline</h2>
+<p class="tested">13 sheets, A3. Click any sheet to open it full size.</p>
+<p>{e(REVD_INTRO)}</p>
+<div class="thumbs">{revd_thumbs()}</div>
+</div></section>
 <section><div class="wrap grid2">
-<div><h2>How to read the drawings</h2><ul class="dots">{"".join(f"<li>{e(t)}</li>" for t in ov["reading"])}</ul>
+<div><h2>How to read the drawings</h2><ul class="dots"><li>Rev D sheets: one A3 drawing each, with a title block giving the sheet, the material and heat treatment of the parts on it, and the status of every item (LOCKED, FEA, PROPOSAL or OPEN). Not to scale; read the dimensions.</li>{"".join(f"<li>Rev S {e(t[0].lower() + t[1:])}</li>" for t in ov["reading"])}</ul>
 <p class="muted">Click any drawing to open it full size. Arrow keys step through them.</p></div>
 <div><h2>How the pieces fit</h2>
-<p>The shell is 32 panels. Each panel has frames on its edges; two frames bolted together make a seam; three seams meet at a corner. We test the parts that decide whether it holds: the glass (T0), the seam (T1) and one panel (T2). A computer study of the whole shell (FEA) comes first, because it says how the panels share the load.</p>
-<p class="muted">Drawings are a design in progress, not a flight design. The open items are listed at the bottom of this page.</p></div>
+<p>The shell is 32 panels. Each panel has frames on its edges; two frames bolted together make a seam; three seams meet at a corner. The stress model of the whole shell (9 to 12 October) says how the load is shared: most of the pull across a seam goes into the corner nodes, a third into the mid-seam hardpoint, and the bolts only clamp the seals. We test the parts that decide whether it holds: the seam (T1, this fall, at the Rev D load), the glass (T0, bars in four-point bend, spring 2027), one panel (T2, the 24-pane hexagon at 1:4, spring 2027) and a corner (T3, 2027). Every test is run on the computer first, and passes when the measurement lands within 10 % of the prediction.</p>
+<p class="muted">Rev D is a design in progress, not a flight design. The open decisions are listed at the bottom of this page.</p></div>
+</div></section>
+<section id="revs" class="subject" style="padding-bottom:0"><div class="wrap">
+<p class="eyebrow">For reference</p>
+<h2>Rev S drawings (25 April to 14 Oct 2026, superseded; kept for reference)</h2>
+<p class="muted">The drawings below are the Rev S design as it stood on {REVS_DATED}: six glass panes per hexagon on 103 mm ribs, 31 mm glass, 29 bolts per seam carrying the whole seam pull, and open corners. The whole-shell stress model showed that this does not hold 1 atm, and Rev D above replaces it. The text and numbers in these sections are Rev S and are left as they were, so the change can be followed; the T0 disc test is now a bar test and the T2 panel now has 24 panes.</p>
 </div></section>
 """]
     for group, keys in ORDER:
@@ -249,11 +321,12 @@ def blueprints():
     parts.append(f"""
 <section id="open"><div class="wrap">
 <h2>Still open</h2>
+<p class="muted">The eight decisions Rev D leaves open, with the default it states for each.</p>
 <ul class="dots">{"".join(f"<li>{e(t)}</li>" for t in OPEN_ITEMS)}</ul>
-<p style="margin-top:20px"><a class="btn" href="{PDF}">Download the drawings (PDF)</a><a class="btn" href="/plan/#need">What we need from sponsors</a></p>
+<p style="margin-top:20px"><a class="btn" href="{PDF_REVD}">The Rev D blueprint pack (PDF)</a><a class="btn" href="{PDF_REVD_SPEC}">The Rev D design spec (PDF)</a><a class="btn" href="{PDF}">The Rev S drawings, explained (PDF, superseded)</a><a class="btn" href="/plan/#need">What we need from sponsors</a></p>
 </div></section>""")
-    return page("HCSA blueprints: the shell, the joint and the tests (Rev S)",
-                "Every Rev S drawing of the HCSA shell, panels, seam joint, corner and test articles, with dimensions and a plain explanation of each.",
+    return page("HCSA blueprints: the shell, the joint and the tests (Rev D)",
+                "The Rev D sheets (14 Oct 2026, sized by the whole-shell stress model) and every Rev S drawing of the HCSA shell, panels, seam joint, corner and test articles, with dimensions and a plain explanation of each.",
                 "/blueprints/", "".join(parts), lightbox=True)
 
 
@@ -322,6 +395,16 @@ NEEDS = [
 ]
 
 
+REVD_NOTE = (
+    "The whole-shell stress model (9 to 12 October, three solvers) showed the Rev S design does not hold 1 atm, and Rev D replaces it: "
+    "24 glass panes per hexagon on 375 mm ribs, 25.4 mm glass, a solid node at every corner and a hardpoint at every mid-seam, with the "
+    "bolts as seal clamps. Three things in this plan change. T0 moves from glass discs to borosilicate bars in four-point bend, run in "
+    "ENGN 1440 in spring 2027. The T2 article becomes the 24-pane hexagon at 1:4. T1 tests the Rev D seam at the service load of 12 kN "
+    "per bolt and at the upper bound. The 1:1 seam slices and the 550 mm article go ahead this fall as planned, to the Rev D section. "
+    "See the Rev D pack on the blueprints page."
+)
+
+
 def plan():
     def tag(s):
         return f'<span class="tag done">{e(s)}</span>' if s else ""
@@ -345,11 +428,17 @@ def plan():
     concept_html = "".join(f'<figure><img src="{s}" loading="lazy" alt="{e(c)}"><figcaption class="muted" style="font-size:15px;margin-top:8px">{e(c)}</figcaption></figure>' for s, c in concept)
     body = f"""
 <header class="hero"><div class="wrap">
-<p class="eyebrow">The plan, fall 2026. Updated {UPDATED}</p>
+<p class="eyebrow">The plan, fall 2026. Written {REVS_DATED}, Rev D note added {UPDATED}</p>
 <h1>This fall we build and test the seam between two panels.</h1>
 <p class="lead">We take the joint where two panels meet from a design on paper to hardware we have built and measured, and we do the analysis it depends on (loads, glass strength, frame material) so the tests mean something.</p>
-<p style="margin-top:24px"><a class="btn" href="#need">What we need from sponsors</a><a class="btn" href="/blueprints/">See the blueprints</a><a class="btn" href="{PDF}">Drawings (PDF)</a></p>
+<p style="margin-top:24px"><a class="btn" href="#need">What we need from sponsors</a><a class="btn" href="/blueprints/">See the blueprints</a><a class="btn" href="{PDF_REVD}">Rev D blueprint pack (PDF)</a></p>
 </div></header>
+
+<section id="revd" style="padding:32px 0"><div class="wrap">
+<p class="eyebrow">14 Oct 2026: Rev D</p>
+<p>{e(REVD_NOTE)}</p>
+<p class="muted">The sizes and dates below this note are from the {REVS_DATED} plan and are kept as written; where they differ, the Rev D pack is current.</p>
+</div></section>
 
 <section id="concept"><div class="wrap">
 <p class="eyebrow">The concept</p>
@@ -371,6 +460,7 @@ def plan():
 <li>The whole shell is modelled in CAD: 32 panels, 90 seams, 2,610 bolts and every seal, with no parts overlapping.</li>
 <li>The tests are designed, with drawings for every test piece and rig, and the test plan is going to Brown engineering faculty for review.</li>
 <li>Every drawing, with dimensions and a plain explanation, is on the <a href="/blueprints/">blueprints page</a>.</li>
+<li>Every test as a 23-minute film, with how each piece is made, what the test tells us, plan B, cost and dates, is on the <a href="/tests/">tests page</a>.</li>
 </ul></div>
 </div></section>
 
