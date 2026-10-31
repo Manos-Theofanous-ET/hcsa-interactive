@@ -1622,9 +1622,9 @@ function resetAssembly() {
 function stackFace(f, k) { const sp = stackPose.get(f); f.group.quaternion.identity().slerp(sp.q, k); f.group.position.set(0, 0, 0).lerp(sp.p, k); }
 let lifeCh = -1;
 const LIFE_CAMS = [
-  () => ({ p: demoHex.c.clone().multiplyScalar(2.3).add(V3(2.5, 1.5, 3)), t: demoHex.c.clone() }),
-  () => ({ p: demoHex.c.clone().multiplyScalar(2.1).add(V3(1.5, 1.2, 2.2)), t: demoHex.c.clone() }),
-  () => ({ p: demoHex.c.clone().multiplyScalar(2.0).add(V3(-2, 2, 2)), t: demoHex.c.clone() }),
+  () => ({ p: demoHex.c.clone().addScaledVector(demoHex.n, 3.4).addScaledVector(V3().crossVectors(demoHex.n, V3(0, 1, 0)).normalize(), 6.5).add(V3(0, 2.2, 0)), t: demoHex.c.clone() }),
+  () => ({ p: demoHex.c.clone().addScaledVector(demoHex.n, 4.0).addScaledVector(V3().crossVectors(demoHex.n, V3(0, 1, 0)).normalize(), 5.5).add(V3(0, 2.0, 0)), t: demoHex.c.clone() }),
+  () => ({ p: demoHex.c.clone().addScaledVector(demoHex.n, 6.0).addScaledVector(V3().crossVectors(demoHex.n, V3(0, 1, 0)).normalize(), -2.5).add(V3(0, 2.0, 0)), t: demoHex.c.clone() }),
   () => ({ p: STACK0.clone().add(V3(15, 4, 12)), t: STACK0.clone() }),
   () => ({ p: STACK0.clone().add(V3(18, 6, 14)), t: STACK0.clone() }),
   () => ({ p: V3(26, 9, 4), t: V3(0, 0, -9) }),
