@@ -23,32 +23,32 @@ const CHAPTERS = [
     id: "habitat",
     idx: 2,
     title: "The station",
-    statement: `A glass and aluminium ball,\n${N.diameter.display} across.`,
-    why: "Windows on every side, so visitors can see Earth and the stars from almost anywhere inside.",
+    statement: `It is a ball of glass and\naluminium, ${N.diameter.display} across.`,
+    why: "There are windows on every side, so visitors can see Earth and the stars from almost anywhere inside.",
     Body: Habitat,
   },
   {
     id: "assembly",
     idx: 3,
     title: "How it gets built",
-    statement: "Made on Earth.\nPut together in orbit.",
-    why: `All ${N.face_count.display} panels connect the same way, so one tool and one set of spare parts covers the whole station.`,
+    statement: "We make it on Earth\nand put it together in orbit.",
+    why: `All ${N.face_count.display} panels connect the same way, so one tool and one set of spare parts work for the whole station.`,
     Body: Assembly,
   },
   {
     id: "interior",
     idx: 4,
     title: "Inside",
-    statement: "People by the windows.\nMachines in the middle.",
-    why: "One open room with many uses. It can be rearranged without touching the outer shell.",
+    statement: "People stay by the windows.\nMachines stay in the middle.",
+    why: "It is one open room with many uses, and we can rearrange it without touching the outer shell.",
     Body: Interior,
   },
   {
     id: "panel",
     idx: 5,
     title: "The window panel",
-    statement: `Each panel is a\n${N.panel_layers.display}-layer sandwich.`,
-    why: `The air inside pushes on each large panel with the weight of about ${PLAIN.hex_force_tonnes} tonnes. The frames and the proposed corner nodes and mid-seam hardpoints carry that pull; the bolts only clamp the seals.`,
+    statement: `Each window panel is a\nsandwich of ${N.panel_layers.display} layers.`,
+    why: `The air inside pushes on each six-sided panel as hard as a weight of about ${PLAIN.hex_force_tonnes} tonnes would. The frames, the corner nodes and the hardpoints carry that push.`,
     Body: Panel,
   },
   {
@@ -56,7 +56,7 @@ const CHAPTERS = [
     idx: 6,
     title: "Gardens",
     statement: "Plants clean the air\nand grow fresh food.",
-    why: "Gardens make oxygen and bring daylight and green into the room. Machines cover the rest.",
+    why: "The gardens make oxygen and bring daylight and green into the room. Machines do the rest.",
     Body: Bio,
   },
   {
@@ -64,7 +64,7 @@ const CHAPTERS = [
     idx: 7,
     title: "Heat and water",
     statement: "Sunlight cleans\nthe water.",
-    why: "One side faces the sun, the other faces cold space. That difference boils and condenses water with almost no electricity.",
+    why: "One side faces the sun and the other faces cold space. The difference in heat boils the water and condenses it again, with almost no electricity.",
     Body: Thermal,
   },
   {
@@ -80,7 +80,7 @@ const CHAPTERS = [
     idx: 9,
     title: "Get involved",
     statement: "Help us build\nthe next step.",
-    why: "Keep scrolling to see our work, what your support pays for, and how to reach us.",
+    why: "Keep scrolling to see our work, what your support pays for and how to reach us.",
     Body: Contact,
   },
 ] as const;
@@ -116,7 +116,7 @@ export function Overlay() {
             <div>
               <p className="font-serif text-2xl text-white">Human-Centric Space Architecture</p>
               <p className="mt-2 max-w-sm text-[15px] leading-relaxed text-white/60">
-                A student research project at Brown University, developed with the Rhode Island School of Design.
+                HCSA is a student research project at Brown University, developed with the Rhode Island School of Design.
               </p>
             </div>
             <nav aria-label="Footer">
@@ -124,7 +124,7 @@ export function Overlay() {
               <ul>
                 <li><a href="/plan/">The plan</a></li>
                 <li><a href="/blueprints/">Blueprints</a></li>
-                <li><a href="/downloads/HCSA-Rev-S-drawings-explained-26-Sep-2026.pdf">Drawings (PDF)</a></li>
+                <li><a href="/downloads/HCSA-Rev-S-drawings-explained-26-Sep-2026.pdf">Earlier Rev S drawings (PDF)</a></li>
               </ul>
             </nav>
             <nav aria-label="On this page">
@@ -138,8 +138,8 @@ export function Overlay() {
             <div>
               <p className="hcsa-footer-head">People</p>
               <ul>
-                <li>Faculty advisor: Prof. Rick Fleeter</li>
-                <li>Project lead: Manos Theofanous</li>
+                <li>Prof. Rick Fleeter, faculty advisor</li>
+                <li>Manos Theofanous, project lead</li>
                 <li>Brown University School of Engineering</li>
               </ul>
             </div>

@@ -1,15 +1,15 @@
 import { NUMERICS as N } from "@content/numerics";
 
-| # | Layer (outside to inside) |
+| # | Layer, from outside to inside |
 |---|---|
-| **01** | Outer shield pane that takes hits from space dust |
-| **02** | Aluminium edge frame, **{N.frame_depth.display}** deep, that carries the load |
-| **03** | Insulating gas layer |
+| **01** | An outer pane that takes the hits from space dust |
+| **02** | The aluminium edge frame, **{N.frame_depth.display}** deep, which carries the load |
+| **03** | A layer of gas that insulates |
 | **04** | See-through solar cells |
-| **05** | Tint that darkens on demand |
-| **06** | Sliding solar shade for privacy |
-| **07** | Pressure glass, **{N.reve_l7_thickness.display}** borosilicate, on the ribs |
+| **05** | A tint that darkens when we want it to |
+| **06** | A sliding solar shade for privacy |
+| **07** | The pressure pane that holds the air in, made of **{N.reve_l7_thickness.display}** borosilicate glass and resting on the ribs |
 
-Each hexagon holds **{N.reve_panes_per_hex.display}** triangular panes, **{N.reve_pane_side.display}** on a side (Rev E, decided 23 Oct, drawings 8 Nov). The drawings and the 3D model still show the Rev D layout of **{N.panes_per_hex.display}** panes at **{N.l7_thickness.display}** until then.
+Rev D, the version of our design that we have signed, has **{N.panes_per_hex.display}** panes of **{N.l7_thickness.display}** glass in each hexagon, and the drawings and the 3D model show it. On 23 October we decided that Rev E, the next version, will have **{N.reve_panes_per_hex.display}** smaller panes, **{N.reve_pane_side.display}** on a side. Its drawings come out on {N.drawing_release.display}.
 
-The pull across each seam, **{N.seam_tension.display}**, goes through a solid node at each corner and a pinned hardpoint at mid-seam, both proposed details to be sized in the 16 October submodels. The **{N.bolts_per_seam.display}** bolts along a seam only clamp the seals: **{N.reve_seal_rings.display}** butyl loops and a silicone bead.
+Air pressure pulls on each seam with **{N.seam_tension.display}**. A solid block at each corner, the corner node, and a pinned fitting halfway along the seam, the hardpoint, carry that pull. Both are still proposals, sized in our computer models on 16 October. The **{N.bolts_per_seam.display}** bolts along a seam only press the seals shut, and the seals are **{N.reve_seal_rings.display}** butyl loops and a silicone bead.

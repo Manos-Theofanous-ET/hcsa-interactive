@@ -110,7 +110,7 @@ export function HeroChapter() {
           </span>
         </div>
         <div className="data hidden text-right text-[13px] tabular-nums text-white/55 md:block">
-          01 / 09
+          Part 1 of 9
         </div>
       </footer>
     </section>

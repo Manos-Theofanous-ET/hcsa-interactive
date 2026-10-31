@@ -16,7 +16,7 @@ export function TeamSection() {
         <RuledList items={team} columns={2} />
       </div>
       <p className="mt-10 max-w-3xl text-sm leading-relaxed text-white/55" data-reveal>
-        Earlier team members, before the September 2026 remake: {earlierTeam}. The interior concept is Marina’s; the plants are Marina’s and Manos’s idea, with Gerasimos in charge of the plant system; the moon-phase shutters were Xenia’s idea.
+        These people were on the team before we remade it in September 2026: {earlierTeam}. The interior concept is Marina’s. The plants are Marina’s and Manos’s idea, and Gerasimos is in charge of the plant system. The moon-phase shutters were Xenia’s idea.
       </p>
     </EditorialSection>
   );

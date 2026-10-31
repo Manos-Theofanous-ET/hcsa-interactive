@@ -1,13 +1,13 @@
 import { NUMERICS as N } from "@content/numerics";
 
-| Step | Status |
+| Step | Where it stands |
 |---|---|
-| **1** Design and scale model | Done |
-| **2** CAD model of the whole shell, every bolt | Done |
-| **3** Stress model of the whole shell on three solvers (9 to 12 Oct) | Done, Rev D |
-| **4** Seam test pieces, full size, at the Rev D load | **Built this fall, pulled Jan to Feb 2027** |
-| **5** Glass strength on bars, in four-point bend | Spring 2027 |
+| **1** The design and a scale model | Done |
+| **2** A CAD model of the whole shell, down to every bolt | Done |
+| **3** A stress model of the whole shell, run in three different programs from 9 to 12 October | Done, and it set the Rev D sizes |
+| **4** Full-size test pieces of the seam, at the Rev D load | **We build them this fall and pull them apart in late January and February 2027** |
+| **5** Glass bars bent until they break, to measure the strength of the glass | Spring 2027 |
 | **6** One panel at quarter scale under water pressure | Spring 2027 |
 | **7** Testing for space | Later |
 
-Digital first: nothing is machined before its computer twin has a signed sheet. The model files its prediction for every gauge before a test, and the test passes when the measurement lands within **{N.test_pass_tolerance.display}** of it. A miss changes the model, never the data.
+Every test runs on the computer first. Nothing is machined until its digital twin, the computer model of that test, has a signed test sheet. Before a test, the model writes down what every gauge should read. The test passes when the measurement comes within **{N.test_pass_tolerance.display}** of that prediction. If it misses, we change the model, never the data.

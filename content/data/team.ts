@@ -1,5 +1,5 @@
 /**
- * Team roster — Brown University · UTRA (source: project role tables).
+ * Team roster, Brown University, UTRA (source: project role tables).
  */
 export type TeamMember = {
   name: string
@@ -9,13 +9,13 @@ export type TeamMember = {
 }
 
 export const projectAffiliation =
-  'An interdisciplinary design and engineering research initiative at Brown University, supported through the Undergraduate Teaching and Research Awards (UTRA) program and faculty mentorship.'
+  'We are a design and engineering research project at Brown University, with students from several fields. Brown supports us through its Undergraduate Teaching and Research Awards (UTRA) program, and our faculty advisors guide the work.'
 
 export const leadership: TeamMember[] = [
   {
     name: 'Manos Theofanous',
     role: 'Project lead',
-    focus: 'Structure and materials, brings the whole design together, lead author',
+    focus: 'Leads the structure and materials work, brings the whole design together and is the lead author',
   },
 ]
 

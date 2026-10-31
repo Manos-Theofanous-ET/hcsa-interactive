@@ -8,7 +8,7 @@ export function SponsorSection() {
       index="03"
       label="Sponsor the project"
       title="Help turn a design into hardware."
-      intro="The design is drawn in full, down to every bolt. The next steps need real parts, real machining and real tests. That is where your support goes."
+      intro="We have drawn the design in full, down to every bolt. Next we have to buy the parts, machine them and test them, and that is where your support goes."
     >
       <div className="grid gap-x-14 gap-y-12 xl:grid-cols-2">
         <div>
@@ -51,12 +51,12 @@ export function SponsorSection() {
         <LinkRow
           href="/plan/#need"
           title="The plan, and exactly what we need"
-          body="Every part, material and size for the three tests, with the date we need it by."
+          body="It lists every part, material and size for the three tests, with the date we need each one."
         />
         <LinkRow
           href="/blueprints/"
           title="The blueprints"
-          body="The shell, the panels, the joint, a corner and every test piece, each with dimensions and a plain explanation."
+          body="They show the shell, the panels, the joint, a corner and every test piece, each with its dimensions and a short explanation in plain words."
         />
       </div>
 
@@ -72,8 +72,8 @@ export function SponsorSection() {
           </p>
         ) : (
           <p className="mt-3 max-w-2xl text-lg leading-relaxed text-white/78">
-            Reach Manos Theofanous, project lead, through the Brown University School of Engineering.
-            We will reply with a short sponsor pack and a time to talk.
+            You can reach Manos Theofanous, our project lead, through the Brown University School of
+            Engineering. We will reply with a short sponsor pack and a time to talk.
           </p>
         )}
       </div>
