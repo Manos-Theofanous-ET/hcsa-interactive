@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#000000">
+<title>HCSA, a transparent observation facility in low Earth orbit</title>
+<meta name="description" content="Human-Centric Space Architecture: a feasibility study at Brown University and RISD for a mostly transparent observation facility in low Earth orbit.">
+<meta property="og:title" content="HCSA, a transparent observation facility in low Earth orbit">
+<meta property="og:description" content="A feasibility study at Brown University and RISD for a mostly transparent observation facility in low Earth orbit.">
+<meta property="og:image" content="https://hcsa-site.vercel.app/preview/hero.jpg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<style>
+@font-face{font-family:"Fraunces";src:url(/fonts/fraunces-latin-400-normal.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Fraunces";src:url(/fonts/fraunces-latin-400-italic.woff2) format("woff2");font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:"Inter";src:url(/fonts/inter-latin-wght-normal.woff2) format("woff2");font-weight:100 900;font-display:swap}
+:root{--fg:#e9edf2;--mut:rgba(233,237,242,.62);--line:rgba(255,255,255,.12)}
+*{box-sizing:border-box}
+html,body{margin:0;background:#000;color:var(--fg);font-family:Inter,system-ui,sans-serif;line-height:1.55}
+a{color:inherit}
+.hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;background:#000 url(hero.jpg) center/cover no-repeat}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35) 0%,rgba(0,0,0,0) 35%,rgba(0,0,0,.2) 60%,rgba(0,0,0,.92) 100%)}
+.hero .in{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 24px 64px;width:100%}
+.brand{position:absolute;top:22px;left:24px;z-index:2;font-weight:600;letter-spacing:.18em;font-size:13px}
+.brand span{opacity:.6;font-weight:400;letter-spacing:.04em;margin-left:10px}
+h1{font-family:Fraunces,Georgia,serif;font-weight:400;font-size:clamp(34px,6vw,68px);line-height:1.05;margin:0 0 16px;max-width:15ch}
+h1 em{font-style:italic;opacity:.85}
+.lead{font-size:clamp(16px,2vw,19px);max-width:56ch;color:var(--mut);margin:0 0 26px}
+.btn{display:inline-block;border:1px solid var(--line);background:rgba(255,255,255,.08);padding:11px 18px;border-radius:999px;text-decoration:none;font-weight:500;font-size:14px;margin-right:8px;cursor:pointer;color:var(--fg)}
+.btn.primary{background:#e9edf2;color:#000;border-color:#e9edf2}
+section{max-width:1100px;margin:0 auto;padding:72px 24px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.grid figure{margin:0}
+.grid img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:10px;display:block;border:1px solid var(--line)}
+figcaption{font-size:13px;color:var(--mut);margin-top:8px}
+h2{font-family:Fraunces,Georgia,serif;font-weight:400;font-size:clamp(26px,3.4vw,38px);margin:0 0 14px}
+.two{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:start}
+.facts{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;font-size:14px}
+.facts span:nth-child(odd){color:var(--mut)}
+.card{border:1px solid var(--line);border-radius:14px;padding:22px;background:rgba(255,255,255,.03)}
+form{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+input[type=password]{flex:1;min-width:180px;background:#0c0f14;border:1px solid var(--line);color:var(--fg);border-radius:999px;padding:11px 16px;font:inherit}
+.err{color:#ff9b8a;font-size:13px;margin-top:8px;display:none}
+footer{border-top:1px solid var(--line);color:var(--mut);font-size:13px;padding:28px 24px;max-width:1100px;margin:0 auto}
+@media (max-width:760px){.grid{grid-template-columns:1fr}.two{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="brand">HCSA<span>Brown University · RISD</span></div>
+<header class="hero">
+  <div class="in">
+    <h1>A room made of glass, <em>400 km above the Earth.</em></h1>
+    <p class="lead">Human-Centric Space Architecture is a feasibility study for a mostly transparent observation facility in low Earth orbit. Six visitors at a time, one orbit per visit: ninety minutes of sunrise, Earth, night and stars, seen through twenty glass walls.</p>
+    <a class="btn primary" href="#access">Team access</a>
+    <a class="btn" href="#about">About the project</a>
+  </div>
+</header>
+
+<section id="about">
+  <div class="two">
+    <div>
+      <h2>What we are building</h2>
+      <p>The station is a truncated icosahedron, 11.15 metres across, made of 32 flat panels. The twenty hexagons are windows, each built from 96 panes of borosilicate glass held in an aluminium grid. The twelve solid pentagons carry solar arrays and inflatable shields that unroll over the windows.</p>
+      <p>Inside there is no floor and no up or down. A central column carries power, water and plants; soft pods hang from it for time alone with the view, and greenhouse alcoves grow greens to taste. The team is testing the glass, the seams and a single panel at Brown in 2026 and 2027.</p>
+    </div>
+    <div class="card">
+      <div class="facts">
+        <span>Shape</span><span>Truncated icosahedron, 32 panels</span>
+        <span>Size</span><span>11.151 m across, 2.25 m edges</span>
+        <span>Windows</span><span>20 glass hexagons</span>
+        <span>Inside</span><span>About 490 m³ of open room</span>
+        <span>Visit</span><span>About six people, one 90-minute orbit</span>
+        <span>Launch</span><span>One Starship V3</span>
+        <span>Advisor</span><span>Prof. Rick Fleeter, Brown University</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="grid">
+    <figure><img src="inside.jpg" alt="Inside the station, looking past the column to the Earth" loading="lazy"><figcaption>Inside: the column, the greenhouses and the Earth below</figcaption></figure>
+    <figure><img src="pods.jpg" alt="Cutaway of the station showing two soft pods beside the column" loading="lazy"><figcaption>The pods, after Marina Kouroumali’s interior concept</figcaption></figure>
+    <figure><img src="assembly.jpg" alt="The station being assembled in orbit, panels coming off the launch stack" loading="lazy"><figcaption>Assembled in orbit, panel by panel, from one launch</figcaption></figure>
+  </div>
+</section>
+
+<section id="access">
+  <div class="card" style="max-width:560px">
+    <h2 style="font-size:28px">Team access</h2>
+    <p style="color:var(--mut);margin:0">The full site, the 3D model, the drawings and the test results are for the team, our advisor and partners. Enter the password you were given.</p>
+    <form method="post" action="/api/login">
+      <input type="password" name="password" placeholder="Password" autocomplete="current-password" required>
+      <input type="hidden" name="next" id="next" value="/">
+      <button class="btn primary" type="submit">Enter</button>
+    </form>
+    <div class="err" id="err">That password did not work. Try again.</div>
+    <p style="color:var(--mut);font-size:13px;margin:16px 0 0">Sponsors, press and researchers: write to Manos Theofanous at <a href="mailto:emmanouel_theofanous@brown.edu">emmanouel_theofanous@brown.edu</a> for access.</p>
+  </div>
+</section>
+
+<footer>Human-Centric Space Architecture · Brown University and RISD · Images from the HCSA master 3D model, October 2026.</footer>
+<script>
+  const q = new URLSearchParams(location.search);
+  if (q.get('next')) document.getElementById('next').value = q.get('next');
+  if (q.get('e')) document.getElementById('err').style.display = 'block';
+</script>
+</body>
+</html>

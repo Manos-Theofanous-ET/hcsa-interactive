@@ -30,6 +30,21 @@ export type GalleryItem = {
 
 export const GALLERY: GalleryCategory[] = [
   {
+    id: "master-model",
+    title: "The station, Rev E (master 3D model)",
+    blurb: "Stills from the master 3D model of 30 October 2026, built on the Rev E design: all 32 panels, the 96-pane glass hexagons, the solar pentagons and shields, the column, greenhouses and Marina's pods. The model itself opens in the browser, with a walk-through, the systems, shields and pressure, the 90-minute visit and the station's whole life.",
+    link: { href: "/model/", label: "Open the 3D model" },
+    items: [
+      { file: "master-approach", caption: "The station 400 km above the Earth: 20 glass hexagons and 12 solar pentagons, 11.151 m across", w: 720, h: 405 },
+      { file: "master-inside", caption: "Inside: the column, the greenhouses and the Earth through the glass", w: 720, h: 405 },
+      { file: "master-pods", caption: "Marina's two pods hang from the column (cutaway)", w: 720, h: 405 },
+      { file: "master-systems", caption: "Systems X-ray: power from the solar pentagons to the bus in the column", w: 720, h: 405 },
+      { file: "master-shields", caption: "Shields inflated over the windows, seams carrying the pressure load", w: 720, h: 405 },
+      { file: "master-visit-night", caption: "The visit, night side: a small concert by the column, streamed to Earth", w: 720, h: 405 },
+      { file: "master-assembly", caption: "Assembling in orbit: panels come off the launch stack one by one", w: 720, h: 405 },
+    ],
+  },
+  {
     id: "concepts",
     title: "Interior concept",
     blurb: "Marina Kouroumali's working images for the interior, the ones to look at when we talk about the inside. Some were made with AI image tools; they show the working concept, not a final design.",

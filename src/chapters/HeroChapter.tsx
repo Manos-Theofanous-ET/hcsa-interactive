@@ -60,6 +60,7 @@ export function HeroChapter() {
         {/* Sponsors land here first: give them a direct path to the
             gallery and the sponsor section below the 3D story. */}
         <nav aria-label="Quick links" className="data flex flex-wrap items-center justify-end gap-x-6 gap-y-2 text-[14px]">
+          <a href="/model/" className="text-white/85 transition-colors duration-300 hover:text-white">3D model</a>
           <a href="/plan/" className="text-white/85 transition-colors duration-300 hover:text-white">The plan</a>
           <a href="/blueprints/" className="text-white/85 transition-colors duration-300 hover:text-white">Blueprints</a>
           <a href="#work" className="hidden text-white/85 transition-colors duration-300 hover:text-white sm:inline">Our work</a>

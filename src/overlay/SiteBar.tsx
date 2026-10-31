@@ -72,6 +72,7 @@ export function SiteBar() {
         <a href="#hero" className="hcsa-sitebar-brand">
           HCSA
         </a>
+        <a href="/model/">3D model</a>
         <a href="/plan/">The plan</a>
         <a href="/blueprints/">Blueprints</a>
         <a href="/tests/">The tests</a>

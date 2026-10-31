@@ -1,0 +1,1782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HCSA station, Rev E, 3D model</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  html,body{margin:0;height:100%;background:#000;overflow:hidden;font-family:Inter,system-ui,sans-serif;color:#e8edf3}
+  canvas{display:block}
+  #ui{position:absolute;left:16px;top:16px;width:300px;max-height:calc(100% - 32px);overflow:auto;
+      background:rgba(8,12,20,.72);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.08);
+      border-radius:12px;padding:14px 16px;font-size:12.5px;line-height:1.45;box-sizing:border-box}
+  #ui h1{font-size:15px;margin:0 0 2px;font-weight:600;letter-spacing:.2px}
+  #ui .sub{opacity:.6;margin-bottom:10px}
+  #ui h2{font-size:11px;text-transform:uppercase;letter-spacing:1px;opacity:.55;margin:14px 0 6px;font-weight:600}
+  .views{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  button{background:rgba(255,255,255,.07);color:#e8edf3;border:1px solid rgba(255,255,255,.12);border-radius:7px;
+         padding:7px 8px;font:500 12px Inter,sans-serif;cursor:pointer;text-align:left}
+  button:hover{background:rgba(255,255,255,.14)}
+  button.on{background:rgba(110,170,255,.25);border-color:rgba(130,180,255,.6)}
+  label.row{display:flex;justify-content:space-between;align-items:center;margin:6px 0;gap:10px}
+  input[type=range]{width:150px;accent-color:#7fb0ff}
+  .spec{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;font-size:12px}
+  .spec span:nth-child(odd){opacity:.55}
+  .note{opacity:.6;font-size:11.5px;margin-top:10px}
+  #hide{position:absolute;right:16px;top:16px}
+  #loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:14px;opacity:.8;pointer-events:none}
+  @media (max-width:640px){#ui{width:calc(100% - 32px);max-height:42%;top:auto;bottom:16px}}
+  #tabs{position:absolute;top:14px;left:50%;transform:translateX(-50%);display:flex;gap:4px;padding:4px;background:rgba(8,12,20,.72);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.08);border-radius:11px;z-index:5;max-width:calc(100% - 24px);overflow-x:auto}
+  #tabs button{white-space:nowrap;border:none;background:transparent;padding:7px 11px}
+  #tabs button.on{background:rgba(110,170,255,.25)}
+  #ui{top:64px;max-height:calc(100% - 80px)}
+  #ui section[hidden]{display:none}
+  #ui p{margin:6px 0;opacity:.85}
+  .lbl{position:absolute;left:0;top:0;background:rgba(8,12,20,.8);border:1px solid rgba(255,255,255,.18);color:#e8edf3;font-size:11.5px;padding:4px 8px;border-radius:7px;white-space:nowrap;pointer-events:none;z-index:3}
+  .lbl.click{pointer-events:auto;cursor:pointer}
+  .lbl.click:hover{border-color:#7fb0ff}
+  #labels{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+  .info{background:rgba(255,255,255,.05);border-radius:8px;padding:8px 10px;margin-top:8px;font-size:12px;line-height:1.45}
+  .tag{font-size:10.5px;padding:1px 6px;border-radius:5px;background:rgba(255,255,255,.12);font-weight:500}
+  #legend span{display:inline-flex;align-items:center;gap:5px;margin:2px 10px 2px 0;font-size:11.5px}
+  #legend i{width:14px;height:3px;border-radius:2px;display:inline-block}
+  .sysbtn[data-sys=power].on{background:rgba(255,194,58,.3);border-color:#ffc23a}
+  .sysbtn[data-sys=air].on{background:rgba(82,227,255,.25);border-color:#52e3ff}
+  .sysbtn[data-sys=water].on{background:rgba(58,123,255,.3);border-color:#3a7bff}
+  .sysbtn[data-sys=heat].on{background:rgba(255,106,42,.3);border-color:#ff6a2a}
+  input.wide{width:100%}
+  .row2{display:flex;gap:6px;margin-top:6px}
+  .row2 button{flex:1;text-align:center}
+  @media (max-width:640px){#tabs{top:8px}#ui{top:auto}}
+
+</style>
+<script type="importmap">
+{"imports":{
+  "three":"/model/vendor/three.module.js",
+  "three/addons/":"/model/vendor/addons/"
+}}
+</script>
+</head>
+<body>
+<div id="loading">Building the station…</div>
+<div id="labels"></div>
+<div id="tabs">
+  <button data-mode="explore" class="on">Explore</button>
+  <button data-mode="walk">Walk inside</button>
+  <button data-mode="systems">Systems</button>
+  <button data-mode="shields">Shutters, shields, pressure</button>
+  <button data-mode="visit">The visit</button>
+  <button data-mode="life">Life of the station</button>
+</div>
+<div id="ui">
+<section data-mode="explore">
+  <h1>HCSA station, Rev E <a href="/" style="font-size:11px;opacity:.6;font-weight:400;margin-left:6px">← site</a></h1>
+  <div class="sub">Transparent observation facility in low Earth orbit, 400 km up</div>
+
+  <h2>Views</h2>
+  <div class="views">
+    <button data-view="approach" class="on">Approach</button>
+    <button data-view="earth">Over the Earth</button>
+    <button data-view="window">Window close-up</button>
+    <button data-view="pentagon">Solar pentagon</button>
+    <button data-view="inside">Inside, by the glass</button>
+    <button data-view="column">Inside, the column</button>
+    <button data-view="cutaway">Cutaway</button>
+    <button data-view="dock">Docking side</button>
+    <button data-view="pods">Marina's pods</button>
+    <button data-view="podsout">Pods, from outside</button>
+  </div>
+
+  <h2>Controls</h2>
+  <label class="row">Sun position <input id="sun" type="range" min="-180" max="180" value="38"></label>
+  <label class="row">Shades closed <input id="shades" type="range" min="0" max="100" value="0"></label>
+  <label class="row">Cabin lights <input id="lights" type="range" min="0" max="100" value="55"></label>
+  <div class="views">
+    <button id="cut">Cut away near half</button>
+    <button id="spin">Slow orbit</button>
+  </div>
+
+  <h2>What you are looking at</h2>
+  <div class="spec">
+    <span>Shape</span><span>Truncated icosahedron, 32 panels</span>
+    <span>Size</span><span>11.151 m across, 2.25 m edges</span>
+    <span>Windows</span><span>20 glass hexagons</span>
+    <span>Panes</span><span>96 per hexagon, 531 mm, 22 mm BOROFLOAT 33</span>
+    <span>Pentagons</span><span>12, solid: solar arrays and rolled shields</span>
+    <span>Structure</span><span>6061-T6 frames, I 400 main ribs, k 4 secondary grid, 60 corner blocks</span>
+    <span>Inside</span><span>493 m³ clear, 9.40 m across the hexagons</span>
+    <span>Pods</span><span>Marina's two pods: 5.2 m and 2.35 m tall, hung from the column</span>
+    <span>Mass</span><span>44.1 t in the Rev E model</span>
+  </div>
+  <div class="note">The shell follows the Rev E model and the locked spec. The two pods follow Marina's 13 October working images, sized from her April numbers (2.5 m and 5.5 m on a 10 m sphere) scaled to the 9.40 m envelope; their exact shape and mounts wait on her answers. The column, greenhouses, ropes and people are placeholders. Drag to orbit, scroll to zoom.</div>
+</section>
+
+<section data-mode="walk" hidden>
+  <h1>Walk inside</h1>
+  <div class="sub">Float from stop to stop. Drag to look around; tap a glowing dot to move there.</div>
+  <div class="views" id="stops" style="grid-template-columns:1fr"></div>
+  <div class="row2"><button id="nightBtn">Night viewing: cabin dark</button></div>
+  <div id="vrSlot"></div>
+  <div class="note">With a Quest or Vision Pro, the VR button appears here and puts you inside at the current stop. The ropes and placeholder people are hidden in this mode.</div>
+</section>
+
+<section data-mode="systems" hidden>
+  <h1>Systems X-ray</h1>
+  <div class="sub">The shell fades to a ghost and each system lights up, flowing the way it runs. Tap a label for what it is and where the number comes from.</div>
+  <div class="views">
+    <button class="sysbtn" data-sys="power">Electrical</button>
+    <button class="sysbtn" data-sys="air">Air and life support</button>
+    <button class="sysbtn" data-sys="water">Water</button>
+    <button class="sysbtn" data-sys="heat">Heat</button>
+  </div>
+  <div class="info" id="sysInfo">Solar arrays on the pentagons feed a power bus in the column; the mothership adds power while docked. Air is cleaned behind a service pentagon and blown down the column; water condenses out of the air, goes through the filter in the column and out to the greenhouses.</div>
+  <h2>Plant life cycle</h2>
+  <label class="row">Growth <input id="plantG" type="range" min="0" max="100" value="80"></label>
+  <div class="info"><b id="plantStage">Ready to pick and taste</b><br>Leafy greens under LED light in one greenhouse alcove. Crops and cycle times are to be set by Gerasimos.</div>
+  <div class="row2"><button id="plantGo">Look at the greenhouse</button></div>
+  <div class="note">Every number shown traces to TRUTH or the life support brief. Anything not yet decided says “to be set” with its owner.</div>
+</section>
+
+<section data-mode="shields" hidden>
+  <h1>Shutters, shields, pressure</h1>
+  <h2>Shutters, one per glass cell</h2>
+  <div class="views">
+    <button data-shut="clear" class="on">All clear</button>
+    <button data-shut="earth">Earth only</button>
+    <button data-shut="sky">Stars only</button>
+    <button data-shut="sun">Shade the sun side</button>
+    <button data-shut="all">All closed</button>
+  </div>
+  <h2>Inflatable shields</h2>
+  <p>Each solid pentagon unrolls a shield over the windows around it, then inflates it to a few kPa (TRUTH 7.4).</p>
+  <div class="row2"><button id="shDeploy">Deploy and inflate</button><button id="shStow">Deflate and stow</button></div>
+  <div class="info" id="shieldVal">Stowed in their rolls</div>
+  <h2>Pressurising</h2>
+  <label class="row">Cabin pressure <input id="press" type="range" min="0" max="101.3" step="0.1" value="0"></label>
+  <div class="row2"><button id="pressGo">Pressurise from vacuum</button></div>
+  <div class="info" id="pressInfo"></div>
+</section>
+
+<section data-mode="visit" hidden>
+  <h1>The visit, 90 minutes</h1>
+  <div class="sub">Six visitors and a guide, one orbit: 55 minutes of sun, 35 of night.</div>
+  <label class="row" style="gap:6px"><button id="vplay" style="width:70px;text-align:center">Play</button><input id="vt" class="wide" type="range" min="0" max="90" step="0.05" value="0"></label>
+  <div class="info" id="vphase"></div>
+  <h2>What people do</h2>
+  <div class="views">
+    <button data-use="hatch">Arriving</button>
+    <button data-use="earth">Looking at Earth</button>
+    <button data-use="pods">Reading in the pods</button>
+    <button data-use="greens">Plant tasting</button>
+    <button data-use="exercise">Exercise</button>
+    <button data-use="concert">Concert, live to Earth</button>
+    <button data-use="social">Eating and talking</button>
+  </div>
+  <div class="row2"><button id="pathsBtn">Movement paths</button><button id="vIn">Watch inside</button><button id="vOut">Cutaway</button></div>
+  <div id="legend" style="margin-top:8px"></div>
+  <div class="note">The order of the visit and where each use happens are our proposal until Marina sends her minute-by-minute (questions sent 30 Oct).</div>
+</section>
+
+<section data-mode="life" hidden>
+  <h1>Life of the station</h1>
+  <div class="sub">From the parts on the ground to the end of its life, with the same model.</div>
+  <label class="row" style="gap:6px"><button id="lplay" style="width:70px;text-align:center">Play</button><input id="lt" class="wide" type="range" min="0" max="8.999" step="0.001" value="0"></label>
+  <div class="info" id="lifeInfo"></div>
+  <div class="views" id="chapters" style="grid-template-columns:1fr;margin-top:8px"></div>
+</section>
+</div>
+<button id="hide">Hide panel</button>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
+
+// ---------- renderer / scene ----------
+const renderer = new THREE.WebGLRenderer({ antialias: true, logarithmicDepthBuffer: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.0;
+renderer.localClippingEnabled = true;
+document.body.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x000000);
+const camera = new THREE.PerspectiveCamera(42, innerWidth / innerHeight, 0.05, 2e9);
+camera.position.set(15, 4.5, 17);
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true; controls.dampingFactor = 0.08;
+controls.minDistance = 0.3; controls.maxDistance = 120;
+
+const rand = (() => { let s = 12345; return () => (s = (s * 16807) % 2147483647) / 2147483647; })();
+
+// ---------- canvas textures ----------
+function canvasTex(w, h, draw, srgb = true) {
+  const c = document.createElement('canvas'); c.width = w; c.height = h;
+  draw(c.getContext('2d'), w, h);
+  const t = new THREE.CanvasTexture(c);
+  if (srgb) t.colorSpace = THREE.SRGBColorSpace;
+  t.wrapS = t.wrapT = THREE.RepeatWrapping; t.anisotropy = 8;
+  return t;
+}
+const brushedRough = canvasTex(512, 512, (g, w, h) => {
+  g.fillStyle = '#6a6a6a'; g.fillRect(0, 0, w, h);
+  for (let i = 0; i < 2500; i++) {
+    const y = rand() * h, v = 80 + rand() * 60 | 0;
+    g.strokeStyle = `rgba(${v},${v},${v},${0.15 + rand() * 0.3})`; g.lineWidth = rand() * 1.5;
+    g.beginPath(); g.moveTo(0, y); g.lineTo(w, y + rand() * 2 - 1); g.stroke();
+  }
+}, false);
+const mliTex = canvasTex(1024, 1024, (g, w, h) => {
+  g.fillStyle = '#c9a65a'; g.fillRect(0, 0, w, h);
+  for (let i = 0; i < 2600; i++) {
+    const x = rand() * w, y = rand() * h, r = 8 + rand() * 40;
+    const l = rand();
+    g.fillStyle = l > .5 ? `rgba(255,236,170,${.12 + rand() * .25})` : `rgba(90,60,20,${.1 + rand() * .25})`;
+    g.beginPath(); g.moveTo(x, y);
+    for (let k = 0; k < 5; k++) { const a = rand() * 6.28; g.lineTo(x + Math.cos(a) * r, y + Math.sin(a) * r); }
+    g.closePath(); g.fill();
+  }
+  g.strokeStyle = 'rgba(80,55,20,.35)'; g.lineWidth = 2;
+  for (let i = 0; i < w; i += 128) { g.beginPath(); g.moveTo(i, 0); g.lineTo(i, h); g.stroke(); }
+});
+const mliRough = canvasTex(512, 512, (g, w, h) => {
+  g.fillStyle = '#555'; g.fillRect(0, 0, w, h);
+  for (let i = 0; i < 1500; i++) { const v = rand() * 255 | 0; g.fillStyle = `rgba(${v},${v},${v},.35)`;
+    g.fillRect(rand() * w, rand() * h, 4 + rand() * 30, 4 + rand() * 30); }
+}, false);
+const solarTex = canvasTex(1024, 1024, (g, w, h) => {
+  g.fillStyle = '#9aa3ae'; g.fillRect(0, 0, w, h);
+  const n = 24, cell = w / n;
+  for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) {
+    const x = i * cell + 1.5, y = j * cell + 1.5, s = cell - 3;
+    const grd = g.createLinearGradient(x, y, x + s, y + s);
+    grd.addColorStop(0, '#0d1a3a'); grd.addColorStop(1, '#16285a');
+    g.fillStyle = grd; g.fillRect(x, y, s, s);
+    g.fillStyle = '#c8ccd2';
+    g.beginPath(); g.moveTo(x, y); g.lineTo(x + 4, y); g.lineTo(x, y + 4); g.fill();
+    g.beginPath(); g.moveTo(x + s, y); g.lineTo(x + s - 4, y); g.lineTo(x + s, y + 4); g.fill();
+    g.beginPath(); g.moveTo(x, y + s); g.lineTo(x + 4, y + s); g.lineTo(x, y + s - 4); g.fill();
+    g.beginPath(); g.moveTo(x + s, y + s); g.lineTo(x + s - 4, y + s); g.lineTo(x + s, y + s - 4); g.fill();
+    g.strokeStyle = 'rgba(180,190,210,.35)'; g.lineWidth = 1;
+    for (let k = 1; k < 3; k++) { g.beginPath(); g.moveTo(x, y + s * k / 3); g.lineTo(x + s, y + s * k / 3); g.stroke(); }
+  }
+});
+const leafTex = canvasTex(128, 128, (g, w, h) => {
+  g.clearRect(0, 0, w, h);
+  g.fillStyle = '#ffffff';
+  g.beginPath(); g.moveTo(64, 120);
+  g.bezierCurveTo(10, 90, 0, 35, 64, 8);
+  g.bezierCurveTo(128, 35, 118, 90, 64, 120); g.fill();
+  g.strokeStyle = 'rgba(0,0,0,.25)'; g.lineWidth = 3;
+  g.beginPath(); g.moveTo(64, 118); g.lineTo(64, 14); g.stroke();
+  g.lineWidth = 1.5;
+  for (let y = 30; y < 110; y += 16) { g.beginPath(); g.moveTo(64, y + 8); g.lineTo(34, y); g.moveTo(64, y + 8); g.lineTo(94, y); g.stroke(); }
+});
+const glowTex = canvasTex(256, 256, (g, w, h) => {
+  const grd = g.createRadialGradient(128, 128, 0, 128, 128, 128);
+  grd.addColorStop(0, 'rgba(255,255,255,1)'); grd.addColorStop(0.06, 'rgba(255,250,235,.9)');
+  grd.addColorStop(0.2, 'rgba(255,220,170,.25)'); grd.addColorStop(1, 'rgba(255,200,150,0)');
+  g.fillStyle = grd; g.fillRect(0, 0, w, h);
+});
+const woodTex = canvasTex(512, 512, (g, w, h) => {
+  g.fillStyle = '#d9c7a6'; g.fillRect(0, 0, w, h);
+  for (let i = 0; i < 160; i++) { g.strokeStyle = `rgba(150,110,70,${.05 + rand() * .15})`; g.lineWidth = 1 + rand() * 3;
+    const x = rand() * w; g.beginPath(); g.moveTo(x, 0); g.bezierCurveTo(x + 10, h * .3, x - 10, h * .6, x + 5, h); g.stroke(); }
+});
+
+// ---------- materials ----------
+const clipPlane = new THREE.Plane(new THREE.Vector3(0, 0, -1), 0);
+const shellMats = [];
+function shellMat(m) { shellMats.push(m); return m; }
+const alu = shellMat(new THREE.MeshStandardMaterial({ color: 0xc4c8cc, metalness: 1, roughness: 0.38, roughnessMap: brushedRough }));
+const aluDark = shellMat(new THREE.MeshStandardMaterial({ color: 0x8d9298, metalness: 1, roughness: 0.45, roughnessMap: brushedRough }));
+const aluInside = shellMat(new THREE.MeshStandardMaterial({ color: 0xe6e3dc, metalness: 0.15, roughness: 0.55 })); // painted cabin side
+const titanium = shellMat(new THREE.MeshStandardMaterial({ color: 0x9a948c, metalness: 1, roughness: 0.32 }));
+const glass = shellMat(new THREE.MeshPhysicalMaterial({
+  color: 0xffffff, metalness: 0, roughness: 0.015, transmission: 1, thickness: 0.022, ior: 1.473,
+  attenuationColor: new THREE.Color(0xeaf6f2), attenuationDistance: 1.2, specularIntensity: 1,
+  side: THREE.DoubleSide, envMapIntensity: 1.3, transparent: false
+}));
+const mli = shellMat(new THREE.MeshStandardMaterial({ map: mliTex, metalness: 0.9, roughness: 0.35, roughnessMap: mliRough, bumpMap: mliRough, bumpScale: 0.004 }));
+const mliSilver = shellMat(new THREE.MeshStandardMaterial({ color: 0xd8dde2, metalness: 0.95, roughness: 0.3, roughnessMap: mliRough, bumpMap: mliRough, bumpScale: 0.003 }));
+const solar = shellMat(new THREE.MeshPhysicalMaterial({ map: solarTex, metalness: 0.35, roughness: 0.22, clearcoat: 1, clearcoatRoughness: 0.05 }));
+const solarBack = shellMat(new THREE.MeshStandardMaterial({ color: 0xf2f2f0, metalness: 0, roughness: 0.8 }));
+const shieldRoll = shellMat(new THREE.MeshStandardMaterial({ color: 0xa9adb2, metalness: 0.9, roughness: 0.4, roughnessMap: mliRough }));
+const darkSeal = shellMat(new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: 0.7 }));
+
+// shades: discard cells whose phase is above the closed fraction
+const shadeUniforms = { uClosed: { value: 0 } };
+function patchShade(m) {
+  m.onBeforeCompile = (s) => {
+    s.uniforms.uClosed = shadeUniforms.uClosed;
+    s.vertexShader = 'attribute float aPhase;\nvarying float vPhase;\n' + s.vertexShader.replace('#include <begin_vertex>', '#include <begin_vertex>\nvPhase = aPhase;');
+    s.fragmentShader = 'uniform float uClosed;\nvarying float vPhase;\n' + s.fragmentShader.replace('void main() {', 'void main() {\nif (vPhase > uClosed) discard;');
+  };
+  return m;
+}
+function patchShadeU(m, uni) {
+  m.onBeforeCompile = (s) => {
+    s.uniforms.uClosed = uni;
+    s.vertexShader = 'attribute float aPhase;\nvarying float vPhase;\n' + s.vertexShader.replace('#include <begin_vertex>', '#include <begin_vertex>\nvPhase = aPhase;');
+    s.fragmentShader = 'uniform float uClosed;\nvarying float vPhase;\n' + s.fragmentShader.replace('void main() {', 'void main() {\nif (vPhase > uClosed) discard;');
+  };
+  m.customProgramCacheKey = () => 'shade';
+  return m;
+}
+// shutters: one per glass cell, brushed aluminium on the outside, warm fabric face inside
+function makeShade() {
+  const uni = { value: 0 };
+  const mat = shellMat(patchShadeU(new THREE.MeshStandardMaterial({ color: 0xcfd2d4, metalness: 0.55, roughness: 0.45, roughnessMap: brushedRough, side: THREE.DoubleSide }), uni));
+  const depth = patchShadeU(new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking }), uni);
+  return { uni, mat, depth };
+}
+
+// ---------- geometry of the truncated icosahedron ----------
+const PHI = (1 + Math.sqrt(5)) / 2;
+const EDGE = 2.25, S = EDGE / 2;
+const verts = [];
+(function () {
+  const base = [[0, 1, 3 * PHI], [1, 2 + PHI, 2 * PHI], [PHI, 2, 2 * PHI + 1]];
+  const key = new Set();
+  for (const b of base) for (let sx of [-1, 1]) for (let sy of [-1, 1]) for (let sz of [-1, 1]) {
+    const v = [b[0] * sx, b[1] * sy, b[2] * sz];
+    for (let r = 0; r < 3; r++) {
+      const p = [v[r % 3], v[(r + 1) % 3], v[(r + 2) % 3]];
+      const k = p.map(x => x.toFixed(4)).join(',');
+      if (!key.has(k)) { key.add(k); verts.push(new THREE.Vector3(p[0] * S, p[1] * S, p[2] * S)); }
+    }
+  }
+})();
+const normalsP = [], normalsH = [];
+for (const s1 of [-1, 1]) for (const s2 of [-1, 1]) {
+  for (const p of [[0, s1, s2 * PHI], [s1, s2 * PHI, 0], [s2 * PHI, 0, s1]]) normalsP.push(new THREE.Vector3(...p).normalize());
+  for (const p of [[0, s1 * PHI, s2 / PHI], [s1 * PHI, s2 / PHI, 0], [s2 / PHI, 0, s1 * PHI]]) normalsH.push(new THREE.Vector3(...p).normalize());
+}
+for (const a of [-1, 1]) for (const b of [-1, 1]) for (const c of [-1, 1]) normalsH.push(new THREE.Vector3(a, b, c).normalize());
+
+// rotate so the service-pentagon axis (column) is vertical
+const qAlign = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, PHI).normalize(), new THREE.Vector3(0, 1, 0));
+verts.forEach(v => v.applyQuaternion(qAlign));
+normalsP.forEach(n => n.applyQuaternion(qAlign));
+normalsH.forEach(n => n.applyQuaternion(qAlign));
+
+function faceFrom(n) {
+  let dmax = -1e9; for (const v of verts) dmax = Math.max(dmax, v.dot(n));
+  const fv = verts.filter(v => v.dot(n) > dmax - 1e-4);
+  const c = fv.reduce((a, v) => a.add(v), new THREE.Vector3()).multiplyScalar(1 / fv.length);
+  const u = fv[0].clone().sub(c).normalize(), w = new THREE.Vector3().crossVectors(n, u);
+  fv.sort((a, b) => Math.atan2(a.clone().sub(c).dot(w), a.clone().sub(c).dot(u)) - Math.atan2(b.clone().sub(c).dot(w), b.clone().sub(c).dot(u)));
+  return { n: n.clone(), c, v: fv.map(x => x.clone()) };
+}
+const hexes = normalsH.map(faceFrom), pents = normalsP.map(faceFrom);
+
+// pentagon roles
+pents.forEach(p => p.role = 'solar');
+const top = pents.reduce((a, b) => (b.n.y > a.n.y ? b : a)); top.role = 'service';
+const bot = pents.reduce((a, b) => (b.n.y < a.n.y ? b : a)); bot.role = 'service';
+const ring = pents.filter(p => p.role === 'solar');
+const dock = ring.filter(p => p.n.y > 0).reduce((a, b) => (b.n.x > a.n.x ? b : a)); dock.role = 'dock';
+ring.filter(p => p !== dock).sort((a, b) => Math.atan2(a.n.z, a.n.x) - Math.atan2(b.n.z, b.n.x))
+  .forEach((p, i) => { if (i % 3 !== 2) p.role = 'greenhouse'; });
+// six greenhouses: take first six marked
+let gh = 0; pents.forEach(p => { if (p.role === 'greenhouse') { gh++; if (gh > 6) p.role = 'solar'; } });
+
+// ---------- beam builder ----------
+const _m = new THREE.Matrix4(), _x = new THREE.Vector3(), _z = new THREE.Vector3();
+function box(list, a, b, n, w, d0, d1, inset = null) {
+  _x.subVectors(b, a); const len = _x.length(); _x.normalize();
+  _z.crossVectors(_x, n).normalize();
+  const g = new THREE.BoxGeometry(len, d1 - d0, w);
+  const mid = a.clone().add(b).multiplyScalar(0.5).addScaledVector(n, (d0 + d1) / 2);
+  if (inset) mid.addScaledVector(inset, 1);
+  _m.makeBasis(_x, n, _z).setPosition(mid);
+  g.applyMatrix4(_m); list.push(g);
+}
+function ibeam(list, flangeList, a, b, n, depth, fw, tw, tf) {
+  box(list, a, b, n, tw, -depth, 0);
+  box(flangeList, a, b, n, fw, -depth, -depth + tf);
+}
+const newG = () => ({ frame: [], frameOut: [], main: [], mainFl: [], sec: [], secFl: [], seat: [], glass: [], shade: [], hub: [], pentPlate: [], pentIn: [], mli: [], solar: [], solarBack: [], strut: [], roll: [], seal: [] });
+let G = newG();
+const shadePhase = [];
+const K = 4;
+const sweepDir = new THREE.Vector3(1, 0.2, 0.3).normalize();
+
+function triPoint(c, a, b, i, j) { return c.clone().addScaledVector(a.clone().sub(c), i / K).addScaledVector(b.clone().sub(c), j / K); }
+function buildGrid(face, isHex) {
+  const { n, c, v } = face, segs = new Map(), N = v.length;
+  for (let s = 0; s < N; s++) {
+    const A = v[s], B = v[(s + 1) % N];
+    for (let i = 0; i <= K; i++) for (let j = 0; j <= K - i; j++) {
+      const p = triPoint(c, A, B, i, j);
+      const addSeg = (q, kind) => {
+        const key = p.clone().add(q).multiplyScalar(0.5).toArray().map(x => x.toFixed(3)).join(',');
+        if (!segs.has(key)) segs.set(key, { a: p, b: q, kind });
+      };
+      if (i + j < K) {
+        const q1 = triPoint(c, A, B, i + 1, j), q2 = triPoint(c, A, B, i, j + 1);
+        addSeg(q1, j === 0 ? 'main' : 'sec');
+        addSeg(q2, i === 0 ? 'main' : 'sec');
+        const q3p = triPoint(c, A, B, i + 1, j);
+        const q3 = triPoint(c, A, B, i, j + 1);
+        // diagonal between (i+1,j) and (i,j+1)
+        const key = q3p.clone().add(q3).multiplyScalar(0.5).toArray().map(x => x.toFixed(3)).join(',');
+        if (!segs.has(key)) segs.set(key, { a: q3p, b: q3, kind: (i + j + 1 === K) ? 'edge' : 'sec' });
+      }
+      // panes
+      if (isHex && i + j < K) {
+        addPane(face, [p, triPoint(c, A, B, i + 1, j), triPoint(c, A, B, i, j + 1)]);
+        if (i + j < K - 1) addPane(face, [triPoint(c, A, B, i + 1, j), triPoint(c, A, B, i + 1, j + 1), triPoint(c, A, B, i, j + 1)]);
+      }
+    }
+  }
+  return [...segs.values()];
+}
+function addPane(face, tri) {
+  const cen = tri[0].clone().add(tri[1]).add(tri[2]).multiplyScalar(1 / 3);
+  const sh = (p, s, d) => cen.clone().lerp(p, s).addScaledVector(face.n, d);
+  const pts = tri.map(p => sh(p, 0.87, -0.004));
+  const g = new THREE.BufferGeometry().setFromPoints(pts); g.setIndex([0, 1, 2]); g.computeVertexNormals();
+  if (g.attributes.normal.getZ(0) * face.n.z + g.attributes.normal.getX(0) * face.n.x + g.attributes.normal.getY(0) * face.n.y < 0) g.setIndex([0, 2, 1]);
+  g.computeVertexNormals(); G.glass.push(g);
+  // interior shade just inside the secondary ribs
+  const sp = tri.map(p => sh(p, 0.9, -0.165));
+  const gs = new THREE.BufferGeometry().setFromPoints(sp); gs.setIndex([0, 1, 2]); gs.computeVertexNormals();
+  const ph = (cen.clone().normalize().dot(sweepDir) + 1) / 2;
+  gs.setAttribute('aPhase', new THREE.Float32BufferAttribute([ph, ph, ph], 1));
+  G.shade.push(gs);
+}
+
+function buildFace(face, isHex) {
+  const { n, c, v } = face, N = v.length;
+  // perimeter frame (160 mm deep, 120 mm wide, set inside the edge)
+  for (let s = 0; s < N; s++) {
+    const A = v[s], B = v[(s + 1) % N];
+    const mid = A.clone().add(B).multiplyScalar(0.5);
+    const toC = c.clone().sub(mid).normalize();
+    box(G.frame, A, B, n, 0.12, -0.16, 0.0, toC.clone().multiplyScalar(0.06));
+    box(G.frameOut, A, B, n, 0.07, 0.0, 0.028, toC.clone().multiplyScalar(0.04));
+    box(G.seal, A, B, n, 0.012, -0.005, 0.03, toC.clone().multiplyScalar(0.003));
+  }
+  const segs = buildGrid(face, isHex);
+  for (const s of segs) {
+    if (s.kind === 'edge') continue;
+    if (s.kind === 'main') { ibeam(G.main, G.mainFl, s.a, s.b, n, 0.40, 0.08, 0.025, 0.025); box(G.seat, s.a, s.b, n, 0.06, -0.01, 0.03); }
+    else { ibeam(G.sec, G.secFl, s.a, s.b, n, 0.152, 0.1, 0.012, 0.012); box(G.seat, s.a, s.b, n, 0.04, -0.01, 0.022); }
+  }
+  // centre hub
+  const hub = new THREE.CylinderGeometry(0.2, 0.2, 0.42, 24);
+  hub.applyQuaternion(new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), n));
+  hub.translate(...c.clone().addScaledVector(n, -0.19).toArray()); G.hub.push(hub);
+}
+
+// shape helper for a planar polygon
+function polyGeo(points, n, flip = false) {
+  const g = new THREE.BufferGeometry();
+  const c = points.reduce((a, p) => a.add(p), new THREE.Vector3()).multiplyScalar(1 / points.length);
+  const pos = [], uv = [], idx = [];
+  const u = points[0].clone().sub(c).normalize(), w = new THREE.Vector3().crossVectors(n, u);
+  const all = [c, ...points];
+  for (const p of all) { pos.push(p.x, p.y, p.z); const d = p.clone().sub(c); uv.push(d.dot(u) / 4 + 0.5, d.dot(w) / 4 + 0.5); }
+  for (let i = 0; i < points.length; i++) { const a = 1 + i, b = 1 + (i + 1) % points.length; flip ? idx.push(0, b, a) : idx.push(0, a, b); }
+  g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  g.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
+  g.setIndex(idx); g.computeVertexNormals();
+  if (g.attributes.normal.getX(0) * n.x + g.attributes.normal.getY(0) * n.y + g.attributes.normal.getZ(0) * n.z < 0) { return polyGeo(points, n, !flip); }
+  return g;
+}
+const offPoly = (face, scale, d) => face.v.map(p => face.c.clone().lerp(p, scale).addScaledVector(face.n, d));
+
+hexes.forEach(h => { G = newG(); buildFace(h, true); h.G = G; h.kind = 'hex'; });
+pents.forEach(p => {
+  G = newG(); p.G = G; p.kind = 'pent';
+  buildFace(p, false);
+  // closure plate outboard of the ribs, cabin side painted
+  G.pentPlate.push(polyGeo(offPoly(p, 0.97, -0.002), p.n.clone().negate()));
+  G.mli.push(polyGeo(offPoly(p, 0.965, 0.032), p.n));
+  if (p.role === 'solar' || p.role === 'greenhouse' || p.role === 'service') {
+    // solar array on stand-offs
+    const sp = offPoly(p, 0.86, 0.36);
+    G.solar.push(polyGeo(sp, p.n)); G.solarBack.push(polyGeo(offPoly(p, 0.86, 0.35), p.n.clone().negate()));
+    for (let i = 0; i < 5; i++) {
+      const a = p.c.clone().lerp(p.v[i], 0.55).addScaledVector(p.n, 0.03), b = a.clone().addScaledVector(p.n, 0.33);
+      const st = new THREE.CylinderGeometry(0.025, 0.025, 0.33, 10);
+      st.applyQuaternion(new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), p.n));
+      st.translate(...a.clone().add(b).multiplyScalar(0.5).toArray()); G.strut.push(st);
+    }
+  }
+  // rolled shields along each pentagon edge
+  for (let s = 0; s < 5; s++) {
+    const A = p.v[s], B = p.v[(s + 1) % 5];
+    const a = p.c.clone().lerp(A, 0.9), b = p.c.clone().lerp(B, 0.9);
+    const dir = b.clone().sub(a), len = dir.length() * 0.82; dir.normalize();
+    const cyl = new THREE.CylinderGeometry(0.075, 0.075, len, 20);
+    cyl.applyQuaternion(new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir));
+    cyl.translate(...a.clone().add(b).multiplyScalar(0.5).addScaledVector(p.n, 0.13).toArray()); G.roll.push(cyl);
+  }
+});
+
+const station = new THREE.Group(); scene.add(station);
+function mergeList(list) {
+  return mergeGeometries(list.map(x => x.index ? x.toNonIndexed() : x).map(x => { for (const k of Object.keys(x.attributes)) if (!['position', 'normal', 'uv', 'aPhase'].includes(k)) x.deleteAttribute(k); if (!x.attributes.uv) x.setAttribute('uv', new THREE.Float32BufferAttribute(new Float32Array(x.attributes.position.count * 2), 2)); return x; }));
+}
+function addMerged(list, mat, cast = true, recv = true, parent = station, part = '') {
+  if (!list.length) return null;
+  const m = new THREE.Mesh(mergeList(list), mat); m.castShadow = cast; m.receiveShadow = recv; m.userData.part = part; parent.add(m); return m;
+}
+// every panel is its own group, so it can be taken apart, packed and assembled
+const faces = [...hexes, ...pents];
+const PART_SPEC = [
+  ['frame', alu, true, true], ['frameOut', aluDark, true, true], ['seal', darkSeal, false, true],
+  ['main', aluInside, true, true], ['mainFl', aluInside, true, true], ['sec', aluInside, true, true], ['secFl', aluInside, true, true],
+  ['seat', alu, true, true], ['hub', titanium, true, true], ['glass', glass, false, false],
+  ['pentPlate', aluInside, true, true], ['mli', mli, true, true], ['solar', solar, true, true], ['solarBack', solarBack, true, true],
+  ['strut', titanium, true, true], ['roll', shieldRoll, true, true],
+];
+faces.forEach((f, i) => {
+  f.id = i; f.group = new THREE.Group(); f.group.userData.face = f; station.add(f.group);
+  f.parts = {};
+  for (const [k, mat, cast, recv] of PART_SPEC) { const m = addMerged(f.G[k], mat, cast, recv, f.group, k); if (m) f.parts[k] = m; }
+  if (f.G.shade.length) { const sh = makeShade(); f.shade = sh; const m = addMerged(f.G.shade, sh.mat, true, true, f.group, 'shade'); m.customDepthMaterial = sh.depth; f.parts.shade = m; }
+  delete f.G;
+});
+const glassMeshes = faces.filter(f => f.parts.glass).map(f => f.parts.glass);
+// corner blocks at the 60 nodes (2219 forgings)
+{
+  const list = [];
+  for (const v of verts) {
+    const g = new THREE.BoxGeometry(0.34, 0.42, 0.34);
+    const q = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), v.clone().normalize());
+    g.applyQuaternion(q); g.translate(...v.clone().multiplyScalar(1 - 0.24 / v.length()).toArray()); list.push(g);
+  }
+  window.cornerMesh = addMerged(list, aluDark);
+}
+
+// docking pentagon: ring and hatch
+{
+  const p = dock, q = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), p.n);
+  const grp = new THREE.Group(); grp.quaternion.copy(q); grp.position.copy(p.c); p.group.add(grp);
+  const tube = new THREE.Mesh(new THREE.CylinderGeometry(0.85, 0.85, 0.9, 64, 1, true), shellMat(new THREE.MeshStandardMaterial({ color: 0xeeeeee, metalness: 0.3, roughness: 0.5, side: THREE.DoubleSide })));
+  tube.position.y = 0.48; tube.castShadow = tube.receiveShadow = true; grp.add(tube);
+  const ringM = new THREE.Mesh(new THREE.TorusGeometry(0.85, 0.07, 20, 96), alu); ringM.rotation.x = Math.PI / 2; ringM.position.y = 0.95; ringM.castShadow = true; grp.add(ringM);
+  for (let i = 0; i < 3; i++) {
+    const pet = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.22, 0.05), aluDark);
+    const a = i / 3 * Math.PI * 2; pet.position.set(Math.cos(a) * 0.82, 1.05, Math.sin(a) * 0.82); pet.lookAt(0, 1.05, 0); grp.add(pet);
+  }
+  const hatch = new THREE.Mesh(new THREE.CircleGeometry(0.62, 48), aluDark); hatch.rotation.x = -Math.PI / 2; hatch.position.y = 0.93; grp.add(hatch);
+  const blink = new THREE.Mesh(new THREE.SphereGeometry(0.03, 8, 8), new THREE.MeshBasicMaterial({ color: new THREE.Color(4, 0.3, 0.2) }));
+  blink.position.set(0.95, 0.95, 0); grp.add(blink); blink.name = 'blink';
+}
+
+// ---------- interior ----------
+const interior = new THREE.Group(); station.add(interior);
+const clutter = new THREE.Group(); interior.add(clutter);
+const colLen = 9.65, colR = 0.43;
+{
+  const colMat = new THREE.MeshStandardMaterial({ map: woodTex, roughness: 0.6, metalness: 0 });
+  const col = new THREE.Mesh(new THREE.CylinderGeometry(colR, colR, colLen, 48), colMat); col.castShadow = col.receiveShadow = true; interior.add(col);
+  for (const y of [-colLen / 2 + 0.15, colLen / 2 - 0.15, -1.8, 1.8]) {
+    const collar = new THREE.Mesh(new THREE.CylinderGeometry(colR + 0.06, colR + 0.06, 0.12, 48), aluInside); collar.position.y = y; interior.add(collar);
+  }
+  // lit algae tubes
+  const algae = new THREE.MeshStandardMaterial({ color: 0x2f7a3a, emissive: 0x3fbf55, emissiveIntensity: 0.9, roughness: 0.2, transparent: true, opacity: 0.85 });
+  for (let i = 0; i < 8; i++) {
+    const a = i / 8 * Math.PI * 2; const t = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.035, 3.4, 12), algae);
+    t.position.set(Math.cos(a) * (colR + 0.04), 0, Math.sin(a) * (colR + 0.04)); interior.add(t);
+  }
+}
+// climbing plants on the column, and in the greenhouse alcoves
+const leafMat = new THREE.MeshStandardMaterial({ map: leafTex, alphaTest: 0.5, side: THREE.DoubleSide, roughness: 0.55, color: 0xffffff });
+const leafDepth = new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking, map: leafTex, alphaTest: 0.5 });
+const leafSpots = [];
+for (let i = 0; i < 2600; i++) {
+  let y = (rand() - 0.5) * colLen * 0.8;
+  if (Math.abs(y) < 1.75 && Math.abs(y) > 0.05) y = (Math.sign(y) || 1) * (1.95 + rand() * 1.9);
+  const a = rand() * Math.PI * 2 + y * 0.8, r = colR + 0.02 + rand() * 0.16;
+  const pos = new THREE.Vector3(Math.cos(a) * r, y, Math.sin(a) * r);
+  const out = new THREE.Vector3(Math.cos(a), (rand() - 0.5) * 0.8, Math.sin(a)).normalize();
+  leafSpots.push({ pos, out, s: 0.8 + rand() * 0.9 });
+}
+pents.filter(p => p.role === 'greenhouse').forEach((p, gi) => {
+  if (gi === 0) window.ghP = p;
+  // alcove: back LED panel, trays, cover
+  const ledMat = new THREE.MeshStandardMaterial({ color: 0x111111, emissive: new THREE.Color(1.0, 0.72, 0.85), emissiveIntensity: 1.6 });
+  const led = new THREE.Mesh(polyGeo(offPoly(p, 0.62, -0.43), p.n.clone().negate()), ledMat); interior.add(led);
+  const tray = new THREE.Mesh(polyGeo(offPoly(p, 0.72, -0.47), p.n.clone().negate()), new THREE.MeshStandardMaterial({ color: 0x3a2a1c, roughness: 0.95 }));
+  interior.add(tray);
+  const cover = new THREE.Mesh(polyGeo(offPoly(p, 0.74, -0.91), p.n.clone().negate()), new THREE.MeshPhysicalMaterial({ color: 0xffffff, transmission: 0.9, roughness: 0.08, thickness: 0.006, side: THREE.DoubleSide }));
+  interior.add(cover);
+  const u = p.v[0].clone().sub(p.c).normalize(), w = new THREE.Vector3().crossVectors(p.n, u);
+  for (let i = 0; i < (gi === 0 ? 0 : 420); i++) {
+    const rr = Math.sqrt(rand()) * 1.25, a = rand() * Math.PI * 2;
+    const pos = p.c.clone().addScaledVector(u, Math.cos(a) * rr).addScaledVector(w, Math.sin(a) * rr).addScaledVector(p.n, -0.5 - rand() * 0.32);
+    const out = p.n.clone().negate().addScaledVector(u, (rand() - .5) * 1.2).addScaledVector(w, (rand() - .5) * 1.2).normalize();
+    leafSpots.push({ pos, out, s: 0.7 + rand() * 0.8 });
+  }
+  const pl = new THREE.PointLight(0xffc6dc, 3.5, 4, 2); pl.position.copy(p.c.clone().addScaledVector(p.n, -1.2)); interior.add(pl);
+});
+// ---------- Marina's pods (13 Oct working images; April sizes scaled to the Rev E envelope) ----------
+const pods = [];
+{
+  const ENV_SCALE = 9.40 / 10.0;              // April package used a 10.0 m sphere
+  const hashJ = (x, y, z) => { const h = Math.sin(x * 127.1 + y * 311.7 + z * 74.7) * 43758.5453; return h - Math.floor(h); };
+  const sm = t => t * t * (3 - 2 * t);
+  function vnoise(x, y, z) {
+    const xi = Math.floor(x), yi = Math.floor(y), zi = Math.floor(z), xf = sm(x - xi), yf = sm(y - yi), zf = sm(z - zi);
+    const L = (a, b, t) => a + (b - a) * t; const h = (i, j, k) => hashJ(xi + i, yi + j, zi + k);
+    return L(L(L(h(0,0,0), h(1,0,0), xf), L(h(0,1,0), h(1,1,0), xf), yf), L(L(h(0,0,1), h(1,0,1), xf), L(h(0,1,1), h(1,1,1), xf), yf), zf) * 2 - 1;
+  }
+  const fbm3 = (x, y, z) => vnoise(x, y, z) * 0.6 + vnoise(x * 2.1, y * 2.1, z * 2.1) * 0.28 + vnoise(x * 4.3, y * 4.3, z * 4.3) * 0.12;
+
+  // porous coral skin: 3D Voronoi ribs in object space, holes discarded
+  const vorGLSL = `
+    vec3 h33(vec3 p){ p = vec3(dot(p,vec3(127.1,311.7,74.7)), dot(p,vec3(269.5,183.3,246.1)), dot(p,vec3(113.5,271.9,124.6))); return fract(sin(p)*43758.5453); }
+    float vorEdge(vec3 p){ vec3 i=floor(p), f=fract(p); float F1=8.0, F2=8.0;
+      for(int x=-1;x<=1;x++) for(int y=-1;y<=1;y++) for(int z=-1;z<=1;z++){
+        vec3 g=vec3(float(x),float(y),float(z)); vec3 r=g+h33(i+g)-f; float d=dot(r,r);
+        if(d<F1){F2=F1;F1=d;} else if(d<F2){F2=d;} }
+      return sqrt(F2)-sqrt(F1); }`;
+  function patchLattice(m, freq, rib) {
+    m.onBeforeCompile = (s) => {
+      s.vertexShader = 'varying vec3 vPodP;\n' + s.vertexShader.replace('#include <begin_vertex>', '#include <begin_vertex>\nvPodP = position;');
+      s.fragmentShader = 'varying vec3 vPodP;\n' + vorGLSL + '\n' + s.fragmentShader.replace('void main() {',
+        `void main() {\n float e1 = vorEdge(vPodP*${freq.toFixed(2)}); float e2 = vorEdge(vPodP*${(freq * 2.7).toFixed(2)} + 3.1);\n if (e1 > ${rib.toFixed(3)} && e2 > ${(rib * 0.8).toFixed(3)}) discard;`);
+    };
+    return m;
+  }
+  const skinMat = patchLattice(new THREE.MeshStandardMaterial({ color: 0xf3f1ec, roughness: 0.5, metalness: 0.0, side: THREE.DoubleSide, envMapIntensity: 0.5 }), 2.2, 0.12);
+  const skinDepth = patchLattice(new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking }), 2.2, 0.12);
+  const shellInMat = new THREE.MeshStandardMaterial({ color: 0xece4d6, roughness: 0.7, side: THREE.DoubleSide, envMapIntensity: 0.35 });
+  const lipMat = new THREE.MeshPhysicalMaterial({ color: 0xdfe3e8, metalness: 1, roughness: 0.12, clearcoat: 1, clearcoatRoughness: 0.05, side: THREE.DoubleSide });
+  const cushionMat = new THREE.MeshStandardMaterial({ color: 0xcfc6b8, roughness: 0.95 });
+
+  const TH0 = 0.78; // used by the glow ring only
+  // opening: an oval in the unit sphere, half-sizes mx, my (in unit-sphere units)
+  function podShell(ax, ay, az, scale, seed, amp, mx, my) {
+    const g0 = new THREE.SphereGeometry(1, 200, 150); g0.rotateX(Math.PI / 2);
+    const p = g0.attributes.position, v = new THREE.Vector3(), open = new Uint8Array(p.count);
+    for (let i = 0; i < p.count; i++) {
+      v.fromBufferAttribute(p, i);
+      const e = (v.x / mx) ** 2 + (v.y / my) ** 2;
+      open[i] = (v.z > 0 && e < 1) ? 1 : 0;
+      const taper = v.z > 0 ? THREE.MathUtils.smoothstep(e, 1.0, 2.2) : 1;
+      const n = fbm3(v.x * 1.4 + seed, v.y * 1.4, v.z * 1.4 - seed);
+      const bump = 0.35 * vnoise(v.x * 4 + seed, v.y * 4, v.z * 4);
+      v.multiplyScalar(1 + amp * (n + bump) * taper);
+      p.setXYZ(i, v.x * ax * scale, v.y * ay * scale, v.z * az * scale);
+    }
+    const idx = g0.index.array, keep = [];
+    for (let t = 0; t < idx.length; t += 3) if (!open[idx[t]] && !open[idx[t + 1]] && !open[idx[t + 2]]) keep.push(idx[t], idx[t + 1], idx[t + 2]);
+    g0.setIndex(keep); g0.computeVertexNormals(); return g0;
+  }
+  const rimPt = (a, mx, my, k = 1) => { const x = Math.cos(a) * mx * k, y = Math.sin(a) * my * k; return new THREE.Vector3(x, y, Math.sqrt(Math.max(0, 1 - x * x - y * y))); };
+  function rimCurve(ax, ay, az, mx, my) {
+    return new (class extends THREE.Curve { getPoint(t, o = new THREE.Vector3()) { const q = rimPt(t * Math.PI * 2, mx, my); return o.set(q.x * ax, q.y * ay, q.z * az); } })();
+  }
+  function lip(ax, ay, az, mx, my) {
+    const segs = 160, depth = 0.34, pos = [], idx = [];
+    for (let i = 0; i <= segs; i++) {
+      const a = i / segs * Math.PI * 2, q = rimPt(a, mx, my), q2 = rimPt(a, mx, my, 0.88);
+      pos.push(q.x * ax, q.y * ay, q.z * az, q2.x * ax, q2.y * ay, q.z * az - depth);
+      if (i < segs) { const b = i * 2; idx.push(b, b + 1, b + 2, b + 1, b + 3, b + 2); }
+    }
+    const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx); g.computeVertexNormals(); return g;
+  }
+
+  // name, height (April), half-widths, where it hangs, how far the mouth turns from the column
+  const defs = [
+    { name: 'Large pod', H: 5.5, wx: 1.5, wz: 1.3, ang: -Math.PI / 2, r: 2.75, y: 0.15, turn: 1.2, seed: 1.7, mw: 1.15, mh: 0.85 },
+    { name: 'Small pod', H: 2.5, wx: 1.35, wz: 1.15, ang: Math.PI / 2 + 0.35, r: 2.85, y: 1.35, turn: -1.15, seed: 5.3, mw: 0.95, mh: 0.6 },
+  ];
+  for (const d of defs) {
+    const ay = d.H * ENV_SCALE / 2, ax = d.wx, az = d.wz;
+    const radial = new THREE.Vector3(Math.cos(d.ang), 0, Math.sin(d.ang));
+    const center = radial.clone().multiplyScalar(d.r).setY(d.y);
+    const tangent = new THREE.Vector3(-radial.z, 0, radial.x);
+    const mouth = radial.clone().negate().multiplyScalar(Math.cos(d.turn)).addScaledVector(tangent, Math.sin(d.turn)).normalize();
+    const Y = new THREE.Vector3(0, 1, 0), X = new THREE.Vector3().crossVectors(Y, mouth);
+    const grp = new THREE.Group(); grp.matrix.makeBasis(X, Y, mouth).setPosition(center); grp.matrixAutoUpdate = false; interior.add(grp);
+
+    const mx = d.mw / ax, my = d.mh / ay;   // mouth half-width and half-height in metres
+    const outer = new THREE.Mesh(podShell(ax, ay, az, 1.0, d.seed, 0.22, mx, my), skinMat); outer.customDepthMaterial = skinDepth;
+    outer.castShadow = outer.receiveShadow = true; grp.add(outer);
+    const inner = new THREE.Mesh(podShell(ax, ay, az, 0.88, d.seed, 0.08, mx, my), shellInMat); inner.castShadow = inner.receiveShadow = true; grp.add(inner);
+    const rim = new THREE.Mesh(new THREE.TubeGeometry(rimCurve(ax, ay, az, mx, my), 200, 0.05, 12, true), lipMat); grp.add(rim);
+    grp.add(new THREE.Mesh(lip(ax, ay, az, mx, my), lipMat));
+    { const c = new (class extends THREE.Curve { getPoint(t, o = new THREE.Vector3()) { const a = t * Math.PI * 2, q = rimPt(a, mx, my), q2 = rimPt(a, mx, my, 0.88); return o.set(q2.x * ax, q2.y * ay, q.z * az - 0.34); } })();
+      grp.add(new THREE.Mesh(new THREE.TubeGeometry(c, 200, 0.03, 10, true), lipMat)); }
+    // soft lounge along the back wall, a light inside
+    const bench = new THREE.Mesh(new THREE.CapsuleGeometry(0.2, ay * 0.9, 8, 20), cushionMat); bench.position.set(0, -ay * 0.05, -az * 0.62); grp.add(bench);
+    const pad = new THREE.Mesh(new THREE.CapsuleGeometry(0.16, ax * 0.9, 8, 20), cushionMat); pad.rotation.z = Math.PI / 2; pad.position.set(0, -ay * 0.62, -az * 0.25); grp.add(pad);
+    const lamp = new THREE.PointLight(0xffc98f, 0.9, ay * 2 + 1.5, 2); lamp.position.set(0, 0, -az * 0.25); grp.add(lamp);
+    const glow = new THREE.Mesh(new THREE.TubeGeometry(rimCurve(ax * 0.97, ay * 0.97, az * 0.97 - 0.3, mx * 0.88, my * 0.88), 160, 0.008, 6, true), new THREE.MeshBasicMaterial({ color: new THREE.Color(2.2, 1.7, 1.1) })); grp.add(glow);
+    // two mounts back to the column (TRUTH: interior hangs from the column on removable mounts)
+    for (const dy of [-ay * 0.35, ay * 0.35]) {
+      const a = new THREE.Vector3(radial.x * colR, center.y + dy, radial.z * colR);
+      const b = center.clone().addScaledVector(radial, -ax * 0.82).setY(center.y + dy);
+      const dir = b.clone().sub(a), len = dir.length();
+      const strut = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.045, len, 14), aluInside);
+      strut.quaternion.setFromUnitVectors(Y, dir.normalize()); strut.position.copy(a).add(b).multiplyScalar(0.5); strut.castShadow = true; interior.add(strut);
+    }
+    // plants at the lower lip
+    grp.updateMatrixWorld(true);
+    const podLeaves = [];
+    for (let i = 0; i < 220; i++) {
+      const a = Math.PI * (1.15 + rand() * 0.7), q = rimPt(a, mx, my, 0.55 + rand() * 0.4);
+      const lp = new THREE.Vector3(q.x * ax, q.y * ay, q.z * az - 0.2 - rand() * 0.45);
+      const out = new THREE.Vector3((rand() - 0.5), 0.6 + rand() * 0.6, 0.5 + rand() * 0.5).normalize();
+      podLeaves.push({ pos: lp.applyMatrix4(grp.matrix), out: out.transformDirection(grp.matrix), s: 0.7 + rand() * 0.7 });
+    }
+    leafSpots.push(...podLeaves);
+    pods.push({ ...d, center, ax, ay, az, mouth, radial, grp });
+  }
+}
+// check: every pod stays inside the clear envelope and clear of the column
+const ENV_IN = { hex: hexes[0].c.length() - 0.40, pent: pents[0].c.length() - 0.41 };
+window.__podCheck = pods.map(pd => {
+  let worst = 1e9, colMin = 1e9; const v = new THREE.Vector3();
+  pd.grp.traverse(o => { if (!o.isMesh || !o.geometry.attributes.position) return; const p = o.geometry.attributes.position;
+    for (let i = 0; i < p.count; i += 3) { v.fromBufferAttribute(p, i).applyMatrix4(pd.grp.matrix);
+      for (const f of hexes) worst = Math.min(worst, ENV_IN.hex - v.dot(f.n));
+      for (const f of pents) worst = Math.min(worst, ENV_IN.pent - v.dot(f.n));
+      colMin = Math.min(colMin, Math.hypot(v.x, v.z) - colR); } });
+  return { name: pd.name, height: +(pd.ay * 2).toFixed(2), clearToEnvelope: +worst.toFixed(3), clearToColumn: +colMin.toFixed(3) };
+});
+console.log('PODCHECK', JSON.stringify(window.__podCheck));
+const insidePod = (p) => pods.some(pd => { const l = p.clone().sub(pd.center); const X = new THREE.Vector3().crossVectors(new THREE.Vector3(0, 1, 0), pd.mouth);
+  const x = l.dot(X) / (pd.ax * 1.2), y = l.y / (pd.ay * 1.2), z = l.dot(pd.mouth) / (pd.az * 1.2); return x * x + y * y + z * z < 1; });
+
+{
+  const leafGeo = new THREE.PlaneGeometry(0.11, 0.15); leafGeo.translate(0, 0.07, 0);
+  const inst = new THREE.InstancedMesh(leafGeo, leafMat, leafSpots.length);
+  const m = new THREE.Matrix4(), q = new THREE.Quaternion(), sc = new THREE.Vector3(), col = new THREE.Color();
+  leafSpots.forEach((l, i) => {
+    q.setFromUnitVectors(new THREE.Vector3(0, 1, 0), l.out);
+    q.multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), rand() * 6.28));
+    q.multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), 0.6 + rand() * 0.6));
+    sc.setScalar(l.s); m.compose(l.pos, q, sc); inst.setMatrixAt(i, m);
+    col.setHSL(0.24 + rand() * 0.08, 0.55 + rand() * 0.3, 0.18 + rand() * 0.17); inst.setColorAt(i, col);
+  });
+  inst.castShadow = true; inst.receiveShadow = true; inst.customDepthMaterial = leafDepth; interior.add(inst);
+}
+// ropes from the column out to corner nodes
+{
+  const ropeMats = [0xe36b2c, 0x2aa6a0, 0xf1c232].map(c => new THREE.MeshStandardMaterial({ color: c, roughness: 0.8 }));
+  const picks = verts.filter((v, i) => i % 7 === 0).slice(0, 9);
+  picks.forEach((v, i) => {
+    if ((() => { const e = v.clone().multiplyScalar(1 - 0.45 / v.length()); for (let t = 0; t <= 1; t += 0.05) if (insidePod(new THREE.Vector3(e.x * t, e.y * (0.5 + 0.5 * t), e.z * t))) return true; return false; })()) return;
+    const end = v.clone().multiplyScalar(1 - 0.45 / v.length());
+    const dirXZ = new THREE.Vector3(end.x, 0, end.z).normalize();
+    const start = new THREE.Vector3(dirXZ.x * colR, THREE.MathUtils.clamp(end.y * 0.5, -3.5, 3.5), dirXZ.z * colR);
+    const midp = start.clone().lerp(end, 0.5).add(new THREE.Vector3(0, -0.12, 0));
+    const curve = new THREE.QuadraticBezierCurve3(start, midp, end);
+    const r = new THREE.Mesh(new THREE.TubeGeometry(curve, 40, 0.014, 8), ropeMats[i % 3]); r.castShadow = true; clutter.add(r);
+  });
+}
+// people for scale (1.75 m)
+function person(suit) {
+  const g = new THREE.Group(), m = new THREE.MeshStandardMaterial({ color: suit, roughness: 0.75 }), skin = new THREE.MeshStandardMaterial({ color: 0xc89c7a, roughness: 0.6 });
+  const add = (geo, mat, x, y, z, rx = 0, rz = 0) => { const o = new THREE.Mesh(geo, mat); o.position.set(x, y, z); o.rotation.set(rx, 0, rz); o.castShadow = true; g.add(o); return o; };
+  add(new THREE.CapsuleGeometry(0.16, 0.42, 6, 16), m, 0, 1.18, 0);
+  add(new THREE.SphereGeometry(0.105, 20, 16), skin, 0, 1.64, 0.01);
+  add(new THREE.CapsuleGeometry(0.065, 0.72, 6, 12), m, 0.09, 0.5, 0.05, -0.25, 0.05);
+  add(new THREE.CapsuleGeometry(0.065, 0.72, 6, 12), m, -0.09, 0.52, -0.06, 0.35, -0.05);
+  add(new THREE.CapsuleGeometry(0.048, 0.5, 6, 12), m, 0.25, 1.32, 0, 0, 2.3);
+  add(new THREE.CapsuleGeometry(0.048, 0.5, 6, 12), m, -0.24, 1.18, 0.05, 0.3, -0.6);
+  return g;
+}
+{
+  const p1 = person(0x3d5a80); p1.position.set(2.4, -1.9, 1.5); p1.rotation.set(0.3, -0.8, 0.5); clutter.add(p1);
+  const p2 = person(0xe9e9e6); p2.position.set(-2.4, 1.0, -0.6); p2.rotation.set(-0.2, 1.4, -1.1); clutter.add(p2);
+  const p3 = person(0x9a9fa6); p3.position.set(2.1, -2.3, 1.2); p3.rotation.set(1.2, 0.2, 0.1); clutter.add(p3);
+}
+// cabin lights
+const cabinLights = [];
+for (const pos of [[0, 2.6, 0], [0, -2.6, 0], [2.2, 0, 0], [-2.2, 0, 0], [0, 0, 2.2], [0, 0, -2.2]]) {
+  const l = new THREE.PointLight(0xffd7a8, 4, 9, 2); l.position.set(...pos); interior.add(l); cabinLights.push(l);
+}
+// ring of warm LEDs on the column collars
+const ledRingMat = new THREE.MeshBasicMaterial({ color: new THREE.Color(3, 2.2, 1.4) });
+for (const y of [-1.8, 1.8]) { const rr = new THREE.Mesh(new THREE.TorusGeometry(colR + 0.07, 0.012, 8, 64), ledRingMat); rr.rotation.x = Math.PI / 2; rr.position.y = y + 0.07; interior.add(rr); }
+
+// ---------- Earth, atmosphere, stars, sun ----------
+const R_E = 6371000, ALT = 400000;
+const earthCenter = new THREE.Vector3(0, -(R_E + ALT), 0);
+const sunDir = new THREE.Vector3();
+const noiseGLSL = `
+vec3 mod289(vec3 x){return x-floor(x*(1.0/289.0))*289.0;}
+vec4 mod289(vec4 x){return x-floor(x*(1.0/289.0))*289.0;}
+vec4 permute(vec4 x){return mod289(((x*34.0)+1.0)*x);}
+vec4 taylorInvSqrt(vec4 r){return 1.79284291400159-0.85373472095314*r;}
+float snoise(vec3 v){const vec2 C=vec2(1.0/6.0,1.0/3.0);const vec4 D=vec4(0.0,0.5,1.0,2.0);
+vec3 i=floor(v+dot(v,C.yyy));vec3 x0=v-i+dot(i,C.xxx);vec3 g=step(x0.yzx,x0.xyz);vec3 l=1.0-g;
+vec3 i1=min(g.xyz,l.zxy);vec3 i2=max(g.xyz,l.zxy);vec3 x1=x0-i1+C.xxx;vec3 x2=x0-i2+C.yyy;vec3 x3=x0-D.yyy;
+i=mod289(i);vec4 p=permute(permute(permute(i.z+vec4(0.0,i1.z,i2.z,1.0))+i.y+vec4(0.0,i1.y,i2.y,1.0))+i.x+vec4(0.0,i1.x,i2.x,1.0));
+float n_=0.142857142857;vec3 ns=n_*D.wyz-D.xzx;vec4 j=p-49.0*floor(p*ns.z*ns.z);vec4 x_=floor(j*ns.z);vec4 y_=floor(j-7.0*x_);
+vec4 x=x_*ns.x+ns.yyyy;vec4 y=y_*ns.x+ns.yyyy;vec4 h=1.0-abs(x)-abs(y);vec4 b0=vec4(x.xy,y.xy);vec4 b1=vec4(x.zw,y.zw);
+vec4 s0=floor(b0)*2.0+1.0;vec4 s1=floor(b1)*2.0+1.0;vec4 sh=-step(h,vec4(0.0));vec4 a0=b0.xzyw+s0.xzyw*sh.xxyy;vec4 a1=b1.xzyw+s1.xzyw*sh.zzww;
+vec3 p0=vec3(a0.xy,h.x);vec3 p1=vec3(a0.zw,h.y);vec3 p2=vec3(a1.xy,h.z);vec3 p3=vec3(a1.zw,h.w);
+vec4 norm=taylorInvSqrt(vec4(dot(p0,p0),dot(p1,p1),dot(p2,p2),dot(p3,p3)));p0*=norm.x;p1*=norm.y;p2*=norm.z;p3*=norm.w;
+vec4 m=max(0.6-vec4(dot(x0,x0),dot(x1,x1),dot(x2,x2),dot(x3,x3)),0.0);m=m*m;
+return 42.0*dot(m*m,vec4(dot(p0,x0),dot(p1,x1),dot(p2,x2),dot(p3,x3)));}
+float fbm(vec3 p, int oct){float a=0.5,s=0.0;for(int i=0;i<14;i++){if(i>=oct)break;s+=a*snoise(p);p*=2.03;a*=0.5;}return s;}
+`;
+const earthUniforms = { uSun: { value: sunDir }, uTime: { value: 0 } };
+const earthMat = new THREE.ShaderMaterial({
+  uniforms: earthUniforms,
+  vertexShader: `
+    #include <common>
+    #include <logdepthbuf_pars_vertex>
+    varying vec3 vObjN; varying vec3 vWN; varying vec3 vWP;
+    void main(){ vObjN = normalize(position); vWN = normalize(mat3(modelMatrix)*normal);
+      vec4 wp = modelMatrix*vec4(position,1.0); vWP = wp.xyz; gl_Position = projectionMatrix*viewMatrix*wp;
+      #include <logdepthbuf_vertex>
+    }`,
+  fragmentShader: `
+    #include <common>
+    #include <logdepthbuf_pars_fragment>
+    uniform vec3 uSun; uniform float uTime; varying vec3 vObjN; varying vec3 vWN; varying vec3 vWP;
+    ${noiseGLSL}
+    void main(){
+      #include <logdepthbuf_fragment>
+      vec3 p = normalize(vObjN);
+      float h = fbm(p*1.7+vec3(2.3,1.1,0.4), 13) + 0.1*fbm(p*14.0, 8);
+      float land = smoothstep(0.044, 0.052, h);
+      float lat = abs(p.y);
+      float dry = fbm(p*3.5+vec3(7.0), 6);
+      float desert = smoothstep(0.05, 0.35, dry) * (1.0 - smoothstep(0.35, 0.55, abs(lat-0.32)*2.0));
+      vec3 forest = mix(vec3(0.035,0.075,0.025), vec3(0.09,0.12,0.05), smoothstep(-0.3,0.3,fbm(p*9.0,10)));
+      vec3 sand = mix(vec3(0.36,0.28,0.17), vec3(0.48,0.38,0.24), smoothstep(-0.3,0.3,fbm(p*11.0,10)));
+      vec3 landc = mix(forest, sand, desert);
+      landc = mix(landc, vec3(0.3,0.29,0.27), smoothstep(0.25,0.45,h)*0.6);
+      vec3 ocean = mix(vec3(0.003,0.018,0.06), vec3(0.01,0.08,0.13), smoothstep(-0.12,0.035,h));
+      float ice = smoothstep(0.80, 0.87, lat + fbm(p*6.0,4)*0.07);
+      landc *= 0.75 + 0.5*(0.5+0.5*fbm(p*900.0, 5));
+      vec3 alb = mix(ocean, landc, land); alb = mix(alb, vec3(0.8,0.85,0.9), ice);
+      vec3 q = p + vec3(uTime*0.0015, 0.0, uTime*0.0007);
+      float cl = fbm(q*4.2, 11);
+      cl = smoothstep(0.18, 0.62, cl + 0.25*fbm(q*22.0, 7) + 0.12*sin(p.y*18.0 + fbm(q*3.0,3)*4.0));
+      vec3 N = normalize(vWN), L = normalize(uSun), V = normalize(cameraPosition - vWP);
+      float ndl = dot(N, L); float lit = max(ndl, 0.0);
+      float day = smoothstep(-0.1, 0.15, ndl);
+      vec3 H = normalize(L+V);
+      float spec = pow(max(dot(N,H),0.0), 90.0) * (1.0-land) * (1.0-ice) * (1.0-cl);
+      vec3 col = alb * lit * 2.4 + vec3(1.0,0.95,0.85)*spec*2.0;
+      vec3 clc = vec3(0.92,0.94,0.97) * (lit*2.2 + 0.01);
+      col = mix(col, clc, cl*0.88);
+      float city = smoothstep(0.42, 0.7, fbm(p*55.0, 4)) * smoothstep(0.3,0.6,fbm(p*6.0,3)+0.5) * land * (1.0-ice) * (1.0-day) * (1.0-cl*0.85);
+      col += vec3(1.0,0.62,0.28) * city * 0.5;
+      float fr = pow(1.0 - max(dot(N, V), 0.0), 5.0);
+      vec3 haze = vec3(0.28,0.5,0.95) * smoothstep(-0.2, 0.4, ndl) * 1.1;
+      col = mix(col, haze, clamp(fr*0.75 + 0.05*day, 0.0, 1.0));
+      vec3 term = vec3(1.0,0.45,0.2) * smoothstep(0.25,0.0,abs(ndl)) * fr * 0.6;
+      gl_FragColor = vec4(col + term, 1.0);
+      #include <tonemapping_fragment>
+      #include <colorspace_fragment>
+    }`
+});
+const earth = new THREE.Mesh(new THREE.SphereGeometry(R_E, 384, 192), earthMat);
+earth.position.copy(earthCenter); earth.rotation.set(0.4, 0.2, 0.9); scene.add(earth);
+const atmoMat = new THREE.ShaderMaterial({
+  uniforms: { uSun: { value: sunDir } }, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.BackSide,
+  vertexShader: `
+    #include <common>
+    #include <logdepthbuf_pars_vertex>
+    varying vec3 vWN; varying vec3 vWP;
+    void main(){ vWN = normalize(mat3(modelMatrix)*normal); vec4 wp = modelMatrix*vec4(position,1.0); vWP = wp.xyz;
+      gl_Position = projectionMatrix*viewMatrix*wp;
+      #include <logdepthbuf_vertex>
+    }`,
+  fragmentShader: `
+    #include <common>
+    #include <logdepthbuf_pars_fragment>
+    uniform vec3 uSun; varying vec3 vWN; varying vec3 vWP;
+    void main(){
+      #include <logdepthbuf_fragment>
+      vec3 N = -normalize(vWN), V = normalize(cameraPosition - vWP);
+      float rim = 1.0 - abs(dot(N, V));
+      float a = pow(smoothstep(0.0, 1.0, rim), 6.0);
+      float s = smoothstep(-0.35, 0.3, dot(-N, normalize(uSun)));
+      vec3 c = mix(vec3(1.0,0.4,0.15), vec3(0.3,0.55,1.0), smoothstep(-0.1,0.4,dot(-N, normalize(uSun))));
+      gl_FragColor = vec4(c * a * s * 2.2, 1.0);
+    }`
+});
+const atmo = new THREE.Mesh(new THREE.SphereGeometry(R_E + 90000, 256, 128), atmoMat); atmo.position.copy(earthCenter); scene.add(atmo);
+
+// stars and Milky Way
+{
+  const n = 14000, pos = new Float32Array(n * 3), col = new Float32Array(n * 3);
+  const band = new THREE.Vector3(0.3, 0.9, 0.3).normalize();
+  for (let i = 0; i < n; i++) {
+    let v = new THREE.Vector3(rand() * 2 - 1, rand() * 2 - 1, rand() * 2 - 1).normalize();
+    if (i > n * 0.55) { v.addScaledVector(band, -v.dot(band) * (0.85 + rand() * 0.14)).normalize(); }
+    v.multiplyScalar(8e8); pos.set([v.x, v.y, v.z], i * 3);
+    const t = rand(), b = Math.pow(rand(), 3) * 1.4 + 0.15;
+    const c = t < 0.15 ? [1, 0.82, 0.65] : t < 0.3 ? [0.75, 0.85, 1] : [1, 1, 1];
+    col.set(c.map(x => x * b), i * 3);
+  }
+  const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(pos, 3)); g.setAttribute('color', new THREE.BufferAttribute(col, 3));
+  scene.add(new THREE.Points(g, new THREE.PointsMaterial({ size: 1.6, sizeAttenuation: false, vertexColors: true, depthWrite: false })));
+}
+const sunSprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTex, color: new THREE.Color(6, 5.6, 5), blending: THREE.AdditiveBlending, depthWrite: false }));
+scene.add(sunSprite);
+
+// lights
+const sun = new THREE.DirectionalLight(0xfff6ea, 5.5);
+sun.castShadow = true; sun.shadow.mapSize.set(4096, 4096);
+Object.assign(sun.shadow.camera, { left: -7.5, right: 7.5, top: 7.5, bottom: -7.5, near: 1, far: 70 });
+sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.02;
+scene.add(sun, sun.target);
+const earthshine = new THREE.HemisphereLight(0x05070c, 0x3a6aa8, 0.6); scene.add(earthshine);
+
+// environment for reflections: black sky, blue Earth below the horizon, the Sun
+const pmrem = new THREE.PMREMGenerator(renderer);
+const envScene = new THREE.Scene();
+const envMat = new THREE.ShaderMaterial({
+  side: THREE.BackSide, uniforms: { uSun: { value: sunDir } },
+  vertexShader: `varying vec3 vD; void main(){ vD = normalize(position); gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.0);} `,
+  fragmentShader: `uniform vec3 uSun; varying vec3 vD;
+    void main(){ vec3 d = normalize(vD); float dip = -0.34;
+      float e = smoothstep(dip+0.01, dip-0.02, d.y);
+      float day = clamp(uSun.y*1.4+0.3, 0.0, 1.0);
+      vec3 earthC = mix(vec3(0.04,0.09,0.18), vec3(0.12,0.22,0.38), smoothstep(dip, -1.0, d.y)) * (0.15 + 1.6*day);
+      vec3 limb = vec3(0.35,0.6,1.0) * exp(-abs(d.y-dip)*60.0) * (0.2+day);
+      vec3 sky = vec3(0.0005);
+      float s = pow(max(dot(d, normalize(uSun)),0.0), 2000.0)*80.0 + pow(max(dot(d, normalize(uSun)),0.0), 60.0)*0.6;
+      gl_FragColor = vec4(mix(sky, earthC, e) + limb + vec3(s), 1.0); }`
+});
+envScene.add(new THREE.Mesh(new THREE.SphereGeometry(10, 64, 32), envMat));
+let envRT = null;
+function updateEnv() { if (envRT) envRT.dispose(); envRT = pmrem.fromScene(envScene, 0, 0.1, 100); scene.environment = envRT.texture; }
+
+let lastEnvDir = new THREE.Vector3(9, 9, 9);
+function setSun(deg, tilt = 0.5) {
+  const a = THREE.MathUtils.degToRad(deg);
+  sunDir.set(Math.cos(a) * 0.86, Math.sin(a) * 0.86, tilt).normalize();
+  sun.position.copy(sunDir).multiplyScalar(35); sun.target.position.set(0, 0, 0);
+  sunSprite.position.copy(sunDir).multiplyScalar(4e8); sunSprite.scale.setScalar(4e8 * 0.12);
+  const visible = sunDir.y > -0.34;
+  sun.intensity = visible ? 5.5 : 0; sunSprite.visible = visible;
+  earthshine.intensity = 0.15 + 0.6 * THREE.MathUtils.clamp(sunDir.y * 1.4 + 0.3, 0, 1);
+  if (sunDir.angleTo(lastEnvDir) > 0.05) { updateEnv(); lastEnvDir.copy(sunDir); }
+}
+
+// ---------- post ----------
+const composer = new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene, camera));
+const bloom = new UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), 0.45, 0.6, 0.9);
+composer.addPass(bloom);
+composer.addPass(new OutputPass());
+
+// ---------- views ----------
+const views = {
+  approach: { p: [15, 4.5, 17], t: [0, 0, 0], cut: false },
+  earth: { p: [4.5, 15.5, 7], t: [0, -2, 0], cut: false },
+  window: { p: hexes[0].c.clone().multiplyScalar(1.55).add(new THREE.Vector3(0.8, 0.6, 0)).toArray(), t: hexes[0].c.toArray(), cut: false },
+  pentagon: { p: pents.find(p => p.role === 'solar').c.clone().multiplyScalar(2.35).add(new THREE.Vector3(1.5, 1.5, 0)).toArray(), t: pents.find(p => p.role === 'solar').c.toArray(), cut: false },
+  inside: { p: [2.7, 2.7, 1.3], t: [-1.6, -2.3, -0.9], cut: false, fov: 68 }, column: { p: [3.6, 0.9, 1.2], t: [0, -0.9, 0], cut: false, fov: 60 },
+  cutaway: { p: [13, 6, 13], t: [0, 0, 0], cut: true },
+  dock: { p: dock.c.clone().multiplyScalar(2.6).add(new THREE.Vector3(0, 2, 3)).toArray(), t: dock.c.toArray(), cut: false },
+};
+{
+  // inside, looking out through a hexagon toward Earth: pick the lowest hexagon
+  const side = hexes.filter(h => h.n.y < 0.05).reduce((a, b) => (Math.abs(b.n.y + 0.15) < Math.abs(a.n.y + 0.15) ? b : a));
+  views.window = { p: side.c.clone().addScaledVector(side.n, 2.6).add(new THREE.Vector3(0, 1.6, 0)).toArray(), t: side.c.toArray(), cut: false, fov: 50 };
+}
+{
+  const L = pods[0];
+  const cam = L.center.clone().addScaledVector(L.mouth, 3.6).add(new THREE.Vector3(0, 0.8, 0));
+  if (cam.length() > 4.25) cam.multiplyScalar(4.25 / cam.length());
+  views.pods = { p: cam.toArray(), t: L.center.clone().add(new THREE.Vector3(0, -0.1, 0)).toArray(), cut: false, fov: 64 };
+  const o = L.mouth.clone().setY(0).normalize().multiplyScalar(14).add(new THREE.Vector3(0, 3.5, 0));
+  views.podsout = { p: o.toArray(), t: [0, 0.2, 0], cut: true, fov: 42 };
+}
+let cut = false, spin = false, tween = null;
+function setCut(on) {
+  cut = on; document.getElementById('cut').classList.toggle('on', on);
+  shellMats.forEach(m => { m.clippingPlanes = on ? [clipPlane] : null; m.needsUpdate = true; });
+}
+function go(name, instant = false) {
+  const v = views[name]; if (!v) return;
+  document.querySelectorAll('[data-view]').forEach(b => b.classList.toggle('on', b.dataset.view === name));
+  setCut(v.cut);
+  const p1 = new THREE.Vector3(...v.p), t1 = new THREE.Vector3(...v.t);
+  const f1 = v.fov || 42;
+  if (instant) { camera.position.copy(p1); controls.target.copy(t1); camera.fov = f1; camera.updateProjectionMatrix(); controls.update(); return; }
+  tween = { p0: camera.position.clone(), t0: controls.target.clone(), p1, t1, f0: camera.fov, f1, s: performance.now(), d: 1600 };
+}
+document.querySelectorAll('[data-view]').forEach(b => b.onclick = () => go(b.dataset.view));
+document.getElementById('cut').onclick = () => setCut(!cut);
+document.getElementById('spin').onclick = (e) => { spin = !spin; e.target.classList.toggle('on', spin); controls.autoRotate = spin; controls.autoRotateSpeed = 0.35; };
+document.getElementById('sun').oninput = (e) => setSun(+e.target.value);
+document.getElementById('shades').oninput = (e) => faces.forEach(f => f.shade && (f.shade.uni.value = +e.target.value / 100 * 1.001));
+document.getElementById('lights').oninput = (e) => { const k = +e.target.value / 100; cabinLights.forEach(l => l.intensity = 8 * k); ledRingMat.color.setRGB(3 * k + .05, 2.2 * k + .04, 1.4 * k + .03); };
+document.getElementById('hide').onclick = (e) => { const ui = document.getElementById('ui'); const h = ui.style.display === 'none'; ui.style.display = h ? '' : 'none'; e.target.textContent = h ? 'Hide panel' : 'Show panel'; };
+cabinLights.forEach(l => l.intensity = 8 * 0.55);
+
+// =====================================================================
+// v2: modes — walk inside, systems X-ray, shutters/shields/pressure,
+// the 90-minute visit with use cases, the plant cycle, the life of the station
+// =====================================================================
+const $ = (id) => document.getElementById(id);
+const hooks = [];
+const V3 = (x = 0, y = 0, z = 0) => new THREE.Vector3(x, y, z);
+const clamp = THREE.MathUtils.clamp, lerp = THREE.MathUtils.lerp, sstep = (a, b, x) => THREE.MathUtils.smoothstep(x, a, b);
+
+// ---------- labels in 3D ----------
+const labelsEl = $('labels');
+const labels = [];
+function addLabel(text, pos, group, info) {
+  const el = document.createElement('div'); el.className = 'lbl'; el.innerHTML = text; labelsEl.appendChild(el);
+  const L = { el, pos: pos.clone(), group, visible: false };
+  if (info) { el.classList.add('click'); el.onclick = () => { const box = $('sysInfo'); if (box) box.innerHTML = info; }; }
+  labels.push(L); return L;
+}
+const showLabels = (group, on) => labels.forEach(l => { if (l.group === group) l.visible = on; });
+hooks.push(() => {
+  const w = innerWidth, h = innerHeight, v = V3(), camDir = V3(); camera.getWorldDirection(camDir);
+  for (const l of labels) {
+    if (!l.visible) { l.el.style.display = 'none'; continue; }
+    v.copy(l.pos);
+    if (v.clone().sub(camera.position).dot(camDir) < 0.2) { l.el.style.display = 'none'; continue; }
+    v.project(camera);
+    l.el.style.display = 'block';
+    l.el.style.transform = `translate(-50%,-100%) translate(${(v.x * 0.5 + 0.5) * w}px,${(-v.y * 0.5 + 0.5) * h}px)`;
+  }
+});
+
+// ---------- ghosting (X-ray) ----------
+const ghostStore = new Map();
+function ghost(root, on, op = 0.1, keep = new Set()) {
+  root.traverse(o => {
+    if (!o.isMesh) return;
+    const ms = Array.isArray(o.material) ? o.material : [o.material];
+    for (const m of ms) {
+      if (keep.has(m) || m.isShaderMaterial) continue;
+      if (on) {
+        if (!ghostStore.has(m)) ghostStore.set(m, { t: m.transparent, o: m.opacity, d: m.depthWrite });
+        m.transparent = true; m.opacity = op; m.depthWrite = false;
+      } else if (ghostStore.has(m)) { const g = ghostStore.get(m); m.transparent = g.t; m.opacity = g.o; m.depthWrite = g.d; ghostStore.delete(m); }
+      m.needsUpdate = true;
+    }
+  });
+}
+
+// ---------- flowing paths ----------
+const flowTime = { value: 0 };
+hooks.push((t) => { flowTime.value = t; });
+function flowMat(color, speed = 1, spacing = 0.55) {
+  return new THREE.ShaderMaterial({
+    uniforms: { uTime: flowTime, uColor: { value: new THREE.Color(color) }, uLen: { value: 1 }, uSpeed: { value: speed }, uSp: { value: spacing } },
+    transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+    vertexShader: `#include <common>
+      #include <logdepthbuf_pars_vertex>
+      varying float vU; void main(){ vU = uv.x; gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.0);
+      #include <logdepthbuf_vertex>
+      }`,
+    fragmentShader: `#include <common>
+      #include <logdepthbuf_pars_fragment>
+      uniform float uTime, uLen, uSpeed, uSp; uniform vec3 uColor; varying float vU;
+      void main(){
+        #include <logdepthbuf_fragment>
+        float x = fract(vU*uLen/uSp - uTime*uSpeed);
+        float pulse = smoothstep(0.0,0.12,x)*smoothstep(0.55,0.15,x);
+        gl_FragColor = vec4(uColor*(0.55 + 2.6*pulse), 1.0);
+      }`
+  });
+}
+function flow(points, color, parent, radius = 0.03, speed = 0.8) {
+  radius *= 1.6;
+  const curve = new THREE.CatmullRomCurve3(points, false, 'centripetal');
+  const m = flowMat(color, speed); m.uniforms.uLen.value = curve.getLength();
+  const mesh = new THREE.Mesh(new THREE.TubeGeometry(curve, Math.max(24, points.length * 20), radius, 8, false), m);
+  mesh.renderOrder = 10; parent.add(mesh); return mesh;
+}
+function node(size, color, pos, parent) {
+  const m = new THREE.Mesh(new THREE.BoxGeometry(...size), new THREE.MeshStandardMaterial({ color, emissive: color, emissiveIntensity: 0.6, roughness: 0.4 }));
+  m.position.copy(pos); parent.add(m); return m;
+}
+const colPoint = (p, r = colR + 0.03, yk = 0.85) => { const d = V3(p.x, 0, p.z).normalize(); return V3(d.x * r, clamp(p.y * yk, -4.3, 4.3), d.z * r); };
+
+// =====================================================================
+// SYSTEMS
+// =====================================================================
+const sys = {};
+const SYS_COL = { power: 0xffc23a, air: 0x52e3ff, water: 0x3a7bff, heat: 0xff6a2a };
+['power', 'air', 'water', 'heat'].forEach(k => { sys[k] = new THREE.Group(); sys[k].visible = false; station.add(sys[k]); });
+const solarFaces = pents.filter(p => p.role !== 'dock');
+const ghFaces = pents.filter(p => p.role === 'greenhouse');
+const busX = 0.14, ductX = -0.14;
+{
+  // ---- power ----
+  const G = sys.power, c = SYS_COL.power;
+  flow([V3(busX, -4.4, 0), V3(busX, 4.4, 0)], c, G, 0.04, 0.6);
+  const bat = node([0.42, 0.9, 0.42], 0x6a5420, V3(0, 3.3, 0), G);
+  for (const f of solarFaces) {
+    const a = f.c.clone().addScaledVector(f.n, 0.36), b = f.c.clone().addScaledVector(f.n, 0.04), cIn = f.c.clone().addScaledVector(f.n, -0.45);
+    const cp = colPoint(cIn), bus = V3(busX, cp.y, 0);
+    flow([a, b, cIn, cIn.clone().lerp(cp, 0.5), cp, bus], c, G, 0.025, 0.9);
+  }
+  // loads: greenhouse lights, pods, cabin lights
+  for (const f of ghFaces) { const cIn = f.c.clone().addScaledVector(f.n, -0.45), cp = colPoint(cIn); flow([V3(busX, cp.y, 0), cp, cIn], 0xfff1a8, G, 0.018, -0.7); }
+  for (const pd of pods) { const a = V3(pd.radial.x * colR, pd.center.y, pd.radial.z * colR), b = pd.center.clone().addScaledVector(pd.radial, -pd.ax * 0.5); flow([V3(busX, pd.center.y, 0), a, b, pd.center], 0xfff1a8, G, 0.018, -0.7); }
+  // mothership import through the docking port
+  { const f = dock, o = f.c.clone().addScaledVector(f.n, 1.0), i = f.c.clone().addScaledVector(f.n, -0.45), cp = colPoint(i); flow([o, f.c, i, cp, V3(busX, cp.y, 0)], 0xbfe0ff, G, 0.03, 0.9); }
+  const s0 = solarFaces.find(f => f.n.y > 0.2) || solarFaces[0];
+  addLabel('Solar arrays · about 6 kW together', s0.c.clone().addScaledVector(s0.n, 0.9), 'power',
+    '<b>Solar arrays.</b> Each solid pentagon carries an array on stand-offs. TRUTH gives about <b>6 kW</b> for all of them together (section 13.3, the figure item 14 of the fix list still re-bases). Power runs through the pentagon’s service panel and along the shell to the column.');
+  addLabel('Battery · 5 kWh', V3(0, 3.9, 0), 'power',
+    '<b>Battery, 5 kWh.</b> About 4 hours at full load on the battery alone, 24 hours as a safe haven with the solar cells working (TRUTH 13.5, wording from the 24 Oct fix list). The safe-haven load is about 1.1 kW (13.3).');
+  addLabel('Power bus in the column', V3(0.6, -1.2, 0), 'power',
+    '<b>Main power bus.</b> Runs inside the central column, which already carries power, plumbing and plants (TRUTH 15.2). Everything hangs off it: grow lights, cabin lights, fans, pumps, shutters, the docking port.');
+  addLabel('From the mothership · 1 to 4.5 kW', dock.c.clone().addScaledVector(dock.n, 1.3), 'power',
+    '<b>Power from the mothership.</b> The station imports 1 to 4.5 kW through the docking port while a visit is on (TRUTH 13.3).');
+  addLabel('Grow lights and pods', ghFaces[1].c.clone().addScaledVector(ghFaces[1].n, -0.9), 'power',
+    '<b>Loads.</b> The pentagons have no glass, so every plant gets electric light. The pods take light and a small fan each. Exact loads per item are in the TRUTH 13.3 table.');
+
+  // ---- air ----
+  const A = sys.air, ca = SYS_COL.air;
+  const scrub = top.c.clone().addScaledVector(top.n, -0.75);
+  node([0.7, 0.35, 0.7], 0x1d5e6a, scrub, A);
+  flow([scrub, V3(ductX, 4.2, 0), V3(ductX, -1.8, 0)], ca, A, 0.035, 0.7);
+  for (const pd of pods) {
+    const vent = V3(0, 1.8, 0).addScaledVector(pd.radial, colR + 0.08); vent.y = pd.center.y > 1 ? 1.8 : -1.8 + 0.1;
+    const mouth = pd.center.clone().addScaledVector(pd.mouth, pd.az * 0.9);
+    flow([V3(ductX, vent.y, 0), vent, vent.clone().lerp(mouth, 0.5).add(V3(0, 0.3, 0)), mouth, pd.center], ca, A, 0.022, 0.9);
+    node([0.16, 0.16, 0.08], 0x2a8a9a, pd.center.clone().addScaledVector(pd.mouth, -pd.az * 0.7), A);
+    flow([pd.center, pd.center.clone().add(V3(0, pd.ay * 0.9, 0)), V3(pd.center.x * 0.5, 4.0, pd.center.z * 0.5), scrub], 0x2a9db0, A, 0.016, 0.6);
+  }
+  for (const f of ghFaces) {
+    const cIn = f.c.clone().addScaledVector(f.n, -0.8), cp = colPoint(cIn);
+    flow([V3(ductX, -1.8, 0), V3(0, -1.8, 0).addScaledVector(V3(cIn.x, 0, cIn.z).normalize(), colR + 0.08), cp, cIn], ca, A, 0.018, 0.8);
+  }
+  addLabel('CO₂ removal + O₂ · 101.3 kPa, 21 % O₂', scrub.clone().add(V3(0, -0.4, 0)), 'air',
+    '<b>Air.</b> A machine system holds sea-level air: <b>101.3 kPa, 21 % O₂</b>, matching ISS practice (TRUTH 5.3). It sits behind a service pentagon and blows clean air down the column to vents, then out to the pods and greenhouses.');
+  addLabel('6 visitors · about 0.4 kg CO₂ a visit', V3(1.2, 0.2, 1.4), 'air',
+    '<b>What the visitors breathe.</b> One person uses about 0.84 kg of O₂ and breathes out about 1.0 kg of CO₂ a day (life support brief). Six visitors for 90 minutes is about <b>0.375 kg of CO₂</b>, which the machines remove. The plants clean the air a little, but they cannot keep up with people (plant brief).');
+  addLabel('Pod fan · size to be set (Skye)', pods[0].center.clone().add(V3(0, pods[0].ay * 0.7, 0)), 'air',
+    '<b>Pod fan.</b> Warm air does not rise without gravity, so a closed pod fills with the CO₂ its visitor breathes out unless a fan moves the air. Each pod gets a small fan and vent. <b>Size to be set: Skye.</b>');
+
+  // ---- water ----
+  const W = sys.water, cw = SYS_COL.water;
+  const filt = V3(0, -2.7, 0), cond = scrub.clone().add(V3(0.5, -0.3, 0.4));
+  node([0.5, 0.6, 0.5], 0x1a3a7a, filt, W); node([0.45, 0.3, 0.45], 0x1a3a7a, cond, W);
+  flow([cond, V3(0.05, 4.0, 0.15), V3(0.05, -2.4, 0.15)], cw, W, 0.03, 0.7);
+  for (const f of ghFaces) {
+    const cIn = f.c.clone().addScaledVector(f.n, -0.55), cp = colPoint(cIn, colR + 0.03, 0.7);
+    flow([V3(0, -2.7, 0.15), V3(cp.x, -2.7, cp.z), cp, cIn], cw, W, 0.02, 0.8);
+    flow([cIn.clone().add(V3(0, 0.12, 0)), cp.clone().add(V3(0, 0.12, 0)), V3(cp.x * 0.8, -2.5, cp.z * 0.8), V3(0, -2.5, -0.15)], 0x6fa8ff, W, 0.015, 0.6);
+  }
+  addLabel('Main water filter · in the column', filt.clone().add(V3(0, -0.5, 0)), 'water',
+    '<b>Main water filter.</b> It sits inside the central column (Manos, 25 Oct). Water condensed out of the air comes down to it, then goes out to the greenhouse nutrient loops and back. The filter size and cartridge access are open with Lauren.');
+  addLabel('Greenhouse nutrient loop · flows to be set', ghFaces[2].c.clone().addScaledVector(ghFaces[2].n, -1.0), 'water',
+    '<b>Greenhouse loop.</b> Nutrient water runs out to each alcove and back to the column. <b>Flow rates to be set: Gerasimos and Lauren.</b>');
+  addLabel('Condensate from the air', cond.clone().add(V3(0, 0.4, 0)), 'water',
+    '<b>Condensate.</b> The air system pulls water vapour out of the cabin air (breath, plants), which becomes the station’s water supply.');
+
+  // ---- heat ----
+  const H = sys.heat, ch = SYS_COL.heat;
+  const rej = top.c.clone().addScaledVector(top.n, 0.2);
+  for (const f of ghFaces) { const cIn = f.c.clone().addScaledVector(f.n, -0.45), cp = colPoint(cIn, colR + 0.05); flow([cIn, cp, V3(cp.x * 0.6, 4.3, cp.z * 0.6), rej], ch, H, 0.02, 0.7); }
+  for (const pd of pods) flow([pd.center, V3(pd.center.x * 0.4, pd.center.y + 1.5, pd.center.z * 0.4), V3(0.1, 4.3, 0.1), rej], ch, H, 0.02, 0.7);
+  addLabel('Heat out · radiator to be set (Skye)', rej.clone().addScaledVector(top.n, 0.6), 'heat',
+    '<b>Heat rejection.</b> Grow lights, people and electronics all make heat, which has to leave the station. Where it leaves and how big the radiator is are <b>to be set: Skye</b>.');
+  const hx = hexes.find(h => h.n.y > 0.5) || hexes[0];
+  addLabel('Shutters + shields keep sun off the glass', hx.c.clone().addScaledVector(hx.n, 0.8), 'heat',
+    '<b>Sun on the glass.</b> One shutter per glass cell, plus the inflatable shields from the pentagons. With the solar arrays on insulated stand-offs, the hexagon-to-pentagon temperature difference is about <b>7 to 45 K</b> (first estimate, 24 Oct). Without the stand-off it could reach about 100 K.');
+}
+let sysOn = new Set();
+const sysKeep = new Set([solar, solarBack]);
+function setSystem(k, on) {
+  on ? sysOn.add(k) : sysOn.delete(k);
+  sys[k].visible = on; showLabels(k, on);
+  document.querySelectorAll(`[data-sys="${k}"]`).forEach(b => b.classList.toggle('on', on));
+  const any = sysOn.size > 0;
+  ghost(station, any, 0.07, sysKeep);
+  glassMeshes.forEach(m => m.visible = !any);
+  const HIDE = ['sec', 'secFl', 'seat', 'seal', 'frameOut', 'mli', 'pentPlate', 'strut', 'roll'];
+  faces.forEach(f => HIDE.forEach(k => f.parts[k] && (f.parts[k].visible = !any)));
+  if (window.cornerMesh) window.cornerMesh.visible = !any;
+  faces.forEach(f => f.parts.shade && (f.parts.shade.visible = !any));
+  clutter.visible = !any;
+}
+
+// ---------- plant life cycle (greenhouse 0) ----------
+const plant = { g: 0.8 };
+let plantInst = null;
+{
+  const p = window.ghP; const u = p.v[0].clone().sub(p.c).normalize(), w = V3().crossVectors(p.n, u);
+  const spots = [];
+  for (let gx = -4; gx <= 4; gx++) for (let gy = -4; gy <= 4; gy++) {
+    const x = gx * 0.27 + (gy % 2) * 0.13, y = gy * 0.24; if (Math.hypot(x, y) > 1.2) continue;
+    const base = p.c.clone().addScaledVector(u, x).addScaledVector(w, y).addScaledVector(p.n, -0.48);
+    for (let k = 0; k < 7; k++) spots.push({ base, a: k / 7 * Math.PI * 2 + rand(), tilt: 0.5 + rand() * 0.5, s: 0.8 + rand() * 0.4 });
+  }
+  const geo = new THREE.PlaneGeometry(0.11, 0.15); geo.translate(0, 0.07, 0);
+  const mat = leafMat.clone(); mat.color = new THREE.Color(0xb8e08a);
+  plantInst = new THREE.InstancedMesh(geo, mat, spots.length); plantInst.castShadow = true; plantInst.customDepthMaterial = leafDepth;
+  plantInst.userData = { spots, p, u, w }; interior.add(plantInst);
+}
+function setPlant(g) {
+  plant.g = g;
+  const { spots, p, u, w } = plantInst.userData; const m = new THREE.Matrix4(), q = new THREE.Quaternion(), sc = V3();
+  const grow = g < 0.9 ? sstep(0.05, 0.85, g) : 0.03;             // harvested at the end
+  const inward = p.n.clone().negate();
+  spots.forEach((sp, i) => {
+    const out = inward.clone().multiplyScalar(Math.cos(sp.tilt)).addScaledVector(u, Math.cos(sp.a) * Math.sin(sp.tilt)).addScaledVector(w, Math.sin(sp.a) * Math.sin(sp.tilt)).normalize();
+    q.setFromUnitVectors(V3(0, 1, 0), out); sc.setScalar(Math.max(0.001, grow * sp.s * (0.6 + 0.6 * g)));
+    m.compose(sp.base, q, sc); plantInst.setMatrixAt(i, m);
+  });
+  plantInst.instanceMatrix.needsUpdate = true;
+  const stages = [[0.05, 'Seeds in the tray'], [0.25, 'Sprouts'], [0.6, 'Growing under the LEDs'], [0.9, 'Ready to pick and taste'], [1.01, 'Harvested, tray replanted']];
+  const st = stages.find(s => g < s[0]) || stages[4];
+  const el = $('plantStage'); if (el) el.textContent = st[1];
+}
+setPlant(0.8);
+
+// =====================================================================
+// SHUTTERS, SHIELDS, PRESSURE
+// =====================================================================
+function setShutters(fn) { faces.forEach(f => { if (f.shade) f.shade.uni.value = fn(f) ? 1.01 : 0; }); }
+const shutterPresets = {
+  clear: () => false,
+  earth: f => f.n.y > 0.05,          // Earth view: close the sky-facing cells
+  sky: f => f.n.y < -0.05,           // Stars: close the Earth-facing cells
+  sun: f => f.n.dot(sunDir) > 0.25,  // Shade the sunlit side
+  all: () => true,
+};
+// inflatable shields: each pentagon unrolls a pillow over a third of each neighbouring hexagon
+const shield = { d: 0, k: 0, td: 0, tk: 0 };
+const shieldMat = shellMat(new THREE.MeshStandardMaterial({ color: 0xe9ecef, metalness: 0.7, roughness: 0.35, roughnessMap: mliRough, bumpMap: mliRough, bumpScale: 0.006, side: THREE.DoubleSide }));
+const petals = [];
+const NS = 18, NT = 14;
+for (const p of pents.filter(p => p.role !== 'dock')) for (const h of hexes) {
+  const sh = []; h.v.forEach((v, i) => { if (p.v.some(q => q.distanceTo(v) < 1e-3)) sh.push(i); });
+  if (sh.length !== 2) continue;
+  let [i0, i1] = sh; if ((i0 + 1) % 6 !== i1) [i0, i1] = [i1, i0];
+  const A = h.v[i0], B = h.v[i1], C = h.v[(i1 + 1) % 6], D = h.c;
+  const geo = new THREE.PlaneGeometry(1, 1, NS, NT);
+  const mesh = new THREE.Mesh(geo, shieldMat); mesh.castShadow = true; mesh.receiveShadow = true; mesh.visible = false; mesh.frustumCulled = false;
+  p.group.add(mesh); petals.push({ mesh, A, B, C, D, n: h.n.clone(), pn: p.n.clone() });
+}
+function updateShields() {
+  const vis = shield.d > 0.005;
+  for (const pt of petals) {
+    pt.mesh.visible = vis; if (!vis) continue;
+    const pos = pt.mesh.geometry.attributes.position, P = V3(), E = V3(), F = V3();
+    for (let j = 0; j <= NT; j++) for (let i = 0; i <= NS; i++) {
+      const s = i / NS, t = (j / NT) * shield.d;
+      E.lerpVectors(pt.A, pt.B, s); F.lerpVectors(pt.D, pt.C, s); P.lerpVectors(E, F, t);
+      const bulge = shield.k * 0.32 * Math.sin(Math.PI * s) * Math.sin(Math.PI * j / NT) * shield.d;
+      P.addScaledVector(pt.n, 0.42 + bulge);
+      pos.setXYZ(j * (NS + 1) + i, P.x, P.y, P.z);
+    }
+    pos.needsUpdate = true; pt.mesh.geometry.computeVertexNormals(); pt.mesh.geometry.computeBoundingSphere();
+  }
+}
+hooks.push((t, dt) => {
+  const sp = dt * 0.5;
+  if (Math.abs(shield.d - shield.td) > 1e-3 || Math.abs(shield.k - shield.tk) > 1e-3) {
+    // unroll first, then inflate; deflate first, then roll up
+    if (shield.td > shield.d) shield.d = Math.min(shield.td, shield.d + sp);
+    else if (shield.k > shield.tk) shield.k = Math.max(shield.tk, shield.k - sp * 1.5);
+    else if (shield.td < shield.d) shield.d = Math.max(shield.td, shield.d - sp);
+    if (shield.d >= shield.td - 1e-3 && shield.tk > shield.k) shield.k = Math.min(shield.tk, shield.k + sp * 1.5);
+    updateShields(); const el = $('shieldVal'); if (el) el.textContent = shield.d < 0.01 ? 'Stowed in their rolls' : shield.d < 0.99 ? 'Unrolling' : shield.k < 0.99 ? 'Inflating, a few kPa' : 'Deployed and inflated';
+  }
+});
+// seams (90) and pressure
+let seamMesh;
+{
+  const seen = new Set(), list = [];
+  for (const f of faces) for (let i = 0; i < f.v.length; i++) {
+    const a = f.v[i], b = f.v[(i + 1) % f.v.length];
+    const k = [a, b].map(v => v.toArray().map(x => x.toFixed(2)).join(',')).sort().join('|'); if (seen.has(k)) continue; seen.add(k);
+    const dir = b.clone().sub(a), len = dir.length();
+    const g = new THREE.CylinderGeometry(0.035, 0.035, len, 8); g.applyQuaternion(new THREE.Quaternion().setFromUnitVectors(V3(0, 1, 0), dir.normalize()));
+    g.translate(...a.clone().add(b).multiplyScalar(0.5).multiplyScalar(1.004).toArray()); list.push(g);
+  }
+  window.__seamCount = seen.size;
+  seamMesh = new THREE.Mesh(mergeGeometries(list), new THREE.MeshBasicMaterial({ color: 0x000000 })); seamMesh.visible = false; station.add(seamMesh);
+}
+const HEX_AREA = 3 * Math.sqrt(3) / 2 * EDGE * EDGE;  // 13.15 m²
+function setPressure(kpa) {
+  const k = kpa / 101.325;
+  seamMesh.visible = kpa > 0.5; seamMesh.material.color.setRGB(3.5 * k, 1.1 * k, 0.15 * k);
+  glass.emissive = new THREE.Color(0.05, 0.22, 0.6).multiplyScalar(0.35 * k);
+  const F = kpa * HEX_AREA; // kN
+  const el = $('pressInfo');
+  if (el) el.innerHTML = `<b>${kpa.toFixed(1)} kPa</b> inside, vacuum outside.<br>Each glass hexagon is pushed out with <b>${F >= 1000 ? (F / 1000).toFixed(2) + ' MN' : F.toFixed(0) + ' kN'}</b> (${kpa.toFixed(1)} kPa × ${HEX_AREA.toFixed(2)} m²). The ${window.__seamCount} seams carry that pull (glowing). The shell is in tension, so it fails by glass, a leaking seam or a seam pulling apart, not by buckling. It is designed to <b>leak before it breaks</b> (Henann, 15 Oct).`;
+  $('press').value = kpa;
+}
+let pressAnim = null;
+hooks.push((t, dt) => { if (pressAnim) { pressAnim.v = Math.min(101.3, pressAnim.v + dt * 14); setPressure(pressAnim.v); if (pressAnim.v >= 101.3) pressAnim = null; } });
+
+// =====================================================================
+// PEOPLE: articulated figures with poses
+// =====================================================================
+function mannequin(color) {
+  const g = new THREE.Group(), mat = new THREE.MeshStandardMaterial({ color, roughness: 0.75 }), skin = new THREE.MeshStandardMaterial({ color: 0xd2ad8c, roughness: 0.6 });
+  const mk = (geo, m, parent, y = 0) => { const o = new THREE.Mesh(geo, m); o.position.y = y; o.castShadow = true; parent.add(o); return o; };
+  const grp = (parent, x, y, z) => { const o = new THREE.Group(); o.position.set(x, y, z); parent.add(o); return o; };
+  const spine = grp(g, 0, 0.02, 0);
+  mk(new THREE.CapsuleGeometry(0.15, 0.36, 6, 14), mat, spine, 0.3);
+  const neck = grp(spine, 0, 0.62, 0); mk(new THREE.SphereGeometry(0.1, 18, 14), skin, neck, 0.13);
+  const limb = (parent, x, y, r1, l1, r2, l2, m2) => {
+    const a = grp(parent, x, y, 0); mk(new THREE.CapsuleGeometry(r1, l1, 5, 10), mat, a, -l1 / 2 - r1);
+    const b = grp(a, 0, -l1 - r1 * 2, 0); mk(new THREE.CapsuleGeometry(r2, l2, 5, 10), m2 || mat, b, -l2 / 2 - r2);
+    return [a, b];
+  };
+  const [lSh, lEl] = limb(spine, 0.2, 0.55, 0.045, 0.22, 0.04, 0.2);
+  const [rSh, rEl] = limb(spine, -0.2, 0.55, 0.045, 0.22, 0.04, 0.2);
+  const [lHip, lKn] = limb(g, 0.09, 0, 0.065, 0.32, 0.055, 0.34);
+  const [rHip, rKn] = limb(g, -0.09, 0, 0.065, 0.32, 0.055, 0.34);
+  const hand = grp(rEl, 0, -0.3, 0.02);
+  return { g, j: { spine, neck, lSh, lEl, rSh, rEl, lHip, lKn, rHip, rKn }, hand };
+}
+// joint angles: [spine, lSh, lEl, rSh, rEl, lHip, lKn, rHip, rKn]; negative = forward
+const POSES = {
+  float:    [0.1, -0.9, -0.6, -0.9, -0.6, -0.7, 1.0, -0.6, 0.9],
+  sit:      [0.15, -1.0, -1.3, -1.0, -1.3, -1.5, 1.6, -1.5, 1.6],
+  view:     [0.35, -0.5, -0.3, -2.7, -0.2, -0.3, 0.5, -0.5, 0.7],
+  play:     [0.2, -0.9, -1.4, -0.7, -0.9, -1.4, 1.5, -1.4, 1.5],
+  exercise: [0.0, -2.8, -0.25, -2.8, -0.25, -0.2, 0.3, -0.6, 0.9],
+  eat:      [0.1, -0.7, -0.8, -0.6, -2.3, -1.2, 1.4, -1.0, 1.2],
+  taste:    [0.25, -0.6, -0.5, -1.45, -0.2, -0.7, 0.9, -0.6, 0.8],
+  guide:    [0.1, -0.5, -0.4, -1.7, -0.1, -0.5, 0.7, -0.6, 0.8],
+  watch:    [0.2, -1.0, -1.0, -1.0, -1.0, -1.0, 1.2, -1.0, 1.2],
+};
+const JK = ['spine', 'lSh', 'lEl', 'rSh', 'rEl', 'lHip', 'lKn', 'rHip', 'rKn'];
+function applyPose(m, name, t = 0, k = 1) {
+  const P = POSES[name] || POSES.float, F = POSES.float;
+  JK.forEach((jn, i) => { m.j[jn].rotation.x = lerp(F[i], P[i], k); });
+  if (name === 'exercise') { const s = Math.sin(t * 2.4); m.j.lSh.rotation.x += 0.5 * s; m.j.rSh.rotation.x -= 0.5 * s; m.j.lEl.rotation.x -= 0.5 * Math.max(0, s); m.j.rEl.rotation.x -= 0.5 * Math.max(0, -s); }
+  if (name === 'play') { m.j.rEl.rotation.x += 0.15 * Math.sin(t * 6); }
+  m.j.lSh.rotation.z = 0.15; m.j.rSh.rotation.z = -0.15;
+}
+// props
+function prop(kind) {
+  const g = new THREE.Group();
+  if (kind === 'book') { const b = new THREE.Mesh(new THREE.BoxGeometry(0.17, 0.23, 0.025), new THREE.MeshStandardMaterial({ color: 0x8a3b2e, roughness: 0.8 })); b.rotation.x = -0.8; g.add(b); }
+  if (kind === 'instrument') {
+    const wood = new THREE.MeshStandardMaterial({ color: 0x9c5a2c, roughness: 0.4 });
+    const body = new THREE.Mesh(new THREE.SphereGeometry(0.17, 20, 16), wood); body.scale.set(1, 1.3, 0.45); g.add(body);
+    const neck = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.45, 0.03), new THREE.MeshStandardMaterial({ color: 0x2b1a0e })); neck.position.y = 0.38; g.add(neck);
+    g.rotation.z = 0.9;
+  }
+  if (kind === 'food') { const t = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.02, 0.15), new THREE.MeshStandardMaterial({ color: 0xe8e2d5 })); g.add(t);
+    for (let i = 0; i < 3; i++) { const c = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.04, 12), new THREE.MeshStandardMaterial({ color: [0x7fae4a, 0xd96f3a, 0xe8c66a][i] })); c.position.set(-0.07 + i * 0.07, 0.03, 0); g.add(c); } }
+  if (kind === 'leaf') { const l = new THREE.Mesh(new THREE.PlaneGeometry(0.06, 0.09), leafMat); g.add(l); }
+  return g;
+}
+
+// =====================================================================
+// THE VISIT: 90 minutes, 6 visitors + a guide
+// =====================================================================
+const visit = { t: 0, playing: false, group: new THREE.Group(), people: [] };
+visit.group.visible = false; interior.add(visit.group);
+const low = hexes.reduce((a, b) => (b.n.y < a.n.y ? b : a));
+const earthHexes = hexes.filter(h => h.n.y < -0.3).sort((a, b) => a.n.y - b.n.y).slice(0, 3);
+const spot = {
+  hatch: dock.c.clone().multiplyScalar(0.66),
+  earth: low.c.clone().multiplyScalar(0.62),
+  greens: window.ghP.c.clone().multiplyScalar(0.66),
+  podL: pods[0].center.clone(), podS: pods[1].center.clone(),
+  exercise: V3(1.9, -1.4, 0.6),
+  concert: V3(0.0, -0.6, 0.0),
+  social: V3(0.0, 1.2, 0.0),
+};
+// camera rig with a live light, fixed to the column (broadcast to Earth)
+const camRig = new THREE.Group();
+{
+  const body = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.12, 0.22), new THREE.MeshStandardMaterial({ color: 0x222428, roughness: 0.5 }));
+  const lens = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.05, 0.1, 18), new THREE.MeshStandardMaterial({ color: 0x0b0b0c, metalness: 0.6, roughness: 0.2 })); lens.rotation.x = Math.PI / 2; lens.position.z = 0.15;
+  const live = new THREE.Mesh(new THREE.SphereGeometry(0.015, 8, 8), new THREE.MeshBasicMaterial({ color: new THREE.Color(4, 0.2, 0.1) })); live.position.set(0.05, 0.07, 0.08);
+  const arm = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.02, 0.5, 8), aluInside); arm.rotation.z = Math.PI / 2; arm.position.x = -0.3;
+  camRig.add(body, lens, live, arm); camRig.position.set(colR + 0.55, -0.35, 0.9); camRig.lookAt(1.1, -0.6, 0.0); camRig.visible = false; interior.add(camRig);
+  camRig.userData.live = live;
+}
+const spotLight = new THREE.PointLight(0xffd6a0, 0, 5, 2); spotLight.position.set(0.9, 0.4, 0.3); interior.add(spotLight);
+const COLORS = [0x3d5a80, 0xe9e9e6, 0x9a9fa6, 0x6b8f71, 0xb5835a, 0x5b6c8f, 0xd9a441];
+for (let i = 0; i < 7; i++) {
+  const m = mannequin(COLORS[i]); m.g.scale.setScalar(0.98 + (i % 3) * 0.02); visit.group.add(m.g);
+  m.props = {}; for (const k of ['book', 'instrument', 'food', 'leaf']) { const pr = prop(k); pr.visible = false; m.hand.add(pr); m.props[k] = pr; }
+  visit.people.push(m);
+}
+// formation: where each person is for an activity, what they face, their pose and prop
+function ringPts(center, r, n, phase = 0, yJit = 0.15) { return Array.from({ length: n }, (_, i) => { const a = phase + i / n * Math.PI * 2; return center.clone().add(V3(Math.cos(a) * r, (i % 2 ? 1 : -1) * yJit, Math.sin(a) * r)); }); }
+const toward = (from, to, k) => from.clone().lerp(to, k);
+function formation(name) {
+  const P = [], L = [], pose = [], props = [];
+  const push = (p, look, ps = 'float', pr = null) => { P.push(p); L.push(look); pose.push(ps); props.push(pr); };
+  if (name === 'hatch') { const c = spot.hatch, tgt = V3(0, 0.5, 0); ringPts(c.clone().lerp(tgt, 0.25), 0.8, 6, 0.3).forEach(p => push(p, c, 'float')); push(c.clone().lerp(tgt, 0.45), c, 'guide'); }
+  if (name === 'earth' || name === 'earth2') {
+    earthHexes.forEach((h, k) => { const base = h.c.clone().multiplyScalar(0.72); for (let q = 0; q < 2; q++) { const side = V3().crossVectors(h.n, V3(1, 0, 0)).normalize().multiplyScalar(q ? 0.45 : -0.45); push(base.clone().add(side), h.c.clone().add(side), 'view'); } });
+    push(spot.earth.clone().multiplyScalar(0.6).add(V3(0, 0.6, 0)), spot.earth, 'guide');
+  }
+  if (name === 'pods') {
+    const [L1, S1] = [pods[0], pods[1]];
+    for (let q = 0; q < 3; q++) { const o = V3(0, (q - 1) * L1.ay * 0.45, 0).addScaledVector(L1.mouth, -0.15); push(L1.center.clone().add(o), L1.center.clone().add(o).addScaledVector(L1.mouth, 2), 'sit', 'book'); }
+    for (let q = 0; q < 2; q++) { const o = V3((q - 0.5) * 0.5, -0.1, 0).applyAxisAngle(V3(0, 1, 0), Math.atan2(S1.mouth.x, S1.mouth.z)).addScaledVector(S1.mouth, -0.1); push(S1.center.clone().add(o), S1.center.clone().add(o).addScaledVector(S1.mouth, 2), 'sit', q ? 'book' : null); }
+    push(toward(L1.center, V3(0, 0, 0), 0.45).addScaledVector(L1.mouth, 1.2), L1.center, 'view');
+    push(V3(1.4, 0.4, -0.6), L1.center, 'guide');
+  }
+  if (name === 'greens') {
+    const p = window.ghP, base = p.c.clone().multiplyScalar(0.64);
+    const u = p.v[0].clone().sub(p.c).normalize(), w = V3().crossVectors(p.n, u);
+    for (let q = 0; q < 6; q++) { const a = q / 6 * Math.PI * 2; push(base.clone().addScaledVector(u, Math.cos(a) * 0.9).addScaledVector(w, Math.sin(a) * 0.9).addScaledVector(p.n, -0.3 * (q % 2)), p.c, 'taste', q % 2 ? 'leaf' : null); }
+    push(base.clone().addScaledVector(p.n, -0.9), p.c, 'guide');
+  }
+  if (name === 'exercise') { ringPts(spot.exercise, 1.0, 6, 0, 0.4).forEach((p, i) => push(p, p.clone().add(V3(0, 2, 0)).add(V3(Math.cos(i), 0, Math.sin(i))), 'exercise')); push(spot.exercise.clone().add(V3(0, 1.4, 0)), spot.exercise, 'guide'); }
+  if (name === 'concert') {
+    const stage = V3(colR + 0.55, -0.6, 0.0); push(stage.clone().add(V3(0.1, 0, -0.5)), V3(3, -0.6, 0), 'play', 'instrument'); push(stage.clone().add(V3(0.1, 0, 0.45)), V3(3, -0.6, 0), 'play', 'instrument');
+    ringPts(V3(2.3, -0.6, 0), 0.8, 4, Math.PI / 2, 0.3).forEach(p => push(p, stage, 'watch'));
+    push(V3(1.2, 0.5, 1.2), stage, 'guide');
+  }
+  if (name === 'social') { ringPts(spot.social, 1.25, 6, 0.2, 0.25).forEach((p, i) => push(p, spot.social, i % 2 ? 'eat' : 'float', i % 2 ? 'food' : null)); push(spot.social.clone().add(V3(0, 0.9, 1.0)), spot.social, 'eat', 'food'); }
+  return { P, L, pose, props };
+}
+const SCHEDULE = [
+  [0, 'hatch', 'Arrival', 'Through the 800 mm docking hatch. The guide gives the safety briefing; bags are stowed.'],
+  [5, 'earth', 'Earth below', 'Day side. Visitors hold their place in foot loops at the Earth-facing windows.'],
+  [20, 'pods', 'Quiet time in the pods', 'Reading, resting, alone with the view in Marina’s pods.'],
+  [32, 'greens', 'Plant tasting', 'At a greenhouse alcove: pick a leaf and taste it (Gerasimos’s plant system).'],
+  [42, 'exercise', 'Exercise', 'Pulling on ropes and bands, moving through the open room.'],
+  [52, 'earth2', 'Sunset', 'Back at the windows for sunset.'],
+  [55, 'concert', 'Concert, live to Earth', 'Night side. Cabin lights down; a small concert by the column, streamed live to Earth.'],
+  [70, 'social', 'Dinner and talk', 'Eating together and talking, Earth at night below.'],
+  [85, 'hatch', 'Leaving', 'Back to the hatch, one at a time through the port.'],
+];
+const forms = {}; for (const [, f] of SCHEDULE) forms[f] = forms[f] || formation(f);
+function routeAround(a, b) {  // keep clear of the column
+  const m = a.clone().lerp(b, 0.5); const r = Math.hypot(m.x, m.z);
+  if (r < 1.3) { const d = V3(m.x, 0, m.z); if (d.lengthSq() < 1e-4) d.set(1, 0, 0); d.normalize().multiplyScalar(1.6); m.x = d.x; m.z = d.z; }
+  return [a, m, b];
+}
+const ps = (pts, k) => { const c = new THREE.CatmullRomCurve3(pts); return c.getPoint(k); };
+// sun over the orbit: sunrise at minute 0, 55 minutes of day, 35 of night
+const TILT = 0.15, k86 = 0.86;
+const yLim = -0.339;
+let theta0 = 0; { for (let a = -90; a < 0; a += 0.05) { const d = V3(Math.cos(a * Math.PI / 180) * k86, Math.sin(a * Math.PI / 180) * k86, TILT).normalize(); if (d.y >= yLim) { theta0 = a; break; } } }
+function setVisit(tm) {
+  visit.t = tm; $('vt').value = tm;
+  let i = SCHEDULE.length - 1; while (i > 0 && SCHEDULE[i][0] > tm) i--;
+  const [t0, f, title, text] = SCHEDULE[i];
+  const prev = SCHEDULE[Math.max(0, i - 1)][1];
+  const k = i === 0 ? 1 : sstep(0, 1.5, tm - t0);
+  const A = forms[prev], B = forms[f];
+  const now = performance.now() / 1000;
+  visit.people.forEach((m, j) => {
+    const pos = k >= 1 ? B.P[j] : ps(routeAround(A.P[j], B.P[j]), k);
+    m.g.position.copy(pos);
+    const look = A.L[j].clone().lerp(B.L[j], k);
+    m.g.lookAt(look);
+    m.g.rotateX(0.25 + 0.05 * Math.sin(now * 0.7 + j));
+    applyPose(m, k < 1 ? 'float' : B.pose[j], now + j, k < 1 ? 0.3 : 1);
+    for (const key in m.props) m.props[key].visible = k >= 1 && B.props[j] === key;
+  });
+  const deg = theta0 + tm / 90 * 360; setSun(deg, TILT);
+  const night = sunDir.y < yLim;
+  const concert = f === 'concert';
+  const kLight = night ? (concert ? 0.1 : 0.16) : 0.45;
+  cabinLights.forEach(l => l.intensity = 8 * kLight);
+  spotLight.intensity = concert && k >= 1 ? 3.5 : 0;
+  camRig.visible = concert; camRig.userData.live.visible = concert && (now % 1.2) < 0.7;
+  setShutters(night ? shutterPresets.clear : (fc => fc.n.dot(sunDir) > 0.45));
+  const mm = Math.floor(tm), ss = Math.floor((tm - mm) * 60);
+  $('vphase').innerHTML = `<b>${String(mm).padStart(2, '0')}:${String(ss).padStart(2, '0')} · ${title}</b> <span class="tag">${night ? 'night' : 'day'}</span><br>${text}`;
+  document.querySelectorAll('[data-use]').forEach(b => b.classList.toggle('on', b.dataset.use === f || (f === 'earth2' && b.dataset.use === 'earth')));
+}
+hooks.push((t, dt) => {
+  if (mode !== 'visit') return;
+  if (visit.playing) { let n = visit.t + dt * (90 / 75); if (n >= 90) { n = 90; visit.playing = false; $('vplay').textContent = 'Play'; } setVisit(n); }
+  else setVisit(visit.t);   // keeps the small motions alive
+});
+// movement paths: colour-coded handrail routes from the hatch
+const paths = new THREE.Group(); paths.visible = false; interior.add(paths);
+{
+  const hub = V3(0.9, 0.2, 0.5).normalize().multiplyScalar(colR + 0.35);
+  const add = (pts, color) => { const c = new THREE.CatmullRomCurve3(pts, false, 'centripetal'); const m = new THREE.Mesh(new THREE.TubeGeometry(c, 80, 0.025, 8, false), new THREE.MeshBasicMaterial({ color: new THREE.Color(color).multiplyScalar(2.2) })); paths.add(m); };
+  const toCol = (p) => { const d = V3(p.x, 0, p.z).normalize().multiplyScalar(colR + 0.3); return V3(d.x, clamp(p.y, -3.5, 3.5), d.z); };
+  add([spot.hatch, spot.hatch.clone().lerp(hub, 0.5), hub], 0xffffff);
+  add([hub, toCol(spot.earth), spot.earth], 0x4fa3ff);
+  add([hub, toCol(pods[0].center), pods[0].center.clone().addScaledVector(pods[0].mouth, pods[0].az * 1.1)], 0xffb547);
+  add([hub, toCol(pods[1].center), pods[1].center.clone().addScaledVector(pods[1].mouth, pods[1].az * 1.1)], 0xffb547);
+  for (const f of ghFaces) add([hub, toCol(f.c), f.c.clone().multiplyScalar(0.7)], 0x6fdc6a);
+  add([hub, spot.exercise], 0xff7a3d);
+  const legend = [['Hatch to the column', '#ffffff'], ['Earth windows', '#4fa3ff'], ['Pods', '#ffb547'], ['Greenhouses', '#6fdc6a'], ['Exercise area', '#ff7a3d']];
+  $('legend').innerHTML = legend.map(([t, c]) => `<span><i style="background:${c}"></i>${t}</span>`).join('');
+}
+
+// =====================================================================
+// WALK INSIDE (Street View / VR)
+// =====================================================================
+const stops = [];
+{
+  const look = (from, to) => ({ pos: from, look: to });
+  stops.push({ name: 'The hatch, where you arrive', ...look(dock.c.clone().multiplyScalar(0.7), V3(-1, -0.6, 0)) });
+  stops.push({ name: 'Earth window', ...look(low.c.clone().multiplyScalar(0.58).add(V3(0, 0.3, 0)), low.c.clone().multiplyScalar(1.6)) });
+  const skyH = hexes.reduce((a, b) => (b.n.y > a.n.y ? b : a));
+  stops.push({ name: 'Under the sky windows', ...look(skyH.c.clone().multiplyScalar(0.5).add(V3(0.9, 0, 0.4)), skyH.c.clone().multiplyScalar(1.6)) });
+  stops.push({ name: 'At the column', ...look(V3(1.1, 0.2, 0.9), V3(0, 0.6, 0)) });
+  stops.push({ name: 'Inside the large pod', ...look(pods[0].center.clone().addScaledVector(pods[0].mouth, -0.35).add(V3(0, 0.3, 0)), pods[0].center.clone().addScaledVector(pods[0].mouth, 4)) });
+  stops.push({ name: 'Inside the small pod', ...look(pods[1].center.clone().addScaledVector(pods[1].mouth, -0.3), pods[1].center.clone().addScaledVector(pods[1].mouth, 4)) });
+  stops.push({ name: 'At a greenhouse', ...look(window.ghP.c.clone().multiplyScalar(0.55), window.ghP.c) });
+  stops.push({ name: 'Middle of the room', ...look(V3(-1.3, -0.4, 1.4), low.c) });
+}
+const stopMarkers = new THREE.Group(); stopMarkers.visible = false; station.add(stopMarkers);
+const markerMat = new THREE.SpriteMaterial({ map: glowTex, color: new THREE.Color(0.6, 0.85, 1.6), depthWrite: false, transparent: true });
+stops.forEach((s, i) => { const sp = new THREE.Sprite(markerMat); sp.position.copy(s.pos); sp.scale.setScalar(0.35); sp.userData.stop = i; stopMarkers.add(sp); });
+let walkI = 0;
+function goStop(i) {
+  walkI = i; const s = stops[i];
+  const dir = s.look.clone().sub(s.pos).normalize();
+  tween = { p0: camera.position.clone(), t0: controls.target.clone(), p1: s.pos.clone(), t1: s.pos.clone().addScaledVector(dir, 0.05), f0: camera.fov, f1: 72, s: performance.now(), d: 2200 };
+  document.querySelectorAll('[data-stop]').forEach(b => b.classList.toggle('on', +b.dataset.stop === i));
+  stopMarkers.children.forEach((m, k) => m.visible = k !== i);
+}
+// click on markers
+{
+  const ray = new THREE.Raycaster(), ndc = new THREE.Vector2(); let down = null;
+  renderer.domElement.addEventListener('pointerdown', e => down = [e.clientX, e.clientY]);
+  renderer.domElement.addEventListener('pointerup', e => {
+    if (!down || Math.hypot(e.clientX - down[0], e.clientY - down[1]) > 6) return;
+    if (mode !== 'walk') return;
+    ndc.set(e.clientX / innerWidth * 2 - 1, -e.clientY / innerHeight * 2 + 1); ray.setFromCamera(ndc, camera);
+    const hit = ray.intersectObjects(stopMarkers.children.filter(m => m.visible))[0];
+    if (hit) goStop(hit.object.userData.stop);
+  });
+}
+// VR (Quest, Vision Pro): stand inside at the current stop
+const dolly = new THREE.Group(); scene.add(dolly);
+renderer.xr.enabled = true;
+renderer.xr.addEventListener('sessionstart', () => { scene.remove(camera); dolly.add(camera); dolly.position.copy(stops[walkI].pos).add(V3(0, -1.5, 0)); clutter.visible = false; });
+renderer.xr.addEventListener('sessionend', () => { dolly.remove(camera); scene.add(camera); dolly.position.set(0, 0, 0); });
+
+// =====================================================================
+// LIFE OF THE STATION: parts → panel → tests → packing → launch → assembly → pressurise → service → end
+// =====================================================================
+const life = { L: 0, playing: false };
+const demoHex = hexes.reduce((a, b) => ((b.n.x + b.n.z * 0.6 + b.n.y * 0.3) > (a.n.x + a.n.z * 0.6 + a.n.y * 0.3) ? b : a));
+const PART_EXPLODE = { frame: 0, frameOut: 0.15, seal: 0.35, main: -0.9, mainFl: -1.05, sec: -0.45, secFl: -0.55, seat: 0.7, hub: -1.3, glass: 1.4, shade: -0.25 };
+const PART_ORDER = [['frame', 'frameOut'], ['main', 'mainFl', 'hub'], ['sec', 'secFl'], ['seat', 'seal'], ['glass'], ['shade']];
+const STACK0 = V3(0, 0, -19);
+// packing study (24 Oct): 20 flat layers, hexagon beside pentagon in 12 of them, column upright beside the stack
+const stackPose = new Map();
+console.log('FACECHECK', hexes.map(h=>h.v.length).join(''), pents.map(h=>h.v.length).join(''));
+{
+  const qFrom = (a, b) => { const c = V3().crossVectors(a, b); return new THREE.Quaternion().setFromRotationMatrix(new THREE.Matrix4().makeBasis(a, b, c)); };
+  hexes.forEach((f, i) => {
+    const flat = f.v[0].clone().add(f.v[1]).multiplyScalar(0.5).sub(f.c).normalize();
+    const q = qFrom(V3(1, 0, 0), V3(0, 1, 0)).multiply(qFrom(flat, f.n).invert());
+    const tgt = STACK0.clone().add(V3(i < 12 ? -1.73 : 0, -5.4 + i * 0.56, 0));
+    stackPose.set(f, { q, p: tgt.clone().sub(f.c.clone().applyQuaternion(q)) });
+  });
+  pents.forEach((f, i) => {
+    const flat = f.v[0].clone().add(f.v[1]).multiplyScalar(0.5).sub(f.c).normalize();
+    const q = qFrom(V3(-1, 0, 0), V3(0, 1, 0)).multiply(qFrom(flat, f.n).invert());
+    const tgt = STACK0.clone().add(V3(1.77, -5.4 + i * 0.56 + 0.05, 0));
+    stackPose.set(f, { q, p: tgt.clone().sub(f.c.clone().applyQuaternion(q)) });
+  });
+}
+const fairing = new THREE.Group(); fairing.visible = false; scene.add(fairing);
+{
+  const fm = new THREE.MeshStandardMaterial({ color: 0xdfe3e8, metalness: 0.4, roughness: 0.4, transparent: true, opacity: 0.22, side: THREE.DoubleSide, depthWrite: false });
+  for (let h = 0; h < 2; h++) { const g = new THREE.Mesh(new THREE.CylinderGeometry(4, 4, 17.24, 64, 1, true, h * Math.PI, Math.PI), fm); g.userData.h = h; fairing.add(g); }
+  const ringM = new THREE.Mesh(new THREE.TorusGeometry(4, 0.06, 8, 96), new THREE.MeshStandardMaterial({ color: 0x9aa0a6, metalness: 0.8, roughness: 0.3 })); ringM.rotation.x = Math.PI / 2; ringM.position.y = -8.62; fairing.add(ringM);
+  fairing.position.copy(STACK0).add(V3(0, 2.4, 0));
+}
+const colStack = new THREE.Mesh(new THREE.CylinderGeometry(colR, colR, colLen, 32), new THREE.MeshStandardMaterial({ map: woodTex, roughness: 0.6 }));
+colStack.visible = false; scene.add(colStack);
+const COL_STACK_POS = STACK0.clone().add(V3(0.1, -0.4, -3.35));
+const assemblyOrder = [...faces].sort((a, b) => a.n.y - b.n.y);
+const CHAPTERS = [
+  ['Making the parts', 'One hexagon, taken apart: 6061-T6 frame and main ribs (I 400), the k 4 grid of secondary ribs, 96 glass panes of 22 mm BOROFLOAT 33 cut as 531 mm triangles from standard sheets, the butyl seals and RTV, one shutter per cell. The 60 corner blocks are 2219 hand forgings.'],
+  ['Building a panel', 'Frame first, then the six main ribs and hub, the secondary grid, the pane seats and seals, the glass, and the shutters. Each panel is finished and leak-checked on the ground.'],
+  ['Testing', 'T0 breaks glass bars to measure strength (spring 2027, ENGN 1440). T1 pulls seam slices on the Instron (Jan to Feb 2027). T2 tests one panel at 1:4 scale. The pane size is picked after T0 measures the Weibull modulus.'],
+  ['Packing for launch', 'Twenty flat layers in Starship V3: a hexagon beside a pentagon in twelve of them, a hexagon alone in eight, with the column standing upright beside the stack (packing study, 24 Oct). The stack fits the 8 m by 17.24 m envelope if each cradle takes no more than 0.15 m.'],
+  ['Launch and arrival', 'One launch to low Earth orbit; Starship V3 is quoted at more than 100 t, and the facility manifest is about 52 to 60 t. In orbit the payload bay opens.'],
+  ['Assembling in orbit', 'The column goes in first, then the 32 panels are bolted on one by one, from the Earth side up, and the 60 corner blocks close each node. Who does the assembly in orbit, robot arm or crew, is still open in TRUTH.'],
+  ['Pressurising', 'Air is let in slowly to 101.3 kPa while the seams are watched for leaks. At full pressure each glass hexagon is pushed out with about 1.33 MN.'],
+  ['Years in service', 'Short visits of about six people for one orbit at a time. Shields come out to protect the glass; panes and seals can be swapped from the inside, one cell at a time.'],
+  ['End of life', 'Taken apart panel by panel or brought down, as TRUTH section 16 sets out. The details are still to be written.'],
+];
+function resetAssembly() {
+  faces.forEach(f => { f.group.visible = true; f.group.position.set(0, 0, 0); f.group.quaternion.identity(); for (const k in f.parts) f.parts[k].position.set(0, 0, 0); });
+  if (window.cornerMesh) window.cornerMesh.visible = true;
+  interior.visible = true; fairing.visible = false; colStack.visible = false; seamMesh.visible = false;
+  glass.emissive = new THREE.Color(0, 0, 0);
+}
+function stackFace(f, k) { const sp = stackPose.get(f); f.group.quaternion.identity().slerp(sp.q, k); f.group.position.set(0, 0, 0).lerp(sp.p, k); }
+let lifeCh = -1;
+const LIFE_CAMS = [
+  () => ({ p: demoHex.c.clone().multiplyScalar(2.3).add(V3(2.5, 1.5, 3)), t: demoHex.c.clone() }),
+  () => ({ p: demoHex.c.clone().multiplyScalar(2.1).add(V3(1.5, 1.2, 2.2)), t: demoHex.c.clone() }),
+  () => ({ p: demoHex.c.clone().multiplyScalar(2.0).add(V3(-2, 2, 2)), t: demoHex.c.clone() }),
+  () => ({ p: STACK0.clone().add(V3(15, 4, 12)), t: STACK0.clone() }),
+  () => ({ p: STACK0.clone().add(V3(18, 6, 14)), t: STACK0.clone() }),
+  () => ({ p: V3(26, 9, 4), t: V3(0, 0, -9) }),
+  () => ({ p: V3(15, 4.5, 17), t: V3(0, 0, 0) }),
+  () => ({ p: V3(14, 7, 14), t: V3(0, 0, 0) }),
+  () => ({ p: V3(22, 8, 22), t: V3(0, 0, 0) }),
+];
+function setLife(L) {
+  life.L = L; $('lt').value = L;
+  const ch = Math.min(8, Math.floor(L)), u = L - ch;
+  resetAssembly();
+  if (ch !== lifeCh) { lifeCh = ch; const c = LIFE_CAMS[ch](); tween = { p0: camera.position.clone(), t0: controls.target.clone(), p1: c.p, t1: c.t, f0: camera.fov, f1: 42, s: performance.now(), d: 1800 }; document.querySelectorAll('[data-ch]').forEach(b => b.classList.toggle('on', +b.dataset.ch === ch)); }
+  $('lifeInfo').innerHTML = `<b>${ch + 1}. ${CHAPTERS[ch][0]}</b><br>${CHAPTERS[ch][1]}`;
+  if (ch <= 2) {
+    faces.forEach(f => f.group.visible = f === demoHex); if (window.cornerMesh) window.cornerMesh.visible = false; interior.visible = false;
+    for (const k in demoHex.parts) {
+      let e = PART_EXPLODE[k] ?? 0;
+      if (ch === 1) { const gi = PART_ORDER.findIndex(g => g.includes(k)); const a = gi < 0 ? 1 : sstep(gi / 6, (gi + 1) / 6, u); e *= (1 - a); }
+      if (ch === 2) e = 0;
+      demoHex.parts[k].position.copy(demoHex.n).multiplyScalar(e * 1.4);
+    }
+  } else if (ch <= 4) {
+    if (window.cornerMesh) window.cornerMesh.visible = false; interior.visible = false;
+    fairing.visible = true; colStack.visible = true; colStack.position.copy(COL_STACK_POS);
+    const nLayers = ch === 3 ? Math.ceil(sstep(0, 0.85, u) * 20) : 20;
+    faces.forEach(f => { stackFace(f, 1); const layer = f.kind === 'hex' ? hexes.indexOf(f) : pents.indexOf(f); f.group.visible = layer < nLayers; });
+    fairing.children.forEach(g => { if (g.userData.h !== undefined) { g.position.x = ch === 4 ? (g.userData.h ? -1 : 1) * 7 * sstep(0.4, 1, u) : 0; g.material.opacity = ch === 4 ? 0.22 * (1 - sstep(0.6, 1, u)) : 0.22; } });
+    if (ch === 4) { const lift = (1 - sstep(0, 0.4, u)) * 0; fairing.position.y = STACK0.y + 2.4 + lift; }
+  } else if (ch === 5) {
+    if (window.cornerMesh) window.cornerMesh.visible = u > 0.96;
+    colStack.visible = u < 0.97; colStack.position.copy(COL_STACK_POS).lerp(V3(0, 0, 0), sstep(0, 0.08, u));
+    interior.visible = u > 0.97;
+    assemblyOrder.forEach((f, i) => { const a = 0.08 + i / 32 * 0.8, k = sstep(a, a + 0.1, u); stackFace(f, 1 - k); });
+  } else if (ch === 6) {
+    setPressure(u * 101.325);
+  } else if (ch === 7) {
+    shield.td = shield.tk = (Math.sin(u * Math.PI * 2 - Math.PI / 2) + 1) / 2 > 0.5 ? 1 : 0;
+  } else if (ch === 8) {
+    const k = sstep(0.1, 1, u); interior.visible = k < 0.05; if (window.cornerMesh) window.cornerMesh.visible = k < 0.05;
+    faces.forEach((f, i) => { f.group.position.copy(f.n).multiplyScalar(k * (6 + (i % 5) * 2)); f.group.quaternion.setFromAxisAngle(V3(f.n.z, 0, -f.n.x).normalize(), k * 0.6 * ((i % 3) - 1)); });
+  }
+  if (ch !== 7) { shield.td = 0; shield.tk = 0; }
+}
+hooks.push((t, dt) => {
+  if (mode !== 'life' || !life.playing) return;
+  let n = life.L + dt * 0.11; if (n >= 8.999) { n = 8.999; life.playing = false; $('lplay').textContent = 'Play'; }
+  setLife(n);
+});
+
+// =====================================================================
+// MODES
+// =====================================================================
+let mode = 'explore';
+const saved = {};
+function setMode(m) {
+  if (m === mode) return;
+  // leave the old mode
+  if (mode === 'walk') { stopMarkers.visible = false; clutter.visible = true; controls.enableZoom = true; controls.enablePan = true; controls.rotateSpeed = 1; controls.minDistance = 0.3; controls.maxDistance = 120; }
+  if (mode === 'systems') ['power', 'air', 'water', 'heat'].forEach(k => sysOn.has(k) && setSystem(k, false));
+  if (mode === 'shields') { setPressure(0); seamMesh.visible = false; glass.emissive = new THREE.Color(0, 0, 0); }
+  if (mode === 'visit') { visit.group.visible = false; paths.visible = false; camRig.visible = false; spotLight.intensity = 0; visit.playing = false; clutter.visible = true; setSun(38); setShutters(shutterPresets.clear); cabinLights.forEach(l => l.intensity = 8 * 0.55); }
+  if (mode === 'life') { life.playing = false; resetAssembly(); shield.td = shield.tk = 0; lifeCh = -1; }
+  mode = m;
+  document.querySelectorAll('#tabs button').forEach(b => b.classList.toggle('on', b.dataset.mode === m));
+  document.querySelectorAll('#ui section').forEach(s => s.hidden = s.dataset.mode !== m);
+  setCut(false);
+  if (m === 'explore') go('approach');
+  if (m === 'walk') { clutter.visible = false; stopMarkers.visible = true; controls.enableZoom = false; controls.enablePan = false; controls.rotateSpeed = -0.35; controls.minDistance = 0.01; controls.maxDistance = 0.2; goStop(walkI); }
+  if (m === 'systems') { setSystem('power', true); tween = { p0: camera.position.clone(), t0: controls.target.clone(), p1: V3(11, 5, 12), t1: V3(0, 0, 0), f0: camera.fov, f1: 42, s: performance.now(), d: 1600 }; }
+  if (m === 'shields') { go('approach'); setPressure(0); }
+  if (m === 'visit') { clutter.visible = false; visit.group.visible = true; paths.visible = $('pathsBtn').classList.contains('on'); setVisit(visit.t); go('cutaway'); }
+  if (m === 'life') setLife(life.L);
+}
+document.querySelectorAll('#tabs button').forEach(b => b.onclick = () => setMode(b.dataset.mode));
+// walk UI
+$('stops').innerHTML = stops.map((s, i) => `<button data-stop="${i}">${s.name}</button>`).join('');
+document.querySelectorAll('[data-stop]').forEach(b => b.onclick = () => goStop(+b.dataset.stop));
+$('nightBtn').onclick = (e) => { const on = !e.target.classList.contains('on'); e.target.classList.toggle('on', on); cabinLights.forEach(l => l.intensity = 8 * (on ? 0.06 : 0.55)); ledRingMat.color.setRGB(on ? 0.3 : 3, on ? 0.22 : 2.2, on ? 0.14 : 1.4); };
+import('three/addons/webxr/VRButton.js').then(({ VRButton }) => {
+  if (!('xr' in navigator)) return;
+  navigator.xr.isSessionSupported('immersive-vr').then(ok => { if (!ok) return; const b = VRButton.createButton(renderer); b.style.position = 'static'; b.style.width = '100%'; b.style.marginTop = '8px'; $('vrSlot').appendChild(b); });
+}).catch(() => {});
+// systems UI
+document.querySelectorAll('[data-sys]').forEach(b => b.onclick = () => setSystem(b.dataset.sys, !sysOn.has(b.dataset.sys)));
+$('plantG').oninput = (e) => setPlant(+e.target.value / 100);
+$('plantGo').onclick = () => { tween = { p0: camera.position.clone(), t0: controls.target.clone(), p1: window.ghP.c.clone().multiplyScalar(0.25).add(V3(0.4, 0.3, 0.2)), t1: window.ghP.c.clone(), f0: camera.fov, f1: 60, s: performance.now(), d: 1600 }; };
+// shields UI
+document.querySelectorAll('[data-shut]').forEach(b => b.onclick = () => { setShutters(shutterPresets[b.dataset.shut]); document.querySelectorAll('[data-shut]').forEach(x => x.classList.toggle('on', x === b)); });
+$('shDeploy').onclick = () => { shield.td = 1; shield.tk = 1; };
+$('shStow').onclick = () => { shield.td = 0; shield.tk = 0; };
+$('press').oninput = (e) => { pressAnim = null; setPressure(+e.target.value); };
+$('pressGo').onclick = () => { pressAnim = { v: 0 }; };
+// visit UI
+$('vt').oninput = (e) => { visit.playing = false; $('vplay').textContent = 'Play'; setVisit(+e.target.value); };
+$('vplay').onclick = (e) => { visit.playing = !visit.playing; if (visit.playing && visit.t >= 89.9) visit.t = 0; e.target.textContent = visit.playing ? 'Pause' : 'Play'; };
+$('pathsBtn').onclick = (e) => { const on = !e.target.classList.contains('on'); e.target.classList.toggle('on', on); paths.visible = on; };
+const USE_CAM = {
+  hatch: () => ({ p: spot.hatch.clone().multiplyScalar(-0.2).add(V3(0, 1.2, 1.5)), t: spot.hatch }),
+  earth: () => ({ p: spot.earth.clone().multiplyScalar(-0.15).add(V3(1.5, 1.8, 1.2)), t: spot.earth }),
+  pods: () => ({ p: pods[0].center.clone().addScaledVector(pods[0].mouth, 3.2).add(V3(0, 0.6, 0)).clampLength(0, 4.2), t: pods[0].center }),
+  greens: () => ({ p: window.ghP.c.clone().multiplyScalar(-0.1).add(V3(0.8, 0.8, 0.6)), t: window.ghP.c.clone().multiplyScalar(0.7) }),
+  exercise: () => ({ p: V3(-1.5, 1.0, 2.4), t: spot.exercise }),
+  concert: () => ({ p: V3(3.4, 0.6, 1.9), t: V3(colR + 0.5, -0.6, 0) }),
+  social: () => ({ p: V3(2.6, 2.6, 2.2), t: spot.social }),
+};
+document.querySelectorAll('[data-use]').forEach(b => b.onclick = () => {
+  const f = b.dataset.use; const row = SCHEDULE.find(r => r[1] === f); visit.playing = false; $('vplay').textContent = 'Play'; setVisit(row[0] + 2);
+  const c = USE_CAM[f](); setCut(false); tween = { p0: camera.position.clone(), t0: controls.target.clone(), p1: c.p, t1: c.t, f0: camera.fov, f1: 62, s: performance.now(), d: 1800 };
+});
+$('vIn').onclick = () => { setCut(false); tween = { p0: camera.position.clone(), t0: controls.target.clone(), p1: V3(3.2, 1.8, 2.4), t1: V3(0, -0.3, 0), f0: camera.fov, f1: 64, s: performance.now(), d: 1600 }; };
+$('vOut').onclick = () => go('cutaway');
+// life UI
+$('lt').oninput = (e) => { life.playing = false; $('lplay').textContent = 'Play'; setLife(+e.target.value); };
+$('lplay').onclick = (e) => { life.playing = !life.playing; if (life.playing && life.L >= 8.99) life.L = 0; e.target.textContent = life.playing ? 'Pause' : 'Play'; };
+$('chapters').innerHTML = CHAPTERS.map((c, i) => `<button data-ch="${i}">${i + 1}. ${c[0]}</button>`).join('');
+document.querySelectorAll('[data-ch]').forEach(b => b.onclick = () => { life.playing = false; $('lplay').textContent = 'Play'; setLife(+b.dataset.ch + (+b.dataset.ch === 3 ? 0.9 : 0.5)); });
+window.__setMode = setMode; window.__api = { setVisit, setLife, setSystem, setPressure, goStop, shield, setPlant, updateShields, setShutters, shutterPresets };
+
+// url hash picks a starting view (used for stills)
+const startView = location.hash.slice(1) || 'approach';
+setSun(38);
+if (['walk','systems','shields','visit','life'].includes(startView)) { go('approach', true); setMode(startView); } else go(startView, true);
+if (/[?&]sun=/.test(location.search)) { const s = +new URLSearchParams(location.search).get('sun'); setSun(s); }
+
+addEventListener('resize', () => {
+  camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight); composer.setSize(innerWidth, innerHeight);
+});
+
+const clock = new THREE.Clock();
+const blink = station.getObjectByName('blink');
+function frame() {
+  const t = clock.getElapsedTime();
+  earthUniforms.uTime.value = t;
+  earth.rotation.y += 0.00002;
+  if (blink) blink.visible = (t % 1.5) < 0.12;
+  if (tween) {
+    let k = Math.min(1, (performance.now() - tween.s) / tween.d); k = k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+    camera.position.lerpVectors(tween.p0, tween.p1, k); controls.target.lerpVectors(tween.t0, tween.t1, k); camera.fov = tween.f0 + (tween.f1 - tween.f0) * k; camera.updateProjectionMatrix();
+    if (k >= 1) tween = null;
+  }
+  const dt = Math.min(0.1, t - (window.__lastT || t)); window.__lastT = t;
+  for (const h of hooks) h(t, dt);
+  if (!renderer.xr.isPresenting) controls.update();
+  if (cut) { const d = camera.position.clone().sub(controls.target); d.y = 0; d.normalize(); clipPlane.normal.copy(d.negate()); clipPlane.constant = 0.0; }
+  if (renderer.xr.isPresenting) renderer.render(scene, camera); else composer.render();
+  window.__frames=(window.__frames||0)+1;
+  if(window.__stop) renderer.setAnimationLoop(null);
+}
+document.getElementById('loading').remove();
+window.__ready = true;
+renderer.setAnimationLoop(frame);
+</script>
+</body>
+</html>
