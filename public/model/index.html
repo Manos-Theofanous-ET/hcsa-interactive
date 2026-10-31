@@ -98,6 +98,7 @@
   <div class="views">
     <button id="cut">Cut away near half</button>
     <button id="spin">Slow orbit</button>
+    <button id="qual">Quality: high</button>
   </div>
 
   <h2>What you are looking at</h2>
@@ -1741,6 +1742,22 @@ $('lt').oninput = (e) => { life.playing = false; $('lplay').textContent = 'Play'
 $('lplay').onclick = (e) => { life.playing = !life.playing; if (life.playing && life.L >= 8.99) life.L = 0; e.target.textContent = life.playing ? 'Pause' : 'Play'; };
 $('chapters').innerHTML = CHAPTERS.map((c, i) => `<button data-ch="${i}">${i + 1}. ${c[0]}</button>`).join('');
 document.querySelectorAll('[data-ch]').forEach(b => b.onclick = () => { life.playing = false; $('lplay').textContent = 'Play'; setLife(+b.dataset.ch + (+b.dataset.ch === 3 ? 0.9 : 0.5)); });
+// quality: phones get a lighter renderer (no shadows, no glass refraction, no bloom, fewer lights)
+const glassHigh = { transmission: glass.transmission, opacity: glass.opacity, transparent: glass.transparent };
+let quality = 'high';
+function setQuality(q) {
+  quality = q; const low = q === 'low';
+  renderer.setPixelRatio(low ? 1 : Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(innerWidth, innerHeight); composer.setSize(innerWidth, innerHeight);
+  renderer.shadowMap.enabled = !low; sun.castShadow = !low;
+  bloom.enabled = !low;
+  glass.transmission = low ? 0 : glassHigh.transmission; glass.transparent = low; glass.opacity = low ? 0.12 : 1;
+  cabinLights.forEach((l, i) => l.visible = !low || i < 2);
+  scene.traverse(o => { if (o.material) (Array.isArray(o.material) ? o.material : [o.material]).forEach(m => m.needsUpdate = true); });
+  $('qual').textContent = 'Quality: ' + q; $('qual').classList.toggle('on', low);
+}
+$('qual').onclick = () => setQuality(quality === 'high' ? 'low' : 'high');
+if (/[?&]q=low/.test(location.search) || (matchMedia('(pointer: coarse)').matches && Math.min(screen.width, screen.height) < 820)) setQuality('low');
 window.__setMode = setMode; window.__api = { setVisit, setLife, setSystem, setPressure, goStop, shield, setPlant, updateShields, setShutters, shutterPresets };
 
 // url hash picks a starting view (used for stills)

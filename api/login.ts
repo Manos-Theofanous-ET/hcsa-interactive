@@ -13,9 +13,9 @@ export async function POST(req: Request): Promise<Response> {
   const given = String(form.get("password") || "");
   let next = String(form.get("next") || "/");
   if (!next.startsWith("/") || next.startsWith("//")) next = "/";
-  const envPw = process.env.SITE_PASSWORD;
+  const envPw = process.env.SITE_PASSWORD?.trim();
   const good = envPw ? tokenFor(envPw) : "";
-  if (!good || !given || tokenFor(given) !== good) {
+  if (!good || !given || tokenFor(given.trim()) !== good) {
     return new Response(null, { status: 303, headers: { Location: `/preview/?e=1&next=${encodeURIComponent(next)}#access` } });
   }
   const token = good;

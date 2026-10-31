@@ -52,14 +52,14 @@ export default async function middleware(req: Request): Promise<Response> {
   const url = new URL(req.url);
   if (PUBLIC.some((re) => re.test(url.pathname))) return next();
 
-  const envPw = process.env.SITE_PASSWORD;
+  const envPw = process.env.SITE_PASSWORD?.trim();
   if (!envPw) return next(); // gate stays open until SITE_PASSWORD is set in Vercel
   const good = await tokenFor(envPw);
 
   const access = url.searchParams.get("access");
   if (access !== null) {
     url.searchParams.delete("access");
-    if ((await tokenFor(access)) === good) {
+    if ((await tokenFor(access.trim())) === good) {
       return new Response(null, {
         status: 303,
         headers: {
