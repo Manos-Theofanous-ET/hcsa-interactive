@@ -176,5 +176,41 @@
   },
   "rev": "2 Nov 2026 PROPOSAL",
   "source": ""
+ },
+ "P-08": {
+  "id": "P-08",
+  "name": "Pane corner clamp at a node",
+  "material": "7075-T7351",
+  "mass_kg": 0.186,
+  "volume_mm3": 66248,
+  "notes": "Holds the corners of the six pressure panes that meet at a node: a hexagonal plate 100 mm across flats, 6 mm thick, with a 2 mm elastomer pad and one M6 screw down through the inner flange and the star plate into the node core. Carries the pane's own weight on the ground, launch inertia and the seal seating force; never the pressure, which pushes the pane onto the flange. PROPOSAL, 2 Nov.",
+  "dims": {
+   "across_flats": 100,
+   "thickness": 6,
+   "pad": 2,
+   "screw": "M6 x 40, A286, into the node core",
+   "one_per": "six-way node (18 per hexagon) plus the main rib and frame nodes"
+  },
+  "rev": "2 Nov 2026 PROPOSAL",
+  "source": ""
+ },
+ "P-09": {
+  "id": "P-09",
+  "name": "Seam bolt station with the spring stack (section through the two frame webs)",
+  "material": "A286",
+  "mass_kg": 1.143,
+  "volume_mm3": 144015,
+  "notes": "The proposal of the 2 Nov seam bolt study: the NAS6705 bolt through the two 20 mm frame webs and two washers, with four Belleville discs (Inconel X-750, about 2.5 kN per mm as a stack) under a self-locking nut. The preload of 2.75 kN is set by the stack height, 1.10 mm of deflection, with a go/no-go gauge. The grooves in the lower web are the two butyl cord grooves. Mass is the metal in this 60 mm patch only.",
+  "dims": {
+   "bolt": "5/16-24 A286 NAS6705, U, grip about 48.6 mm (NAS6705U33 or nearest)",
+   "webs": "2 x 20 mm 6061",
+   "washers": "2 x 1.6 mm",
+   "spring_stack": "4 Belleville discs in series, about 2.5 kN/mm",
+   "preload_kN": 2.75,
+   "stack_deflection_mm": 1.1,
+   "nut": "self-locking, NASA-STD-5020B"
+  },
+  "rev": "2 Nov 2026 PROPOSAL",
+  "source": ""
  }
 }

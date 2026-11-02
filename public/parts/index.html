@@ -22,7 +22,7 @@ table.dims{border-collapse:collapse;width:100%;font-size:13px} table.dims td{bor
 <header class="top"><h1>Parts library</h1>
 <p>Every part of the Rev E hexagon with the thin ribs proposed on 2 November 2026, as 3D models and drawings. Each entry has a model you can turn, four drawing views, the dimensions, the material, the mass from the model, and STEP and GLB downloads. Everything marked PROPOSAL waits on Manos and Marco. The notes behind each part are in the project: "How thin the ribs can go (2 Nov)", "Rib joints (2 Nov)", "Glass access and seam shear (24 Oct)", "Rev E sizing (24 Oct)".</p>
 <p>Not here yet: the corner block and its ties (the C1 deck), the mid-seam hardpoints, the pentagon panel, the shutters and the outer glass layers. They follow as their designs settle.</p></header>
-<nav><ul><li><a href='#P-01'>P-01 Secondary rib segment, I 180 x 60 x 10, web 5</a></li><li><a href='#P-02'>P-02 Node star plate, 12 mm</a></li><li><a href='#P-03'>P-03 Node web core, six forks</a></li><li><a href='#P-14'>P-14 Bolt 5/16-24 A286, NAS6705 family</a></li><li><a href='#P-04'>P-04 Main rib, I 400 x 100 x 25, web 8, one piece with seat ledges</a></li><li><a href='#P-04A'>P-04A Main rib cap angle (one of two)</a></li><li><a href='#P-05'>P-05 Hub web core, six forks</a></li><li><a href='#P-05A'>P-05A Hub star plate, 25 mm</a></li><li><a href='#P-06'>P-06 Frame member, 180 deep</a></li><li><a href='#P-07'>P-07 Pressure pane L7, 531 mm, 22 mm BOROFLOAT 33</a></li><li><a href='#A-01'>A-01 Node assembly: web core, two star plates, six rib segments, </a></li><li><a href='#A-02'>A-02 Hexagon panel: frame, six main ribs with cap angles, hub, th</a></li></ul></nav>
+<nav><ul><li><a href='#P-01'>P-01 Secondary rib segment, I 180 x 60 x 10, web 5</a></li><li><a href='#P-02'>P-02 Node star plate, 12 mm</a></li><li><a href='#P-03'>P-03 Node web core, six forks</a></li><li><a href='#P-08'>P-08 Pane corner clamp at a node</a></li><li><a href='#P-14'>P-14 Bolt 5/16-24 A286, NAS6705 family</a></li><li><a href='#P-09'>P-09 Seam bolt station with the spring stack (section through the two frame webs)</a></li><li><a href='#P-04'>P-04 Main rib, I 400 x 100 x 25, web 8, one piece with seat ledges</a></li><li><a href='#P-04A'>P-04A Main rib cap angle (one of two)</a></li><li><a href='#P-05'>P-05 Hub web core, six forks</a></li><li><a href='#P-05A'>P-05A Hub star plate, 25 mm</a></li><li><a href='#P-06'>P-06 Frame member, 180 deep</a></li><li><a href='#P-07'>P-07 Pressure pane L7, 531 mm, 22 mm BOROFLOAT 33</a></li><li><a href='#A-01'>A-01 Node assembly: web core, two star plates, six rib segments, </a></li><li><a href='#A-02'>A-02 Hexagon panel: frame, six main ribs with cap angles, hub, th</a></li></ul></nav>
 
 <section class="part" id="P-01">
   <header><span class="pid">P-01</span><h2>Secondary rib segment, I 180 x 60 x 10, web 5</h2>
@@ -63,6 +63,19 @@ table.dims{border-collapse:collapse;width:100%;font-size:13px} table.dims td{bor
       <p class="dl"><a href="step/P-03.step" download>STEP</a> <a href="glb/P-03.glb" download>GLB</a> <a href='svg/P-03_front.svg' download>front SVG</a> <a href='svg/P-03_top.svg' download>top SVG</a> <a href='svg/P-03_side.svg' download>side SVG</a> <a href='svg/P-03_iso.svg' download>iso SVG</a></p></div>
   </div>
 </section>
+<section class="part" id="P-08">
+  <header><span class="pid">P-08</span><h2>Pane corner clamp at a node</h2>
+    <div class="meta"><span>7075-T7351</span><span>0.19 kg</span><span>2 Nov 2026 PROPOSAL</span></div></header>
+  <div class="row">
+    <div class="viewer" data-glb="glb/P-08.glb"><canvas></canvas><div class="hint">drag to turn, wheel to zoom</div></div>
+    <div class="drawing"><figure><img src='svg/P-08_front.svg' alt='front view'><figcaption>front</figcaption></figure><figure><img src='svg/P-08_top.svg' alt='top view'><figcaption>top</figcaption></figure><figure><img src='svg/P-08_side.svg' alt='side view'><figcaption>side</figcaption></figure><figure><img src='svg/P-08_iso.svg' alt='iso view'><figcaption>iso</figcaption></figure></div>
+  </div>
+  <div class="row2">
+    <div><table class='dims'><tr><td>across flats</td><td>100</td></tr><tr><td>thickness</td><td>6</td></tr><tr><td>pad</td><td>2</td></tr><tr><td>screw</td><td>M6 x 40, A286, into the node core</td></tr><tr><td>one per</td><td>six-way node (18 per hexagon) plus the main rib and frame nodes</td></tr></table><p class="units">All dimensions in mm.</p></div>
+    <div class="notes"><p>Holds the corners of the six pressure panes that meet at a node: a hexagonal plate 100 mm across flats, 6 mm thick, with a 2 mm elastomer pad and one M6 screw down through the inner flange and the star plate into the node core. Carries the pane&#x27;s own weight on the ground, launch inertia and the seal seating force; never the pressure, which pushes the pane onto the flange. PROPOSAL, 2 Nov.</p>
+      <p class="dl"><a href="step/P-08.step" download>STEP</a> <a href="glb/P-08.glb" download>GLB</a> <a href='svg/P-08_front.svg' download>front SVG</a> <a href='svg/P-08_top.svg' download>top SVG</a> <a href='svg/P-08_side.svg' download>side SVG</a> <a href='svg/P-08_iso.svg' download>iso SVG</a></p></div>
+  </div>
+</section>
 <section class="part" id="P-14">
   <header><span class="pid">P-14</span><h2>Bolt 5/16-24 A286, NAS6705 family</h2>
     <div class="meta"><span>A286</span><span>0.03 kg</span><span>2 Nov 2026 PROPOSAL</span></div></header>
@@ -74,6 +87,19 @@ table.dims{border-collapse:collapse;width:100%;font-size:13px} table.dims td{bor
     <div><table class='dims'><tr><td>diameter</td><td>7.94</td></tr><tr><td>grip seam</td><td>42.9</td></tr><tr><td>head across flats</td><td>12.7</td></tr></table><p class="units">All dimensions in mm.</p></div>
     <div class="notes"><p>The seam bolt (NAS6705U27, grip 42.9 mm) and the node splice bolts (shorter grips) are the same family. Close tolerance shank in reamed holes.</p><p class="src">Source: Third seal, seam bolt (24 Oct)</p>
       <p class="dl"><a href="step/P-14.step" download>STEP</a> <a href="glb/P-14.glb" download>GLB</a> <a href='svg/P-14_front.svg' download>front SVG</a> <a href='svg/P-14_top.svg' download>top SVG</a> <a href='svg/P-14_side.svg' download>side SVG</a> <a href='svg/P-14_iso.svg' download>iso SVG</a></p></div>
+  </div>
+</section>
+<section class="part" id="P-09">
+  <header><span class="pid">P-09</span><h2>Seam bolt station with the spring stack (section through the two frame webs)</h2>
+    <div class="meta"><span>A286</span><span>1.14 kg</span><span>2 Nov 2026 PROPOSAL</span></div></header>
+  <div class="row">
+    <div class="viewer" data-glb="glb/P-09.glb"><canvas></canvas><div class="hint">drag to turn, wheel to zoom</div></div>
+    <div class="drawing"><figure><img src='svg/P-09_front.svg' alt='front view'><figcaption>front</figcaption></figure><figure><img src='svg/P-09_top.svg' alt='top view'><figcaption>top</figcaption></figure><figure><img src='svg/P-09_side.svg' alt='side view'><figcaption>side</figcaption></figure><figure><img src='svg/P-09_iso.svg' alt='iso view'><figcaption>iso</figcaption></figure></div>
+  </div>
+  <div class="row2">
+    <div><table class='dims'><tr><td>bolt</td><td>5/16-24 A286 NAS6705, U, grip about 48.6 mm (NAS6705U33 or nearest)</td></tr><tr><td>webs</td><td>2 x 20 mm 6061</td></tr><tr><td>washers</td><td>2 x 1.6 mm</td></tr><tr><td>spring stack</td><td>4 Belleville discs in series, about 2.5 kN/mm</td></tr><tr><td>preload kN</td><td>2.75</td></tr><tr><td>stack deflection mm</td><td>1.1</td></tr><tr><td>nut</td><td>self-locking, NASA-STD-5020B</td></tr></table><p class="units">All dimensions in mm.</p></div>
+    <div class="notes"><p>The proposal of the 2 Nov seam bolt study: the NAS6705 bolt through the two 20 mm frame webs and two washers, with four Belleville discs (Inconel X-750, about 2.5 kN per mm as a stack) under a self-locking nut. The preload of 2.75 kN is set by the stack height, 1.10 mm of deflection, with a go/no-go gauge. The grooves in the lower web are the two butyl cord grooves. Mass is the metal in this 60 mm patch only.</p>
+      <p class="dl"><a href="step/P-09.step" download>STEP</a> <a href="glb/P-09.glb" download>GLB</a> <a href='svg/P-09_front.svg' download>front SVG</a> <a href='svg/P-09_top.svg' download>top SVG</a> <a href='svg/P-09_side.svg' download>side SVG</a> <a href='svg/P-09_iso.svg' download>iso SVG</a></p></div>
   </div>
 </section>
 <section class="part" id="P-04">
