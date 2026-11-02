@@ -46,6 +46,14 @@
       "destination": "/preview/index.html"
     },
     {
+      "source": "/parts",
+      "destination": "/parts/index.html"
+    },
+    {
+      "source": "/parts/",
+      "destination": "/parts/index.html"
+    },
+    {
       "source": "/((?!api/)(?!.*\\..*).*)",
       "destination": "/index.html"
     }
@@ -75,6 +83,15 @@
         {
           "key": "X-Robots-Tag",
           "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/parts/glb/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
         }
       ]
     }

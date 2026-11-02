@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>HCSA parts library</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<script type="importmap">{"imports":{"three":"/model/vendor/three.module.js","three/addons/":"/model/vendor/addons/"}}</script>
+<style>
+:root{--bg:#0b0d10;--card:#13171c;--ink:#e8e6e1;--mute:#9aa3ad;--line:#232a32;--acc:#7cc7ff}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "Space Mono",ui-monospace,Menlo,monospace}
+header.top{padding:28px 32px 10px;border-bottom:1px solid var(--line)} header.top h1{font:600 30px/1.1 Fraunces,Georgia,serif;margin:0 0 6px}
+header.top p{color:var(--mute);max-width:70ch;margin:4px 0}
+nav{padding:10px 32px 18px;border-bottom:1px solid var(--line)} nav ul{list-style:none;padding:0;margin:0;columns:2;gap:24px} nav li{margin:2px 0;font-size:13px} nav a{color:var(--acc);text-decoration:none}
+section.part{padding:26px 32px;border-bottom:1px solid var(--line)} section.part header{display:flex;flex-wrap:wrap;align-items:baseline;gap:14px}
+.pid{color:var(--acc);font-weight:700} section.part h2{font:600 22px/1.2 Fraunces,Georgia,serif;margin:0} .meta span{color:var(--mute);margin-right:14px;font-size:13px}
+.row{display:grid;grid-template-columns:minmax(300px,520px) 1fr;gap:22px;margin-top:14px} .row2{display:grid;grid-template-columns:minmax(260px,420px) 1fr;gap:22px;margin-top:14px}
+.viewer{position:relative;background:#0f1216;border:1px solid var(--line);border-radius:6px;height:380px;overflow:hidden} .viewer.big{height:560px;grid-column:1/-1} .viewer canvas{width:100%;height:100%;display:block}
+.hint{position:absolute;right:10px;bottom:8px;color:var(--mute);font-size:11px}
+.drawing{display:grid;grid-template-columns:1fr 1fr;gap:10px} .drawing figure{margin:0;background:#fff;border-radius:4px;padding:4px} .drawing img{width:100%;height:170px;object-fit:contain;display:block} .drawing figcaption{color:#333;font-size:11px;text-align:center}
+table.dims{border-collapse:collapse;width:100%;font-size:13px} table.dims td{border-bottom:1px solid var(--line);padding:4px 6px} table.dims td:first-child{color:var(--mute)}
+.units{color:var(--mute);font-size:12px} .notes p{margin:0 0 10px} .src{color:var(--mute);font-size:13px} .dl a{color:var(--acc);margin-right:12px;text-decoration:none;border:1px solid var(--line);padding:3px 8px;border-radius:4px;font-size:13px}
+@media (max-width:900px){.row,.row2{grid-template-columns:1fr} nav ul{columns:1}}
+</style></head><body>
+<header class="top"><h1>Parts library</h1>
+<p>Every part of the Rev E hexagon with the thin ribs proposed on 2 November 2026, as 3D models and drawings. Each entry has a model you can turn, four drawing views, the dimensions, the material, the mass from the model, and STEP and GLB downloads. Everything marked PROPOSAL waits on Manos and Marco. The notes behind each part are in the project: "How thin the ribs can go (2 Nov)", "Rib joints (2 Nov)", "Glass access and seam shear (24 Oct)", "Rev E sizing (24 Oct)".</p>
+<p>Not here yet: the corner block and its ties (the C1 deck), the mid-seam hardpoints, the pentagon panel, the shutters and the outer glass layers. They follow as their designs settle.</p></header>
+<nav><ul><li><a href='#P-01'>P-01 Secondary rib segment, I 180 x 60 x 10, web 5</a></li><li><a href='#P-02'>P-02 Node star plate, 12 mm</a></li><li><a href='#P-03'>P-03 Node web core, six forks</a></li><li><a href='#P-14'>P-14 Bolt 5/16-24 A286, NAS6705 family</a></li><li><a href='#P-04'>P-04 Main rib, I 400 x 100 x 25, web 8, one piece with seat ledges</a></li><li><a href='#P-04A'>P-04A Main rib cap angle (one of two)</a></li><li><a href='#P-05'>P-05 Hub web core, six forks</a></li><li><a href='#P-05A'>P-05A Hub star plate, 25 mm</a></li><li><a href='#P-06'>P-06 Frame member, 180 deep</a></li><li><a href='#P-07'>P-07 Pressure pane L7, 531 mm, 22 mm BOROFLOAT 33</a></li><li><a href='#A-01'>A-01 Node assembly: web core, two star plates, six rib segments, </a></li><li><a href='#A-02'>A-02 Hexagon panel: frame, six main ribs with cap angles, hub, th</a></li></ul></nav>
+
+<section class="part" id="P-01">
+  <header><span class="pid">P-01</span><h2>Secondary rib segment, I 180 x 60 x 10, web 5</h2>
+    <div class="meta"><span>6061-T6</span><span>2.53 kg</span><span>2 Nov 2026 PROPOSAL</span></div></header>
+  <div class="row">
+    <div class="viewer" data-glb="glb/P-01.glb"><canvas></canvas><div class="hint">drag to turn, wheel to zoom</div></div>
+    <div class="drawing"><figure><img src='svg/P-01_front.svg' alt='front view'><figcaption>front</figcaption></figure><figure><img src='svg/P-01_top.svg' alt='top view'><figcaption>top</figcaption></figure><figure><img src='svg/P-01_side.svg' alt='side view'><figcaption>side</figcaption></figure><figure><img src='svg/P-01_iso.svg' alt='iso view'><figcaption>iso</figcaption></figure></div>
+  </div>
+  <div class="row2">
+    <div><table class='dims'><tr><td>depth</td><td>180</td></tr><tr><td>flange width</td><td>60</td></tr><tr><td>flange t</td><td>10</td></tr><tr><td>web t</td><td>5</td></tr><tr><td>length flange to flange</td><td>468.5</td></tr><tr><td>web overhang</td><td>10.0</td></tr><tr><td>pitch between nodes</td><td>562.5</td></tr><tr><td>bolt</td><td>5/16-24 NAS6705 family</td></tr></table><p class="units">All dimensions in mm.</p></div>
+    <div class="notes"><p>Custom extrusion, 468.5 mm between flange ends, the web 10 mm longer at each end to bear in the node core slot. The node fork cheeks slide inside the section beside the web over the last 78 mm. 12 flange holes (two rows of three at 32 mm, rows 36 mm apart) and 6 web holes per end, 8.03 mm reamed for 5/16-24 A286 close-tolerance bolts. Inner-flange holes countersunk at the seat face (z 180).</p>
+      <p class="dl"><a href="step/P-01.step" download>STEP</a> <a href="glb/P-01.glb" download>GLB</a> <a href='svg/P-01_front.svg' download>front SVG</a> <a href='svg/P-01_top.svg' download>top SVG</a> <a href='svg/P-01_side.svg' download>side SVG</a> <a href='svg/P-01_iso.svg' download>iso SVG</a></p></div>
+  </div>
+</section>
+<section class="part" id="P-02">
+  <header><span class="pid">P-02</span><h2>Node star plate, 12 mm</h2>
+    <div class="meta"><span>7075-T7351</span><span>1.75 kg</span><span>2 Nov 2026 PROPOSAL</span></div></header>
+  <div class="row">
+    <div class="viewer" data-glb="glb/P-02.glb"><canvas></canvas><div class="hint">drag to turn, wheel to zoom</div></div>
+    <div class="drawing"><figure><img src='svg/P-02_front.svg' alt='front view'><figcaption>front</figcaption></figure><figure><img src='svg/P-02_top.svg' alt='top view'><figcaption>top</figcaption></figure><figure><img src='svg/P-02_side.svg' alt='side view'><figcaption>side</figcaption></figure><figure><img src='svg/P-02_iso.svg' alt='iso view'><figcaption>iso</figcaption></figure></div>
+  </div>
+  <div class="row2">
+    <div><table class='dims'><tr><td>arms</td><td>6</td></tr><tr><td>arm width</td><td>60</td></tr><tr><td>arm reach from centre</td><td>175.0</td></tr><tr><td>thickness</td><td>12.0</td></tr><tr><td>holes per arm</td><td>6</td></tr><tr><td>hole</td><td>8.03</td></tr></table><p class="units">All dimensions in mm.</p></div>
+    <div class="notes"><p>Two per node: one on the space side over the outer flanges, one inside the section under the inner flanges. Six arms 60 wide, 175 mm from the node centre. 6 holes per arm in two rows of 3 at 32 mm pitch.</p>
+      <p class="dl"><a href="step/P-02.step" download>STEP</a> <a href="glb/P-02.glb" download>GLB</a> <a href='svg/P-02_front.svg' download>front SVG</a> <a href='svg/P-02_top.svg' download>top SVG</a> <a href='svg/P-02_side.svg' download>side SVG</a> <a href='svg/P-02_iso.svg' download>iso SVG</a></p></div>
+  </div>
+</section>
+<section class="part" id="P-03">
+  <header><span class="pid">P-03</span><h2>Node web core, six forks</h2>
+    <div class="meta"><span>7075-T7351</span><span>4.38 kg</span><span>2 Nov 2026 PROPOSAL</span></div></header>
+  <div class="row">
+    <div class="viewer" data-glb="glb/P-03.glb"><canvas></canvas><div class="hint">drag to turn, wheel to zoom</div></div>
+    <div class="drawing"><figure><img src='svg/P-03_front.svg' alt='front view'><figcaption>front</figcaption></figure><figure><img src='svg/P-03_top.svg' alt='top view'><figcaption>top</figcaption></figure><figure><img src='svg/P-03_side.svg' alt='side view'><figcaption>side</figcaption></figure><figure><img src='svg/P-03_iso.svg' alt='iso view'><figcaption>iso</figcaption></figure></div>
+  </div>
+  <div class="row2">
+    <div><table class='dims'><tr><td>core across flats</td><td>90.0</td></tr><tr><td>fork length</td><td>90.0</td></tr><tr><td>cheek t</td><td>6.0</td></tr><tr><td>slot</td><td>5.2</td></tr><tr><td>height</td><td>134.0</td></tr><tr><td>holes per fork</td><td>6</td></tr><tr><td>hole</td><td>8.03</td></tr></table><p class="units">All dimensions in mm.</p></div>
+    <div class="notes"><p>Machined hexagonal core 90 mm across flats with six forks: 6 mm cheeks 90 mm long, 134 mm tall, with a 5.2 mm slot for the rib web. The cheeks sit inside the rib section between its flanges. 6 holes per fork, two columns of three, through both cheeks (double shear).</p>
+      <p class="dl"><a href="step/P-03.step" download>STEP</a> <a href="glb/P-03.glb" download>GLB</a> <a href='svg/P-03_front.svg' download>front SVG</a> <a href='svg/P-03_top.svg' download>top SVG</a> <a href='svg/P-03_side.svg' download>side SVG</a> <a href='svg/P-03_iso.svg' download>iso SVG</a></p></div>
+  </div>
+</section>
+<section class="part" id="P-14">
+  <header><span class="pid">P-14</span><h2>Bolt 5/16-24 A286, NAS6705 family</h2>
+    <div class="meta"><span>A286</span><span>0.03 kg</span><span>2 Nov 2026 PROPOSAL</span></div></header>
+  <div class="row">
+    <div class="viewer" data-glb="glb/P-14.glb"><canvas></canvas><div class="hint">drag to turn, wheel to zoom</div></div>
+    <div class="drawing"><figure><img src='svg/P-14_front.svg' alt='front view'><figcaption>front</figcaption></figure><figure><img src='svg/P-14_top.svg' alt='top view'><figcaption>top</figcaption></figure><figure><img src='svg/P-14_side.svg' alt='side view'><figcaption>side</figcaption></figure><figure><img src='svg/P-14_iso.svg' alt='iso view'><figcaption>iso</figcaption></figure></div>
+  </div>
+  <div class="row2">
+    <div><table class='dims'><tr><td>diameter</td><td>7.94</td></tr><tr><td>grip seam</td><td>42.9</td></tr><tr><td>head across flats</td><td>12.7</td></tr></table><p class="units">All dimensions in mm.</p></div>
+    <div class="notes"><p>The seam bolt (NAS6705U27, grip 42.9 mm) and the node splice bolts (shorter grips) are the same family. Close tolerance shank in reamed holes.</p><p class="src">Source: Third seal, seam bolt (24 Oct)</p>
+      <p class="dl"><a href="step/P-14.step" download>STEP</a> <a href="glb/P-14.glb" download>GLB</a> <a href='svg/P-14_front.svg' download>front SVG</a> <a href='svg/P-14_top.svg' download>top SVG</a> <a href='svg/P-14_side.svg' download>side SVG</a> <a href='svg/P-14_iso.svg' download>iso SVG</a></p></div>
+  </div>
+</section>
+<section class="part" id="P-04">
+  <header><span class="pid">P-04</span><h2>Main rib, I 400 x 100 x 25, web 8, one piece with seat ledges</h2>
+    <div class="meta"><span>6061-T6</span><span>33.23 kg</span><span>2 Nov 2026 PROPOSAL</span></div></header>
+  <div class="row">
+    <div class="viewer" data-glb="glb/P-04.glb"><canvas></canvas><div class="hint">drag to turn, wheel to zoom</div></div>
+    <div class="drawing"><figure><img src='svg/P-04_front.svg' alt='front view'><figcaption>front</figcaption></figure><figure><img src='svg/P-04_top.svg' alt='top view'><figcaption>top</figcaption></figure><figure><img src='svg/P-04_side.svg' alt='side view'><figcaption>side</figcaption></figure><figure><img src='svg/P-04_iso.svg' alt='iso view'><figcaption>iso</figcaption></figure></div>
+  </div>
+  <div class="row2">
+    <div><table class='dims'><tr><td>depth</td><td>400.0</td></tr><tr><td>flange width</td><td>100.0</td></tr><tr><td>flange t</td><td>25.0</td></tr><tr><td>web t</td><td>8.0</td></tr><tr><td>ledge reach</td><td>30.0</td></tr><tr><td>ledge t</td><td>10.0</td></tr><tr><td>seat plane</td><td>180.0</td></tr><tr><td>cap bolt</td><td>3/8-24 A286 at 90 mm</td></tr><tr><td>length</td><td>2020.0</td></tr></table><p class="units">All dimensions in mm.</p></div>
+    <div class="notes"><p>Outer flange 100 x 25, web 8, seat ledges 30 mm each side at the seat plane z 170-180. The inner flange is the two bolted angles P-04A. 3/8-24 cap bolt holes through the web at 90 mm pitch, 40 mm below the cabin face. Length 2020 mm between hub and corner block (schematic ends).</p><p class="src">Source: Rev E restack (24 Oct), rib study (2 Nov)</p>
+      <p class="dl"><a href="step/P-04.step" download>STEP</a> <a href="glb/P-04.glb" download>GLB</a> <a href='svg/P-04_front.svg' download>front SVG</a> <a href='svg/P-04_top.svg' download>top SVG</a> <a href='svg/P-04_side.svg' download>side SVG</a> <a href='svg/P-04_iso.svg' download>iso SVG</a></p></div>
+  </div>
+</section>
+<section class="part" id="P-04A">
+  <header><span class="pid">P-04A</span><h2>Main rib cap angle (one of two)</h2>
+    <div class="meta"><span>6061-T6</span><span>12.77 kg</span><span>2 Nov 2026 PROPOSAL</span></div></header>
+  <div class="row">
+    <div class="viewer" data-glb="glb/P-04A.glb"><canvas></canvas><div class="hint">drag to turn, wheel to zoom</div></div>
+    <div class="drawing"><figure><img src='svg/P-04A_front.svg' alt='front view'><figcaption>front</figcaption></figure><figure><img src='svg/P-04A_top.svg' alt='top view'><figcaption>top</figcaption></figure><figure><img src='svg/P-04A_side.svg' alt='side view'><figcaption>side</figcaption></figure><figure><img src='svg/P-04A_iso.svg' alt='iso view'><figcaption>iso</figcaption></figure></div>
+  </div>
+  <div class="row2">
+    <div><table class='dims'><tr><td>horizontal leg</td><td>46</td></tr><tr><td>flange t</td><td>25</td></tr><tr><td>vertical leg</td><td>100</td></tr><tr><td>vertical t</td><td>12</td></tr><tr><td>length</td><td>2020.0</td></tr></table><p class="units">All dimensions in mm.</p></div>
+    <div class="notes"><p>Two angles make the inner flange: horizontal leg 46 x 25 each (with the 8 mm web, 100 mm wide), vertical leg 100 x 12 down the web. Bolted horizontally through the web, 3/8-24 A286 close-tolerance in reamed holes, 90 mm pitch, after the glass is in.</p>
+      <p class="dl"><a href="step/P-04A.step" download>STEP</a> <a href="glb/P-04A.glb" download>GLB</a> <a href='svg/P-04A_front.svg' download>front SVG</a> <a href='svg/P-04A_top.svg' download>top SVG</a> <a href='svg/P-04A_side.svg' download>side SVG</a> <a href='svg/P-04A_iso.svg' download>iso SVG</a></p></div>
+  </div>
+</section>
+<section class="part" id="P-05">
+  <header><span class="pid">P-05</span><h2>Hub web core, six forks</h2>
+    <div class="meta"><span>2219-T852</span><span>28.28 kg</span><span>2 Nov 2026 PROPOSAL</span></div></header>
+  <div class="row">
+    <div class="viewer" data-glb="glb/P-05.glb"><canvas></canvas><div class="hint">drag to turn, wheel to zoom</div></div>
+    <div class="drawing"><figure><img src='svg/P-05_front.svg' alt='front view'><figcaption>front</figcaption></figure><figure><img src='svg/P-05_top.svg' alt='top view'><figcaption>top</figcaption></figure><figure><img src='svg/P-05_side.svg' alt='side view'><figcaption>side</figcaption></figure><figure><img src='svg/P-05_iso.svg' alt='iso view'><figcaption>iso</figcaption></figure></div>
+  </div>
+  <div class="row2">
+    <div><table class='dims'><tr><td>core d</td><td>160.0</td></tr><tr><td>fork length</td><td>150</td></tr><tr><td>cheek t</td><td>10</td></tr><tr><td>holes per fork</td><td>8</td></tr><tr><td>hole</td><td>13.0</td></tr></table><p class="units">All dimensions in mm.</p></div>
+    <div class="notes"><p>160 mm core with six forks for the 8 mm main rib webs, 10 mm cheeks 150 long, 8 holes per fork (13 mm for 1/2-20 A286). Sits between the two hub star plates P-05A.</p>
+      <p class="dl"><a href="step/P-05.step" download>STEP</a> <a href="glb/P-05.glb" download>GLB</a> <a href='svg/P-05_front.svg' download>front SVG</a> <a href='svg/P-05_top.svg' download>top SVG</a> <a href='svg/P-05_side.svg' download>side SVG</a> <a href='svg/P-05_iso.svg' download>iso SVG</a></p></div>
+  </div>
+</section>
+<section class="part" id="P-05A">
+  <header><span class="pid">P-05A</span><h2>Hub star plate, 25 mm</h2>
+    <div class="meta"><span>2219-T852</span><span>14.20 kg</span><span>2 Nov 2026 PROPOSAL</span></div></header>
+  <div class="row">
+    <div class="viewer" data-glb="glb/P-05A.glb"><canvas></canvas><div class="hint">drag to turn, wheel to zoom</div></div>
+    <div class="drawing"><figure><img src='svg/P-05A_front.svg' alt='front view'><figcaption>front</figcaption></figure><figure><img src='svg/P-05A_top.svg' alt='top view'><figcaption>top</figcaption></figure><figure><img src='svg/P-05A_side.svg' alt='side view'><figcaption>side</figcaption></figure><figure><img src='svg/P-05A_iso.svg' alt='iso view'><figcaption>iso</figcaption></figure></div>
+  </div>
+  <div class="row2">
+    <div><table class='dims'><tr><td>arms</td><td>6</td></tr><tr><td>arm width</td><td>100</td></tr><tr><td>thickness</td><td>25</td></tr><tr><td>holes per arm</td><td>10</td></tr><tr><td>hole</td><td>13.0</td></tr></table><p class="units">All dimensions in mm.</p></div>
+    <div class="notes"><p>Two per hub, outer and inner. Six arms 100 wide, 25 thick, 10 holes per arm (13 mm, 1/2-20 A286). Carries each main rib&#x27;s flange force straight across to the opposite rib.</p>
+      <p class="dl"><a href="step/P-05A.step" download>STEP</a> <a href="glb/P-05A.glb" download>GLB</a> <a href='svg/P-05A_front.svg' download>front SVG</a> <a href='svg/P-05A_top.svg' download>top SVG</a> <a href='svg/P-05A_side.svg' download>side SVG</a> <a href='svg/P-05A_iso.svg' download>iso SVG</a></p></div>
+  </div>
+</section>
+<section class="part" id="P-06">
+  <header><span class="pid">P-06</span><h2>Frame member, 180 deep</h2>
+    <div class="meta"><span>6061-T6</span><span>27.86 kg</span><span>2 Nov 2026 PROPOSAL</span></div></header>
+  <div class="row">
+    <div class="viewer" data-glb="glb/P-06.glb"><canvas></canvas><div class="hint">drag to turn, wheel to zoom</div></div>
+    <div class="drawing"><figure><img src='svg/P-06_front.svg' alt='front view'><figcaption>front</figcaption></figure><figure><img src='svg/P-06_top.svg' alt='top view'><figcaption>top</figcaption></figure><figure><img src='svg/P-06_side.svg' alt='side view'><figcaption>side</figcaption></figure><figure><img src='svg/P-06_iso.svg' alt='iso view'><figcaption>iso</figcaption></figure></div>
+  </div>
+  <div class="row2">
+    <div><table class='dims'><tr><td>depth</td><td>180.0</td></tr><tr><td>web t</td><td>20.0</td></tr><tr><td>flange</td><td>50.0 x 10.0</td></tr><tr><td>lip</td><td>50.0 x 10.0</td></tr><tr><td>seam bolt pitch</td><td>75</td></tr><tr><td>length</td><td>2250.0</td></tr></table><p class="units">All dimensions in mm.</p></div>
+    <div class="notes"><p>Web 20, outer flange 50 x 10 and seat lip 50 x 10 at z 170-180 (moved to the cabin face for the restack). Seam bolt holes 8.03 mm at 75 mm pitch at mid-depth (two per 150 mm D1 slice). Straight schematic: the real member&#x27;s web leans 20.9 degrees to the joint plane.</p><p class="src">Source: Rev E sizing (24 Oct)</p>
+      <p class="dl"><a href="step/P-06.step" download>STEP</a> <a href="glb/P-06.glb" download>GLB</a> <a href='svg/P-06_front.svg' download>front SVG</a> <a href='svg/P-06_top.svg' download>top SVG</a> <a href='svg/P-06_side.svg' download>side SVG</a> <a href='svg/P-06_iso.svg' download>iso SVG</a></p></div>
+  </div>
+</section>
+<section class="part" id="P-07">
+  <header><span class="pid">P-07</span><h2>Pressure pane L7, 531 mm, 22 mm BOROFLOAT 33</h2>
+    <div class="meta"><span>BOROFLOAT 33</span><span>5.76 kg</span><span>2 Nov 2026 PROPOSAL</span></div></header>
+  <div class="row">
+    <div class="viewer" data-glb="glb/P-07.glb"><canvas></canvas><div class="hint">drag to turn, wheel to zoom</div></div>
+    <div class="drawing"><figure><img src='svg/P-07_front.svg' alt='front view'><figcaption>front</figcaption></figure><figure><img src='svg/P-07_top.svg' alt='top view'><figcaption>top</figcaption></figure><figure><img src='svg/P-07_side.svg' alt='side view'><figcaption>side</figcaption></figure><figure><img src='svg/P-07_iso.svg' alt='iso view'><figcaption>iso</figcaption></figure></div>
+  </div>
+  <div class="row2">
+    <div><table class='dims'><tr><td>side</td><td>531.0</td></tr><tr><td>thickness</td><td>22.0</td></tr><tr><td>corner cut</td><td>60.0</td></tr><tr><td>bite on 60mm flange</td><td>20.9</td></tr></table><p class="units">All dimensions in mm.</p></div>
+    <div class="notes"><p>Equilateral 531 mm (k 4 cut, 9.09 mm short of each rib centre line). Corners truncated 60 mm for the node star plates and clamp screws. Edges ground and polished, 1 mm chamfers. Rests on the cabin face of the secondary rib inner flanges; pressure seats it.</p><p class="src">Source: Rev E restack (24 Oct), rib study (2 Nov)</p>
+      <p class="dl"><a href="step/P-07.step" download>STEP</a> <a href="glb/P-07.glb" download>GLB</a> <a href='svg/P-07_front.svg' download>front SVG</a> <a href='svg/P-07_top.svg' download>top SVG</a> <a href='svg/P-07_side.svg' download>side SVG</a> <a href='svg/P-07_iso.svg' download>iso SVG</a></p></div>
+  </div>
+</section>
+<section class="part asm" id="A-01">
+  <header><span class="pid">A-01</span><h2>Node assembly: web core, two star plates, six rib segments, bolts</h2></header>
+  <div class="row"><div class="viewer big" data-glb="glb/A-01_node.glb"><canvas></canvas><div class="hint">drag to turn, wheel to zoom, right-drag to pan</div></div></div>
+  <div class="row2"><div class="notes"><p>How the secondary ribs meet. The web tongues sit in the forks of the core; the star plates splice all six flanges at once, the outer one on the space side and the inner one inside the section under the seat flange. 18 bolts per rib end, 5/16-24 A286 close tolerance in reamed holes. See the note &#x27;Rib joints (2 Nov)&#x27;.</p><p class="dl"><a href='step/A-01_node.step' download>STEP assembly</a> <a href="glb/A-01_node.glb" download>GLB</a></p></div></div>
+</section>
+<section class="part asm" id="A-02">
+  <header><span class="pid">A-02</span><h2>Hexagon panel: frame, six main ribs with cap angles, hub, the k 4 secondary grid with its nodes, and the 96 pressure panes</h2></header>
+  <div class="row"><div class="viewer big" data-glb="glb/A-02_hexagon_panel.glb"><canvas></canvas><div class="hint">drag to turn, wheel to zoom, right-drag to pan</div></div></div>
+  <div class="row2"><div class="notes"><p>One of the 20 glass hexagons, Rev E restack with the thin ribs proposed on 2 November. The panes rest on the cabin face of the secondary rib inner flanges at z 180. The frame is drawn straight; the real web leans 20.9 degrees to the joint plane. Corner blocks and mid-seam hardpoints are not in this model yet.</p><p class="dl"><span class='src'>STEP assembly (40 MB) is in Drive, UPDATES / Week 09 / parts library</span> <a href="glb/A-02_hexagon_panel.glb" download>GLB</a></p></div></div>
+</section>
+<footer style="padding:24px 32px;color:var(--mute);font-size:12px">Built with CadQuery from parts_lib.py and assemblies.py. Masses are model volumes times nominal densities. 2 November 2026.</footer>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+const loader = new GLTFLoader();
+const viewers = [...document.querySelectorAll('.viewer')];
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting && !e.target.dataset.on) { e.target.dataset.on = 1; start(e.target); } }), {rootMargin:'200px'});
+viewers.forEach(v => io.observe(v));
+function start(el) {
+  const canvas = el.querySelector('canvas');
+  const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(35, 1, 1, 100000);
+  scene.add(new THREE.HemisphereLight(0xffffff, 0x334455, 1.1));
+  const key = new THREE.DirectionalLight(0xffffff, 1.6); key.position.set(1, 2, 3); scene.add(key);
+  const fill = new THREE.DirectionalLight(0xffffff, 0.5); fill.position.set(-2, -1, -1); scene.add(fill);
+  const controls = new OrbitControls(camera, canvas); controls.enableDamping = true;
+  function size() { const w = el.clientWidth, h = el.clientHeight; renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix(); }
+  size(); addEventListener('resize', size);
+  loader.load(el.dataset.glb, g => {
+    const obj = g.scene;
+    obj.traverse(o => { if (o.isMesh) { if (!o.geometry.attributes.normal) o.geometry.computeVertexNormals(); const c = o.material.color; const m = new THREE.MeshStandardMaterial({color:c, metalness:0.35, roughness:0.55, transparent:o.material.transparent, opacity:o.material.opacity, side:THREE.DoubleSide}); if (o.material.vertexColors) m.vertexColors = true; o.material = m; } });
+    obj.rotation.x = -Math.PI/2;   // z up in CAD -> y up on screen
+    scene.add(obj);
+    const box = new THREE.Box3().setFromObject(obj); const c = box.getCenter(new THREE.Vector3()); const s = box.getSize(new THREE.Vector3()).length();
+    controls.target.copy(c); camera.position.set(c.x + s*0.6, c.y + s*0.45, c.z + s*0.8); camera.near = s/200; camera.far = s*20; camera.updateProjectionMatrix();
+    const grid = new THREE.GridHelper(s*1.5, 20, 0x334, 0x223); grid.position.set(c.x, box.min.y, c.z); scene.add(grid);
+  }, undefined, err => { el.querySelector('.hint').textContent = 'could not load ' + el.dataset.glb; });
+  (function loop() { requestAnimationFrame(loop); controls.update(); renderer.render(scene, camera); })();
+}
+</script></body></html>
