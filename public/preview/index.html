@@ -4,112 +4,435 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark">
-<meta name="theme-color" content="#000000">
+<meta name="theme-color" content="#05070a">
 <title>HCSA, a transparent observation facility in low Earth orbit</title>
-<meta name="description" content="Human-Centric Space Architecture: a feasibility study at Brown University and RISD for a mostly transparent observation facility in low Earth orbit.">
+<meta name="description" content="Human-Centric Space Architecture: a feasibility study at Brown University and RISD for a mostly transparent observation facility in low Earth orbit. Explore it in 3D, see where the project stands, and sponsor the tests.">
 <meta property="og:title" content="HCSA, a transparent observation facility in low Earth orbit">
-<meta property="og:description" content="A feasibility study at Brown University and RISD for a mostly transparent observation facility in low Earth orbit.">
+<meta property="og:description" content="A feasibility study at Brown University and RISD. Explore the station in 3D, walk or fly inside, or step in with VR.">
 <meta property="og:image" content="https://hcsa-site.vercel.app/preview/hero.jpg">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preload" href="/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 @font-face{font-family:"Fraunces";src:url(/fonts/fraunces-latin-400-normal.woff2) format("woff2");font-weight:400;font-display:swap}
 @font-face{font-family:"Fraunces";src:url(/fonts/fraunces-latin-400-italic.woff2) format("woff2");font-weight:400;font-style:italic;font-display:swap}
 @font-face{font-family:"Inter";src:url(/fonts/inter-latin-wght-normal.woff2) format("woff2");font-weight:100 900;font-display:swap}
-:root{--fg:#e9edf2;--mut:rgba(233,237,242,.62);--line:rgba(255,255,255,.12)}
+:root{
+  --bg:#05070a; --bg2:#0b0f15; --card:#10151d; --fg:#f2f4f7; --text:#d5dbe3; --mut:#a9b3bf;
+  --line:rgba(255,255,255,.14); --acc:#9cc4ff; --warm:#e2c99b; --done:#7fd1a4; --now:#9cc4ff;
+}
 *{box-sizing:border-box}
-html,body{margin:0;background:#000;color:var(--fg);font-family:Inter,system-ui,sans-serif;line-height:1.55}
-a{color:inherit}
-.hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;background:#000 url(hero.jpg) center/cover no-repeat;overflow:hidden}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--acc);text-underline-offset:3px}
+a:hover{color:#c4dcff}
+:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:4px}
+h1,h2,h3{color:var(--fg);font-family:Fraunces,Georgia,serif;font-weight:400;margin:0}
+h2{font-size:clamp(30px,4vw,44px);line-height:1.12;margin-bottom:14px}
+h3{font-size:22px;line-height:1.25;margin-bottom:8px}
+p{margin:0 0 14px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.eyebrow{font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--warm);margin-bottom:12px}
+.lead{font-size:clamp(18px,1.6vw,20px);color:var(--text);max-width:62ch}
+.mut{color:var(--mut)}
+section{padding:96px 0;border-top:1px solid rgba(255,255,255,.06)}
+section.alt{background:var(--bg2)}
+
+/* top bar */
+.bar{position:fixed;inset:0 0 auto 0;z-index:20;display:flex;align-items:center;gap:20px;padding:14px 24px;transition:background .25s}
+.bar.solid{background:rgba(5,7,10,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.08)}
+.brand{font-weight:700;letter-spacing:.16em;font-size:15px;color:var(--fg);text-decoration:none;white-space:nowrap}
+.brand span{font-weight:400;letter-spacing:.02em;color:var(--mut);margin-left:10px}
+.bar nav{margin-left:auto;display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
+.bar nav a{color:var(--fg);text-decoration:none;font-size:15px;font-weight:500;padding:8px 12px;border-radius:8px}
+.bar nav a:hover{background:rgba(255,255,255,.1)}
+.bar nav a.cta{border:1px solid var(--warm);color:var(--warm)}
+@media (max-width:900px){.bar nav a.opt{display:none}.brand span{display:none}}
+
+/* hero */
+.hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;background:#000 url(loop-poster.jpg) center/cover no-repeat}
 .hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 @media (prefers-reduced-motion: reduce){.hero video{display:none}}
-.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35) 0%,rgba(0,0,0,0) 35%,rgba(0,0,0,.2) 60%,rgba(0,0,0,.92) 100%)}
-.hero .in{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 24px 64px;width:100%}
-.brand{position:absolute;top:22px;left:24px;z-index:2;font-weight:600;letter-spacing:.18em;font-size:13px}
-.brand span{opacity:.6;font-weight:400;letter-spacing:.04em;margin-left:10px}
-h1{font-family:Fraunces,Georgia,serif;font-weight:400;font-size:clamp(34px,6vw,68px);line-height:1.05;margin:0 0 16px;max-width:15ch}
-h1 em{font-style:italic;opacity:.85}
-.lead{font-size:clamp(16px,2vw,19px);max-width:56ch;color:var(--mut);margin:0 0 26px}
-.btn{display:inline-block;border:1px solid var(--line);background:rgba(255,255,255,.08);padding:11px 18px;border-radius:999px;text-decoration:none;font-weight:500;font-size:14px;margin-right:8px;cursor:pointer;color:var(--fg)}
-.btn.primary{background:#e9edf2;color:#000;border-color:#e9edf2}
-section{max-width:1100px;margin:0 auto;padding:72px 24px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.grid figure{margin:0}
-.grid img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:10px;display:block;border:1px solid var(--line)}
-figcaption{font-size:13px;color:var(--mut);margin-top:8px}
-h2{font-family:Fraunces,Georgia,serif;font-weight:400;font-size:clamp(26px,3.4vw,38px);margin:0 0 14px}
-.two{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:start}
-.facts{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;font-size:14px}
-.facts span:nth-child(odd){color:var(--mut)}
-.card{border:1px solid var(--line);border-radius:14px;padding:22px;background:rgba(255,255,255,.03)}
-form{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
-input[type=password]{flex:1;min-width:180px;background:#0c0f14;border:1px solid var(--line);color:var(--fg);border-radius:999px;padding:11px 16px;font:inherit}
-.err{color:#ff9b8a;font-size:13px;margin-top:8px;display:none}
-footer{border-top:1px solid var(--line);color:var(--mut);font-size:13px;padding:28px 24px;max-width:1100px;margin:0 auto}
-@media (max-width:760px){.grid{grid-template-columns:1fr}.two{grid-template-columns:1fr}}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,0) 22%,rgba(0,0,0,0) 45%,rgba(0,0,0,.72) 75%,rgba(0,0,0,.94) 100%),
+             linear-gradient(90deg,rgba(0,0,0,.72) 0%,rgba(0,0,0,.45) 38%,rgba(0,0,0,0) 65%)}
+.hero .wrap{position:relative;z-index:1;padding-bottom:72px;width:100%}
+.hero h1{font-size:clamp(40px,5.8vw,72px);line-height:1.04;max-width:14ch;margin-bottom:20px;text-shadow:0 2px 24px rgba(0,0,0,.6)}
+.hero h1 em{font-style:italic;color:#dfe8f3}
+.hero .lead{color:#e6ebf1;text-shadow:0 1px 12px rgba(0,0,0,.8);margin-bottom:28px}
+.btns{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.3);background:rgba(10,14,20,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+     padding:13px 20px;border-radius:999px;text-decoration:none;font-weight:600;font-size:16px;color:var(--fg);cursor:pointer;font-family:inherit}
+.btn:hover{background:rgba(255,255,255,.16);color:#fff}
+.btn.primary{background:var(--fg);color:#05070a;border-color:var(--fg)}
+.btn.primary:hover{background:#fff;color:#000}
+.btn svg{width:18px;height:18px;flex:none}
+.hero .caption{position:absolute;right:24px;bottom:24px;z-index:1;font-size:13px;color:#c9d1db;text-shadow:0 1px 8px #000;max-width:40ch;text-align:right}
+@media (max-width:760px){.hero .caption{display:none}.hero::after{background:linear-gradient(180deg,rgba(0,0,0,.5) 0%,rgba(0,0,0,.25) 18%,rgba(0,0,0,.78) 40%,rgba(0,0,0,.9) 100%)}}
+
+/* explore cards */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;display:flex;flex-direction:column}
+.card p{color:var(--text);font-size:17px}
+.card .btn{margin-top:auto;align-self:flex-start}
+.card .icon{width:40px;height:40px;border-radius:10px;background:rgba(156,196,255,.14);display:grid;place-items:center;margin-bottom:16px;color:var(--acc)}
+.card .icon svg{width:22px;height:22px}
+@media (max-width:860px){.cards{grid-template-columns:1fr}}
+
+/* about */
+.two{display:grid;grid-template-columns:1.25fr 1fr;gap:48px;align-items:start}
+@media (max-width:860px){.two{grid-template-columns:1fr}}
+.facts{display:grid;grid-template-columns:auto 1fr;gap:10px 22px;font-size:16px;margin:0}
+.facts dt{color:var(--mut)} .facts dd{margin:0;color:var(--fg)}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:44px}
+.gallery figure{margin:0}
+.gallery img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:12px;display:block;border:1px solid var(--line)}
+.gallery figcaption{font-size:15px;color:var(--mut);margin-top:8px}
+@media (max-width:760px){.gallery{grid-template-columns:1fr}}
+
+/* timeline */
+.tl{list-style:none;margin:44px 0 0;padding:0;display:grid;grid-template-columns:repeat(7,1fr);position:relative}
+.tl::before{content:"";position:absolute;left:calc(100%/14);right:calc(100%/14);top:13px;height:2px;background:linear-gradient(90deg,var(--done) 0%,var(--done) 30%,var(--now) 36%,rgba(255,255,255,.18) 42%,rgba(255,255,255,.18) 100%)}
+.tl li{position:relative;padding:0 10px;text-align:center}
+.tl .dot{width:28px;height:28px;border-radius:50%;margin:0 auto 16px;position:relative;z-index:1;background:var(--bg);border:2px solid rgba(255,255,255,.3);display:grid;place-items:center}
+.tl .done .dot{background:var(--done);border-color:var(--done)}
+.tl .done .dot::after{content:"";width:9px;height:5px;border:2px solid #05070a;border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
+.tl .now .dot{border-color:var(--now);box-shadow:0 0 0 6px rgba(156,196,255,.18)}
+.tl .now .dot::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--now)}
+.tl .when{font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
+.tl .now .when{color:var(--now)} .tl .done .when{color:var(--done)}
+.tl h3{font-family:Inter,sans-serif;font-size:17px;font-weight:650;margin:6px 0 6px}
+.tl p{font-size:15px;line-height:1.5;color:var(--text);margin:0}
+.tl .here{display:inline-block;margin-top:10px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:var(--now);color:#05070a;border-radius:999px;padding:3px 10px}
+@media (max-width:980px){
+  .tl{grid-template-columns:1fr;gap:0}
+  .tl::before{left:13px;right:auto;top:14px;bottom:14px;width:2px;height:auto;background:linear-gradient(180deg,var(--done) 0%,var(--done) 30%,var(--now) 36%,rgba(255,255,255,.18) 42%)}
+  .tl li{text-align:left;padding:0 0 26px 48px}
+  .tl .dot{position:absolute;left:0;top:0;margin:0}
+}
+.legend{display:flex;gap:22px;flex-wrap:wrap;margin-top:26px;font-size:15px;color:var(--mut)}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:8px;vertical-align:-1px}
+
+/* status */
+.status{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:36px}
+.status .card h3{font-family:Inter,sans-serif;font-size:18px;font-weight:650;display:flex;align-items:center;gap:10px}
+.pill{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:3px 10px;white-space:nowrap}
+.pill.done{background:rgba(127,209,164,.18);color:var(--done)} .pill.now{background:rgba(156,196,255,.18);color:var(--now)} .pill.next{background:rgba(255,255,255,.1);color:var(--mut)}
+@media (max-width:760px){.status{grid-template-columns:1fr}}
+
+/* sponsors */
+.logos{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:36px}
+.logo{background:#f4f5f7;border-radius:14px;padding:18px 18px 16px;display:flex;flex-direction:column;min-height:190px;color:#1b2430}
+.logo .mark{height:64px;display:flex;align-items:center;justify-content:flex-start;margin-bottom:12px}
+.logo .mark img{max-height:56px;max-width:100%;object-fit:contain}
+.logo .mark .word{font:600 21px/1.15 Inter,sans-serif;letter-spacing:-.01em;color:#101820}
+.logo .kind{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#4a5a6e;margin-bottom:6px}
+.logo p{font-size:15px;line-height:1.5;color:#2c3a4a;margin:0}
+.logo a{color:inherit;text-decoration:none}
+.logo a:hover .word{text-decoration:underline}
+@media (max-width:980px){.logos{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.logos{grid-template-columns:1fr}}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:48px}
+.three h3{font-family:Inter,sans-serif;font-size:18px;font-weight:650}
+.three ul{margin:0;padding-left:20px} .three li{margin-bottom:8px;font-size:17px}
+@media (max-width:860px){.three{grid-template-columns:1fr}}
+
+/* contact */
+form.contact{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
+form.contact label{display:flex;flex-direction:column;gap:6px;font-size:15px;color:var(--fg);font-weight:500}
+form.contact .full{grid-column:1/-1}
+input,select,textarea{font:inherit;font-size:17px;color:var(--fg);background:#0c1118;border:1px solid rgba(255,255,255,.22);border-radius:10px;padding:12px 14px}
+textarea{min-height:130px;resize:vertical}
+input::placeholder,textarea::placeholder{color:#7d8896}
+@media (max-width:640px){form.contact{grid-template-columns:1fr}}
+.contactline{font-size:17px;margin-top:18px}
+
+/* team + access */
+.team{columns:2;column-gap:40px;margin:0;padding:0;list-style:none;font-size:17px}
+.team li{break-inside:avoid;margin-bottom:10px} .team b{color:var(--fg);font-weight:600}
+@media (max-width:640px){.team{columns:1}}
+.access{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.access input{flex:1;min-width:200px;border-radius:999px}
+.err{color:#ffb0a3;font-size:15px;margin-top:10px;display:none}
+footer{border-top:1px solid rgba(255,255,255,.08);color:var(--mut);font-size:15px;padding:32px 0 48px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 </style>
 </head>
 <body>
-<div class="brand">HCSA<span>Brown University · RISD</span></div>
-<header class="hero">
-  <video src="loop.mp4" poster="loop-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
-  <div class="in">
-    <h1>A room made of glass, <em>400 km above the Earth.</em></h1>
-    <p class="lead">Human-Centric Space Architecture is a feasibility study for a mostly transparent observation facility in low Earth orbit. Six visitors at a time, one orbit per visit: ninety minutes of sunrise, Earth, night and stars, seen through twenty glass walls.</p>
-    <a class="btn primary" href="#access">Team access</a>
-    <a class="btn" href="#about">About the project</a>
-  </div>
+
+<header class="bar" id="bar">
+  <a class="brand" href="#top">HCSA<span>Brown University · RISD</span></a>
+  <nav aria-label="Sections">
+    <a class="opt" href="#explore">Explore in 3D</a>
+    <a class="opt" href="#about">About</a>
+    <a href="#timeline">Timeline</a>
+    <a class="opt" href="#status">Where we are</a>
+    <a class="opt" href="#sponsors">Sponsors</a>
+    <a class="cta" href="#contact">Contact us</a>
+  </nav>
 </header>
 
-<section id="about">
-  <div class="two">
-    <div>
-      <h2>What we are building</h2>
-      <p>The station is a truncated icosahedron, 11.15 metres across, made of 32 flat panels. The twenty hexagons are windows, each built from 96 panes of borosilicate glass held in an aluminium grid. The twelve solid pentagons carry solar arrays and inflatable shields that unroll over the windows.</p>
-      <p>Inside there is no floor and no up or down. A central column carries power, water and plants; soft pods hang from it for time alone with the view, and greenhouse alcoves grow greens to taste. The team is testing the glass, the seams and a single panel at Brown in 2026 and 2027.</p>
+<main id="top">
+<div class="hero">
+  <video id="loop" src="loop.mp4" poster="loop-poster.jpg" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
+  <div class="wrap">
+    <p class="eyebrow">Human-Centric Space Architecture</p>
+    <h1>A room made of glass, <em>400 km above the Earth.</em></h1>
+    <p class="lead">HCSA is a design and engineering study for a mostly see-through observation station in low Earth orbit. About six visitors at a time spend one orbit inside: ninety minutes of sunrise, Earth, night and stars, seen through twenty glass walls.</p>
+    <div class="btns">
+      <a class="btn primary" href="/explore/">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg>
+        Explore the station in 3D</a>
+      <a class="btn" href="/explore/#walk">Walk inside</a>
+      <a class="btn" href="/explore/#fly">Fly inside</a>
+      <a class="btn" href="#vr">VR</a>
     </div>
-    <div class="card">
-      <div class="facts">
-        <span>Shape</span><span>Truncated icosahedron, 32 panels</span>
-        <span>Size</span><span>11.151 m across, 2.25 m edges</span>
-        <span>Windows</span><span>20 glass hexagons</span>
-        <span>Inside</span><span>About 490 m³ of open room</span>
-        <span>Visit</span><span>About six people, one 90-minute orbit</span>
-        <span>Launch</span><span>One Starship V3</span>
-        <span>Advisor</span><span>Prof. Rick Fleeter, Brown University</span>
+  </div>
+  <p class="caption">One loop: from far out to the windows, round the outside, in through the glass and back, over two orbits of 90 minutes, two days and two nights. Rendered from our 3D model.</p>
+</div>
+
+<section id="explore">
+  <div class="wrap">
+    <p class="eyebrow">Explore it yourself</p>
+    <h2>Look around, go inside, step in with VR.</h2>
+    <p class="lead">The model below is the one the team designs with. It runs in your browser, on a laptop or a phone. There is nothing to install.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4c2.5 2.5 2.5 13.5 0 16M12 4c-2.5 2.5-2.5 13.5 0 16"/></svg></div>
+        <h3>Examine the facility</h3>
+        <p>Turn the station over the Earth, zoom in on a window or a solar panel, move the sun, close the shades and cut it open to see the room inside.</p>
+        <a class="btn primary" href="/explore/">Open the 3D model</a>
+      </div>
+      <div class="card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 12c4-6 14-6 18 0-4 6-14 6-18 0z"/><circle cx="12" cy="12" r="2.6"/></svg></div>
+        <h3>Walk or fly through the inside</h3>
+        <p><b>Walk</b> floats you from stop to stop, from the hatch to the Earth window and into the pods. <b>Fly</b> lets you move anywhere, as you would in zero gravity: drag to look, use the arrow keys or the on-screen arrows to move.</p>
+        <div class="btns" style="margin-top:auto"><a class="btn" href="/explore/#walk">Walk inside</a><a class="btn" href="/explore/#fly">Fly inside</a></div>
+      </div>
+      <div class="card" id="vr">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h18v8h-6l-3-3-3 3H3z"/></svg></div>
+        <h3>Stand inside in VR</h3>
+        <p>On a Meta Quest or an Apple Vision Pro, open <b>hcsa-site.vercel.app/explore</b> in the headset's browser and press <b>Enter VR</b>. You start inside, by the hatch; press the trigger, or pinch, to move on to the Earth window, the pods and the greenhouses.</p>
+        <a class="btn" href="/explore/#walk">Open for VR</a>
       </div>
     </div>
   </div>
 </section>
 
-<section>
-  <div class="grid">
-    <figure><img src="inside.jpg" alt="Inside the station, looking past the column to the Earth" loading="lazy"><figcaption>Inside: the column, the greenhouses and the Earth below</figcaption></figure>
-    <figure><img src="pods.jpg" alt="Cutaway of the station showing two soft pods beside the column" loading="lazy"><figcaption>The pods, after Marina Kouroumali’s interior concept</figcaption></figure>
-    <figure><img src="assembly.jpg" alt="The station being assembled in orbit, panels coming off the launch stack" loading="lazy"><figcaption>Assembled in orbit, panel by panel, from one launch</figcaption></figure>
+<section id="about" class="alt">
+  <div class="wrap">
+    <div class="two">
+      <div>
+        <p class="eyebrow">About the project</p>
+        <h2>What we are designing</h2>
+        <p>The station is a truncated icosahedron, the shape of a football, 11.15 metres across and made of 32 flat panels. The twenty six-sided panels are windows. Each one is a grid of 96 glass panes held in an aluminium frame. The twelve five-sided panels are solid: they carry solar panels and shields that unroll over the windows to protect them.</p>
+        <p>Inside there is no floor and no up or down. A central column carries power, water and plants. Soft pods hang from it for time alone with the view, and small greenhouses grow greens that visitors can taste.</p>
+        <p>We are students at Brown University and the Rhode Island School of Design, advised by Prof. Rick Fleeter. The work is a feasibility study: we are finding out, with calculations and real tests, whether a glass room like this can hold air in space.</p>
+      </div>
+      <dl class="card facts" aria-label="Key facts">
+        <dt>Shape</dt><dd>Truncated icosahedron, 32 panels</dd>
+        <dt>Size</dt><dd>11.151 m across, 2.25 m edges</dd>
+        <dt>Windows</dt><dd>20 glass hexagons</dd>
+        <dt>Inside</dt><dd>About 490 m³ of open room</dd>
+        <dt>A visit</dt><dd>About six people, one 90-minute orbit</dd>
+        <dt>Launch</dt><dd>One Starship V3</dd>
+        <dt>Advisor</dt><dd>Prof. Rick Fleeter, Brown University</dd>
+      </dl>
+    </div>
+    <div class="gallery">
+      <figure><img src="inside.jpg" alt="Inside the station, looking past the column to the Earth" loading="lazy"><figcaption>Inside: the column, the greenhouses and the Earth below</figcaption></figure>
+      <figure><img src="pods.jpg" alt="Cutaway of the station showing two soft pods beside the column" loading="lazy"><figcaption>The pods, from Marina Kouroumali's interior design</figcaption></figure>
+      <figure><img src="assembly.jpg" alt="The station being assembled in orbit, panels coming off the launch stack" loading="lazy"><figcaption>Built in orbit, panel by panel, from one launch</figcaption></figure>
+    </div>
   </div>
 </section>
 
-<section id="access">
-  <div class="card" style="max-width:560px">
-    <h2 style="font-size:28px">Team access</h2>
-    <p style="color:var(--mut);margin:0">The full site, the 3D model, the drawings and the test results are for the team, our advisor and partners. Enter the password you were given.</p>
-    <form method="post" action="/api/login">
-      <input type="password" name="password" placeholder="Password" autocomplete="current-password" required>
-      <input type="hidden" name="next" id="next" value="/">
-      <button class="btn primary" type="submit">Enter</button>
+<section id="timeline">
+  <div class="wrap">
+    <p class="eyebrow">Timeline</p>
+    <h2>From idea to tested hardware, stage by stage</h2>
+    <p class="lead">Every test runs on the computer first. Only when the computer model of a test is checked do we build the real part and break it.</p>
+    <ol class="tl">
+      <li class="done"><div class="dot"></div><div class="when">2025 – spring 2026</div><h3>The idea</h3><p>The shape, the interior concept and a first full CAD model, down to every bolt.</p></li>
+      <li class="done"><div class="dot"></div><div class="when">Sep – Oct 2026</div><h3>Team and design</h3><p>A new team, and the design we now work from (Rev E): 22 mm borosilicate glass panes and their seals.</p></li>
+      <li class="now"><div class="dot"></div><div class="when">Oct – Dec 2026</div><h3>Computer tests</h3><p>Stress models of the seams, the corners and the whole shell, to find where it would fail first.</p><span class="here">We are here</span></li>
+      <li><div class="dot"></div><div class="when">Nov 2026 – Jan 2027</div><h3>Making test parts</h3><p>Drawings go to machine shops. Full-size slices of the seam between two panels are made.</p></li>
+      <li><div class="dot"></div><div class="when">Jan – spring 2027</div><h3>First real tests</h3><p>We pull the seam slices apart at Brown, break glass bars to measure their strength, and test one panel at quarter scale under water pressure.</p></li>
+      <li><div class="dot"></div><div class="when">Fall 2027 on</div><h3>The corner</h3><p>Where three panels meet. Tested at full size once the seam and panel tests match the computer.</p></li>
+      <li><div class="dot"></div><div class="when">Spring 2028</div><h3>The final study</h3><p>One paper with every decision, drawing and test result, and the case for building it.</p></li>
+    </ol>
+    <div class="legend"><span><i style="background:var(--done)"></i>Done</span><span><i style="background:var(--now)"></i>Happening now</span><span><i style="background:rgba(255,255,255,.3)"></i>Coming next</span></div>
+  </div>
+</section>
+
+<section id="status" class="alt">
+  <div class="wrap">
+    <p class="eyebrow">Where we are</p>
+    <h2>The state of the project</h2>
+    <p class="lead">Updated 2 November 2026.</p>
+    <div class="status">
+      <div class="card"><h3>Design <span class="pill done">Decided</span></h3><p>On 23 October we settled the window design: 22 mm panes of BOROFLOAT 33 glass, 96 to each hexagon, sealed with two loops of butyl and a bead of silicone. The detailed drawings are being finished now.</p></div>
+      <div class="card"><h3>Computer tests <span class="pill now">Running</span></h3><p>We run stress models of the seam between two panels, the corners where panels meet, and the whole pressurised shell. They show where it would give way first, so the real tests aim at the right places.</p></div>
+      <div class="card"><h3>Test parts <span class="pill now">Quoting</span></h3><p>The seam test pieces are drawn, and we are asking machine shops for prices. The glass for the strength tests has been donated, and quotes for the glass bars are in.</p></div>
+      <div class="card"><h3>Physical tests <span class="pill next">Jan – Feb 2027</span></h3><p>We pull the seam slices apart on a load frame at Brown, with a strain recorder on loan from Dewesoft. In the spring we break glass bars to measure how strong the glass really is.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="sponsors">
+  <div class="wrap">
+    <p class="eyebrow">Sponsors and supporters</p>
+    <h2>The people already helping us</h2>
+    <p class="lead">These companies and institutions have given us materials, software, loans, discounts or advice. Thank you. The label on each says what kind of help it is.</p>
+    <div class="logos" id="logos"></div>
+
+    <div class="three">
+      <div>
+        <h3>What your support pays for</h3>
+        <ul>
+          <li>Seam test pieces: aluminium frames, steel pull blocks, bolts, seals and sealant.</li>
+          <li>Machining the test parts to the drawings.</li>
+          <li>Glass bars to break, so we know how strong the glass is.</li>
+          <li>A water pressure rig to test one panel at quarter scale.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Ways you can help</h3>
+        <ul>
+          <li><b>Funding</b> for parts, machining and tests.</li>
+          <li><b>Workshop time</b> to machine, seal and work glass.</li>
+          <li><b>Materials:</b> aluminium, glass, seals and fasteners.</li>
+          <li><b>Advice</b> from people who know structures, glass, life support or human comfort.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>What sponsors get</h3>
+        <ul>
+          <li>Your name or logo here, and in our talks and posters.</li>
+          <li>Photos, test results and short reports as each step is done.</li>
+          <li>Time with the student team and our advisor, and a look at the hardware.</li>
+          <li>An early look at Brown and RISD students in engineering and design.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="btns" style="margin-top:36px"><a class="btn primary" href="#contact">Become a sponsor</a></div>
+  </div>
+</section>
+
+<section id="contact" class="alt">
+  <div class="wrap two">
+    <div>
+      <p class="eyebrow">Contact us</p>
+      <h2>Write to the team</h2>
+      <p class="lead">Sponsors, press, researchers and students are all welcome. We reply within a few days, and we can send a short sponsor pack.</p>
+      <p class="contactline">Manos Theofanous, project lead<br><a href="mailto:emmanouel_theofanous@brown.edu">emmanouel_theofanous@brown.edu</a></p>
+      <p class="mut" style="font-size:16px">School of Engineering, Brown University, Providence, Rhode Island</p>
+    </div>
+    <form class="contact" id="contactForm" aria-label="Contact form">
+      <label>Your name<input name="name" autocomplete="name" required></label>
+      <label>Organisation<input name="org" autocomplete="organization"></label>
+      <label class="full">I am writing about
+        <select name="topic">
+          <option>Sponsoring the project</option>
+          <option>Materials, parts or workshop time</option>
+          <option>Advice or a review</option>
+          <option>Press</option>
+          <option>Joining the team</option>
+          <option>Something else</option>
+        </select>
+      </label>
+      <label class="full">Message<textarea name="msg" required placeholder="How you would like to help, or what you would like to know"></textarea></label>
+      <div class="full"><button class="btn primary" type="submit">Write the email</button>
+        <p class="mut" style="font-size:15px;margin:10px 0 0">This opens your email app with the message filled in, addressed to the team.</p></div>
     </form>
-    <div class="err" id="err">That password did not work. Try again.</div>
-    <p style="color:var(--mut);font-size:13px;margin:16px 0 0">Sponsors, press and researchers: write to Manos Theofanous at <a href="mailto:emmanouel_theofanous@brown.edu">emmanouel_theofanous@brown.edu</a> for access.</p>
   </div>
 </section>
 
-<footer>Human-Centric Space Architecture · Brown University and RISD · Images from the HCSA master 3D model, October 2026.</footer>
+<section id="team">
+  <div class="wrap two">
+    <div>
+      <p class="eyebrow">The team</p>
+      <h2>Who we are</h2>
+      <ul class="team">
+        <li><b>Manos Theofanous</b><br>Project lead, structure and materials</li>
+        <li><b>Prof. Rick Fleeter</b><br>Faculty advisor</li>
+        <li><b>Finn Jolly</b><br>Panels and glazing</li>
+        <li><b>Marina Kouroumali</b><br>Head of interior</li>
+        <li><b>Androniki</b><br>Interior concept and models</li>
+        <li><b>Amalia</b><br>Interior CAD</li>
+        <li><b>Skye</b><br>Thermal and life support</li>
+        <li><b>Gerasimos Nikolopoulos</b><br>Life support, plants and biology</li>
+      </ul>
+    </div>
+    <div class="card" id="access">
+      <h3>Team access</h3>
+      <p class="mut" style="font-size:16px">The full site, the drawings, the parts library and the test results are for the team, our advisor and partners. Enter the password you were given.</p>
+      <form method="post" action="/api/login" class="access">
+        <label class="sr" for="pw">Password</label>
+        <input id="pw" type="password" name="password" placeholder="Password" autocomplete="current-password" required>
+        <input type="hidden" name="next" id="next" value="/">
+        <button class="btn primary" type="submit">Enter</button>
+      </form>
+      <div class="err" id="err">That password did not work. Try again.</div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap">Human-Centric Space Architecture · Brown University and the Rhode Island School of Design · Images and video from the HCSA 3D model.</div></footer>
+
 <script>
-  const q = new URLSearchParams(location.search);
-  if (q.get('next')) document.getElementById('next').value = q.get('next');
-  if (q.get('e')) document.getElementById('err').style.display = 'block';
+// sponsors: a logo when we have the file in /preview/logos/, the name otherwise
+const SPONSORS = [
+  { name: 'SCHOTT North America', kind: 'Donation', logo: 'schott', href: 'https://www.schott.com', body: 'BOROFLOAT 33 glass discs for our glass strength tests.' },
+  { name: 'Meller Optics', kind: 'Donation', logo: 'meller-optics.png', withName: true, href: 'https://www.melleroptics.com', body: 'Sapphire discs for our glass strength tests.' },
+  { name: 'Ansys', kind: 'Software licence', logo: 'ansys', href: 'https://www.ansys.com', body: 'Licences for the computer stress tests of the seams, corners and shell.' },
+  { name: 'SOLIDWORKS', kind: 'Software licence', logo: 'solidworks', href: 'https://www.solidworks.com', body: 'Licences for our design and engineering models.' },
+  { name: 'MEPLA', kind: 'Software licence', logo: 'mepla.svg', href: 'https://www.mepla.net', body: 'A student licence of SJ MEPLA, which we use to analyse the glass panes.' },
+  { name: 'Dewesoft', kind: 'Loan', logo: 'dewesoft', href: 'https://dewesoft.com', body: 'A loan of a strain recorder and its software for the tests in early 2027.' },
+  { name: 'Bolt Depot', kind: 'Donation', logo: 'bolt-depot', href: 'https://www.boltdepot.com', body: 'Bolts for the test pieces and rigs.' },
+  { name: 'Precision Glass & Optics', kind: 'Offer', logo: 'pgo', href: 'https://www.pgo.com', body: 'An offer of Borofloat discs for the glass tests.' },
+  { name: 'OSH Cut', kind: 'Discount', logo: 'osh-cut.svg', href: 'https://www.oshcut.com', body: 'Half price on laser-cut parts through 2026.' },
+  { name: 'PCBWay', kind: 'Discount', logo: 'pcbway', href: 'https://www.pcbway.com', body: 'Half price on CNC machining, 3D printing and circuit boards, through their Future Innovators Program.' },
+  { name: 'Parker', kind: 'Advice', logo: 'parker', href: 'https://www.parker.com', body: 'Advice on sealing the joints with butyl in place of fluorosilicone.' },
+  { name: 'Brown University', kind: 'Funding', logo: 'brown', href: 'https://www.brown.edu', body: 'An Undergraduate Teaching and Research Award (UTRA), and labs and shops for our tests.' },
+];
+const box = document.getElementById('logos');
+for (const s of SPONSORS) {
+  const el = document.createElement('div'); el.className = 'logo';
+  el.innerHTML = `<a href="${s.href}" rel="noopener" target="_blank"><div class="mark"><span class="word">${s.name}</span></div></a><div class="kind">${s.kind}</div><p>${s.body}</p>`;
+  box.appendChild(el);
+  // try the logo file; keep the name if there is none yet
+  const files = s.logo.includes('.') ? [s.logo] : [s.logo + '.svg', s.logo + '.png'];
+  (function tryNext(i) {
+    if (i >= files.length) return;
+    const img = new Image(); img.alt = s.name;
+    img.onload = () => { const m = el.querySelector('.mark'); m.innerHTML = ''; m.appendChild(img); if (s.withName) { const w = document.createElement('span'); w.className = 'word'; w.style.marginLeft = '14px'; w.textContent = s.name; m.appendChild(w); } };
+    img.onerror = () => tryNext(i + 1);
+    img.src = 'logos/' + files[i];
+  })(0);
+}
+
+// contact form: compose an email to the team
+document.getElementById('contactForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const f = new FormData(e.target);
+  const subject = `[HCSA] ${f.get('topic')}${f.get('org') ? ' – ' + f.get('org') : ''}`;
+  const body = `${f.get('msg')}\n\n${f.get('name')}${f.get('org') ? '\n' + f.get('org') : ''}`;
+  location.href = `mailto:emmanouel_theofanous@brown.edu?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+});
+
+// login redirect + error
+const q = new URLSearchParams(location.search);
+if (q.get('next')) document.getElementById('next').value = q.get('next');
+if (q.get('e')) { document.getElementById('err').style.display = 'block'; location.hash = 'access'; }
+
+// solid bar after the hero
+const bar = document.getElementById('bar');
+const onScroll = () => bar.classList.toggle('solid', scrollY > innerHeight * 0.6);
+addEventListener('scroll', onScroll, { passive: true }); onScroll();
 </script>
 </body>
 </html>

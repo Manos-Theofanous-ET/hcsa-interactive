@@ -123,7 +123,7 @@ export function PhaseRail() {
           />
         ))}
       </div>
-      <span className="data pointer-events-none text-[12px] tabular-nums text-white/60 [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]">
+      <span className="data pointer-events-none text-[12px] tabular-nums text-white/82 [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]">
         <span ref={countRef}>1</span> of {PHASES.length}
       </span>
     </nav>

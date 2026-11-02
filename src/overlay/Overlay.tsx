@@ -115,7 +115,7 @@ export function Overlay() {
           <div className="hcsa-footer-grid">
             <div>
               <p className="font-serif text-2xl text-white">Human-Centric Space Architecture</p>
-              <p className="mt-2 max-w-sm text-[15px] leading-relaxed text-white/60">
+              <p className="mt-2 max-w-sm text-[15px] leading-relaxed text-white/82">
                 HCSA is a student research project at Brown University, developed with the Rhode Island School of Design.
               </p>
             </div>

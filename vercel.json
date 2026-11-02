@@ -4,50 +4,67 @@
   "buildCommand": "pnpm build",
   "outputDirectory": "dist",
   "installCommand": "pnpm install --frozen-lockfile",
-  "rewrites": [
+  "redirects": [
     {
       "source": "/plan",
-      "destination": "/plan/index.html"
+      "destination": "/plan/",
+      "permanent": false
+    },
+    {
+      "source": "/blueprints",
+      "destination": "/blueprints/",
+      "permanent": false
+    },
+    {
+      "source": "/tests",
+      "destination": "/tests/",
+      "permanent": false
+    },
+    {
+      "source": "/model",
+      "destination": "/model/",
+      "permanent": false
+    },
+    {
+      "source": "/preview",
+      "destination": "/preview/",
+      "permanent": false
+    },
+    {
+      "source": "/parts",
+      "destination": "/parts/",
+      "permanent": false
+    },
+    {
+      "source": "/explore",
+      "destination": "/explore/",
+      "permanent": false
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/explore/",
+      "destination": "/model/index.html"
     },
     {
       "source": "/plan/",
       "destination": "/plan/index.html"
     },
     {
-      "source": "/blueprints",
-      "destination": "/blueprints/index.html"
-    },
-    {
       "source": "/blueprints/",
       "destination": "/blueprints/index.html"
-    },
-    {
-      "source": "/tests",
-      "destination": "/tests/index.html"
     },
     {
       "source": "/tests/",
       "destination": "/tests/index.html"
     },
     {
-      "source": "/model",
-      "destination": "/model/index.html"
-    },
-    {
       "source": "/model/",
       "destination": "/model/index.html"
     },
     {
-      "source": "/preview",
-      "destination": "/preview/index.html"
-    },
-    {
       "source": "/preview/",
       "destination": "/preview/index.html"
-    },
-    {
-      "source": "/parts",
-      "destination": "/parts/index.html"
     },
     {
       "source": "/parts/",

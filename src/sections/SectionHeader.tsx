@@ -72,7 +72,7 @@ export function EditorialSection({ id, index, label, title, intro, children }: S
             >
               {title}
             </h2>
-            {intro ? <p className="mt-5 max-w-2xl text-lg leading-relaxed text-white/72">{intro}</p> : null}
+            {intro ? <p className="mt-5 max-w-2xl text-lg leading-relaxed text-white/82">{intro}</p> : null}
           </header>
           {children}
         </div>
@@ -100,7 +100,7 @@ export function RuledList({
         <li key={it.title} data-reveal>
           <p className="font-serif text-[1.3rem] leading-snug text-white">{it.title}</p>
           {it.meta ? <p className="hcsa-ruled-meta">{it.meta}</p> : null}
-          {it.body ? <p className="mt-2 text-[1.02rem] leading-relaxed text-white/68">{it.body}</p> : null}
+          {it.body ? <p className="mt-2 text-[1.02rem] leading-relaxed text-white/82">{it.body}</p> : null}
         </li>
       ))}
     </ul>
@@ -113,7 +113,7 @@ export function LinkRow({ href, title, body }: { href: string; title: string; bo
     <a href={href} className="hcsa-linkrow" data-reveal>
       <span>
         <span className="hcsa-linkrow-title">{title}</span>
-        <span className="mt-1 block text-base text-white/65">{body}</span>
+        <span className="mt-1 block text-base text-white/82">{body}</span>
       </span>
       <span aria-hidden className="hcsa-linkrow-arrow">
         <ArrowIcon />

@@ -6,9 +6,9 @@
 <title>HCSA station, Rev E, 3D model</title>
 <meta name="robots" content="noindex">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" href="/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <style>
+  @font-face{font-family:Inter;src:url(/fonts/inter-latin-wght-normal.woff2) format("woff2");font-weight:100 900;font-display:swap}
   html,body{margin:0;height:100%;background:#000;overflow:hidden;font-family:Inter,system-ui,sans-serif;color:#e8edf3}
   canvas{display:block}
   #ui{position:absolute;left:16px;top:16px;width:300px;max-height:calc(100% - 32px);overflow:auto;
@@ -52,6 +52,16 @@
   .row2{display:flex;gap:6px;margin-top:6px}
   .row2 button{flex:1;text-align:center}
   @media (max-width:640px){#tabs{top:8px}#ui{top:auto}}
+  #ui a.back{font-size:12px;color:#9cc4ff;font-weight:500;margin-left:6px;text-decoration:none}
+  #ui a.back:hover{text-decoration:underline}
+  #flypad{position:absolute;right:16px;bottom:16px;display:none;grid-template-columns:repeat(3,52px);gap:6px;z-index:6}
+  #flypad button{height:52px;text-align:center;font-size:18px;padding:0;touch-action:none;user-select:none;-webkit-user-select:none}
+  body.fly #flypad{display:grid}
+  #vrFloat{position:absolute;right:16px;bottom:16px;z-index:6}
+  body.fly #vrFloat{bottom:132px}
+  #vrFloat button{position:static!important;width:auto!important;padding:9px 14px!important;font:600 13px Inter,sans-serif!important;background:rgba(110,170,255,.3)!important;border:1px solid rgba(130,180,255,.7)!important;border-radius:8px!important;opacity:1!important}
+  body.cine #ui,body.cine #tabs,body.cine #hide,body.cine #labels,body.cine #flypad,body.cine #vrFloat{display:none!important}
+  body.public .internal{display:none!important}
 
 </style>
 <script type="importmap">
@@ -67,14 +77,15 @@
 <div id="tabs">
   <button data-mode="explore" class="on">Explore</button>
   <button data-mode="walk">Walk inside</button>
-  <button data-mode="systems">Systems</button>
-  <button data-mode="shields">Shutters, shields, pressure</button>
+  <button data-mode="fly">Fly inside</button>
+  <button data-mode="systems" class="internal">Systems</button>
+  <button data-mode="shields" class="internal">Shutters, shields, pressure</button>
   <button data-mode="visit">The visit</button>
-  <button data-mode="life">Life of the station</button>
+  <button data-mode="life" class="internal">Life of the station</button>
 </div>
 <div id="ui">
 <section data-mode="explore">
-  <h1>HCSA station, Rev E <a href="/" style="font-size:11px;opacity:.6;font-weight:400;margin-left:6px">← site</a></h1>
+  <h1>HCSA station, Rev E <a class="back" id="backLink" href="/">← Back to the site</a></h1>
   <div class="sub">Transparent observation facility in low Earth orbit, 400 km up</div>
 
   <h2>Views</h2>
@@ -111,9 +122,9 @@
     <span>Structure</span><span>6061-T6 frames, I 400 main ribs, k 4 secondary grid, 60 corner blocks</span>
     <span>Inside</span><span>493 m³ clear, 9.40 m across the hexagons</span>
     <span>Pods</span><span>Marina's two pods: 5.2 m and 2.35 m tall, hung from the column</span>
-    <span>Mass</span><span>44.1 t in the Rev E model</span>
+    <span class="internal">Mass</span><span class="internal">44.1 t in the Rev E model</span>
   </div>
-  <div class="note">The shell follows the Rev E model and the locked spec. The two pods follow Marina's 13 October working images, sized from her April numbers (2.5 m and 5.5 m on a 10 m sphere) scaled to the 9.40 m envelope; their exact shape and mounts wait on her answers. The column, greenhouses, ropes and people are placeholders. Drag to orbit, scroll to zoom.</div>
+  <div class="note internal">The shell follows the Rev E model and the locked spec. The two pods follow Marina's 13 October working images, sized from her April numbers (2.5 m and 5.5 m on a 10 m sphere) scaled to the 9.40 m envelope; their exact shape and mounts wait on her answers. The column, greenhouses, ropes and people are placeholders. Drag to orbit, scroll to zoom.</div>
 </section>
 
 <section data-mode="walk" hidden>
@@ -121,8 +132,17 @@
   <div class="sub">Float from stop to stop. Drag to look around; tap a glowing dot to move there.</div>
   <div class="views" id="stops" style="grid-template-columns:1fr"></div>
   <div class="row2"><button id="nightBtn">Night viewing: cabin dark</button></div>
-  <div id="vrSlot"></div>
-  <div class="note">With a Quest or Vision Pro, the VR button appears here and puts you inside at the current stop. The ropes and placeholder people are hidden in this mode.</div>
+  <div class="note">In VR (Meta Quest or Apple Vision Pro), press the VR button at the bottom right. You start at the current stop; press the trigger, or pinch, to move to the next stop.</div>
+</section>
+
+<section data-mode="fly" hidden>
+  <h1>Fly inside</h1>
+  <div class="sub">Move freely, the way you would in zero gravity.</div>
+  <p><b>Look:</b> drag with the mouse or a finger.<br><b>Move:</b> W A S D or the arrow keys; E or Space to rise, Q or Shift to sink. On a phone, hold the arrows at the bottom right.</p>
+  <label class="row">Speed <input id="flySpeed" type="range" min="0.3" max="4" step="0.1" value="1.2"></label>
+  <label class="row">Stay inside the room <input id="flyClamp" type="checkbox" checked style="width:auto"></label>
+  <div class="row2"><button id="flyIn">Start in the middle</button><button id="flyOut">Start outside</button></div>
+  <div class="row2"><button id="flyNight">Cabin dark</button></div>
 </section>
 
 <section data-mode="systems" hidden>
@@ -179,7 +199,7 @@
   </div>
   <div class="row2"><button id="pathsBtn">Movement paths</button><button id="vIn">Watch inside</button><button id="vOut">Cutaway</button></div>
   <div id="legend" style="margin-top:8px"></div>
-  <div class="note">The order of the visit and where each use happens are our proposal until Marina sends her minute-by-minute (questions sent 30 Oct).</div>
+  <div class="note internal">The order of the visit and where each use happens are our proposal until Marina sends her minute-by-minute (questions sent 30 Oct).</div>
 </section>
 
 <section data-mode="life" hidden>
@@ -191,6 +211,11 @@
 </section>
 </div>
 <button id="hide">Hide panel</button>
+<div id="flypad" aria-label="Fly controls">
+  <button data-k="up" title="Rise">⤒</button><button data-k="fwd" title="Forward">▲</button><button data-k="down" title="Sink">⤓</button>
+  <button data-k="left" title="Left">◀</button><button data-k="back" title="Back">▼</button><button data-k="right" title="Right">▶</button>
+</div>
+<div id="vrFloat"></div>
 
 <script type="module">
 import * as THREE from 'three';
@@ -1679,6 +1704,7 @@ hooks.push((t, dt) => {
 // MODES
 // =====================================================================
 let mode = 'explore';
+let cameFromFly = false;
 const saved = {};
 function setMode(m) {
   if (m === mode) return;
@@ -1688,16 +1714,18 @@ function setMode(m) {
   if (mode === 'shields') { setPressure(0); seamMesh.visible = false; glass.emissive = new THREE.Color(0, 0, 0); }
   if (mode === 'visit') { visit.group.visible = false; paths.visible = false; camRig.visible = false; spotLight.intensity = 0; visit.playing = false; clutter.visible = true; setSun(38); setShutters(shutterPresets.clear); cabinLights.forEach(l => l.intensity = 8 * 0.55); }
   if (mode === 'life') { life.playing = false; resetAssembly(); shield.td = shield.tk = 0; lifeCh = -1; }
+  if (mode === 'fly') leaveFly();
   mode = m;
   document.querySelectorAll('#tabs button').forEach(b => b.classList.toggle('on', b.dataset.mode === m));
   document.querySelectorAll('#ui section').forEach(s => s.hidden = s.dataset.mode !== m);
   setCut(false);
-  if (m === 'explore') go('approach');
+  if (m === 'explore' && !cameFromFly) go('approach'); cameFromFly = false;
   if (m === 'walk') { clutter.visible = false; stopMarkers.visible = true; controls.enableZoom = false; controls.enablePan = false; controls.rotateSpeed = -0.35; controls.minDistance = 0.01; controls.maxDistance = 0.2; goStop(walkI); }
   if (m === 'systems') { setSystem('power', true); tween = { p0: camera.position.clone(), t0: controls.target.clone(), p1: V3(11, 5, 12), t1: V3(0, 0, 0), f0: camera.fov, f1: 42, s: performance.now(), d: 1600 }; }
   if (m === 'shields') { go('approach'); setPressure(0); }
   if (m === 'visit') { clutter.visible = false; visit.group.visible = true; paths.visible = $('pathsBtn').classList.contains('on'); setVisit(visit.t); go('cutaway'); }
   if (m === 'life') setLife(life.L);
+  if (m === 'fly') enterFly();
 }
 document.querySelectorAll('#tabs button').forEach(b => b.onclick = () => setMode(b.dataset.mode));
 // walk UI
@@ -1706,7 +1734,7 @@ document.querySelectorAll('[data-stop]').forEach(b => b.onclick = () => goStop(+
 $('nightBtn').onclick = (e) => { const on = !e.target.classList.contains('on'); e.target.classList.toggle('on', on); cabinLights.forEach(l => l.intensity = 8 * (on ? 0.06 : 0.55)); ledRingMat.color.setRGB(on ? 0.3 : 3, on ? 0.22 : 2.2, on ? 0.14 : 1.4); };
 import('three/addons/webxr/VRButton.js').then(({ VRButton }) => {
   if (!('xr' in navigator)) return;
-  navigator.xr.isSessionSupported('immersive-vr').then(ok => { if (!ok) return; const b = VRButton.createButton(renderer); b.style.position = 'static'; b.style.width = '100%'; b.style.marginTop = '8px'; $('vrSlot').appendChild(b); });
+  navigator.xr.isSessionSupported('immersive-vr').then(ok => { if (!ok) return; const b = VRButton.createButton(renderer); $('vrFloat').appendChild(b); });
 }).catch(() => {});
 // systems UI
 document.querySelectorAll('[data-sys]').forEach(b => b.onclick = () => setSystem(b.dataset.sys, !sysOn.has(b.dataset.sys)));
@@ -1771,6 +1799,165 @@ addEventListener('resize', () => {
   renderer.setSize(innerWidth, innerHeight); composer.setSize(innerWidth, innerHeight);
 });
 
+
+// =====================================================================
+// FLY INSIDE: free flight, mouse/touch look, keys or on-screen pad
+// =====================================================================
+const fly = { yaw: 0, pitch: 0, keys: new Set(), drag: null };
+const INNER_R = 4.25;   // stay inside the 9.40 m clear interior, with a margin
+function flyLookFrom(dir) { fly.yaw = Math.atan2(-dir.x, -dir.z); fly.pitch = Math.asin(THREE.MathUtils.clamp(dir.y, -1, 1)); }
+function flyDir() { return V3(-Math.sin(fly.yaw) * Math.cos(fly.pitch), Math.sin(fly.pitch), -Math.cos(fly.yaw) * Math.cos(fly.pitch)); }
+function flyStart(where) {
+  setCut(false); clutter.visible = false;
+  if (where === 'out') { camera.position.set(9, 2.5, 10); flyLookFrom(V3(0, 0, 0).sub(camera.position).normalize()); $('flyClamp').checked = false; }
+  else { camera.position.set(1.6, 0.6, 1.9); flyLookFrom(low.c.clone().sub(camera.position).normalize()); $('flyClamp').checked = true; }
+  camera.fov = 70; camera.updateProjectionMatrix();
+}
+function enterFly() {
+  document.body.classList.add('fly'); controls.enabled = false; tween = null;
+  const inside = camera.position.length() < INNER_R + 0.3;
+  if (inside) { flyLookFrom(controls.target.clone().sub(camera.position).normalize()); camera.fov = 70; camera.updateProjectionMatrix(); clutter.visible = false; }
+  else flyStart('in');
+}
+function leaveFly() {
+  document.body.classList.remove('fly'); controls.enabled = true; fly.keys.clear(); clutter.visible = true;
+  controls.target.copy(camera.position).addScaledVector(flyDir(), camera.position.length() < INNER_R + 0.3 ? 0.3 : 6);
+  cameFromFly = camera.position.length() > INNER_R + 0.3;
+}
+{
+  const el = renderer.domElement;
+  el.addEventListener('pointerdown', e => { if (mode === 'fly') { fly.drag = [e.clientX, e.clientY]; el.setPointerCapture(e.pointerId); } });
+  el.addEventListener('pointermove', e => {
+    if (mode !== 'fly' || !fly.drag) return;
+    const dx = e.clientX - fly.drag[0], dy = e.clientY - fly.drag[1]; fly.drag = [e.clientX, e.clientY];
+    fly.yaw += dx * 0.0042; fly.pitch = THREE.MathUtils.clamp(fly.pitch + dy * 0.0042, -1.5, 1.5);
+  });
+  el.addEventListener('pointerup', () => fly.drag = null);
+  el.addEventListener('wheel', e => { if (mode === 'fly') { e.preventDefault(); camera.position.addScaledVector(flyDir(), -e.deltaY * 0.004); } }, { passive: false });
+  const map = { KeyW: 'fwd', ArrowUp: 'fwd', KeyS: 'back', ArrowDown: 'back', KeyA: 'left', ArrowLeft: 'left', KeyD: 'right', ArrowRight: 'right', KeyE: 'up', Space: 'up', KeyQ: 'down', ShiftLeft: 'down', ShiftRight: 'down' };
+  addEventListener('keydown', e => { if (mode !== 'fly' || !map[e.code] || e.target.tagName === 'INPUT') return; fly.keys.add(map[e.code]); e.preventDefault(); });
+  addEventListener('keyup', e => { if (map[e.code]) fly.keys.delete(map[e.code]); });
+  addEventListener('blur', () => fly.keys.clear());
+  document.querySelectorAll('#flypad [data-k]').forEach(b => {
+    const k = b.dataset.k;
+    b.addEventListener('pointerdown', e => { e.preventDefault(); fly.keys.add(k); });
+    ['pointerup', 'pointerleave', 'pointercancel'].forEach(ev => b.addEventListener(ev, () => fly.keys.delete(k)));
+  });
+}
+$('flyIn').onclick = () => flyStart('in');
+$('flyOut').onclick = () => flyStart('out');
+$('flyNight').onclick = (e) => { const on = !e.target.classList.contains('on'); e.target.classList.toggle('on', on); cabinLights.forEach(l => l.intensity = 8 * (on ? 0.06 : 0.55)); ledRingMat.color.setRGB(on ? 0.3 : 3, on ? 0.22 : 2.2, on ? 0.14 : 1.4); };
+hooks.push((t, dt) => {
+  if (mode !== 'fly' || renderer.xr.isPresenting) return;
+  const f = flyDir(), r = V3(-Math.cos(fly.yaw), 0, Math.sin(fly.yaw)).negate(), u = V3(0, 1, 0);
+  const v = V3(); const K = fly.keys;
+  if (K.has('fwd')) v.add(f); if (K.has('back')) v.sub(f); if (K.has('right')) v.add(r); if (K.has('left')) v.sub(r); if (K.has('up')) v.add(u); if (K.has('down')) v.sub(u);
+  if (v.lengthSq()) camera.position.addScaledVector(v.normalize(), +$('flySpeed').value * dt * (camera.position.length() > INNER_R + 0.5 ? 4 : 1));
+  if ($('flyClamp').checked) {
+    if (camera.position.length() > INNER_R) camera.position.setLength(INNER_R);
+    const h = Math.hypot(camera.position.x, camera.position.z);           // keep out of the column
+    if (h < colR + 0.35 && Math.abs(camera.position.y) < colLen / 2) { const k = (colR + 0.35) / Math.max(h, 1e-3); camera.position.x *= k; camera.position.z *= k; }
+  }
+  camera.lookAt(camera.position.clone().add(f));
+});
+
+// VR: the trigger (or a pinch) moves you to the next stop
+for (let i = 0; i < 2; i++) {
+  const c = renderer.xr.getController(i); dolly.add(c);
+  c.addEventListener('select', () => { walkI = (walkI + 1) % stops.length; dolly.position.copy(stops[walkI].pos).add(V3(0, -1.5, 0)); });
+}
+
+// =====================================================================
+// PUBLIC (/explore): the same model, without the internal engineering tabs
+// =====================================================================
+const PUBLIC = location.pathname.startsWith('/explore');
+if (PUBLIC) {
+  document.body.classList.add('public');
+  document.title = 'Explore the HCSA station in 3D';
+  $('backLink').href = '/preview/'; $('backLink').textContent = '← Back to HCSA';
+  if (['systems', 'shields', 'life'].includes(mode)) setMode('explore');
+}
+if (startView === 'fly') { go('inside', true); setMode('fly'); }
+
+// =====================================================================
+// CINE (?cine): a deterministic camera and time path for the loop video.
+// u runs 0..1 and loops: far out, zoom in, orbit the outside through
+// sunset, fly in through a window, sunrise inside, back out, zoom out.
+// The sun turns two full orbits (2 days, 2 nights of 90 minutes each).
+// =====================================================================
+const CINE = new URLSearchParams(location.search).has('cine');
+function cineKeys() {
+  const sideHexes = hexes.filter(h => Math.abs(h.n.y) < 0.4);
+  const az = v => Math.atan2(v.z, v.x);
+  const H = sideHexes.reduce((a, b) => (Math.abs(b.n.y + 0.2) < Math.abs(a.n.y + 0.2) ? b : a));
+  const through = (F) => F.c.clone().lerp(F.v[0].clone().add(F.v[1]).multiplyScalar(0.5), 0.42);
+  // the way out: the side window whose straight path from the last inside stop hits nothing (pods, column, plants)
+  const solid = []; interior.traverse(o => { if (o.isMesh && o.visible !== false && !clutter.getObjectById(o.id)) solid.push(o); });
+  const rc = new THREE.Raycaster();
+  const clear = (a, b) => { const d = b.clone().sub(a); const L = d.length(); rc.set(a, d.normalize()); rc.far = L; return rc.intersectObjects(solid, false).length === 0; };
+  const last = stops[2].pos;
+  const H2 = sideHexes.filter(F => F !== H).map(F => ({ F, ok: clear(last, through(F).multiplyScalar(0.55)) && clear(through(F).multiplyScalar(0.55), through(F).clone().multiplyScalar(0.97)), d: F.n.dot(last.clone().normalize()) }))
+    .sort((x, y) => (y.ok - x.ok) || (y.d - x.d))[0].F;
+  console.log('CINE exit hex clear:', clear(last, through(H2).multiplyScalar(0.55)));
+  const sp = (r, a, el) => V3(Math.cos(a) * Math.cos(el) * r, Math.sin(el) * r, Math.sin(a) * Math.cos(el) * r);
+  const D = Math.PI / 180, a2 = az(H2.n), a1 = az(H.n);
+  const pH = through(H), pH2 = through(H2);
+  let sweep = a1 - a2; while (sweep < 0) sweep += Math.PI * 2;  // go round the long way, about 180°
+  const A = (k) => a2 + 30 * D + (sweep - 30 * D) * k;
+  const skyH = hexes.reduce((a, b) => (b.n.y > a.n.y ? b : a));
+  const O = V3(0, 0, 0);
+  return [
+    { u: 0.00, p: sp(150, a2 + 30 * D, 22 * D), t: V3(0, -3, 0), f: 38 },
+    { u: 0.11, p: sp(24, A(0.15), 16 * D), t: O, f: 40 },
+    { u: 0.20, p: sp(17, A(0.45), 30 * D), t: O, f: 42 },
+    { u: 0.29, p: sp(15.5, A(0.75), 4 * D), t: O, f: 42 },
+    { u: 0.36, p: pH.clone().addScaledVector(H.n, 5.5).add(V3(0, 0.6, 0)), t: pH.clone(), f: 46 },
+    { u: 0.41, p: pH.clone().addScaledVector(H.n, 0.6), t: pH.clone().addScaledVector(H.n, -3), f: 60 },
+    { u: 0.47, p: stops[7].pos.clone(), t: pods[0].center.clone(), f: 72 },
+    { u: 0.56, p: stops[1].pos.clone(), t: low.c.clone().multiplyScalar(1.6), f: 70 },
+    { u: 0.64, p: stops[3].pos.clone(), t: pods[1].center.clone(), f: 72 },
+    { u: 0.72, p: stops[2].pos.clone(), t: skyH.c.clone().multiplyScalar(1.6), f: 72 },
+    { u: 0.79, p: pH2.clone().multiplyScalar(0.55), t: O.clone().add(V3(0, -0.4, 0)), f: 60 },
+    { u: 0.85, p: pH2.clone().addScaledVector(H2.n, 1.6), t: O, f: 50 },
+    { u: 0.92, p: sp(45, a2 + 12 * D, 14 * D), t: V3(0, -1, 0), f: 40 },
+  ];
+}
+function cineAt(u, K) {
+  u = ((u % 1) + 1) % 1;
+  const n = K.length; let i = n - 1; while (i > 0 && K[i].u > u) i--;
+  const j = (i + 1) % n, u0 = K[i].u, u1 = j === 0 ? 1 : K[j].u;
+  let s = (u - u0) / (u1 - u0); s = s * s * (3 - 2 * s) * 0.35 + s * 0.65;   // mild ease, no full stops
+  const P = (k) => K[((k % n) + n) % n];
+  const cr = (a, b, c, d, t) => { const t2 = t * t, t3 = t2 * t; return V3().addScaledVector(a, -0.5 * t3 + t2 - 0.5 * t).addScaledVector(b, 1.5 * t3 - 2.5 * t2 + 1).addScaledVector(c, -1.5 * t3 + 2 * t2 + 0.5 * t).addScaledVector(d, 0.5 * t3 - 0.5 * t2); };
+  // the far key (u=0) is huge; interpolate its segments in log-radius so the zoom reads evenly
+  const pos = cr(P(i - 1).p, P(i).p, P(j).p, P(j + 1).p, s);
+  if (i === 0 || i === n - 1) {
+    const ra = P(i).p.length(), rb = P(j).p.length(), r = Math.exp(Math.log(ra) + (Math.log(rb) - Math.log(ra)) * s);
+    pos.setLength(r);
+  }
+  const tgt = P(i).t.clone().lerp(P(j).t, s);
+  const fov = P(i).f + (P(j).f - P(i).f) * s;
+  return { pos, tgt, fov };
+}
+if (CINE) {
+  document.body.classList.add('cine');
+  const K = cineKeys();
+  bloom.strength = 0.3; renderer.toneMappingExposure = 0.9;
+  clutter.visible = false;   // placeholder ropes and people stay out of the film, as in walk mode
+  window.__cine = (u) => {
+    const c = cineAt(u, K);
+    camera.position.copy(c.pos); camera.fov = c.fov; camera.updateProjectionMatrix(); camera.lookAt(c.tgt);
+    const deg = theta0 + (u + 0.08) * 720; setSun(deg, TILT);        // two orbits: 2 days, 2 nights; the loop opens in daylight
+    earth.rotation.set(0.4, 0.2, 0.9); earth.rotateOnWorldAxis(V3(0, 0, 1), -u * Math.PI * 2); // the ground slides below, one full turn per loop so the loop is seamless
+    earthUniforms.uTime.value = 0;
+    const night = sunDir.y < yLim;
+    const k = night ? 0.85 : 0.45;
+    cabinLights.forEach(l => l.intensity = 8 * k);
+    composer.render();
+    return night;
+  };
+}
+
 const clock = new THREE.Clock();
 const blink = station.getObjectByName('blink');
 function frame() {
@@ -1785,7 +1972,7 @@ function frame() {
   }
   const dt = Math.min(0.1, t - (window.__lastT || t)); window.__lastT = t;
   for (const h of hooks) h(t, dt);
-  if (!renderer.xr.isPresenting) controls.update();
+  if (!renderer.xr.isPresenting && mode !== 'fly') controls.update();
   if (cut) { const d = camera.position.clone().sub(controls.target); d.y = 0; d.normalize(); clipPlane.normal.copy(d.negate()); clipPlane.constant = 0.0; }
   if (renderer.xr.isPresenting) renderer.render(scene, camera); else composer.render();
   window.__frames=(window.__frames||0)+1;
@@ -1793,7 +1980,7 @@ function frame() {
 }
 document.getElementById('loading').remove();
 window.__ready = true;
-renderer.setAnimationLoop(frame);
+if (!CINE) renderer.setAnimationLoop(frame);
 </script>
 </body>
 </html>

@@ -69,7 +69,7 @@ export function GallerySection() {
       </div>
 
       <div id="work-panel" role="tabpanel" aria-label={category?.title}>
-        {category ? <p className="mb-6 max-w-2xl text-base text-white/65">{category.blurb}</p> : null}
+        {category ? <p className="mb-6 max-w-2xl text-base text-white/82">{category.blurb}</p> : null}
         {category?.link ? (
           <p className="-mt-3 mb-6">
             <a
@@ -97,7 +97,7 @@ export function GallerySection() {
                   decoding="async"
                   className="h-auto w-full rounded-sm bg-white/5 transition-opacity group-hover:opacity-85"
                 />
-                <span className="mt-2 block text-sm leading-snug text-white/70">{item.caption}</span>
+                <span className="mt-2 block text-sm leading-snug text-white/82">{item.caption}</span>
               </button>
             </li>
           ))}
@@ -133,7 +133,7 @@ export function GallerySection() {
               </button>
               <span className="text-center text-base">
                 {current.caption}
-                <span className="ml-3 text-xs text-white/65 tabular-nums">
+                <span className="ml-3 text-xs text-white/82 tabular-nums">
                   {(viewer?.index ?? 0) + 1} of {viewer?.items.length ?? 0}
                 </span>
               </span>

@@ -54,7 +54,7 @@ export function HeroChapter() {
           <span className="font-semibold tracking-[0.06em]">HCSA</span>
           <span className="hidden sm:inline">
             <span className="mx-2 text-white/35">/</span>
-            <span className="text-white/65">Brown University</span>
+            <span className="text-white/82">Brown University</span>
           </span>
         </div>
         {/* Sponsors land here first: give them a direct path to the
@@ -109,7 +109,7 @@ export function HeroChapter() {
             <span className="block h-full w-full origin-left scale-x-0 bg-[color:var(--color-accent-cyan)] [animation:hcsa-scroll-cue_2.4s_ease-in-out_infinite]" />
           </span>
         </div>
-        <div className="data hidden text-right text-[13px] tabular-nums text-white/55 md:block">
+        <div className="data hidden text-right text-[13px] tabular-nums text-white/82 md:block">
           Part 1 of 9
         </div>
       </footer>

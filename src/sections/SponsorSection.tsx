@@ -41,7 +41,7 @@ export function SponsorSection() {
                 )}
               </p>
               <p className="hcsa-ruled-meta">{s.kind}</p>
-              <p className="mt-2 text-[1.02rem] leading-relaxed text-white/68">{s.body}</p>
+              <p className="mt-2 text-[1.02rem] leading-relaxed text-white/82">{s.body}</p>
             </li>
           ))}
         </ul>

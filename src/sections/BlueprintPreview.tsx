@@ -10,7 +10,7 @@ export function BlueprintPreview({ onOpen }: { onOpen: (index: number) => void }
       <h3 id="bp-preview-title" className="font-serif text-[clamp(1.45rem,2.4vw,1.9rem)] leading-tight text-white" data-reveal>
         Blueprints you can download or ask for
       </h3>
-      <p className="mt-3 max-w-2xl text-base leading-relaxed text-white/65" data-reveal>
+      <p className="mt-3 max-w-2xl text-base leading-relaxed text-white/82" data-reveal>
         These are the Rev D sheets of 14 October 2026. Rev D is the design we have signed, and a stress model of the whole shell set its sizes. Dimensions are in millimetres. Click a sheet to see it full size.
       </p>
 
@@ -27,7 +27,7 @@ export function BlueprintPreview({ onOpen }: { onOpen: (index: number) => void }
                 decoding="async"
                 className="h-auto w-full"
               />
-              <span className="mt-2 block text-sm leading-snug text-white/70">{d.caption}</span>
+              <span className="mt-2 block text-sm leading-snug text-white/82">{d.caption}</span>
             </button>
           </li>
         ))}
@@ -43,7 +43,7 @@ export function BlueprintPreview({ onOpen }: { onOpen: (index: number) => void }
                   <span className="min-w-0">
                     <span className="hcsa-file-title">{f.title}</span>
                     <span className="hcsa-file-meta">{f.meta}</span>
-                    <span className="mt-1 block text-[0.98rem] leading-relaxed text-white/68">{f.body}</span>
+                    <span className="mt-1 block text-[0.98rem] leading-relaxed text-white/82">{f.body}</span>
                   </span>
                   <span className="hcsa-file-action">
                     {f.action} <span aria-hidden="true"><ArrowIcon /></span>

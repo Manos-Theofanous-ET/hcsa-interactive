@@ -1,7 +1,8 @@
 /**
  * Password gate for the whole site (Vercel Routing Middleware, works with Vite).
  *
- * Public without a password: /preview (the public page), the login endpoint,
+ * Public without a password: /preview (the public page), /explore (the public
+ * 3D model and its three.js files), the login endpoint,
  * the favicon, link-preview images, robots.txt and fonts.
  * Everything else needs the access cookie, which /api/login sets when the
  * password matches the SITE_PASSWORD environment variable on Vercel.
@@ -20,6 +21,8 @@ export const config = {
 
 const PUBLIC = [
   /^\/preview(\/.*)?$/,
+  /^\/explore\/?$/,          // the public 3D model (same page as /model, without the internal tabs)
+  /^\/model\/vendor\//,        // three.js, needed by /explore
   /^\/api\/login$/,
   /^\/favicon\.svg$/,
   /^\/og-[\w-]+\.jpg$/,
