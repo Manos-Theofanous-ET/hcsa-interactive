@@ -85,7 +85,7 @@
 </div>
 <div id="ui">
 <section data-mode="explore">
-  <h1>HCSA station, Rev E <a class="back" id="backLink" href="/">← Back to the site</a></h1>
+  <h1>HCSA station, Rev E <a class="back" id="backLink" href="/team/">← Team area</a></h1>
   <div class="sub">Transparent observation facility in low Earth orbit, 400 km up</div>
 
   <h2>Views</h2>
@@ -1874,7 +1874,7 @@ const PUBLIC = location.pathname.startsWith('/explore');
 if (PUBLIC) {
   document.body.classList.add('public');
   document.title = 'Explore the HCSA station in 3D';
-  $('backLink').href = '/preview/'; $('backLink').textContent = '← Back to HCSA';
+  $('backLink').href = '/'; $('backLink').textContent = '← Back to HCSA';
   if (['systems', 'shields', 'life'].includes(mode)) setMode('explore');
 }
 if (startView === 'fly') { go('inside', true); setMode('fly'); }

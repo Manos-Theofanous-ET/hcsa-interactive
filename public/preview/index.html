@@ -9,7 +9,7 @@
 <meta name="description" content="Human-Centric Space Architecture: a feasibility study at Brown University and RISD for a mostly transparent observation facility in low Earth orbit. Explore it in 3D, see where the project stands, and sponsor the tests.">
 <meta property="og:title" content="HCSA, a transparent observation facility in low Earth orbit">
 <meta property="og:description" content="A feasibility study at Brown University and RISD. Explore the station in 3D, walk or fly inside, or step in with VR.">
-<meta property="og:image" content="https://hcsa-site.vercel.app/preview/hero.jpg">
+<meta property="og:image" content="https://hcsa-site.vercel.app/preview/loop-poster.jpg">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -52,7 +52,7 @@ section.alt{background:var(--bg2)}
 @media (max-width:900px){.bar nav a.opt{display:none}.brand span{display:none}}
 
 /* hero */
-.hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;background:#000 url(loop-poster.jpg) center/cover no-repeat}
+.hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;background:#000 url(/preview/loop-poster.jpg) center/cover no-repeat}
 .hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 @media (prefers-reduced-motion: reduce){.hero video{display:none}}
 .hero::after{content:"";position:absolute;inset:0;pointer-events:none;
@@ -171,12 +171,13 @@ footer{border-top:1px solid rgba(255,255,255,.08);color:var(--mut);font-size:15p
     <a class="opt" href="#status">Where we are</a>
     <a class="opt" href="#sponsors">Sponsors</a>
     <a class="cta" href="#contact">Contact us</a>
+    <a href="/team/" title="For the team, password needed">Team</a>
   </nav>
 </header>
 
 <main id="top">
 <div class="hero">
-  <video id="loop" src="loop.mp4" poster="loop-poster.jpg" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
+  <video id="loop" src="/preview/loop.mp4" poster="/preview/loop-poster.jpg" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
   <div class="wrap">
     <p class="eyebrow">Human-Centric Space Architecture</p>
     <h1>A room made of glass, <em>400 km above the Earth.</em></h1>
@@ -242,9 +243,9 @@ footer{border-top:1px solid rgba(255,255,255,.08);color:var(--mut);font-size:15p
       </dl>
     </div>
     <div class="gallery">
-      <figure><img src="inside.jpg" alt="Inside the station, looking past the column to the Earth" loading="lazy"><figcaption>Inside: the column, the greenhouses and the Earth below</figcaption></figure>
-      <figure><img src="pods.jpg" alt="Cutaway of the station showing two soft pods beside the column" loading="lazy"><figcaption>The pods, from Marina Kouroumali's interior design</figcaption></figure>
-      <figure><img src="assembly.jpg" alt="The station being assembled in orbit, panels coming off the launch stack" loading="lazy"><figcaption>Built in orbit, panel by panel, from one launch</figcaption></figure>
+      <figure><img src="/preview/inside.jpg" alt="Inside the station, looking past the column to the Earth" loading="lazy"><figcaption>Inside: the column, the greenhouses and the Earth below</figcaption></figure>
+      <figure><img src="/preview/pods.jpg" alt="Cutaway of the station showing two soft pods beside the column" loading="lazy"><figcaption>The pods, from Marina Kouroumali's interior design</figcaption></figure>
+      <figure><img src="/preview/assembly.jpg" alt="The station being assembled in orbit, panels coming off the launch stack" loading="lazy"><figcaption>Built in orbit, panel by panel, from one launch</figcaption></figure>
     </div>
   </div>
 </section>
@@ -367,12 +368,12 @@ footer{border-top:1px solid rgba(255,255,255,.08);color:var(--mut);font-size:15p
       </ul>
     </div>
     <div class="card" id="access">
-      <h3>Team access</h3>
-      <p class="mut" style="font-size:16px">The full site, the drawings, the parts library and the test results are for the team, our advisor and partners. Enter the password you were given.</p>
+      <h3>Team area</h3>
+      <p class="mut" style="font-size:16px">The full 3D model with the engineering views, the parts library, the drawings, the plan and the test results are for the team, our advisor and partners. Enter the password you were given.</p>
       <form method="post" action="/api/login" class="access">
         <label class="sr" for="pw">Password</label>
         <input id="pw" type="password" name="password" placeholder="Password" autocomplete="current-password" required>
-        <input type="hidden" name="next" id="next" value="/">
+        <input type="hidden" name="next" id="next" value="/team/">
         <button class="btn primary" type="submit">Enter</button>
       </form>
       <div class="err" id="err">That password did not work. Try again.</div>
@@ -411,7 +412,7 @@ for (const s of SPONSORS) {
     const img = new Image(); img.alt = s.name;
     img.onload = () => { const m = el.querySelector('.mark'); m.innerHTML = ''; m.appendChild(img); if (s.withName) { const w = document.createElement('span'); w.className = 'word'; w.style.marginLeft = '14px'; w.textContent = s.name; m.appendChild(w); } };
     img.onerror = () => tryNext(i + 1);
-    img.src = 'logos/' + files[i];
+    img.src = '/preview/logos/' + files[i];
   })(0);
 }
 
@@ -426,7 +427,7 @@ document.getElementById('contactForm').addEventListener('submit', e => {
 
 // login redirect + error
 const q = new URLSearchParams(location.search);
-if (q.get('next')) document.getElementById('next').value = q.get('next');
+if (q.get('next')) { document.getElementById('next').value = q.get('next'); if (!location.hash) location.hash = 'access'; }
 if (q.get('e')) { document.getElementById('err').style.display = 'block'; location.hash = 'access'; }
 
 // solid bar after the hero

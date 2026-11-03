@@ -3,10 +3,10 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "HCSA Interactive — scroll-driven WebGL teardown of the Human-Centric Space Architecture habitat.",
+  "description": "HCSA Interactive \u2014 scroll-driven WebGL teardown of the Human-Centric Space Architecture habitat.",
   "scripts": {
     "dev": "vite --host",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && node scripts/site/layout.mjs",
     "preview": "vite preview --host",
     "sync:geometry": "tsx scripts/sync-geometry.ts",
     "sync:types": "tsx scripts/generate-types.ts",

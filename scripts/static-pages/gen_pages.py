@@ -130,7 +130,7 @@ LIGHTBOX = """
 
 
 def page(title, desc, current, body, lightbox=False):
-    nav = [("/", "HCSA", "brand"), ("/plan/", "The plan", ""), ("/blueprints/", "Blueprints", ""),
+    nav = [("/team/", "HCSA team", "brand"), ("/plan/", "The plan", ""), ("/blueprints/", "Blueprints", ""),
            ("/tests/", "The tests", ""), ("/#work", "Our work", "wide-only"), ("/#sponsor", "Sponsor", "")]
     cur = ' aria-current="page"'
     links = "".join(
@@ -492,7 +492,7 @@ def plan():
 <p>Its wall is made of 32 flat panels, in the shape of a football. The 20 hexagons are glass, and they are the windows. The 12 pentagons are solid, and they hold the solar panels and the shields that fold out over the windows around them. Every window borders three pentagons, so a shield can reach every one.</p>
 <p>Inside is air at normal pressure and outside is vacuum, so the air pushes out on every panel, with about 1.33 meganewtons on each hexagon. This fall's work is about holding that push at the seams and through the glass.</p></div>
 <div><ul class="facts" style="margin-top:0"><li>11.15 m across</li><li>2.25 m edges</li><li>630 m³ inside</li><li>32 panels</li><li>90 seams</li><li>1 atm inside, vacuum outside</li></ul>
-<p class="muted" style="margin-top:18px">More concept art, the 3D model and our physical model are on the <a href="/#work">main site</a>.</p></div>
+<p class="muted" style="margin-top:18px">More concept art, the 3D model and our physical model are on the <a href="/story/#work">earlier scroll site</a>.</p></div>
 </div>
 <div class="grid3 concept" style="margin-top:26px">{concept_html}</div>
 </div></section>

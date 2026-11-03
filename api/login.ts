@@ -11,12 +11,12 @@ const tokenFor = (pw: string) => createHash("sha256").update(`${pw}:hcsa-access-
 export async function POST(req: Request): Promise<Response> {
   const form = await req.formData();
   const given = String(form.get("password") || "");
-  let next = String(form.get("next") || "/");
-  if (!next.startsWith("/") || next.startsWith("//")) next = "/";
+  let next = String(form.get("next") || "/team/");
+  if (!next.startsWith("/") || next.startsWith("//") || next === "/") next = "/team/";
   const envPw = process.env.SITE_PASSWORD?.trim();
   const good = envPw ? tokenFor(envPw) : "";
   if (!good || !given || tokenFor(given.trim()) !== good) {
-    return new Response(null, { status: 303, headers: { Location: `/preview/?e=1&next=${encodeURIComponent(next)}#access` } });
+    return new Response(null, { status: 303, headers: { Location: `/?e=1&next=${encodeURIComponent(next)}#access` } });
   }
   const token = good;
   return new Response(null, {
@@ -29,5 +29,5 @@ export async function POST(req: Request): Promise<Response> {
 }
 
 export function GET(): Response {
-  return new Response(null, { status: 303, headers: { Location: "/preview/#access" } });
+  return new Response(null, { status: 303, headers: { Location: "/#access" } });
 }

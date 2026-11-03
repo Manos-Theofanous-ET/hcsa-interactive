@@ -6,6 +6,21 @@
   "installCommand": "pnpm install --frozen-lockfile",
   "redirects": [
     {
+      "source": "/preview",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/preview/",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/preview/index.html",
+      "destination": "/",
+      "permanent": false
+    },
+    {
       "source": "/plan",
       "destination": "/plan/",
       "permanent": false
@@ -26,11 +41,6 @@
       "permanent": false
     },
     {
-      "source": "/preview",
-      "destination": "/preview/",
-      "permanent": false
-    },
-    {
       "source": "/parts",
       "destination": "/parts/",
       "permanent": false
@@ -39,9 +49,27 @@
       "source": "/explore",
       "destination": "/explore/",
       "permanent": false
+    },
+    {
+      "source": "/team",
+      "destination": "/team/",
+      "permanent": false
+    },
+    {
+      "source": "/story",
+      "destination": "/story/",
+      "permanent": false
     }
   ],
   "rewrites": [
+    {
+      "source": "/story/",
+      "destination": "/story/index.html"
+    },
+    {
+      "source": "/team/",
+      "destination": "/team/index.html"
+    },
     {
       "source": "/explore/",
       "destination": "/model/index.html"
@@ -61,10 +89,6 @@
     {
       "source": "/model/",
       "destination": "/model/index.html"
-    },
-    {
-      "source": "/preview/",
-      "destination": "/preview/index.html"
     },
     {
       "source": "/parts/",

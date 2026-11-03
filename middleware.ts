@@ -1,7 +1,8 @@
 /**
  * Password gate for the whole site (Vercel Routing Middleware, works with Vite).
  *
- * Public without a password: /preview (the public page), /explore (the public
+ * One site, two sides. Public without a password: / (the front page; its
+ * images and video live in /preview/), /explore (the public
  * 3D model and its three.js files), the login endpoint,
  * the favicon, link-preview images, robots.txt and fonts.
  * Everything else needs the access cookie, which /api/login sets when the
@@ -20,6 +21,9 @@ export const config = {
 };
 
 const PUBLIC = [
+  /^\/$/,                     // the public front page
+  /^\/index\.html$/,
+  /^\/api\/logout$/,
   /^\/preview(\/.*)?$/,
   /^\/explore\/?$/,          // the public 3D model (same page as /model, without the internal tabs)
   /^\/model\/vendor\//,        // three.js, needed by /explore
@@ -75,7 +79,8 @@ export default async function middleware(req: Request): Promise<Response> {
 
   if (readCookie(req, COOKIE) === good) return next();
 
-  const to = new URL("/preview/", url.origin);
-  if (url.pathname !== "/") to.searchParams.set("next", url.pathname + url.search);
+  const to = new URL("/", url.origin);
+  to.searchParams.set("next", url.pathname + url.search);
+  to.hash = "access";
   return Response.redirect(to.toString(), 302);
 }
