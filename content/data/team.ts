@@ -27,11 +27,11 @@ export const facultyAdvisors: TeamMember[] = [
 ]
 
 export const collaborators: TeamMember[] = [
-  { name: 'Amalia', role: 'Interior CAD' },
-  { name: 'Androniki', role: 'Interior concept and physical models' },
-  { name: 'Gerasimos Nikolopoulos', role: 'Life support, plants and biology' },
   { name: 'Marina Kouroumali', role: 'Head of interior · Presenter, Brown Space Horizons 2026' },
+  { name: 'Gerasimos Nikolopoulos', role: 'Life support, plants and biology' },
   { name: 'Xenia Tzamalouka', role: 'Interior and shutters · Presenter, Brown Space Horizons 2026' },
+  { name: 'Androniki', role: 'Interior concept and physical models' },
+  { name: 'Amalia', role: 'Interior CAD' },
 ]
 
 /** Members of the team before its September 2026 remake. */
