@@ -27,23 +27,18 @@ export const facultyAdvisors: TeamMember[] = [
 ]
 
 export const collaborators: TeamMember[] = [
-  { name: 'Finn Jolly', role: 'Panels and glazing' },
   { name: 'Marina Kouroumali', role: 'Head of interior' },
   { name: 'Androniki', role: 'Interior concept and physical models' },
   { name: 'Amalia', role: 'Interior CAD' },
-  { name: 'Skye Rosario', role: 'Thermal and life support' },
   { name: 'Gerasimos Nikolopoulos', role: 'Life support, plants and biology' },
 ]
 
-/** Members of the team before its September 2026 remake. Marina,
- *  Gerasimos and Skye were on it then and are on the current team too. */
+/** Members of the team before its September 2026 remake. Gerasimos was
+ *  on it then and is on the current team too. */
 export const earlierMembers: TeamMember[] = [
-  { name: 'Marina Kouroumali', role: 'Co-lead, design and marketing' },
   { name: 'Katie Liu', role: 'Structure and FEA' },
   { name: 'Lauren Hogan', role: 'Thermal and the water loop' },
   { name: 'Skye Rosario', role: 'Thermal and life support' },
-  { name: 'Jake', role: 'Fabrication' },
-  { name: 'Nikoleta Stoynova', role: 'Engineering, panels' },
   { name: 'Gerasimos Nikolopoulos', role: 'Plants and biology' },
   { name: 'Aris Achilleoudis', role: 'Design, shutters and interior' },
   { name: 'Xenia Tzamalouka', role: 'Design, the moon-phase shutters' },
@@ -51,6 +46,5 @@ export const earlierMembers: TeamMember[] = [
   { name: 'Katerina Sofianou', role: 'Design and marketing' },
   { name: 'Keren Dial', role: 'Design and outreach' },
   { name: 'Estella', role: 'Research team' },
-  { name: 'Padelis Sofianos', role: 'VR' },
   { name: 'Marco Cross, PhD', role: 'Fabrication advisor' },
 ]
