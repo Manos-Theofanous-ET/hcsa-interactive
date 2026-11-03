@@ -2,7 +2,7 @@
  * Password gate for the whole site (Vercel Routing Middleware, works with Vite).
  *
  * One site, two sides. Public without a password: / (the front page; its
- * images and video live in /preview/), /explore (the public
+ * images and video live in /preview/), /research (talks, then and now), /explore (the public
  * 3D model and its three.js files), the login endpoint,
  * the favicon, link-preview images, robots.txt and fonts.
  * Everything else needs the access cookie, which /api/login sets when the
@@ -25,6 +25,8 @@ const PUBLIC = [
   /^\/index\.html$/,
   /^\/api\/logout$/,
   /^\/preview(\/.*)?$/,
+  /^\/research\/?$/,         // research and talks: what we presented, then and now
+  /^\/research\/index\.html$/,
   /^\/explore\/?$/,          // the public 3D model (same page as /model, without the internal tabs)
   /^\/model\/vendor\//,        // three.js, needed by /explore
   /^\/api\/login$/,

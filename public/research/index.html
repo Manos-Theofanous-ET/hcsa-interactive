@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#05070a">
+<title>Research and talks · HCSA</title>
+<meta name="description" content="Everything the HCSA team has presented, from the Brown Space Horizons 2026 talk and posters, set beside where each idea stands in the current design.">
+<meta property="og:title" content="HCSA research and talks: then and now">
+<meta property="og:description" content="What we presented about a glass observation station in orbit, and how the design has moved on.">
+<meta property="og:image" content="https://hcsa-site.vercel.app/preview/research/slide-01.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<style>
+@font-face{font-family:"Fraunces";src:url(/fonts/fraunces-latin-400-normal.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Fraunces";src:url(/fonts/fraunces-latin-400-italic.woff2) format("woff2");font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:"Inter";src:url(/fonts/inter-latin-wght-normal.woff2) format("woff2");font-weight:100 900;font-display:swap}
+:root{
+  --bg:#05070a; --bg2:#0b0f15; --card:#10151d; --fg:#f2f4f7; --text:#d5dbe3; --mut:#a9b3bf;
+  --line:rgba(255,255,255,.14); --acc:#9cc4ff; --warm:#e2c99b; --done:#7fd1a4; --now:#9cc4ff;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--acc);text-underline-offset:3px}
+a:hover{color:#c4dcff}
+:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:4px}
+h1,h2,h3{color:var(--fg);font-family:Fraunces,Georgia,serif;font-weight:400;margin:0}
+h2{font-size:clamp(30px,4vw,44px);line-height:1.12;margin-bottom:14px}
+h3{font-size:22px;line-height:1.25;margin-bottom:8px}
+p{margin:0 0 14px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.eyebrow{font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--warm);margin-bottom:12px}
+.lead{font-size:clamp(18px,1.6vw,20px);color:var(--text);max-width:62ch}
+.mut{color:var(--mut)}
+section{padding:96px 0;border-top:1px solid rgba(255,255,255,.06)}
+section.alt{background:var(--bg2)}
+
+/* top bar */
+.bar{position:fixed;inset:0 0 auto 0;z-index:20;display:flex;align-items:center;gap:20px;padding:14px 24px;transition:background .25s}
+.bar.solid{background:rgba(5,7,10,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.08)}
+.brand{font-weight:700;letter-spacing:.16em;font-size:15px;color:var(--fg);text-decoration:none;white-space:nowrap}
+.brand span{font-weight:400;letter-spacing:.02em;color:var(--mut);margin-left:10px}
+.bar nav{margin-left:auto;display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
+.bar nav a{color:var(--fg);text-decoration:none;font-size:15px;font-weight:500;padding:8px 12px;border-radius:8px}
+.bar nav a:hover{background:rgba(255,255,255,.1)}
+.bar nav a.cta{border:1px solid var(--warm);color:var(--warm)}
+@media (max-width:900px){.bar nav a.opt{display:none}.brand span{display:none}}
+
+/* hero */
+.hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;background:#000 url(/preview/loop-poster.jpg) center/cover no-repeat}
+.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+@media (prefers-reduced-motion: reduce){.hero video{display:none}}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,0) 22%,rgba(0,0,0,0) 45%,rgba(0,0,0,.72) 75%,rgba(0,0,0,.94) 100%),
+             linear-gradient(90deg,rgba(0,0,0,.72) 0%,rgba(0,0,0,.45) 38%,rgba(0,0,0,0) 65%)}
+.hero .wrap{position:relative;z-index:1;padding-bottom:72px;width:100%}
+.hero h1{font-size:clamp(40px,5.8vw,72px);line-height:1.04;max-width:14ch;margin-bottom:20px;text-shadow:0 2px 24px rgba(0,0,0,.6)}
+.hero h1 em{font-style:italic;color:#dfe8f3}
+.hero .lead{color:#e6ebf1;text-shadow:0 1px 12px rgba(0,0,0,.8);margin-bottom:28px}
+.btns{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.3);background:rgba(10,14,20,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+     padding:13px 20px;border-radius:999px;text-decoration:none;font-weight:600;font-size:16px;color:var(--fg);cursor:pointer;font-family:inherit}
+.btn:hover{background:rgba(255,255,255,.16);color:#fff}
+.btn.primary{background:var(--fg);color:#05070a;border-color:var(--fg)}
+.btn.primary:hover{background:#fff;color:#000}
+.btn svg{width:18px;height:18px;flex:none}
+.hero .caption{position:absolute;right:24px;bottom:24px;z-index:1;font-size:13px;color:#c9d1db;text-shadow:0 1px 8px #000;max-width:40ch;text-align:right}
+@media (max-width:760px){.hero .caption{display:none}.hero::after{background:linear-gradient(180deg,rgba(0,0,0,.5) 0%,rgba(0,0,0,.25) 18%,rgba(0,0,0,.78) 40%,rgba(0,0,0,.9) 100%)}}
+
+/* explore cards */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;display:flex;flex-direction:column}
+.card p{color:var(--text);font-size:17px}
+.card .btn{margin-top:auto;align-self:flex-start}
+.card .icon{width:40px;height:40px;border-radius:10px;background:rgba(156,196,255,.14);display:grid;place-items:center;margin-bottom:16px;color:var(--acc)}
+.card .icon svg{width:22px;height:22px}
+@media (max-width:860px){.cards{grid-template-columns:1fr}}
+
+/* about */
+.two{display:grid;grid-template-columns:1.25fr 1fr;gap:48px;align-items:start}
+@media (max-width:860px){.two{grid-template-columns:1fr}}
+.facts{display:grid;grid-template-columns:auto 1fr;gap:10px 22px;font-size:16px;margin:0}
+.facts dt{color:var(--mut)} .facts dd{margin:0;color:var(--fg)}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:44px}
+.gallery figure{margin:0}
+.gallery img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:12px;display:block;border:1px solid var(--line)}
+.gallery figcaption{font-size:15px;color:var(--mut);margin-top:8px}
+@media (max-width:760px){.gallery{grid-template-columns:1fr}}
+
+/* timeline */
+.tl{list-style:none;margin:44px 0 0;padding:0;display:grid;grid-template-columns:repeat(7,1fr);position:relative}
+.tl::before{content:"";position:absolute;left:calc(100%/14);right:calc(100%/14);top:13px;height:2px;background:linear-gradient(90deg,var(--done) 0%,var(--done) 30%,var(--now) 36%,rgba(255,255,255,.18) 42%,rgba(255,255,255,.18) 100%)}
+.tl li{position:relative;padding:0 10px;text-align:center}
+.tl .dot{width:28px;height:28px;border-radius:50%;margin:0 auto 16px;position:relative;z-index:1;background:var(--bg);border:2px solid rgba(255,255,255,.3);display:grid;place-items:center}
+.tl .done .dot{background:var(--done);border-color:var(--done)}
+.tl .done .dot::after{content:"";width:9px;height:5px;border:2px solid #05070a;border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
+.tl .now .dot{border-color:var(--now);box-shadow:0 0 0 6px rgba(156,196,255,.18)}
+.tl .now .dot::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--now)}
+.tl .when{font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
+.tl .now .when{color:var(--now)} .tl .done .when{color:var(--done)}
+.tl h3{font-family:Inter,sans-serif;font-size:17px;font-weight:650;margin:6px 0 6px}
+.tl p{font-size:15px;line-height:1.5;color:var(--text);margin:0}
+.tl .here{display:inline-block;margin-top:10px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:var(--now);color:#05070a;border-radius:999px;padding:3px 10px}
+@media (max-width:980px){
+  .tl{grid-template-columns:1fr;gap:0}
+  .tl::before{left:13px;right:auto;top:14px;bottom:14px;width:2px;height:auto;background:linear-gradient(180deg,var(--done) 0%,var(--done) 30%,var(--now) 36%,rgba(255,255,255,.18) 42%)}
+  .tl li{text-align:left;padding:0 0 26px 48px}
+  .tl .dot{position:absolute;left:0;top:0;margin:0}
+}
+.legend{display:flex;gap:22px;flex-wrap:wrap;margin-top:26px;font-size:15px;color:var(--mut)}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:8px;vertical-align:-1px}
+
+/* status */
+.status{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:36px}
+.status .card h3{font-family:Inter,sans-serif;font-size:18px;font-weight:650;display:flex;align-items:center;gap:10px}
+.pill{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:3px 10px;white-space:nowrap}
+.pill.done{background:rgba(127,209,164,.18);color:var(--done)} .pill.now{background:rgba(156,196,255,.18);color:var(--now)} .pill.next{background:rgba(255,255,255,.1);color:var(--mut)}
+@media (max-width:760px){.status{grid-template-columns:1fr}}
+
+/* sponsors */
+.logos{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:36px}
+.logo{background:#f4f5f7;border-radius:14px;padding:18px 18px 16px;display:flex;flex-direction:column;min-height:190px;color:#1b2430}
+.logo .mark{height:64px;display:flex;align-items:center;justify-content:flex-start;margin-bottom:12px}
+.logo .mark img{max-height:56px;max-width:100%;object-fit:contain}
+.logo .mark .word{font:600 21px/1.15 Inter,sans-serif;letter-spacing:-.01em;color:#101820}
+.logo .kind{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#4a5a6e;margin-bottom:6px}
+.logo p{font-size:15px;line-height:1.5;color:#2c3a4a;margin:0}
+.logo a{color:inherit;text-decoration:none}
+.logo a:hover .word{text-decoration:underline}
+@media (max-width:980px){.logos{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.logos{grid-template-columns:1fr}}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:48px}
+.three h3{font-family:Inter,sans-serif;font-size:18px;font-weight:650}
+.three ul{margin:0;padding-left:20px} .three li{margin-bottom:8px;font-size:17px}
+@media (max-width:860px){.three{grid-template-columns:1fr}}
+
+/* contact */
+form.contact{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
+form.contact label{display:flex;flex-direction:column;gap:6px;font-size:15px;color:var(--fg);font-weight:500}
+form.contact .full{grid-column:1/-1}
+input,select,textarea{font:inherit;font-size:17px;color:var(--fg);background:#0c1118;border:1px solid rgba(255,255,255,.22);border-radius:10px;padding:12px 14px}
+textarea{min-height:130px;resize:vertical}
+input::placeholder,textarea::placeholder{color:#7d8896}
+@media (max-width:640px){form.contact{grid-template-columns:1fr}}
+.contactline{font-size:17px;margin-top:18px}
+
+/* team + access */
+.team{columns:2;column-gap:40px;margin:0;padding:0;list-style:none;font-size:17px}
+.team li{break-inside:avoid;margin-bottom:10px} .team b{color:var(--fg);font-weight:600}
+@media (max-width:640px){.team{columns:1}}
+.access{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.access input{flex:1;min-width:200px;border-radius:999px}
+.err{color:#ffb0a3;font-size:15px;margin-top:10px;display:none}
+footer{border-top:1px solid rgba(255,255,255,.08);color:var(--mut);font-size:15px;padding:32px 0 48px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+</style>
+</head>
+<body>
+<header class="bar" id="bar">
+  <a class="brand" href="/">HCSA<span>Brown University · RISD</span></a>
+  <nav aria-label="Sections">
+    <a class="opt" href="/explore/">Explore in 3D</a>
+    <a href="#ideas">Then and now</a>
+    <a class="opt" href="#talks">Talks</a>
+    <a class="opt" href="#slides">Slides and posters</a>
+    <a class="cta" href="/#contact">Contact us</a>
+    <a href="/">Home</a>
+  </nav>
+</header>
+<style>
+.subhero{padding:150px 0 70px;background:radial-gradient(ellipse at 70% 0%,rgba(156,196,255,.12),transparent 60%)}
+.subhero h1{font-size:clamp(38px,5vw,62px);line-height:1.06;max-width:18ch;margin-bottom:20px}
+.talk{display:grid;grid-template-columns:1.2fr 1fr;gap:36px;margin-top:36px;align-items:start}
+@media (max-width:860px){.talk{grid-template-columns:1fr}}
+.talk .card h3{font-family:Fraunces,Georgia,serif;font-size:28px}
+.talk ul{margin:8px 0 0;padding-left:20px}.talk li{margin-bottom:6px;font-size:17px}
+.meta{font-size:15px;color:var(--warm);font-weight:600;letter-spacing:.04em;margin-bottom:10px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:28px 0 8px}
+.chip{font:600 15px Inter,sans-serif;color:var(--fg);background:transparent;border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:8px 16px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--fg);color:#05070a;border-color:var(--fg)}
+.ideas{display:grid;gap:16px;margin-top:22px}
+.idea{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px 26px}
+.idea header{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.idea h3{font-family:Inter,sans-serif;font-size:20px;font-weight:650;margin:0}
+.idea .topic{font-size:13px;color:var(--mut);letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+.tag{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:3px 10px;margin-left:auto;white-space:nowrap}
+.tag.holds{background:rgba(127,209,164,.18);color:var(--done)}
+.tag.improved{background:rgba(156,196,255,.18);color:var(--now)}
+.tag.replaced{background:rgba(226,201,155,.18);color:var(--warm)}
+.tag.moved{background:rgba(255,255,255,.1);color:var(--mut)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+@media (max-width:760px){.pair{grid-template-columns:1fr}}
+.pair h4{margin:0 0 6px;font:700 12px Inter,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
+.pair .now h4{color:var(--now)}
+.pair p{font-size:16.5px;line-height:1.6;margin:0}
+.pair .then p{color:#b9c2cd}
+.idea .from{font-size:14px;color:var(--mut);margin-top:12px}
+.count{font-size:15px;color:var(--mut)}
+.slides{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px}
+.slides button{padding:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#000;cursor:zoom-in}
+.slides img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}
+.posters{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:28px}
+.posters button{padding:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff;cursor:zoom-in}
+.posters img{display:block;width:100%;aspect-ratio:2/3;object-fit:cover;object-position:top}
+@media (max-width:860px){.slides{grid-template-columns:repeat(2,1fr)}.posters{grid-template-columns:repeat(2,1fr)}}
+.lb{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;padding:24px;flex-direction:column;gap:12px}
+.lb.open{display:flex}
+.lb img{max-width:100%;max-height:84vh;border-radius:8px}
+.lb p{color:#cfd6df;font-size:15px;max-width:80ch;text-align:center;margin:0}
+.lb .x{position:absolute;top:16px;right:20px}
+.note{border-left:3px solid var(--warm);padding:4px 0 4px 16px;margin:22px 0;color:var(--text);font-size:17px;max-width:75ch}
+</style>
+
+<main id="top">
+<div class="subhero">
+  <div class="wrap">
+    <p class="eyebrow">Research and talks</p>
+    <h1>What we presented, and how the design has moved on.</h1>
+    <p class="lead">We have shown HCSA in talks, posters, models and VR. Since then, our computer tests and our advisors have changed a good part of the engineering. Here is everything we presented. Each idea sits next to where it stands now, so you can see what still holds, what we improved and what we left behind.</p>
+    <div class="btns" style="margin-top:24px"><a class="btn primary" href="#ideas">The ideas, then and now</a><a class="btn" href="#talks">Our talks</a><a class="btn" href="#slides">Slides and posters</a></div>
+  </div>
+</div>
+
+<section id="talks" class="alt">
+  <div class="wrap">
+    <p class="eyebrow">Talks and events</p>
+    <h2>Where we have presented</h2>
+    <div id="talkList"></div>
+  </div>
+</section>
+
+<section id="ideas">
+  <div class="wrap">
+    <p class="eyebrow">The ideas, then and now</p>
+    <h2>Everything we presented, idea by idea</h2>
+    <p class="lead">"Then" is what we showed in spring 2026. "Now" is the current design, Rev E, as of November 2026. The label on each idea says what happened to it.</p>
+    <div class="legend" style="margin-top:18px">
+      <span><span class="tag holds" style="margin:0 8px 0 0">Still holds</span>we stand by it today</span>
+      <span><span class="tag improved" style="margin:0 8px 0 0">Improved</span>same idea, better engineering</span>
+      <span><span class="tag replaced" style="margin:0 8px 0 0">Replaced</span>a different solution now</span>
+      <span><span class="tag moved" style="margin:0 8px 0 0">Moved on</span>researched, then dropped</span>
+    </div>
+    <div class="filters" role="group" aria-label="Show ideas">
+      <button class="chip" data-f="all" aria-pressed="true">All</button>
+      <button class="chip" data-f="holds" aria-pressed="false">Still holds</button>
+      <button class="chip" data-f="improved" aria-pressed="false">Improved</button>
+      <button class="chip" data-f="replaced" aria-pressed="false">Replaced</button>
+      <button class="chip" data-f="moved" aria-pressed="false">Moved on</button>
+      <span class="count" id="count" style="align-self:center;margin-left:8px"></span>
+    </div>
+    <div class="ideas" id="ideaList"></div>
+  </div>
+</section>
+
+<section id="slides" class="alt">
+  <div class="wrap">
+    <p class="eyebrow">Slides and posters</p>
+    <h2>The material as we showed it</h2>
+    <p class="note">These are the spring 2026 slides and posters, unchanged. Some of their numbers and parts have changed since. The ideas above say what is current. Click any image to see it full size.</p>
+    <h3 style="margin-top:34px">Draft engineering slides, April 2026</h3>
+    <p class="mut" style="font-size:16px">A 15-slide summary made in April 2026 with NotebookLM from our master document, TRUTH, while we built the Space Horizons talk. Its text is the machine's, so a few labels are garbled.</p>
+    <div class="slides" id="slideGrid"></div>
+    <h3 style="margin-top:44px">Posters, April 2026</h3>
+    <p class="mut" style="font-size:16px">The hexagon panel series and the assembled-facility poster. Their six-triangle panel has since become a grid of 96 smaller panes.</p>
+    <div class="posters" id="posterGrid"></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap two">
+    <div>
+      <p class="eyebrow">Invite us</p>
+      <h2>Want us to present?</h2>
+      <p class="lead">We are glad to talk about HCSA at conferences, schools and companies, with the 3D model, VR and the test parts as they come out of the shop.</p>
+      <div class="btns"><a class="btn primary" href="/#contact">Write to the team</a><a class="btn" href="/explore/">Explore the station in 3D</a></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button class="btn x" id="lbx">Close</button>
+  <img id="lbimg" alt="">
+  <p id="lbcap"></p>
+</div>
+
+<footer><div class="wrap">Human-Centric Space Architecture · Brown University and the Rhode Island School of Design · <a href="/">Back to the front page</a></div></footer>
+
+<script>
+// Talks. To add one, copy an entry. Only list events that took place.
+const TALKS = [
+  {
+    name: 'Brown Space Horizons 2026',
+    theme: 'Living the Good Life in Space',
+    when: '1 May 2026',
+    where: 'Brown University, Providence, Rhode Island',
+    what: 'The student keynote: a 45-minute session by the HCSA team, in four parts. Why human-centred design matters in space, the design decisions that follow from it, the engineering, and a live part with our models.',
+    showed: [
+      'A 41-slide talk, from the human-centred idea to the panel, the joint and the first test plan',
+      'Posters on the panel, the shell and the assembled facility',
+      'A physical architectural model of the interior',
+      'An aluminium model of the structure',
+      'A VR walk through the station',
+      'The 550 mm seam test piece and its drawings'
+    ],
+    people: 'Presented by Manos Theofanous, Marina Kouroumali, Xenia Tzamalouka, Aris Achilleoudis and Skye Rosario, with the whole spring team. Advisor: Prof. Rick Fleeter.'
+  }
+];
+
+// Ideas, then and now. status: holds | improved | replaced | moved
+const IDEAS = [
+  { topic:'Why', title:'A glass sphere, not a metal cylinder', status:'holds',
+    then:'Today\'s stations are aluminium cylinders. They are strong and light, but dark and closed in. A see-through sphere gives a full view of the Earth and the stars. On Earth, a glass room is easy. In vacuum, the whole pressure vessel has to be rethought.',
+    now:'This is still the starting point of the project. Everything else, from the panel to the seals to the tests, exists to make a glass room hold air in space.', from:'Space Horizons talk, NotebookLM slide 2' },
+  { topic:'Why', title:'Human-centred design is a need, not a luxury', status:'holds',
+    then:'Design starts with the person inside. "Man is the measure of all things" (Protagoras). Empathy, biophilia, body-scale design and "desire paths", the routes people take on their own. Mental health drives productivity, so a place to recover belongs on a station.',
+    now:'It is section 0 of TRUTH, our master document, written with Marina Kouroumali. Stellar Amenities is now reviewing the interior and the visit against it.', from:'Space Horizons talk, slides 3 to 8' },
+  { topic:'Why', title:'An add-on to stations, for short visits', status:'improved',
+    then:'HCSA attaches to a station, the ISS or a future space hotel, and gives its people somewhere to look out, move and rest. The slides spoke of 4 to 6 crew.',
+    now:'It is a destination, never a home. About six visitors come in for one orbit of 90 minutes and go back to the station they came from. Nobody sleeps, cooks or works inside.', from:'Space Horizons talk; NotebookLM slide 13' },
+  { topic:'Why', title:'The form follows what people do in zero gravity', status:'holds',
+    then:'With no gravity, the whole volume is usable. There is no floor or ceiling, a sphere lets you move in every direction, and flat panels make the round shape buildable.',
+    now:'Unchanged. The interior has no floors. The column, the pods and the routes between them organise the room.', from:'Space Horizons talk, slide 8' },
+  { topic:'Shape', title:'One number drives the shape: the 2.25 m edge', status:'holds',
+    then:'A truncated icosahedron with 2.25 m edges: 11.151 m across, 629.8 m³ inside, 367.6 m² of panels, 32 faces (20 hexagons and 12 pentagons), 90 edges and 60 corners. Each hexagon is 4.5 m from corner to corner.',
+    now:'All locked, and every drawing and model is built from it.', from:'NotebookLM slide 3; master deck appendix A; joint poster' },
+  { topic:'Shape', title:'A 10 m version', status:'moved',
+    then:'Three of our posters showed the station scaled to 10 m across, with 2.018 m edges and 454.4 m³ inside.',
+    now:'We kept 11.151 m. It is the size the panels, the launch and the tests are all designed around.', from:'Posters 1, 2 and 3' },
+  { topic:'Structure', title:'What air pressure does to one window', status:'holds',
+    then:'At one atmosphere, each 13.15 m² hexagon is pushed outward with about 1,332 kN, roughly 300,000 pounds, or 222 kN on each edge. Glass cannot be the main structure: as one sheet carrying the load, it would see about 47 MPa, near the limit for fused silica.',
+    now:'The numbers still hold, and they are why the metal carries the load. What changed is how the glass sits in the frame (next idea).', from:'NotebookLM slide 4; talk slide on FEA' },
+  { topic:'Structure', title:'How the glass sits in the frame', status:'replaced',
+    then:'Each hexagon was six big triangles of glass, held by six radial ribs that met at a centre node, inside an aluminium frame 140 mm deep.',
+    now:'Each hexagon is now a grid of 96 small panes, 531 mm across and 22 mm thick, in BOROFLOAT 33 glass, resting on a grid of aluminium ribs. Small panes are much less likely to have a dangerous flaw, and if one cracks, it is one pane in 96. The ribs carry the load to solid corner blocks.', from:'Hex panel posters 1 to 3' },
+  { topic:'Window', title:'Seven layers in every window', status:'improved',
+    then:'From outside in: a 6 mm fused silica debris pane that a spacewalker can replace; the aluminium frame; see-through solar cells; the tint; a 12 mm gas gap; a sliding solar shade; the inner finish.',
+    now:'Still seven layers, but the 22 mm borosilicate pane is now the one that holds the air in, and the gap behind the outer debris pane is open to space, so the outer pane holds no pressure.', from:'NotebookLM slide 5; master deck' },
+  { topic:'Window', title:'Tint and solar power in the glass', status:'holds',
+    then:'An electrochromic tint (tungsten oxide and nickel oxide) goes from 60 percent of the light down to 1 percent. See-through perovskite cells give 50 to 100 W/m², and the sliding shade carries 18 to 22 percent efficient cells. The column carries a 66 W power line to each panel for the tint.',
+    now:'Still the plan. Tint glass has never flown in space, so testing it under heat cycles and UV is part of our future work.', from:'NotebookLM slides 5 and 11' },
+  { topic:'Window', title:'Shutters', status:'improved',
+    then:'Xenia Tzamalouka\'s moon-phase shutters: shades that open and close in patterns over the station.',
+    now:'Each small pane cell gets its own shade, so the pattern idea still works, pane by pane.', from:'Master deck; design proposals' },
+  { topic:'Joint', title:'Keep the load path and the seal apart', status:'holds',
+    then:'Metal carries the load and the seals only keep the air in, so heat cycles and vibration cannot open the seal.',
+    now:'This rule still drives the joint. Below is how we now do each half.', from:'NotebookLM slide 6; joint poster' },
+  { topic:'Joint', title:'How the seam carries the load', status:'replaced',
+    then:'An aluminium shear key between the frames, and 14 lockbolts on a 39 mm pitch along a 550 mm length, each taking about 3.8 kN.',
+    now:'No shear key. A solid block at each corner, tied to its neighbours, and a pinned fitting halfway along each seam carry the pull. The bolts along the seam only press the seals shut, with a spring under each nut so they keep their grip.', from:'NotebookLM slide 6; talk slide on FEA' },
+  { topic:'Joint', title:'Seals', status:'replaced',
+    then:'Two flat fluorosilicone gaskets, 1.6 mm thick and 14 mm apart, a bead of RTV566 silicone, and a space between the seals to check for leaks.',
+    now:'Two loops of butyl and the RTV566 bead. Parker\'s engineers told us fluorosilicone lets gas through in vacuum. We kept the leak-check space between the seals.', from:'NotebookLM slide 6; joint poster' },
+  { topic:'Joint', title:'Leak before break', status:'improved',
+    then:'The first plan sized the joint for strength alone.',
+    now:'After advice from Prof. David Henann, the joint is designed to fail in a safe order. A seal leaks or a bolt gives long before any glass or frame breaks, so a problem shows itself as a slow leak.', from:'New since the talk' },
+  { topic:'Protection', title:'An inflatable shield, not water', status:'improved',
+    then:'We compared three ways to protect the shell. A rigid sphere with an inflatable debris shield (about 12 t, full view), water bladders (38 to 130 t, view blocked) and a hybrid (8 t, part of the view). We chose the inflatable shield.',
+    now:'Still the choice. The shields now fold into the pentagons and unroll over the windows when needed. They can also seal around a damaged spot, so a repair stays local.', from:'NotebookLM slide 7' },
+  { topic:'Protection', title:'A storm shelter inside', status:'moved',
+    then:'A 10 m³ shelter lined with plastic or water, for solar storms.',
+    now:'Dropped. Visits are short, so if a solar storm is coming, visitors go back to the station they came from in minutes. A normal visit gives a dose of about 0.04 mSv, about five days of natural background on Earth.', from:'NotebookLM slide 7' },
+  { topic:'Docking', title:'Docking never touches the glass', status:'holds',
+    then:'The docking ring sits in a titanium ring, six radial ribs spread the load into the frame, and the whole path is metal.',
+    now:'Unchanged. The docking port is one solid pentagon, facing the Earth.', from:'NotebookLM slide 8' },
+  { topic:'Pentagons', title:'What the twelve pentagons do', status:'improved',
+    then:'Six plant alcoves, three for the shields and pumps, two where the column ends (the water heater and the cooler) and one docking port.',
+    now:'A simpler proposal: eleven identical pentagons and one docking port. Each one has a greenhouse inside, solar panels and a fold-out shield outside, and a service link to the column.', from:'Talk slide on pentagons; geometry poster' },
+  { topic:'Systems', title:'The central column is the systems spine', status:'holds',
+    then:'One column carries water, air, power and data, and seedlings grow in it. That keeps the machinery away from the windows.',
+    now:'Unchanged. In the 3D model, the column carries the plants, the pipes and the routes for moving around.', from:'NotebookLM slide 11; talk' },
+  { topic:'Systems', title:'Clean water from sunlight', status:'improved',
+    then:'Lauren Hogan\'s loop. A sun-facing panel boils water, the vapour crosses the station, a panel in shadow cools it back to water, and that makes 12 to 15 L of clean water a day with almost no power.',
+    now:'The loop holds, and the numbers check out. But the cool panel can only take back a small part of the water the plants breathe out, about 36 kg a day at most, so a cabin dehumidifier does the rest. Where the hot and cool panels go is open now that the pentagons are identical.', from:'NotebookLM slide 12' },
+  { topic:'Systems', title:'One connected machine', status:'holds',
+    then:'The shell faces the sun on one side and deep space on the other. That difference drives the water loop, the water feeds the plants, and the plants give back humidity, food and calm.',
+    now:'Still the idea. Our 1 November thermal model adds that the glass and the solid panels stay within 2 to 4 °C of each other while the cabin air is in.', from:'NotebookLM slide 13' },
+  { topic:'Plants', title:'Plants you can taste', status:'holds',
+    then:'Plant pillows and NFT hydroponics on three shelves under red, blue and white LEDs. Edible greens grow in the pentagons, and greenery grows on the column. Moss and algae are future work.',
+    now:'Still the plan, with Gerasimos Nikolopoulos leading plants and biology.', from:'Talk slides 24 to 26' },
+  { topic:'Air', title:'A carbon dioxide scrubber that cleans itself', status:'holds',
+    then:'Cabin air passes through a material that traps CO₂, and heaters later drive it off, so the filter is reused.',
+    now:'Still the baseline. Each person breathes in about 0.84 kg of oxygen and out about 1.0 kg of CO₂ a day.', from:'Talk slide 30' },
+  { topic:'Interior', title:'Pods, zones and the routes between them', status:'improved',
+    then:'Soft inflatable pods for quiet and for groups, rounded cave-like forms, no straight lines. Ropes, hooks and rails to move along, routes that can also be a bike track, and about 39 m of path in all.',
+    now:'Marina Kouroumali\'s two pods are in the Rev E model, around the column, with the ramp and the track. The path lengths will be measured again on that layout.', from:'Talk slides 9 to 17; NotebookLM slide 9' },
+  { topic:'Build', title:'Built on Earth, assembled in orbit', status:'replaced',
+    then:'The core launched whole (8 to 12 t), 6 to 8 flat panel kits per rocket, guide pins, 14 bolts per edge, 4 to 6 hours of spacewalk per panel (130 to 190 hours in all), and aluminium welding.',
+    now:'Everything goes up on one Starship V3. The panels lie flat in 20 layers, a hexagon beside a pentagon, with the column standing next to the stack. Magnets bring each panel within a centimetre or two, and tapered pins, still a proposal, draw it home. The joints are bolted, not welded. We have not yet worked out the new spacewalk time.', from:'NotebookLM slide 14; master deck' },
+  { topic:'Tests', title:'How we prove it', status:'improved',
+    then:'Computer models, then a 550 mm seam test piece (design load 65 kN, prototype target 130 kN), then a 1:7 model of the shell.',
+    now:'Every test runs on the computer first, and a real test passes if it lands within 10 percent of the prediction. First we break glass bars to measure the glass. Then we pull full-size slices of the seam apart in January and February 2027, test one panel at quarter scale under water pressure, and finally test the corner where three panels meet.', from:'NotebookLM slide 14; talk' },
+  { topic:'People', title:'Testing with the people who will use it', status:'holds',
+    then:'An "evaluate" stage with astronauts and users. How hard is it to slide the shade? Can one spacewalker change an outer pane in under an hour? How do people feel inside?',
+    now:'Still planned, after the structural tests. The public 3D model with walking, flying and VR is the first step: anyone can now go inside and tell us.', from:'Talk slide 38' },
+  { topic:'Show', title:'Models and VR at the talk', status:'improved',
+    then:'At Space Horizons we passed around an architectural model and an aluminium structure model, and gave a VR walk through the station.',
+    now:'The 3D model is now public and runs in any browser, with walk, fly and VR on a Quest or Vision Pro.', from:'Master deck, live session' }
+];
+
+// slides and posters
+const SLIDES = ['Title','Cylinder or sphere','The 2.25 m edge','Pressure on one hexagon','The seven layers','Load path and seal apart','Shield comparison','Docking load path','Moving around inside','Plant alcoves','Inside the column','Water from sunlight','One connected machine','Build and test','Status, April 2026'];
+const POSTERS = [['poster-hex-1.jpg','Hex panel 1: geometry and parts'],['poster-hex-2.jpg','Hex panel 2: the layers'],['poster-hex-3.jpg','Hex panel 3: load path'],['poster-facility.jpg','The assembled facility']];
+
+const esc = s => s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+document.getElementById('talkList').innerHTML = TALKS.map(t => `
+  <div class="talk"><div class="card"><div class="meta">${esc(t.when)} · ${esc(t.where)}</div><h3>${esc(t.name)}</h3>
+  <p class="mut" style="font-style:italic;font-family:Fraunces,serif;font-size:19px">${esc(t.theme)}</p><p>${esc(t.what)}</p><p class="mut" style="font-size:16px">${esc(t.people)}</p></div>
+  <div><h3 style="font-family:Inter,sans-serif;font-size:18px;font-weight:650">What we showed</h3><ul>${t.showed.map(s=>`<li>${esc(s)}</li>`).join('')}</ul></div></div>`).join('');
+
+const LABEL = {holds:'Still holds', improved:'Improved', replaced:'Replaced', moved:'Moved on'};
+const list = document.getElementById('ideaList');
+list.innerHTML = IDEAS.map(i => `
+  <article class="idea" data-s="${i.status}"><header><span class="topic">${esc(i.topic)}</span><h3>${esc(i.title)}</h3><span class="tag ${i.status}">${LABEL[i.status]}</span></header>
+  <div class="pair"><div class="then"><h4>Then, spring 2026</h4><p>${esc(i.then)}</p></div><div class="now"><h4>Now, Rev E</h4><p>${esc(i.now)}</p></div></div>
+  <div class="from">Shown in: ${esc(i.from)}</div></article>`).join('');
+const count = document.getElementById('count');
+function filt(f){
+  let n=0; for (const a of list.children){ const on = f==='all' || a.dataset.s===f; a.hidden=!on; if(on) n++; }
+  count.textContent = `${n} of ${IDEAS.length}`;
+  document.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', String(c.dataset.f===f)));
+}
+document.querySelectorAll('.chip').forEach(c => c.addEventListener('click', () => filt(c.dataset.f)));
+filt('all');
+
+const lb=document.getElementById('lb'), lbimg=document.getElementById('lbimg'), lbcap=document.getElementById('lbcap');
+function open(src,cap){ lbimg.src=src; lbimg.alt=cap; lbcap.textContent=cap; lb.classList.add('open'); document.getElementById('lbx').focus(); }
+function close(){ lb.classList.remove('open'); lbimg.src=''; }
+document.getElementById('lbx').onclick=close; lb.onclick=e=>{ if(e.target===lb) close(); };
+addEventListener('keydown', e=>{ if(e.key==='Escape') close(); });
+const sg=document.getElementById('slideGrid');
+SLIDES.forEach((t,k)=>{ const n=String(k+1).padStart(2,'0'); const b=document.createElement('button');
+  b.innerHTML=`<img src="/preview/research/slide-${n}.jpg" alt="Slide ${k+1}: ${t}" loading="lazy">`;
+  b.onclick=()=>open(`/preview/research/slide-${n}.jpg`,`Slide ${k+1}: ${t}. April 2026; some numbers have changed since (see the ideas above).`); sg.appendChild(b); });
+const pg=document.getElementById('posterGrid');
+POSTERS.forEach(([f,t])=>{ const b=document.createElement('button');
+  b.innerHTML=`<img src="/preview/research/${f}" alt="Poster: ${t}" loading="lazy">`;
+  b.onclick=()=>open(`/preview/research/${f}`,`${t}. April 2026; the panel has since become 96 small panes.`); pg.appendChild(b); });
+
+const bar=document.getElementById('bar'); const solid=()=>bar.classList.toggle('solid', scrollY>40); addEventListener('scroll',solid,{passive:true}); solid();
+</script>
+</body>
+</html>

@@ -59,9 +59,18 @@
       "source": "/story",
       "destination": "/story/",
       "permanent": false
+    },
+    {
+      "source": "/research",
+      "destination": "/research/",
+      "permanent": false
     }
   ],
   "rewrites": [
+    {
+      "source": "/research/",
+      "destination": "/research/index.html"
+    },
     {
       "source": "/story/",
       "destination": "/story/index.html"
