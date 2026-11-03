@@ -9,7 +9,7 @@ export type TeamMember = {
 }
 
 export const projectAffiliation =
-  'We are a design and engineering research project at Brown University, with students from several fields. Brown supports us through its Undergraduate Teaching and Research Awards (UTRA) program, and our faculty advisors guide the work.'
+  'We are a design and engineering research project at Brown University, with students from Brown, the Rhode Island School of Design, the Moraitis School in Athens, where Marina Kouroumali leads our group, and the University of Patras. Brown supports us through its Undergraduate Teaching and Research Awards (UTRA) program, and our faculty advisors guide the work.'
 
 export const leadership: TeamMember[] = [
   {
