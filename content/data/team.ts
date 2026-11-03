@@ -33,13 +33,11 @@ export const collaborators: TeamMember[] = [
   { name: 'Gerasimos Nikolopoulos', role: 'Life support, plants and biology' },
 ]
 
-/** Members of the team before its September 2026 remake. Gerasimos was
- *  on it then and is on the current team too. */
+/** Members of the team before its September 2026 remake. */
 export const earlierMembers: TeamMember[] = [
   { name: 'Katie Liu', role: 'Structure and FEA' },
   { name: 'Lauren Hogan', role: 'Thermal and the water loop' },
   { name: 'Skye Rosario', role: 'Thermal and life support · Presenter, Brown Space Horizons 2026' },
-  { name: 'Gerasimos Nikolopoulos', role: 'Plants and biology' },
   { name: 'Aris Achilleoudis', role: 'Design, shutters and interior · Presenter, Brown Space Horizons 2026' },
   { name: 'Xenia Tzamalouka', role: 'Design, the moon-phase shutters · Presenter, Brown Space Horizons 2026' },
   { name: 'Nefeli Moraitini', role: 'Design' },
