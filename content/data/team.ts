@@ -14,7 +14,7 @@ export const projectAffiliation =
 export const leadership: TeamMember[] = [
   {
     name: 'Manos Theofanous',
-    role: 'Project lead',
+    role: 'Project lead · Presenter, Brown Space Horizons 2026',
     focus: 'Leads the structure and materials work, brings the whole design together and is the lead author',
   },
 ]
@@ -27,7 +27,7 @@ export const facultyAdvisors: TeamMember[] = [
 ]
 
 export const collaborators: TeamMember[] = [
-  { name: 'Marina Kouroumali', role: 'Head of interior' },
+  { name: 'Marina Kouroumali', role: 'Head of interior · Presenter, Brown Space Horizons 2026' },
   { name: 'Androniki', role: 'Interior concept and physical models' },
   { name: 'Amalia', role: 'Interior CAD' },
   { name: 'Gerasimos Nikolopoulos', role: 'Life support, plants and biology' },
@@ -38,10 +38,10 @@ export const collaborators: TeamMember[] = [
 export const earlierMembers: TeamMember[] = [
   { name: 'Katie Liu', role: 'Structure and FEA' },
   { name: 'Lauren Hogan', role: 'Thermal and the water loop' },
-  { name: 'Skye Rosario', role: 'Thermal and life support' },
+  { name: 'Skye Rosario', role: 'Thermal and life support · Presenter, Brown Space Horizons 2026' },
   { name: 'Gerasimos Nikolopoulos', role: 'Plants and biology' },
-  { name: 'Aris Achilleoudis', role: 'Design, shutters and interior' },
-  { name: 'Xenia Tzamalouka', role: 'Design, the moon-phase shutters' },
+  { name: 'Aris Achilleoudis', role: 'Design, shutters and interior · Presenter, Brown Space Horizons 2026' },
+  { name: 'Xenia Tzamalouka', role: 'Design, the moon-phase shutters · Presenter, Brown Space Horizons 2026' },
   { name: 'Nefeli Moraitini', role: 'Design' },
   { name: 'Katerina Sofianou', role: 'Design and marketing' },
   { name: 'Keren Dial', role: 'Design and outreach' },
