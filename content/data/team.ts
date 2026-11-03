@@ -30,19 +30,23 @@ export const collaborators: TeamMember[] = [
   { name: 'Marina Kouroumali', role: 'Head of interior · Presenter, Brown Space Horizons 2026' },
   { name: 'Gerasimos Nikolopoulos', role: 'Life support, plants and biology' },
   { name: 'Xenia Tzamalouka', role: 'Interior and shutters · Presenter, Brown Space Horizons 2026' },
-  { name: 'Androniki', role: 'Interior concept and physical models' },
+  { name: 'Aris Achilleoudis', role: 'Design, shutters and interior · Presenter, Brown Space Horizons 2026' },
+  { name: 'Androniki Sarra', role: 'Interior concept and physical models' },
   { name: 'Amalia', role: 'Interior CAD' },
+]
+
+/** General marketing and outreach support. */
+export const outreachSupport: TeamMember[] = [
+  { name: 'Estella', role: 'Marketing and outreach' },
+  { name: 'Katerina Sofianou', role: 'Marketing and outreach' },
+  { name: 'Nefeli Moraitini', role: 'Marketing and outreach' },
 ]
 
 /** Members of the team before its September 2026 remake. */
 export const earlierMembers: TeamMember[] = [
-  { name: 'Aris Achilleoudis', role: 'Design, shutters and interior · Presenter, Brown Space Horizons 2026' },
-  { name: 'Estella', role: 'Research team' },
-  { name: 'Katerina Sofianou', role: 'Design and marketing' },
   { name: 'Katie Liu', role: 'Structure and FEA' },
   { name: 'Keren Dial', role: 'Design and outreach' },
   { name: 'Lauren Hogan', role: 'Thermal and the water loop' },
   { name: 'Marco Cross, PhD', role: 'Fabrication advisor' },
-  { name: 'Nefeli Moraitini', role: 'Design' },
   { name: 'Skye Rosario', role: 'Thermal and life support · Presenter, Brown Space Horizons 2026' },
 ]

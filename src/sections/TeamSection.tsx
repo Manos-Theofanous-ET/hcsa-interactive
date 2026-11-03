@@ -1,4 +1,4 @@
-import { collaborators, earlierMembers, facultyAdvisors, leadership, projectAffiliation } from "@content/data/team";
+import { collaborators, earlierMembers, outreachSupport, facultyAdvisors, leadership, projectAffiliation } from "@content/data/team";
 import { EditorialSection, RuledList, SubHeading } from "./SectionHeader";
 
 export function TeamSection() {
@@ -8,6 +8,7 @@ export function TeamSection() {
     body: m.focus,
   }));
   const team = collaborators.map((m) => ({ title: m.name, meta: m.role }));
+  const outreach = outreachSupport.map((m) => ({ title: m.name, meta: m.role }));
   const earlier = earlierMembers.map((m) => ({ title: m.name, meta: m.role }));
   return (
     <EditorialSection id="team" index="04" label="The team" title="Who is building it." intro={projectAffiliation}>
@@ -15,6 +16,10 @@ export function TeamSection() {
       <div className="mt-12">
         <SubHeading>Team</SubHeading>
         <RuledList items={team} columns={2} />
+      </div>
+      <div className="mt-12">
+        <SubHeading>Marketing and outreach support</SubHeading>
+        <RuledList items={outreach} columns={2} />
       </div>
       <div className="mt-12">
         <SubHeading>Earlier members</SubHeading>
