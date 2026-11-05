@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>HCSA station, Rev E, 3D model</title>
+<title>HCSA station, Rev F, 3D model</title>
 <meta name="robots" content="noindex">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preload" href="/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -85,7 +85,7 @@
 </div>
 <div id="ui">
 <section data-mode="explore">
-  <h1>HCSA station, Rev E <a class="back" id="backLink" href="/team/">← Team area</a></h1>
+  <h1>HCSA station, Rev F <a class="back" id="backLink" href="/team/">← Team area</a></h1>
   <div class="sub">Transparent observation facility in low Earth orbit, 400 km up</div>
 
   <h2>Views</h2>
@@ -117,14 +117,16 @@
     <span>Shape</span><span>Truncated icosahedron, 32 panels</span>
     <span>Size</span><span>11.151 m across, 2.25 m edges</span>
     <span>Windows</span><span>20 glass hexagons</span>
-    <span>Panes</span><span>96 per hexagon, 531 mm, 22 mm BOROFLOAT 33</span>
+    <span>Panes</span><span>96 per hexagon, 531 mm, 21 mm BOROFLOAT 33</span>
     <span>Pentagons</span><span>12, solid: solar arrays and rolled shields</span>
-    <span>Structure</span><span>6061-T6 frames, I 400 main ribs, k 4 secondary grid, 60 corner blocks</span>
+    <span>Structure</span><span>6061-T6 frames 180 deep; main ribs I 400 × 100 (option B); secondary ribs I 180 × 60; k 4 grid; 60 corner blocks</span>
+    <span>Cabin</span><span>0.8 atm, 26 % O₂, design pressure 12.3 psia</span>
+    <span class="internal">Docking</span><span class="internal">Hatch-shut transfer lock and relief valve to a 1 atm host (concept, not sized)</span>
     <span>Inside</span><span>493 m³ clear, 9.40 m across the hexagons</span>
     <span>Pods</span><span>Marina's two pods: 5.2 m and 2.35 m tall, hung from the column</span>
-    <span class="internal">Mass</span><span class="internal">44.1 t in the Rev E model</span>
+    <span class="internal">Mass</span><span class="internal">44.1 t in the Rev E model (all layers); option B structure 36.1 t with 21 mm panes (5 Nov shell model)</span>
   </div>
-  <div class="note internal">The shell follows the Rev E model and the locked spec. The two pods follow Marina's 13 October working images, sized from her April numbers (2.5 m and 5.5 m on a 10 m sphere) scaled to the 9.40 m envelope; their exact shape and mounts wait on her answers. The column, greenhouses, ropes and people are placeholders. Drag to orbit, scroll to zoom.</div>
+  <div class="note internal">The shell follows the Rev F working baseline of 5 Nov: option B main ribs, thin secondary ribs, 180 mm frames, 21 mm panes, a 0.8 atm cabin and a transfer lock at the docking port. The transfer lock and relief valve are a concept until Rick agrees. The two pods follow Marina's 13 October working images, sized from her April numbers (2.5 m and 5.5 m on a 10 m sphere) scaled to the 9.40 m envelope; their exact shape and mounts wait on her answers. The column, greenhouses, ropes and people are placeholders. Drag to orbit, scroll to zoom.</div>
 </section>
 
 <section data-mode="walk" hidden>
@@ -177,7 +179,7 @@
   <div class="row2"><button id="shDeploy">Deploy and inflate</button><button id="shStow">Deflate and stow</button></div>
   <div class="info" id="shieldVal">Stowed in their rolls</div>
   <h2>Pressurising</h2>
-  <label class="row">Cabin pressure <input id="press" type="range" min="0" max="101.3" step="0.1" value="0"></label>
+  <label class="row">Cabin pressure <input id="press" type="range" min="0" max="81.1" step="0.1" value="0"></label>
   <div class="row2"><button id="pressGo">Pressurise from vacuum</button></div>
   <div class="info" id="pressInfo"></div>
 </section>
@@ -487,20 +489,21 @@ function addPane(face, tri) {
 
 function buildFace(face, isHex) {
   const { n, c, v } = face, N = v.length;
-  // perimeter frame (160 mm deep, 120 mm wide, set inside the edge)
+  // perimeter frame (180 mm deep, 120 mm wide, set inside the edge) - Rev F
   for (let s = 0; s < N; s++) {
     const A = v[s], B = v[(s + 1) % N];
     const mid = A.clone().add(B).multiplyScalar(0.5);
     const toC = c.clone().sub(mid).normalize();
-    box(G.frame, A, B, n, 0.12, -0.16, 0.0, toC.clone().multiplyScalar(0.06));
+    box(G.frame, A, B, n, 0.12, -0.18, 0.0, toC.clone().multiplyScalar(0.06));
     box(G.frameOut, A, B, n, 0.07, 0.0, 0.028, toC.clone().multiplyScalar(0.04));
     box(G.seal, A, B, n, 0.012, -0.005, 0.03, toC.clone().multiplyScalar(0.003));
   }
   const segs = buildGrid(face, isHex);
   for (const s of segs) {
     if (s.kind === 'edge') continue;
-    if (s.kind === 'main') { ibeam(G.main, G.mainFl, s.a, s.b, n, 0.40, 0.08, 0.025, 0.025); box(G.seat, s.a, s.b, n, 0.06, -0.01, 0.03); }
-    else { ibeam(G.sec, G.secFl, s.a, s.b, n, 0.152, 0.1, 0.012, 0.012); box(G.seat, s.a, s.b, n, 0.04, -0.01, 0.022); }
+    // Rev F: main rib option B I 400 x 100 x 25, web 8; secondary rib I 180 x 60 x 10, web 5
+    if (s.kind === 'main') { ibeam(G.main, G.mainFl, s.a, s.b, n, 0.40, 0.10, 0.008, 0.025); box(G.seat, s.a, s.b, n, 0.10, -0.01, 0.03); }
+    else { ibeam(G.sec, G.secFl, s.a, s.b, n, 0.18, 0.06, 0.005, 0.010); box(G.seat, s.a, s.b, n, 0.06, -0.01, 0.022); }
   }
   // centre hub
   const hub = new THREE.CylinderGeometry(0.2, 0.2, 0.42, 24);
@@ -604,6 +607,20 @@ const glassMeshes = faces.filter(f => f.parts.glass).map(f => f.parts.glass);
   const hatch = new THREE.Mesh(new THREE.CircleGeometry(0.62, 48), aluDark); hatch.rotation.x = -Math.PI / 2; hatch.position.y = 0.93; grp.add(hatch);
   const blink = new THREE.Mesh(new THREE.SphereGeometry(0.03, 8, 8), new THREE.MeshBasicMaterial({ color: new THREE.Color(4, 0.3, 0.2) }));
   blink.position.set(0.95, 0.95, 0); grp.add(blink); blink.name = 'blink';
+  // transfer lock placeholder: concept, not sized (Rev F, 4 Nov). The module runs at 0.8 atm; the hatch to the 1 atm host stays shut when the pressures differ.
+  const lockMat = new THREE.MeshStandardMaterial({ color: 0xffb347, metalness: 0.2, roughness: 0.6, transparent: true, opacity: 0.38, side: THREE.DoubleSide, depthWrite: false });
+  const lock = new THREE.Mesh(new THREE.CylinderGeometry(0.9, 0.9, 1.5, 48, 1, true), lockMat); lock.position.y = 1.78; grp.add(lock);
+  const lockEdge = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.CylinderGeometry(0.9, 0.9, 1.5, 24)), new THREE.LineBasicMaterial({ color: 0xffb347 })); lockEdge.position.y = 1.78; grp.add(lockEdge);
+  const ring2 = new THREE.Mesh(new THREE.TorusGeometry(0.85, 0.06, 16, 80), alu); ring2.rotation.x = Math.PI / 2; ring2.position.y = 2.55; grp.add(ring2);
+  const relief = new THREE.Mesh(new THREE.SphereGeometry(0.07, 16, 12), new THREE.MeshStandardMaterial({ color: 0xc0392b, emissive: 0x6a1a12 })); relief.position.set(0.95, 0.5, 0.3); grp.add(relief);
+  {
+    const c = document.createElement('canvas'); c.width = 1024; c.height = 256; const g = c.getContext('2d');
+    g.fillStyle = 'rgba(8,12,20,0.78)'; g.fillRect(0, 0, 1024, 256); g.strokeStyle = '#ffb347'; g.lineWidth = 6; g.strokeRect(3, 3, 1018, 250);
+    g.fillStyle = '#ffe2b8'; g.font = '600 64px Inter, sans-serif'; g.fillText('Transfer lock', 40, 100);
+    g.font = '44px Inter, sans-serif'; g.fillText('concept, not sized · 0.8 atm module, 1 atm host', 40, 180);
+    const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace;
+    const lbl = new THREE.Sprite(new THREE.SpriteMaterial({ map: t, depthTest: false, transparent: true })); lbl.scale.set(1.2, 0.3, 1); lbl.position.set(1.55, 2.2, 0); lbl.renderOrder = 20; grp.add(lbl);
+  }
 }
 
 // ---------- interior ----------
@@ -1188,8 +1205,8 @@ const busX = 0.14, ductX = -0.14;
     const cIn = f.c.clone().addScaledVector(f.n, -0.8), cp = colPoint(cIn);
     flow([V3(ductX, -1.8, 0), V3(0, -1.8, 0).addScaledVector(V3(cIn.x, 0, cIn.z).normalize(), colR + 0.08), cp, cIn], ca, A, 0.018, 0.8);
   }
-  addLabel('CO₂ removal + O₂ · 101.3 kPa, 21 % O₂', scrub.clone().add(V3(0, -0.4, 0)), 'air',
-    '<b>Air.</b> A machine system holds sea-level air: <b>101.3 kPa, 21 % O₂</b>, matching ISS practice (TRUTH 5.3). It sits behind a service pentagon and blows clean air down the column to vents, then out to the pods and greenhouses.');
+  addLabel('CO₂ removal + O₂ · 81 kPa, 26 % O₂', scrub.clone().add(V3(0, -0.4, 0)), 'air',
+    '<b>Air.</b> A machine system holds <b>81 kPa (0.8 atm) with 26 % O₂</b>, which gives the same oxygen pressure as sea level (Rev F, 4 Nov; TRUTH 5.3 to be rewritten for a hatch-shut transfer lock to a 1 atm host). It sits behind a service pentagon and blows clean air down the column to vents, then out to the pods and greenhouses.');
   addLabel('6 visitors · about 0.4 kg CO₂ a visit', V3(1.2, 0.2, 1.4), 'air',
     '<b>What the visitors breathe.</b> One person uses about 0.84 kg of O₂ and breathes out about 1.0 kg of CO₂ a day (life support brief). Six visitors for 90 minutes is about <b>0.375 kg of CO₂</b>, which the machines remove. The plants clean the air a little, but they cannot keep up with people (plant brief).');
   addLabel('Pod fan · size to be set (Skye)', pods[0].center.clone().add(V3(0, pods[0].ay * 0.7, 0)), 'air',
@@ -1339,7 +1356,7 @@ let seamMesh;
 }
 const HEX_AREA = 3 * Math.sqrt(3) / 2 * EDGE * EDGE;  // 13.15 m²
 function setPressure(kpa) {
-  const k = kpa / 101.325;
+  const k = kpa / 81.06;
   seamMesh.visible = kpa > 0.5; seamMesh.material.color.setRGB(3.5 * k, 1.1 * k, 0.15 * k);
   glass.emissive = new THREE.Color(0.05, 0.22, 0.6).multiplyScalar(0.35 * k);
   const F = kpa * HEX_AREA; // kN
@@ -1348,7 +1365,7 @@ function setPressure(kpa) {
   $('press').value = kpa;
 }
 let pressAnim = null;
-hooks.push((t, dt) => { if (pressAnim) { pressAnim.v = Math.min(101.3, pressAnim.v + dt * 14); setPressure(pressAnim.v); if (pressAnim.v >= 101.3) pressAnim = null; } });
+hooks.push((t, dt) => { if (pressAnim) { pressAnim.v = Math.min(81.1, pressAnim.v + dt * 14); setPressure(pressAnim.v); if (pressAnim.v >= 81.1) pressAnim = null; } });
 
 // =====================================================================
 // PEOPLE: articulated figures with poses
@@ -1629,13 +1646,13 @@ colStack.visible = false; scene.add(colStack);
 const COL_STACK_POS = STACK0.clone().add(V3(0.1, -0.4, -3.35));
 const assemblyOrder = [...faces].sort((a, b) => a.n.y - b.n.y);
 const CHAPTERS = [
-  ['Making the parts', 'One hexagon, taken apart: 6061-T6 frame and main ribs (I 400), the k 4 grid of secondary ribs, 96 glass panes of 22 mm BOROFLOAT 33 cut as 531 mm triangles from standard sheets, the butyl seals and RTV, one shutter per cell. The 60 corner blocks are 2219 hand forgings.'],
+  ['Making the parts', 'One hexagon, taken apart: 6061-T6 frame and main ribs (I 400), the k 4 grid of secondary ribs, 96 glass panes of 21 mm BOROFLOAT 33 cut as 531 mm triangles from standard sheets, the butyl seals and RTV, one shutter per cell. The 60 corner blocks are 2219 hand forgings.'],
   ['Building a panel', 'Frame first, then the six main ribs and hub, the secondary grid, the pane seats and seals, the glass, and the shutters. Each panel is finished and leak-checked on the ground.'],
   ['Testing', 'T0 breaks glass bars to measure strength (spring 2027, ENGN 1440). T1 pulls seam slices on the Instron (Jan to Feb 2027). T2 tests one panel at 1:4 scale. The pane size is picked after T0 measures the Weibull modulus.'],
   ['Packing for launch', 'Twenty flat layers in Starship V3: a hexagon beside a pentagon in twelve of them, a hexagon alone in eight, with the column standing upright beside the stack (packing study, 24 Oct). The stack fits the 8 m by 17.24 m envelope if each cradle takes no more than 0.15 m.'],
   ['Launch and arrival', 'One launch to low Earth orbit; Starship V3 is quoted at more than 100 t, and the facility manifest is about 52 to 60 t. In orbit the payload bay opens.'],
   ['Assembling in orbit', 'The column goes in first, then the 32 panels are bolted on one by one, from the Earth side up, and the 60 corner blocks close each node. Who does the assembly in orbit, robot arm or crew, is still open in TRUTH.'],
-  ['Pressurising', 'Air is let in slowly to 101.3 kPa while the seams are watched for leaks. At full pressure each glass hexagon is pushed out with about 1.33 MN.'],
+  ['Pressurising', 'Air is let in slowly to 81 kPa (0.8 atm) while the seams are watched for leaks. At full pressure each glass hexagon is pushed out with about 1.07 MN.'],
   ['Years in service', 'Short visits of about six people for one orbit at a time. Shields come out to protect the glass; panes and seals can be swapped from the inside, one cell at a time.'],
   ['End of life', 'Taken apart panel by panel or brought down, as TRUTH section 16 sets out. The details are still to be written.'],
 ];
@@ -1685,7 +1702,7 @@ function setLife(L) {
     interior.visible = u > 0.97;
     assemblyOrder.forEach((f, i) => { const a = 0.08 + i / 32 * 0.8, k = sstep(a, a + 0.1, u); stackFace(f, 1 - k); });
   } else if (ch === 6) {
-    setPressure(u * 101.325);
+    setPressure(u * 81.06);
   } else if (ch === 7) {
     shield.td = shield.tk = (Math.sin(u * Math.PI * 2 - Math.PI / 2) + 1) / 2 > 0.5 ? 1 : 0;
   } else if (ch === 8) {

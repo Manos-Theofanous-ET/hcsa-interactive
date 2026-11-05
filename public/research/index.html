@@ -236,7 +236,7 @@ footer{border-top:1px solid rgba(255,255,255,.08);color:var(--mut);font-size:15p
   <div class="wrap">
     <p class="eyebrow">The ideas, then and now</p>
     <h2>Everything we presented, idea by idea</h2>
-    <p class="lead">"Then" is what we showed in spring 2026. "Now" is the current design, Rev E, as of November 2026. The label on each idea says what happened to it.</p>
+    <p class="lead">"Then" is what we showed in spring 2026. "Now" is the current design, Rev F, as of 5 November 2026. The label on each idea says what happened to it.</p>
     <div class="legend" style="margin-top:18px">
       <span><span class="tag holds" style="margin:0 8px 0 0">Still holds</span>we stand by it today</span>
       <span><span class="tag improved" style="margin:0 8px 0 0">Improved</span>same idea, better engineering</span>
@@ -335,10 +335,10 @@ const IDEAS = [
     now:'The numbers still hold, and they are why the metal carries the load. What changed is how the glass sits in the frame (next idea).', from:'NotebookLM slide 4; talk slide on FEA' },
   { topic:'Structure', title:'How the glass sits in the frame', status:'replaced',
     then:'Each hexagon was six big triangles of glass, held by six radial ribs that met at a centre node, inside an aluminium frame 140 mm deep.',
-    now:'Each hexagon is now a grid of 96 small panes, 531 mm across and 22 mm thick, in BOROFLOAT 33 glass, resting on a grid of aluminium ribs. Small panes are much less likely to have a dangerous flaw, and if one cracks, it is one pane in 96. The ribs carry the load to solid corner blocks.', from:'Hex panel posters 1 to 3' },
+    now:'Each hexagon is now a grid of 96 small panes, 531 mm across and 21 mm thick, in BOROFLOAT 33 glass, resting on a grid of aluminium ribs. Small panes are much less likely to have a dangerous flaw, and if one cracks, it is one pane in 96. The ribs carry the load to solid corner blocks.', from:'Hex panel posters 1 to 3' },
   { topic:'Window', title:'Seven layers in every window', status:'improved',
     then:'From outside in: a 6 mm fused silica debris pane that a spacewalker can replace; the aluminium frame; see-through solar cells; the tint; a 12 mm gas gap; a sliding solar shade; the inner finish.',
-    now:'Still seven layers, but the 22 mm borosilicate pane is now the one that holds the air in, and the gap behind the outer debris pane is open to space, so the outer pane holds no pressure.', from:'NotebookLM slide 5; master deck' },
+    now:'Still seven layers, but the 21 mm borosilicate pane is now the one that holds the air in, and the gap behind the outer debris pane is open to space, so the outer pane holds no pressure.', from:'NotebookLM slide 5; master deck' },
   { topic:'Window', title:'Tint and solar power in the glass', status:'holds',
     then:'An electrochromic tint (tungsten oxide and nickel oxide) goes from 60 percent of the light down to 1 percent. See-through perovskite cells give 50 to 100 W/m², and the sliding shade carries 18 to 22 percent efficient cells. The column carries a 66 W power line to each panel for the tint.',
     now:'Still the plan. Tint glass has never flown in space, so testing it under heat cycles and UV is part of our future work.', from:'NotebookLM slides 5 and 11' },
@@ -415,7 +415,7 @@ const LABEL = {holds:'Still holds', improved:'Improved', replaced:'Replaced', mo
 const list = document.getElementById('ideaList');
 list.innerHTML = IDEAS.map(i => `
   <article class="idea" data-s="${i.status}"><header><span class="topic">${esc(i.topic)}</span><h3>${esc(i.title)}</h3><span class="tag ${i.status}">${LABEL[i.status]}</span></header>
-  <div class="pair"><div class="then"><h4>Then, spring 2026</h4><p>${esc(i.then)}</p></div><div class="now"><h4>Now, Rev E</h4><p>${esc(i.now)}</p></div></div>
+  <div class="pair"><div class="then"><h4>Then, spring 2026</h4><p>${esc(i.then)}</p></div><div class="now"><h4>Now, Rev F</h4><p>${esc(i.now)}</p></div></div>
   <div class="from">Shown in: ${esc(i.from)}</div></article>`).join('');
 const count = document.getElementById('count');
 function filt(f){
