@@ -100,6 +100,8 @@
     <button data-view="dock">Docking side</button>
     <button data-view="pods">Marina's pods</button>
     <button data-view="podsout">Pods, from outside</button>
+    <button data-view="interior">The interior: mast, pods, plants</button>
+    <button id="inLbl">Interior labels</button>
   </div>
 
   <h2>Controls</h2>
@@ -123,10 +125,13 @@
     <span>Cabin</span><span>0.8 atm, 26 % O₂, design pressure 12.3 psia</span>
     <span class="internal">Docking</span><span class="internal">Hatch-shut transfer lock and relief valve to a 1 atm host (concept, not sized)</span>
     <span>Inside</span><span>493 m³ clear, 9.40 m across the hexagons</span>
-    <span>Pods</span><span>Marina's two pods: 5.2 m and 2.35 m tall, hung from the column</span>
+    <span>Pods</span><span>Six small pods round the central mast, 1.6 m tall, one or two people each, mouths to the windows</span>
+    <span>Moving about</span><span>Handrails with light strips from the hatch to the mast, the pods, the greenhouses and the window perches; grab handles every 40 cm up the mast; foot loops</span>
+    <span>Plants</span><span>Six greenhouse pentagons with tasting trays; plants up the mast and at every pod lip</span>
+    <span>Drinks</span><span>Drink pouches with valved straws, clipped at the drinks ring on the mast and in every pod</span>
     <span class="internal">Mass</span><span class="internal">44.1 t in the Rev E model (all layers); option B structure 36.1 t with 21 mm panes (5 Nov shell model)</span>
   </div>
-  <div class="note internal">The shell follows the Rev F working baseline of 5 Nov: option B main ribs, thin secondary ribs, 180 mm frames, 21 mm panes, a 0.8 atm cabin and a transfer lock at the docking port. The transfer lock and relief valve are a concept until Rick agrees. The two pods follow Marina's 13 October working images, sized from her April numbers (2.5 m and 5.5 m on a 10 m sphere) scaled to the 9.40 m envelope; their exact shape and mounts wait on her answers. The column, greenhouses, ropes and people are placeholders. Drag to orbit, scroll to zoom.</div>
+  <div class="note internal">The shell follows the Rev F working baseline of 5 Nov: option B main ribs, thin secondary ribs, 180 mm frames, 21 mm panes, a 0.8 atm cabin and a transfer lock at the docking port. The transfer lock and relief valve are a concept until Rick agrees. The interior (5 Nov) follows Marina's 13 October working images, made much smaller: six one-to-two-person pods round the central mast, plants in the six greenhouse pentagons and up the mast, handrails, handles, foot loops, window perches, a drinks ring with pouches and tasting trays. Exact pod shape and mounts wait on Marina. Drag to orbit, scroll to zoom.</div>
 </section>
 
 <section data-mode="walk" hidden>
@@ -249,6 +254,8 @@ controls.minDistance = 0.3; controls.maxDistance = 120;
 
 const rand = (() => { let s = 12345; return () => (s = (s * 16807) % 2147483647) / 2147483647; })();
 
+const V3 = (x = 0, y = 0, z = 0) => new THREE.Vector3(x, y, z);
+const clamp = THREE.MathUtils.clamp, lerp = THREE.MathUtils.lerp, sstep = (a, b, x) => THREE.MathUtils.smoothstep(x, a, b);
 // ---------- canvas textures ----------
 function canvasTex(w, h, draw, srgb = true) {
   const c = document.createElement('canvas'); c.width = w; c.height = h;
@@ -655,7 +662,7 @@ for (let i = 0; i < 2600; i++) {
 pents.filter(p => p.role === 'greenhouse').forEach((p, gi) => {
   if (gi === 0) window.ghP = p;
   // alcove: back LED panel, trays, cover
-  const ledMat = new THREE.MeshStandardMaterial({ color: 0x111111, emissive: new THREE.Color(1.0, 0.72, 0.85), emissiveIntensity: 1.6 });
+  const ledMat = new THREE.MeshStandardMaterial({ color: 0x111111, emissive: new THREE.Color(1.0, 0.72, 0.85), emissiveIntensity: 0.38 });
   const led = new THREE.Mesh(polyGeo(offPoly(p, 0.62, -0.43), p.n.clone().negate()), ledMat); interior.add(led);
   const tray = new THREE.Mesh(polyGeo(offPoly(p, 0.72, -0.47), p.n.clone().negate()), new THREE.MeshStandardMaterial({ color: 0x3a2a1c, roughness: 0.95 }));
   interior.add(tray);
@@ -668,9 +675,33 @@ pents.filter(p => p.role === 'greenhouse').forEach((p, gi) => {
     const out = p.n.clone().negate().addScaledVector(u, (rand() - .5) * 1.2).addScaledVector(w, (rand() - .5) * 1.2).normalize();
     leafSpots.push({ pos, out, s: 0.7 + rand() * 0.8 });
   }
-  const pl = new THREE.PointLight(0xffc6dc, 3.5, 4, 2); pl.position.copy(p.c.clone().addScaledVector(p.n, -1.2)); interior.add(pl);
+  const pl = new THREE.PointLight(0xffc6dc, 1.8, 4, 2); pl.position.copy(p.c.clone().addScaledVector(p.n, -1.2)); interior.add(pl);
 });
-// ---------- Marina's pods (13 Oct working images; April sizes scaled to the Rev E envelope) ----------
+// ---------- drink pouch with a valved straw (a 'sippy cup' for zero g) ----------
+const pouchMats = {};
+function pouch(color) {
+  const g = new THREE.Group();
+  const m = pouchMats[color] || (pouchMats[color] = new THREE.MeshPhysicalMaterial({ color, roughness: 0.25, transmission: 0.35, thickness: 0.02, clearcoat: 0.8 }));
+  const body = new THREE.Mesh(new THREE.CapsuleGeometry(0.035, 0.07, 6, 14), m); body.scale.set(1.25, 1, 0.55); g.add(body);
+  const cap = new THREE.Mesh(new THREE.CylinderGeometry(0.014, 0.016, 0.025, 12), new THREE.MeshStandardMaterial({ color: 0xf2f2f2, roughness: 0.4 })); cap.position.y = 0.083; g.add(cap);
+  const straw = new THREE.Mesh(new THREE.CylinderGeometry(0.0045, 0.0045, 0.07, 8), new THREE.MeshStandardMaterial({ color: 0xff7a3d, roughness: 0.5 })); straw.position.set(0, 0.12, 0); straw.rotation.z = 0.25; g.add(straw);
+  const clip = new THREE.Mesh(new THREE.TorusGeometry(0.012, 0.003, 6, 12), aluInside); clip.position.y = 0.1; g.add(clip);
+  return g;
+}
+// ---------- tasting tray: six clip-in cups of greens, herbs and microgreens ----------
+function tasterTray() {
+  const g = new THREE.Group();
+  const tray = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.025, 0.16), new THREE.MeshStandardMaterial({ color: 0xe8e2d5, roughness: 0.6 })); g.add(tray);
+  const lid = new THREE.MeshPhysicalMaterial({ color: 0xffffff, transmission: 0.85, roughness: 0.1, thickness: 0.004 });
+  const greens = [0x5f9e3a, 0x86b84a, 0x3f7d2c, 0xa3c163, 0x7a3f6e, 0xd9a441];
+  for (let i = 0; i < 6; i++) {
+    const x = -0.11 + (i % 3) * 0.11, z = i < 3 ? -0.04 : 0.04;
+    const c = new THREE.Mesh(new THREE.CylinderGeometry(0.026, 0.022, 0.03, 14, 1, true), lid); c.position.set(x, 0.027, z); g.add(c);
+    const leafy = new THREE.Mesh(new THREE.IcosahedronGeometry(0.02, 1), new THREE.MeshStandardMaterial({ color: greens[i], roughness: 0.7 })); leafy.scale.set(1, 0.7, 1); leafy.position.set(x, 0.033, z); g.add(leafy);
+  }
+  return g;
+}
+// ---------- Marina's pods (13 Oct working images, made much smaller on 5 Nov) ----------
 const pods = [];
 {
   const ENV_SCALE = 9.40 / 10.0;              // April package used a 10.0 m sphere
@@ -699,8 +730,8 @@ const pods = [];
     };
     return m;
   }
-  const skinMat = patchLattice(new THREE.MeshStandardMaterial({ color: 0xf3f1ec, roughness: 0.5, metalness: 0.0, side: THREE.DoubleSide, envMapIntensity: 0.5 }), 2.2, 0.12);
-  const skinDepth = patchLattice(new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking }), 2.2, 0.12);
+  const skinMat = patchLattice(new THREE.MeshStandardMaterial({ color: 0xf3f1ec, roughness: 0.5, metalness: 0.0, side: THREE.DoubleSide, envMapIntensity: 0.5 }), 3.6, 0.12);
+  const skinDepth = patchLattice(new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking }), 3.6, 0.12);
   const shellInMat = new THREE.MeshStandardMaterial({ color: 0xece4d6, roughness: 0.7, side: THREE.DoubleSide, envMapIntensity: 0.35 });
   const lipMat = new THREE.MeshPhysicalMaterial({ color: 0xdfe3e8, metalness: 1, roughness: 0.12, clearcoat: 1, clearcoatRoughness: 0.05, side: THREE.DoubleSide });
   const cushionMat = new THREE.MeshStandardMaterial({ color: 0xcfc6b8, roughness: 0.95 });
@@ -729,7 +760,7 @@ const pods = [];
     return new (class extends THREE.Curve { getPoint(t, o = new THREE.Vector3()) { const q = rimPt(t * Math.PI * 2, mx, my); return o.set(q.x * ax, q.y * ay, q.z * az); } })();
   }
   function lip(ax, ay, az, mx, my) {
-    const segs = 160, depth = 0.34, pos = [], idx = [];
+    const segs = 160, depth = 0.16, pos = [], idx = [];
     for (let i = 0; i <= segs; i++) {
       const a = i / segs * Math.PI * 2, q = rimPt(a, mx, my), q2 = rimPt(a, mx, my, 0.88);
       pos.push(q.x * ax, q.y * ay, q.z * az, q2.x * ax, q2.y * ay, q.z * az - depth);
@@ -738,17 +769,20 @@ const pods = [];
     const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx); g.computeVertexNormals(); return g;
   }
 
-  // name, height (April), half-widths, where it hangs, how far the mouth turns from the column
-  const defs = [
-    { name: 'Large pod', H: 5.5, wx: 1.5, wz: 1.3, ang: -Math.PI / 2, r: 2.75, y: 0.15, turn: 1.2, seed: 1.7, mw: 1.15, mh: 0.85 },
-    { name: 'Small pod', H: 2.5, wx: 1.35, wz: 1.15, ang: Math.PI / 2 + 0.35, r: 2.85, y: 1.35, turn: -1.15, seed: 5.3, mw: 0.95, mh: 0.6 },
-  ];
+  // 5 Nov: six small one-to-two-person pods round the mast, on two levels, mouths turned out to the windows
+  // (Manos, 5 Nov: "a lot smaller"; form from Marina's 13 Oct working images: white lattice shell, lit mouth, plants at the lip)
+  const defs = [];
+  for (let k = 0; k < 6; k++) {
+    const up = k < 3, ang = (k % 3) / 3 * Math.PI * 2 + (up ? 0.35 + Math.PI / 3 : 0.35);  // no upper pod in line with the hatch
+    defs.push({ name: `Pod ${k + 1}`, H: 1.62 / ENV_SCALE, wx: 0.74, wz: 0.62, ang, r: 1.6, y: up ? 1.55 : -1.55, turn: Math.PI, seed: 1.7 + k * 1.9, mw: 0.52, mh: 0.5 });
+  }
   for (const d of defs) {
     const ay = d.H * ENV_SCALE / 2, ax = d.wx, az = d.wz;
     const radial = new THREE.Vector3(Math.cos(d.ang), 0, Math.sin(d.ang));
     const center = radial.clone().multiplyScalar(d.r).setY(d.y);
     const tangent = new THREE.Vector3(-radial.z, 0, radial.x);
     const mouth = radial.clone().negate().multiplyScalar(Math.cos(d.turn)).addScaledVector(tangent, Math.sin(d.turn)).normalize();
+    const LD = 0.16; // depth of the mouth lip
     const Y = new THREE.Vector3(0, 1, 0), X = new THREE.Vector3().crossVectors(Y, mouth);
     const grp = new THREE.Group(); grp.matrix.makeBasis(X, Y, mouth).setPosition(center); grp.matrixAutoUpdate = false; interior.add(grp);
 
@@ -758,17 +792,21 @@ const pods = [];
     const inner = new THREE.Mesh(podShell(ax, ay, az, 0.88, d.seed, 0.08, mx, my), shellInMat); inner.castShadow = inner.receiveShadow = true; grp.add(inner);
     const rim = new THREE.Mesh(new THREE.TubeGeometry(rimCurve(ax, ay, az, mx, my), 200, 0.05, 12, true), lipMat); grp.add(rim);
     grp.add(new THREE.Mesh(lip(ax, ay, az, mx, my), lipMat));
-    { const c = new (class extends THREE.Curve { getPoint(t, o = new THREE.Vector3()) { const a = t * Math.PI * 2, q = rimPt(a, mx, my), q2 = rimPt(a, mx, my, 0.88); return o.set(q2.x * ax, q2.y * ay, q.z * az - 0.34); } })();
+    { const c = new (class extends THREE.Curve { getPoint(t, o = new THREE.Vector3()) { const a = t * Math.PI * 2, q = rimPt(a, mx, my), q2 = rimPt(a, mx, my, 0.88); return o.set(q2.x * ax, q2.y * ay, q.z * az - 0.16); } })();
       grp.add(new THREE.Mesh(new THREE.TubeGeometry(c, 200, 0.03, 10, true), lipMat)); }
-    // soft lounge along the back wall, a light inside
-    const bench = new THREE.Mesh(new THREE.CapsuleGeometry(0.2, ay * 0.9, 8, 20), cushionMat); bench.position.set(0, -ay * 0.05, -az * 0.62); grp.add(bench);
-    const pad = new THREE.Mesh(new THREE.CapsuleGeometry(0.16, ax * 0.9, 8, 20), cushionMat); pad.rotation.z = Math.PI / 2; pad.position.set(0, -ay * 0.62, -az * 0.25); grp.add(pad);
-    const lamp = new THREE.PointLight(0xffc98f, 0.9, ay * 2 + 1.5, 2); lamp.position.set(0, 0, -az * 0.25); grp.add(lamp);
-    const glow = new THREE.Mesh(new THREE.TubeGeometry(rimCurve(ax * 0.97, ay * 0.97, az * 0.97 - 0.3, mx * 0.88, my * 0.88), 160, 0.008, 6, true), new THREE.MeshBasicMaterial({ color: new THREE.Color(2.2, 1.7, 1.1) })); grp.add(glow);
+    // a soft seat for one or two, a foot bar, a hand ring at the mouth, a drink pouch in its clip, a reading light
+    const seat = new THREE.Mesh(new THREE.CapsuleGeometry(0.17, ax * 0.85, 8, 20), cushionMat); seat.rotation.z = Math.PI / 2; seat.position.set(0, -ay * 0.38, -az * 0.25); grp.add(seat);
+    const back = new THREE.Mesh(new THREE.CapsuleGeometry(0.15, ax * 0.7, 8, 20), cushionMat); back.rotation.z = Math.PI / 2; back.position.set(0, -ay * 0.02, -az * 0.62); grp.add(back);
+    const foot = new THREE.Mesh(new THREE.TorusGeometry(0.22, 0.016, 8, 32, Math.PI), aluInside); foot.rotation.set(-Math.PI / 2, 0, 0); foot.position.set(0, -ay * 0.62, az * 0.22); grp.add(foot);
+    const hring = new THREE.Mesh(new THREE.TorusGeometry(0.1, 0.014, 8, 24), aluInside); hring.position.set(mx * ax * 0.95, 0, az * 0.62); hring.rotation.y = Math.PI / 2; grp.add(hring);
+    const hring2 = hring.clone(); hring2.position.x *= -1; grp.add(hring2);
+    const cup = pouch(0x5aa9d6); cup.position.set(ax * 0.55, -ay * 0.2, -az * 0.25); cup.rotation.z = 0.2; grp.add(cup);
+    const lamp = new THREE.PointLight(0xffc98f, 0.7, 2.6, 2); lamp.position.set(0, ay * 0.35, -az * 0.2); grp.add(lamp);
+    const glow = new THREE.Mesh(new THREE.TubeGeometry(rimCurve(ax * 0.97, ay * 0.97, az * 0.97 - LD, mx * 0.88, my * 0.88), 160, 0.006, 6, true), new THREE.MeshBasicMaterial({ color: new THREE.Color(2.2, 1.7, 1.1) })); grp.add(glow);
     // two mounts back to the column (TRUTH: interior hangs from the column on removable mounts)
-    for (const dy of [-ay * 0.35, ay * 0.35]) {
+    for (const dy of [-ay * 0.3, ay * 0.3]) {
       const a = new THREE.Vector3(radial.x * colR, center.y + dy, radial.z * colR);
-      const b = center.clone().addScaledVector(radial, -ax * 0.82).setY(center.y + dy);
+      const b = center.clone().addScaledVector(radial, -az * 0.85).setY(center.y + dy);
       const dir = b.clone().sub(a), len = dir.length();
       const strut = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.045, len, 14), aluInside);
       strut.quaternion.setFromUnitVectors(Y, dir.normalize()); strut.position.copy(a).add(b).multiplyScalar(0.5); strut.castShadow = true; interior.add(strut);
@@ -776,11 +814,11 @@ const pods = [];
     // plants at the lower lip
     grp.updateMatrixWorld(true);
     const podLeaves = [];
-    for (let i = 0; i < 220; i++) {
-      const a = Math.PI * (1.15 + rand() * 0.7), q = rimPt(a, mx, my, 0.55 + rand() * 0.4);
-      const lp = new THREE.Vector3(q.x * ax, q.y * ay, q.z * az - 0.2 - rand() * 0.45);
+    for (let i = 0; i < 70; i++) {
+      const a = Math.PI * (1.15 + rand() * 0.7), q = rimPt(a, mx, my, 0.75 + rand() * 0.25);
+      const lp = new THREE.Vector3(q.x * ax, q.y * ay, q.z * az - 0.06 - rand() * 0.12);
       const out = new THREE.Vector3((rand() - 0.5), 0.6 + rand() * 0.6, 0.5 + rand() * 0.5).normalize();
-      podLeaves.push({ pos: lp.applyMatrix4(grp.matrix), out: out.transformDirection(grp.matrix), s: 0.7 + rand() * 0.7 });
+      podLeaves.push({ pos: lp.applyMatrix4(grp.matrix), out: out.transformDirection(grp.matrix), s: 0.55 + rand() * 0.5 });
     }
     leafSpots.push(...podLeaves);
     pods.push({ ...d, center, ax, ay, az, mouth, radial, grp });
@@ -814,19 +852,89 @@ const insidePod = (p) => pods.some(pd => { const l = p.clone().sub(pd.center); c
   });
   inst.castShadow = true; inst.receiveShadow = true; inst.customDepthMaterial = leafDepth; interior.add(inst);
 }
-// ropes from the column out to corner nodes
+// ---------- circulation: handrails, grab handles, foot loops, window perches, drinks and tasting ----------
+// (5 Nov) clean interior: the long ropes are gone; every route is a handrail with a soft light strip, and every stop has handles
+const railMat = new THREE.MeshStandardMaterial({ color: 0xe9e6df, metalness: 0.3, roughness: 0.35 });
+const gripMat = new THREE.MeshStandardMaterial({ color: 0x2c3e50, roughness: 0.85 });
+const RAILS = [];
+function rail(points, glowColor, r = 0.018) {
+  const c = new THREE.CatmullRomCurve3(points, false, 'centripetal');
+  const tube = new THREE.Mesh(new THREE.TubeGeometry(c, Math.max(24, points.length * 20), r, 10, false), railMat); tube.castShadow = true; interior.add(tube);
+  const L = c.getLength(), n = Math.max(2, Math.floor(L / 0.45));
+  for (let i = 1; i < n; i++) { const p = c.getPointAt(i / n), t = c.getTangentAt(i / n);   // soft grip sleeves every 45 cm
+    const sl = new THREE.Mesh(new THREE.CylinderGeometry(r * 1.35, r * 1.35, 0.11, 12), gripMat); sl.quaternion.setFromUnitVectors(V3(0, 1, 0), t); sl.position.copy(p); interior.add(sl); }
+  if (glowColor) { const strip = new THREE.Mesh(new THREE.TubeGeometry(c, Math.max(24, points.length * 20), 0.005, 6, false), new THREE.MeshBasicMaterial({ color: new THREE.Color(glowColor).multiplyScalar(1.6) }));
+    strip.position.set(0, -0.025, 0); interior.add(strip); }
+  RAILS.push({ curve: c, L }); return c;
+}
+function handle(pos, normal, along) {  // U-shaped grab handle standing off a surface
+  const g = new THREE.Group();
+  const u = new THREE.Mesh(new THREE.TorusGeometry(0.075, 0.013, 8, 20, Math.PI), railMat); g.add(u);
+  const sleeve = new THREE.Mesh(new THREE.CylinderGeometry(0.017, 0.017, 0.09, 10), gripMat); sleeve.rotation.z = Math.PI / 2; sleeve.position.y = 0.075; g.add(sleeve);
+  const Y = normal.clone().normalize(), X = along.clone().projectOnPlane(Y).normalize(), Z = V3().crossVectors(X, Y);
+  g.matrix.makeBasis(X, Y, Z).setPosition(pos); g.matrixAutoUpdate = false; interior.add(g); return g;
+}
+function footLoop(pos, normal, along) {
+  const g = new THREE.Group();
+  const loop = new THREE.Mesh(new THREE.TorusGeometry(0.11, 0.02, 8, 24, Math.PI), new THREE.MeshStandardMaterial({ color: 0x3d5a80, roughness: 0.9 })); g.add(loop);
+  const Y = normal.clone().normalize(), X = along.clone().projectOnPlane(Y).normalize(), Z = V3().crossVectors(X, Y);
+  g.matrix.makeBasis(X, Y, Z).setPosition(pos); g.matrixAutoUpdate = false; interior.add(g); return g;
+}
+const onMast = (dir, y, off = 0.06) => { const d = V3(dir.x, 0, dir.z).normalize(); return V3(d.x * (colR + off), y, d.z * (colR + off)); };
 {
-  const ropeMats = [0xe36b2c, 0x2aa6a0, 0xf1c232].map(c => new THREE.MeshStandardMaterial({ color: c, roughness: 0.8 }));
-  const picks = verts.filter((v, i) => i % 7 === 0).slice(0, 9);
-  picks.forEach((v, i) => {
-    if ((() => { const e = v.clone().multiplyScalar(1 - 0.45 / v.length()); for (let t = 0; t <= 1; t += 0.05) if (insidePod(new THREE.Vector3(e.x * t, e.y * (0.5 + 0.5 * t), e.z * t))) return true; return false; })()) return;
-    const end = v.clone().multiplyScalar(1 - 0.45 / v.length());
-    const dirXZ = new THREE.Vector3(end.x, 0, end.z).normalize();
-    const start = new THREE.Vector3(dirXZ.x * colR, THREE.MathUtils.clamp(end.y * 0.5, -3.5, 3.5), dirXZ.z * colR);
-    const midp = start.clone().lerp(end, 0.5).add(new THREE.Vector3(0, -0.12, 0));
-    const curve = new THREE.QuadraticBezierCurve3(start, midp, end);
-    const r = new THREE.Mesh(new THREE.TubeGeometry(curve, 40, 0.014, 8), ropeMats[i % 3]); r.castShadow = true; clutter.add(r);
+  // ladder of grab handles up the mast, on four sides, every 40 cm
+  for (let y = -4.2; y <= 4.2; y += 0.4) {
+    if (Math.abs(y) < 0.3) continue;
+    for (let q = 0; q < 4; q++) { const a = q * Math.PI / 2 + (Math.round(y / 0.4) % 2) * Math.PI / 4, d = V3(Math.cos(a), 0, Math.sin(a));
+      handle(onMast(d, y, 0.0), d, V3(0, 1, 0)); }
+  }
+  // the hatch: a rail from the docking port to the mast, handles round the hatch ring
+  const hatchIn = dock.c.clone().multiplyScalar(0.8), mastIn = onMast(dock.c, 0.35, 0.3);
+  rail([hatchIn, hatchIn.clone().lerp(mastIn, 0.55).add(V3(0, -0.25, 0)), mastIn], 0xffffff);
+  const du = V3().crossVectors(dock.n, V3(0, 1, 0)).normalize();
+  for (let q = 0; q < 4; q++) { const a = q * Math.PI / 2, off = du.clone().applyAxisAngle(dock.n, a).multiplyScalar(0.85);
+    handle(dock.c.clone().multiplyScalar(0.9).add(off), dock.n.clone().negate(), du.clone().applyAxisAngle(dock.n, a + Math.PI / 2)); }
+  // a rail from the mast out to every greenhouse pentagon, ending in a hoop round its tasting tray
+  pents.filter(p => p.role === 'greenhouse').forEach((p, gi) => {
+    const end = p.c.clone().multiplyScalar(0.8), start = onMast(p.c, clamp(p.c.y * 0.45, -3.6, 3.6), 0.3);
+    const side = V3().crossVectors(p.n, V3(0, 1, 0)); if (side.lengthSq() < 1e-3) side.set(1, 0, 0); side.normalize().multiplyScalar(0.22);
+    rail([start.clone().add(side), start.clone().lerp(end, 0.5).add(side), end.clone().add(side)], 0x6fdc6a);
+    const u = p.v[0].clone().sub(p.c).normalize();
+    for (const sgn of [-1, 1]) handle(p.c.clone().multiplyScalar(0.86).addScaledVector(side, sgn * 3.4), p.n.clone().negate(), u);
+    footLoop(p.c.clone().multiplyScalar(0.84).addScaledVector(p.n, 0).add(side.clone().multiplyScalar(-1.6)), p.n.clone().negate(), side);
+    const tray = tasterTray(); tray.scale.setScalar(1.4); tray.position.copy(p.c.clone().multiplyScalar(0.75));
+    tray.quaternion.setFromUnitVectors(V3(0, 1, 0), p.n.clone().negate()); interior.add(tray);
   });
+  // a rail from the mast to each pod mouth, with a foot loop at the lip
+  pods.forEach(pd => {
+    const tan = V3().crossVectors(V3(0, 1, 0), pd.mouth).normalize();   // run along the pod's side, never across its mouth
+    const sideOut = pd.center.clone().addScaledVector(tan, pd.ax * 1.55).addScaledVector(pd.mouth, pd.az * 0.9).add(V3(0, -pd.ay * 0.35, 0));
+    const sideIn = pd.center.clone().addScaledVector(tan, pd.ax * 1.6).addScaledVector(pd.mouth, -pd.az * 0.3).add(V3(0, -pd.ay * 0.2, 0));
+    const start = onMast(tan.clone().addScaledVector(pd.radial, 0.6), pd.center.y, 0.3);
+    rail([start, sideIn, sideOut], 0xffb547);
+    footLoop(pd.center.clone().addScaledVector(pd.mouth, pd.az * 0.95).add(V3(0, -pd.ay * 0.62, 0)), V3(0, 1, 0), tan);
+  });
+  // window perches: three padded saddles with foot loops at the Earth-facing windows, two at the sky windows
+  const perch = (h) => {
+    const base = h.c.clone().multiplyScalar(0.86), u = h.v[0].clone().sub(h.c).normalize();
+    const sad = new THREE.Mesh(new THREE.CapsuleGeometry(0.11, 0.38, 6, 16), new THREE.MeshStandardMaterial({ color: 0xcfc6b8, roughness: 0.95 }));
+    sad.quaternion.setFromUnitVectors(V3(0, 1, 0), u); sad.position.copy(base); interior.add(sad);
+    const bar = rail([base.clone().addScaledVector(u, -0.6).addScaledVector(h.n, 0.02), base.clone().addScaledVector(h.n, 0.12), base.clone().addScaledVector(u, 0.6).addScaledVector(h.n, 0.02)], 0x4fa3ff, 0.016);
+    footLoop(base.clone().addScaledVector(h.n, -0.45), h.n, u);
+    const mastIn = onMast(h.c, clamp(h.c.y * 0.5, -3.6, 3.6), 0.3);
+    rail([mastIn, mastIn.clone().lerp(base, 0.5), base.clone().addScaledVector(h.n, -0.25)], 0x4fa3ff);
+  };
+  hexes.filter(h => h.n.y < -0.3).sort((a, b) => a.n.y - b.n.y).slice(0, 3).forEach(perch);
+  hexes.filter(h => h.n.y > 0.3).sort((a, b) => b.n.y - a.n.y).slice(0, 2).forEach(perch);
+  // the drinks and tasting ring on the mast, at the middle of the room: pouches in clips, a water and tea point
+  const ringY = 0;
+  const bar = new THREE.Mesh(new THREE.TorusGeometry(colR + 0.2, 0.018, 10, 72), railMat); bar.rotation.x = Math.PI / 2; bar.position.y = ringY; interior.add(bar);
+  const shelf = new THREE.Mesh(new THREE.CylinderGeometry(colR + 0.12, colR + 0.12, 0.05, 48), new THREE.MeshStandardMaterial({ color: 0xe8e2d5, roughness: 0.55 })); shelf.position.y = ringY - 0.12; interior.add(shelf);
+  const cols = [0x5aa9d6, 0xe36b2c, 0x7fae4a, 0xf1c232, 0xd96f9a, 0xffffff];
+  for (let i = 0; i < 12; i++) { const a = i / 12 * Math.PI * 2, d = V3(Math.cos(a), 0, Math.sin(a));
+    const c = pouch(cols[i % 6]); c.position.copy(onMast(d, ringY - 0.02, 0.1)); c.lookAt(onMast(d, ringY - 0.02, 1)); interior.add(c); }
+  const tap = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.16, 0.08), new THREE.MeshStandardMaterial({ color: 0xdfe3e8, metalness: 0.8, roughness: 0.25 }));
+  tap.position.copy(onMast(V3(1, 0, 0.3), ringY + 0.2, 0.04)); tap.lookAt(V3(0, ringY + 0.2, 0)); interior.add(tap);
 }
 // people for scale (1.75 m)
 function person(suit) {
@@ -1046,6 +1154,7 @@ const views = {
   const o = L.mouth.clone().setY(0).normalize().multiplyScalar(14).add(new THREE.Vector3(0, 3.5, 0));
   views.podsout = { p: o.toArray(), t: [0, 0.2, 0], cut: true, fov: 42 };
 }
+views.interior = { p: [3.2, 2.9, 2.6], t: [0, -0.2, 0], cut: false, fov: 70 };
 let cut = false, spin = false, tween = null;
 function setCut(on) {
   cut = on; document.getElementById('cut').classList.toggle('on', on);
@@ -1061,6 +1170,7 @@ function go(name, instant = false) {
   tween = { p0: camera.position.clone(), t0: controls.target.clone(), p1, t1, f0: camera.fov, f1, s: performance.now(), d: 1600 };
 }
 document.querySelectorAll('[data-view]').forEach(b => b.onclick = () => go(b.dataset.view));
+{ const b = document.getElementById('inLbl'); if (b) b.onclick = () => { const on = !b.classList.contains('on'); b.classList.toggle('on', on); showLabels('inside', on); }; }
 document.getElementById('cut').onclick = () => setCut(!cut);
 document.getElementById('spin').onclick = (e) => { spin = !spin; e.target.classList.toggle('on', spin); controls.autoRotate = spin; controls.autoRotateSpeed = 0.35; };
 document.getElementById('sun').oninput = (e) => setSun(+e.target.value);
@@ -1075,8 +1185,6 @@ cabinLights.forEach(l => l.intensity = 8 * 0.55);
 // =====================================================================
 const $ = (id) => document.getElementById(id);
 const hooks = [];
-const V3 = (x = 0, y = 0, z = 0) => new THREE.Vector3(x, y, z);
-const clamp = THREE.MathUtils.clamp, lerp = THREE.MathUtils.lerp, sstep = (a, b, x) => THREE.MathUtils.smoothstep(x, a, b);
 
 // ---------- labels in 3D ----------
 const labelsEl = $('labels');
@@ -1088,6 +1196,18 @@ function addLabel(text, pos, group, info) {
   labels.push(L); return L;
 }
 const showLabels = (group, on) => labels.forEach(l => { if (l.group === group) l.visible = on; });
+{ // interior details (5 Nov)
+  addLabel('Central mast · power, water, air, plants, grab handles every 40 cm', V3(colR + 0.2, 2.9, 0), 'inside');
+  addLabel('Small pod · seat, foot bar, drink pouch, reading light', pods[0].center.clone().addScaledVector(pods[0].mouth, pods[0].az).add(V3(0, pods[0].ay, 0)), 'inside');
+  addLabel('Small pod · looks out to the windows', pods[4].center.clone().addScaledVector(pods[4].mouth, pods[4].az).add(V3(0, pods[4].ay, 0)), 'inside');
+  addLabel('Drinks ring · pouches with valved straws, water and tea point', V3(colR + 0.3, 0.25, 0.2), 'inside');
+  const gp = pents.filter(p => p.role === 'greenhouse');
+  addLabel('Greenhouse pentagon · tasting tray of herbs and microgreens', gp[1].c.clone().multiplyScalar(0.78), 'inside');
+  addLabel('Green handrail · mast to greenhouse', gp[2].c.clone().multiplyScalar(0.55), 'inside');
+  const lowH = hexes.reduce((a, b) => (b.n.y < a.n.y ? b : a));
+  addLabel('Window perch · saddle, rail and foot loop', lowH.c.clone().multiplyScalar(0.82), 'inside');
+  addLabel('Hatch rail · arrival to the mast', dock.c.clone().multiplyScalar(0.7), 'inside');
+}
 hooks.push(() => {
   const w = innerWidth, h = innerHeight, v = V3(), camDir = V3(); camera.getWorldDirection(camDir);
   for (const l of labels) {
@@ -1422,6 +1542,8 @@ function prop(kind) {
   if (kind === 'food') { const t = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.02, 0.15), new THREE.MeshStandardMaterial({ color: 0xe8e2d5 })); g.add(t);
     for (let i = 0; i < 3; i++) { const c = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.04, 12), new THREE.MeshStandardMaterial({ color: [0x7fae4a, 0xd96f3a, 0xe8c66a][i] })); c.position.set(-0.07 + i * 0.07, 0.03, 0); g.add(c); } }
   if (kind === 'leaf') { const l = new THREE.Mesh(new THREE.PlaneGeometry(0.06, 0.09), leafMat); g.add(l); }
+  if (kind === 'cup') { const c = pouch(0x5aa9d6); c.rotation.x = -0.4; g.add(c); }
+  if (kind === 'taster') { const t = tasterTray(); t.scale.setScalar(0.6); g.add(t); }
   return g;
 }
 
@@ -1436,10 +1558,10 @@ const spot = {
   hatch: dock.c.clone().multiplyScalar(0.66),
   earth: low.c.clone().multiplyScalar(0.62),
   greens: window.ghP.c.clone().multiplyScalar(0.66),
-  podL: pods[0].center.clone(), podS: pods[1].center.clone(),
+  podL: pods[0].center.clone(), podS: pods[3].center.clone(),
   exercise: V3(1.9, -1.4, 0.6),
   concert: V3(0.0, -0.6, 0.0),
-  social: V3(0.0, 1.2, 0.0),
+  social: V3(0.0, 0.05, 0.0),   // round the drinks ring on the mast
 };
 // camera rig with a live light, fixed to the column (broadcast to Earth)
 const camRig = new THREE.Group();
@@ -1455,7 +1577,7 @@ const spotLight = new THREE.PointLight(0xffd6a0, 0, 5, 2); spotLight.position.se
 const COLORS = [0x3d5a80, 0xe9e9e6, 0x9a9fa6, 0x6b8f71, 0xb5835a, 0x5b6c8f, 0xd9a441];
 for (let i = 0; i < 7; i++) {
   const m = mannequin(COLORS[i]); m.g.scale.setScalar(0.98 + (i % 3) * 0.02); visit.group.add(m.g);
-  m.props = {}; for (const k of ['book', 'instrument', 'food', 'leaf']) { const pr = prop(k); pr.visible = false; m.hand.add(pr); m.props[k] = pr; }
+  m.props = {}; for (const k of ['book', 'instrument', 'food', 'leaf', 'cup', 'taster']) { const pr = prop(k); pr.visible = false; m.hand.add(pr); m.props[k] = pr; }
   visit.people.push(m);
 }
 // formation: where each person is for an activity, what they face, their pose and prop
@@ -1470,16 +1592,13 @@ function formation(name) {
     push(spot.earth.clone().multiplyScalar(0.6).add(V3(0, 0.6, 0)), spot.earth, 'guide');
   }
   if (name === 'pods') {
-    const [L1, S1] = [pods[0], pods[1]];
-    for (let q = 0; q < 3; q++) { const o = V3(0, (q - 1) * L1.ay * 0.45, 0).addScaledVector(L1.mouth, -0.15); push(L1.center.clone().add(o), L1.center.clone().add(o).addScaledVector(L1.mouth, 2), 'sit', 'book'); }
-    for (let q = 0; q < 2; q++) { const o = V3((q - 0.5) * 0.5, -0.1, 0).applyAxisAngle(V3(0, 1, 0), Math.atan2(S1.mouth.x, S1.mouth.z)).addScaledVector(S1.mouth, -0.1); push(S1.center.clone().add(o), S1.center.clone().add(o).addScaledVector(S1.mouth, 2), 'sit', q ? 'book' : null); }
-    push(toward(L1.center, V3(0, 0, 0), 0.45).addScaledVector(L1.mouth, 1.2), L1.center, 'view');
-    push(V3(1.4, 0.4, -0.6), L1.center, 'guide');
+    pods.slice(0, 6).forEach((pd, q) => { const o = V3(0, -pd.ay * 0.3, 0).addScaledVector(pd.mouth, -pd.az * 0.15); push(pd.center.clone().add(o), pd.center.clone().add(o).addScaledVector(pd.mouth, 2), 'sit', q % 2 ? 'book' : 'cup'); });
+    push(V3(0.9, 0.2, 0.7), pods[0].center, 'guide');
   }
   if (name === 'greens') {
     const p = window.ghP, base = p.c.clone().multiplyScalar(0.64);
     const u = p.v[0].clone().sub(p.c).normalize(), w = V3().crossVectors(p.n, u);
-    for (let q = 0; q < 6; q++) { const a = q / 6 * Math.PI * 2; push(base.clone().addScaledVector(u, Math.cos(a) * 0.9).addScaledVector(w, Math.sin(a) * 0.9).addScaledVector(p.n, -0.3 * (q % 2)), p.c, 'taste', q % 2 ? 'leaf' : null); }
+    for (let q = 0; q < 6; q++) { const a = q / 6 * Math.PI * 2; push(base.clone().addScaledVector(u, Math.cos(a) * 0.9).addScaledVector(w, Math.sin(a) * 0.9).addScaledVector(p.n, -0.3 * (q % 2)), p.c, 'taste', q % 2 ? 'leaf' : 'taster'); }
     push(base.clone().addScaledVector(p.n, -0.9), p.c, 'guide');
   }
   if (name === 'exercise') { ringPts(spot.exercise, 1.0, 6, 0, 0.4).forEach((p, i) => push(p, p.clone().add(V3(0, 2, 0)).add(V3(Math.cos(i), 0, Math.sin(i))), 'exercise')); push(spot.exercise.clone().add(V3(0, 1.4, 0)), spot.exercise, 'guide'); }
@@ -1488,18 +1607,18 @@ function formation(name) {
     ringPts(V3(2.3, -0.6, 0), 0.8, 4, Math.PI / 2, 0.3).forEach(p => push(p, stage, 'watch'));
     push(V3(1.2, 0.5, 1.2), stage, 'guide');
   }
-  if (name === 'social') { ringPts(spot.social, 1.25, 6, 0.2, 0.25).forEach((p, i) => push(p, spot.social, i % 2 ? 'eat' : 'float', i % 2 ? 'food' : null)); push(spot.social.clone().add(V3(0, 0.9, 1.0)), spot.social, 'eat', 'food'); }
+  if (name === 'social') { ringPts(spot.social, 1.25, 6, 0.2, 0.25).forEach((p, i) => push(p, spot.social, 'eat', i % 2 ? 'food' : 'cup')); push(spot.social.clone().add(V3(0, 0.9, 1.0)), spot.social, 'eat', 'food'); }
   return { P, L, pose, props };
 }
 const SCHEDULE = [
   [0, 'hatch', 'Arrival', 'Through the 800 mm docking hatch. The guide gives the safety briefing; bags are stowed.'],
   [5, 'earth', 'Earth below', 'Day side. Visitors hold their place in foot loops at the Earth-facing windows.'],
-  [20, 'pods', 'Quiet time in the pods', 'Reading, resting, alone with the view in Marina’s pods.'],
-  [32, 'greens', 'Plant tasting', 'At a greenhouse alcove: pick a leaf and taste it (Gerasimos’s plant system).'],
-  [42, 'exercise', 'Exercise', 'Pulling on ropes and bands, moving through the open room.'],
+  [20, 'pods', 'Quiet time in the pods', 'One visitor to each of the six small pods round the mast: a seat, a drink pouch, a book, the window in front.'],
+  [32, 'greens', 'Plant tasting', 'Along the green handrail to a greenhouse pentagon: pick a leaf, try the tasting tray of herbs and microgreens (Gerasimos’s plant system).'],
+  [42, 'exercise', 'Exercise', 'Bands and handholds on the mast, moving through the open room.'],
   [52, 'earth2', 'Sunset', 'Back at the windows for sunset.'],
   [55, 'concert', 'Concert, live to Earth', 'Night side. Cabin lights down; a small concert by the column, streamed live to Earth.'],
-  [70, 'social', 'Dinner and talk', 'Eating together and talking, Earth at night below.'],
+  [70, 'social', 'Dinner and talk', 'Round the drinks ring on the mast: drink pouches, food from the greenhouses, Earth at night below.'],
   [85, 'hatch', 'Leaving', 'Back to the hatch, one at a time through the port.'],
 ];
 const forms = {}; for (const [, f] of SCHEDULE) forms[f] = forms[f] || formation(f);
@@ -1555,8 +1674,7 @@ const paths = new THREE.Group(); paths.visible = false; interior.add(paths);
   const toCol = (p) => { const d = V3(p.x, 0, p.z).normalize().multiplyScalar(colR + 0.3); return V3(d.x, clamp(p.y, -3.5, 3.5), d.z); };
   add([spot.hatch, spot.hatch.clone().lerp(hub, 0.5), hub], 0xffffff);
   add([hub, toCol(spot.earth), spot.earth], 0x4fa3ff);
-  add([hub, toCol(pods[0].center), pods[0].center.clone().addScaledVector(pods[0].mouth, pods[0].az * 1.1)], 0xffb547);
-  add([hub, toCol(pods[1].center), pods[1].center.clone().addScaledVector(pods[1].mouth, pods[1].az * 1.1)], 0xffb547);
+  for (const pd of pods) add([hub, toCol(pd.center), pd.center.clone().addScaledVector(pd.mouth, pd.az * 1.1)], 0xffb547);
   for (const f of ghFaces) add([hub, toCol(f.c), f.c.clone().multiplyScalar(0.7)], 0x6fdc6a);
   add([hub, spot.exercise], 0xff7a3d);
   const legend = [['Hatch to the column', '#ffffff'], ['Earth windows', '#4fa3ff'], ['Pods', '#ffb547'], ['Greenhouses', '#6fdc6a'], ['Exercise area', '#ff7a3d']];
@@ -1574,8 +1692,8 @@ const stops = [];
   const skyH = hexes.reduce((a, b) => (b.n.y > a.n.y ? b : a));
   stops.push({ name: 'Under the sky windows', ...look(skyH.c.clone().multiplyScalar(0.5).add(V3(0.9, 0, 0.4)), skyH.c.clone().multiplyScalar(1.6)) });
   stops.push({ name: 'At the column', ...look(V3(1.1, 0.2, 0.9), V3(0, 0.6, 0)) });
-  stops.push({ name: 'Inside the large pod', ...look(pods[0].center.clone().addScaledVector(pods[0].mouth, -0.35).add(V3(0, 0.3, 0)), pods[0].center.clone().addScaledVector(pods[0].mouth, 4)) });
-  stops.push({ name: 'Inside the small pod', ...look(pods[1].center.clone().addScaledVector(pods[1].mouth, -0.3), pods[1].center.clone().addScaledVector(pods[1].mouth, 4)) });
+  stops.push({ name: 'In an upper pod', ...look(pods[0].center.clone().addScaledVector(pods[0].mouth, -0.12).add(V3(0, 0.1, 0)), pods[0].center.clone().addScaledVector(pods[0].mouth, 4)) });
+  stops.push({ name: 'In a lower pod', ...look(pods[3].center.clone().addScaledVector(pods[3].mouth, -0.12).add(V3(0, 0.1, 0)), pods[3].center.clone().addScaledVector(pods[3].mouth, 4)) });
   stops.push({ name: 'At a greenhouse', ...look(window.ghP.c.clone().multiplyScalar(0.55), window.ghP.c) });
   stops.push({ name: 'Middle of the room', ...look(V3(-1.3, -0.4, 1.4), low.c) });
 }
@@ -1932,7 +2050,7 @@ function cineKeys() {
     { u: 0.41, p: pH.clone().addScaledVector(H.n, 0.6), t: pH.clone().addScaledVector(H.n, -3), f: 60 },
     { u: 0.47, p: stops[7].pos.clone(), t: pods[0].center.clone(), f: 72 },
     { u: 0.56, p: stops[1].pos.clone(), t: low.c.clone().multiplyScalar(1.6), f: 70 },
-    { u: 0.64, p: stops[3].pos.clone(), t: pods[1].center.clone(), f: 72 },
+    { u: 0.64, p: stops[3].pos.clone(), t: pods[3].center.clone(), f: 72 },
     { u: 0.72, p: stops[2].pos.clone(), t: skyH.c.clone().multiplyScalar(1.6), f: 72 },
     { u: 0.79, p: pH2.clone().multiplyScalar(0.55), t: O.clone().add(V3(0, -0.4, 0)), f: 60 },
     { u: 0.85, p: pH2.clone().addScaledVector(H2.n, 1.6), t: O, f: 50 },
@@ -1975,6 +2093,55 @@ if (CINE) {
   };
 }
 
+// stills for documents: window.__shot([x,y,z], [tx,ty,tz], fov) renders one frame from there
+window.__shot = (p, t, fov = 70, opts = {}) => {
+  renderer.setAnimationLoop(null); controls.enabled = false;
+  if (opts.sun !== undefined) setSun(opts.sun, TILT);
+  if (opts.lights !== undefined) cabinLights.forEach(l => l.intensity = 8 * opts.lights);
+  if (opts.clutter !== undefined) clutter.visible = opts.clutter;
+  if (opts.visit !== undefined) { visit.group.visible = true; setVisit(opts.visit); }
+  if (opts.labels) showLabels('inside', true);
+  if (opts.bloom !== undefined) bloom.strength = opts.bloom;
+  camera.position.set(...p); camera.fov = fov; camera.updateProjectionMatrix(); camera.lookAt(...t);
+  for (const h of hooks) h(0, 0);
+  composer.render(); return renderer.domElement.toDataURL('image/jpeg', 0.9);
+};
+// interior tour film (5 Nov): window.__tour(u), u 0..1, renders one deterministic frame
+{
+  const gh0 = pents.filter(p => p.role === 'greenhouse')[0];
+  const lowH = hexes.reduce((a, b) => (b.n.y < a.n.y ? b : a));
+  const P0 = pods[0], P3 = pods[3];
+  const K = [
+    { u: 0.00, p: dock.c.clone().multiplyScalar(0.78), t: V3(0, 0.2, 0), f: 72, v: 2 },
+    { u: 0.10, p: dock.c.clone().multiplyScalar(0.45).add(V3(0, -0.2, 0)), t: V3(0, 0, 0), f: 72, v: 3 },
+    { u: 0.20, p: V3(1.25, 0.25, 0.65), t: V3(0, 0.0, 0), f: 62, v: 75 },                       // the drinks ring
+    { u: 0.30, p: V3(1.1, 0.9, 1.3), t: P0.center.clone(), f: 66, v: 24 },                       // up the mast to the upper pods
+    { u: 0.40, p: P0.center.clone().addScaledVector(P0.mouth, P0.az * 2.2).add(V3(0, 0.3, 0)), t: P0.center.clone(), f: 62, v: 25 },
+    { u: 0.48, p: P0.center.clone().addScaledVector(P0.mouth, P0.az * 0.2).add(V3(0, 0.15, 0)), t: P0.center.clone().addScaledVector(P0.mouth, 5), f: 74, v: 26 }, // in the pod, looking out
+    { u: 0.58, p: V3(-0.6, -0.6, 1.6), t: gh0.c.clone(), f: 68, v: 36 },                        // to a greenhouse
+    { u: 0.68, p: gh0.c.clone().multiplyScalar(0.55).add(V3(0.3, 0.3, 0)), t: gh0.c.clone(), f: 64, v: 37 },
+    { u: 0.78, p: P3.center.clone().addScaledVector(P3.mouth, P3.az * 2.0).add(V3(0, 0.4, 0)), t: P3.center.clone(), f: 64, v: 27 },
+    { u: 0.88, p: lowH.c.clone().multiplyScalar(0.55).add(V3(0.4, 0.4, 0)), t: lowH.c.clone().multiplyScalar(1.5), f: 72, v: 8 },     // Earth window perches
+    { u: 1.00, p: V3(2.6, 1.2, 2.2), t: V3(0, -0.3, 0), f: 76, v: 8 },
+  ];
+  const cr = (a, b, c, d, t) => { const t2 = t * t, t3 = t2 * t; return V3().addScaledVector(a, -0.5 * t3 + t2 - 0.5 * t).addScaledVector(b, 1.5 * t3 - 2.5 * t2 + 1).addScaledVector(c, -1.5 * t3 + 2 * t2 + 0.5 * t).addScaledVector(d, 0.5 * t3 - 0.5 * t2); };
+  window.__tour = (u) => {
+    renderer.setAnimationLoop(null); controls.enabled = false; clutter.visible = false; visit.group.visible = true; paths.visible = false;
+    u = clamp(u, 0, 0.99999); let i = 0; while (i < K.length - 2 && K[i + 1].u <= u) i++;
+    const A = K[Math.max(0, i - 1)], B = K[i], C = K[i + 1], D = K[Math.min(K.length - 1, i + 2)];
+    let s = (u - B.u) / (C.u - B.u); s = s * s * (3 - 2 * s);
+    const pos = cr(A.p, B.p, C.p, D.p, s), tgt = B.t.clone().lerp(C.t, s), fov = B.f + (C.f - B.f) * s;
+    const vt = s < 0.5 ? B.v : C.v; setVisit(vt + (s < 0.5 ? s : s - 0.5) * 1.2);
+    cabinLights.forEach(l => l.intensity = 8 * 0.32);
+    camera.position.copy(pos); camera.fov = fov; camera.updateProjectionMatrix(); camera.lookAt(tgt);
+    for (const h of hooks) h(0, 0);
+    composer.render(); return renderer.domElement.toDataURL('image/jpeg', 0.92);
+  };
+}
+window.__quality = (q) => setQuality(q);
+window.__pts = () => ({ dock: dock.c.toArray(), low: hexes.reduce((a, b) => (b.n.y < a.n.y ? b : a)).c.toArray(), sky: hexes.reduce((a, b) => (b.n.y > a.n.y ? b : a)).c.toArray(), earthH: hexes.filter(h => h.n.y < -0.3).map(h => h.c.toArray()) });
+window.__pods = () => pods.map(pd => ({ c: pd.center.toArray(), m: pd.mouth.toArray(), r: pd.radial.toArray() }));
+window.__gh = () => pents.filter(p => p.role === 'greenhouse').map(p => p.c.toArray());
 const clock = new THREE.Clock();
 const blink = station.getObjectByName('blink');
 function frame() {
