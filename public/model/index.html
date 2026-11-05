@@ -2140,6 +2140,40 @@ window.__shot = (p, t, fov = 70, opts = {}) => {
 }
 window.__quality = (q) => setQuality(q);
 window.__pts = () => ({ dock: dock.c.toArray(), low: hexes.reduce((a, b) => (b.n.y < a.n.y ? b : a)).c.toArray(), sky: hexes.reduce((a, b) => (b.n.y > a.n.y ? b : a)).c.toArray(), earthH: hexes.filter(h => h.n.y < -0.3).map(h => h.c.toArray()) });
+// export the station and interior as GLB for path-traced renders (Blender Cycles)
+window.__exportGLB = async (what = 'all') => {
+  const { GLTFExporter } = await import('three/addons/exporters/GLTFExporter.js');
+  clutter.visible = false; visit.group.visible = what === 'visit'; paths.visible = false; stopMarkers.visible = false; camRig.visible = false;
+  if (what === 'visit') setVisit(window.__visitT || 26);
+  const hexOf = c => c ? '#' + c.getHexString() : '';
+  station.traverse(o => {
+    if (!o.material) return;
+    for (const m of (Array.isArray(o.material) ? o.material : [o.material])) {
+      if (m.userData.__named) continue;
+      const src = m.onBeforeCompile ? m.onBeforeCompile.toString() : '';
+      let n = m.name;
+      if (!n) {
+        if (src.includes('vPodP')) n = 'POD_LATTICE';
+        else if (m === glass) n = 'GLASS_PANE';
+        else if (m === alu) n = 'ALU_BRUSHED'; else if (m === aluDark) n = 'ALU_DARK'; else if (m === aluInside) n = 'ALU_CABIN';
+        else if (m === titanium) n = 'TITANIUM'; else if (m === mli) n = 'MLI_GOLD'; else if (m === mliSilver) n = 'MLI_SILVER';
+        else if (m === solar) n = 'SOLAR'; else if (m === solarBack) n = 'SOLAR_BACK'; else if (m === leafMat) n = 'LEAF';
+        else if (m.emissive && m.emissiveIntensity > 0.2 && m.emissive.getHex() !== 0) n = 'EMIT_' + hexOf(m.emissive).slice(1);
+        else if (m.isMeshBasicMaterial) n = 'GLOW_' + hexOf(m.color).slice(1);
+        else if (m.transmission > 0) n = 'CLEAR_' + hexOf(m.color).slice(1);
+        else n = 'M_' + hexOf(m.color).slice(1) + '_m' + Math.round((m.metalness || 0) * 10) + '_r' + Math.round((m.roughness ?? 1) * 10);
+        m.name = n;
+      }
+      m.userData.__named = true;
+    }
+  });
+  station.updateMatrixWorld(true);
+  const ex = new GLTFExporter();
+  const buf = await new Promise((res, rej) => ex.parse(station, res, rej, { binary: true, onlyVisible: true, maxTextureSize: 1024 }));
+  const b = new Uint8Array(buf); let s = ''; for (let i = 0; i < b.length; i += 32768) s += String.fromCharCode.apply(null, b.subarray(i, i + 32768));
+  return btoa(s);
+};
+window.__camExport = () => ({ sun: sunDir.toArray(), earthCenter: earthCenter.toArray(), R_E, earthRot: earth.rotation.toArray() });
 window.__pods = () => pods.map(pd => ({ c: pd.center.toArray(), m: pd.mouth.toArray(), r: pd.radial.toArray() }));
 window.__gh = () => pents.filter(p => p.role === 'greenhouse').map(p => p.c.toArray());
 const clock = new THREE.Clock();
