@@ -30,3 +30,13 @@ and regenerate the pages with `python scripts/static-pages/gen_pages.py`.
 The sheets are drawn from the parameters, not traced from CAD, and are not
 checked for machining. Sheets RF-01 to RF-04 of 5 November were drawn
 separately and are kept as the PDF in `/downloads`.
+
+## The release package and the Rev F parts
+
+- `package/` — the text parts of the release package for Marco Cross (markdown, parts 0 to 7), the
+  stills from the model's taken-apart view (`img/`) and `build_package.py`, which turns them into the
+  package PDF with the A3 sheets from `public/downloads` interleaved: `python package/build_package.py`
+  (or `... draft` for a dated draft). Needs google-chrome, qpdf, pypdf, reportlab and markdown.
+- `parts_revF/` — the CadQuery builders for the 8 Nov parts (CB-01, CB-02, HP-01, HP-01M, HP-02,
+  HP-03, P-11, P-07 at 21 mm, PL-01, A-03, A-04) and the script that put them on the parts page;
+  `README.md` lists every clash and departure from the brief. Outputs live in `public/parts`.
