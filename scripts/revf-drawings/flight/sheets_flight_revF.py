@@ -238,16 +238,17 @@ def rf06(pdf):
             ("P-05 hub core", 1, MASS["P-05"]), ("P-05A hub star plate", 2, MASS["P-05A"]), ("P-01 secondary rib segment", 108, MASS["P-01"]),
             ("P-02 node star plate", 36, MASS["P-02"]), ("P-03 node web core", 18, MASS["P-03"]), ("P-07 pane, 21 mm", 96, MASS["P-07"]),
             ("P-08 pane corner clamp", 18, MASS["P-08"]), ("P-14 seam bolt (half of 16 x 6)", 48, MASS["P-14"]),
-            ("CB-01 corner block, 2219 (see parts library)", 6, None), ("HP-01/02/03 hardpoint block, fittings, pins", 18, None), ("P-11 main rib brace pair", 18, None)]
+            ("CB-01 corner block, 2219 forging (parts library, 8 Nov)", 6, 21.51), ("HP-01 hardpoint block, 6061, in the frame", 18, 6.41),
+            ("HP-02 fitting half, Ti-6Al-4V", 18, 1.03), ("HP-03 pin 40 x 160, A286 (3 per hardpoint, shared)", 27, 1.60), ("P-11 main rib brace pair, 7075", 18, 1.12)]
     tot = 0.0
     for i, r in enumerate(rows):
-        y = 0.92 - i * 0.058
+        y = 0.92 - i * 0.05
         if i == 0:
             for c, t in zip((0, 0.62, 0.74, 0.88), r): axp.text(c, y, t, fontsize=7.2, weight="bold", va="top")
             axp.plot([0, 1], [y - 0.028, y - 0.028], lw=0.6, c="k"); continue
         nm, q, e = r; t = (q * e) if e else None; tot += t or 0
         for c, s in zip((0, 0.62, 0.74, 0.88), (nm, str(q), f"{e:.2f}" if e else "-", f"{t:.0f}" if t else "-")): axp.text(c, y, s, fontsize=6.9, va="top")
-    axp.text(0, 0.04, f"Listed parts: {tot:.0f} kg; with the corner blocks, hardpoints and braces the model panel is about 1.7 t (shell model: 36.1 t for 32 panels).", fontsize=7, va="top", color="#444")
+    axp.text(0, 0.04, f"Listed parts: {tot:.0f} kg per hexagon with its share of the shared pins (shell model 36.1 t for 32 panels; to reconcile).", fontsize=7, va="top", color="#444")
     pdf.savefig(fig); fig.savefig(f"{OUT}/RF-06_hexagon_GA.png", dpi=130); plt.close(fig)
 
 # ---------------- RF-07 hardpoint ----------------
@@ -305,10 +306,10 @@ def rf08(pdf):
     legB = np.array([[0, 0], 230 * dB, 230 * dB + 50 * np.array([math.sin(a2), -math.cos(a2)]), [50 / math.tan(a2 / 2), 50]])
     ax.add_patch(Polygon(legA, fc="#8a8f96", ec="k", lw=0.8)); ax.add_patch(Polygon(legB, fc="#8a8f96", ec="k", lw=0.8))
     ax.add_patch(Polygon([[50 / math.tan(a2 / 2), 50], [50 / math.tan(a2 / 2) + 60, 50 + 60 * math.tan(math.radians(60))], [50 / math.tan(a2 / 2) + 60 - 110 * math.sin(math.radians(60)), 50 + 60 * math.tan(math.radians(60)) + 110 * math.cos(math.radians(60))]], fill=False, ec=ORG, lw=0.8, ls="--"))
-    ax.text(70, 140, "main rib landing (notch 110 x 30, R10)", fontsize=6.5, color=ORG)
+    ax.text(70, 140, "main rib landing (pocket 110 wide, bottom 55 from the vertex, R10)", fontsize=6.5, color=ORG)
     ax.add_patch(Arc((50 / math.tan(a2 / 2) + 12, 62), 24, 24, theta1=120, theta2=240, lw=0.8, color=RED)); ax.text(20, 95, "R12", fontsize=7, color=RED)
-    for xc in (118, 174): ax.add_patch(Circle((xc, 25), 11.75, fc="white", ec="k", lw=0.5))
-    ax.text(146, -22, "tie columns 56 apart (2 rows in depth)", fontsize=6.5, ha="center")
+    for xc in (136, 192): ax.add_patch(Circle((xc, 25), 11.75, fc="white", ec="k", lw=0.5))
+    ax.text(164, -22, "tie columns 56 apart at 136 / 192 (2 rows in depth)", fontsize=6.5, ha="center")
     dim(ax, (0, 0), (230, 0), "230", off=-45, fs=7); dim(ax, (230, 0), (230, 50), "50", off=20, horiz=False, fs=7)
     ax.add_patch(Arc((0, 0), 120, 120, theta1=0, theta2=120, lw=0.6, color=RED)); ax.text(40, 75, "120 deg (108 on a pentagon block)", fontsize=6.5, color=RED)
     ax.text(0, -70, "joint faces: the legs' outer faces, on the radial joint planes", fontsize=6.5)
@@ -317,10 +318,10 @@ def rf08(pdf):
     ax2 = fig.add_axes([0.45, 0.50, 0.25, 0.42]); ax2.set_aspect("equal"); ax2.axis("off")
     ax2.add_patch(Rectangle((0, 0), 230, 400, fc="#8a8f96", ec="k", lw=0.8))
     for z in (125, 355):
-        for xc in (118, 174): ax2.add_patch(Circle((xc, z), 11.75, fc="white", ec="k", lw=0.6))
+        for xc in (136, 192): ax2.add_patch(Circle((xc, z), 11.75, fc="white", ec="k", lw=0.6))
     for xc in (50, 210): ax2.add_patch(Circle((xc, 240), 10, fc="white", ec="k", lw=0.5, ls="--"))
     dim(ax2, (0, 0), (0, 125), "125", off=-20, horiz=False, fs=6.5); dim(ax2, (0, 0), (0, 355), "355", off=-38, horiz=False, fs=6.5)
-    dim(ax2, (118, 400), (174, 400), "56", off=12, fs=6.5); dim(ax2, (230, 0), (230, 400), "400", off=16, horiz=False, fs=6.5)
+    dim(ax2, (136, 400), (192, 400), "56", off=12, fs=6.5); dim(ax2, (230, 0), (230, 400), "400", off=16, horiz=False, fs=6.5)
     ax2.text(115, -40, "4 ties 7/8-14 Inconel 718 (23.5 holes), 2 dowels 20 (24 room)\nhexagon rows z 125 / 355, pentagon rows z 128.3 / 364.4", fontsize=6.3, ha="center", va="top")
     ax2.set_xlim(-60, 290); ax2.set_ylim(-110, 440); ax2.set_title("Joint face of a leg (z' 133.8 and 380 along the plane)", fontsize=8)
     # results and notes
@@ -332,7 +333,9 @@ def rf08(pdf):
              "of machined from a 2219-T852 hand forging (about 300 mm of stock for the 400 mm deep block), which may change the alloy. Both routes are open for Friday. The main rib's flanges enter the block at the\n"
              "vertex landing (notch, PROPOSAL); the two frame members run into the legs' inner faces; the tie-to-web-fillet clash (Q29), the O10 maze-patch corner seal and the loop corners R16 (Q27, Q92) are open.\n"
              "The ties are tightened by measured stretch, because a torque wrench scatters about 25 % and the hatch-open case leaves only 0.7 kN. Forces Marco called 'achievable but unreasonable': 198 kN per tie\n"
-             "(about 650-900 N m if torqued), 12 ties per node, 720 on the station. The corner node assembly A-03 (two hexagon blocks and one pentagon block at a real vertex, dihedral 138.19 / 142.62 deg) is in the parts library.\n\n"
+             "(about 650-900 N m if torqued), 12 ties per node, 720 on the station. The corner node assembly A-03 (two hexagon blocks and one pentagon block at a real vertex, dihedral 138.19 / 142.62 deg) is in the parts library.\n"
+             "Solids of 8 Nov (CB-01 21.5 kg, CB-02 20.7 kg, A-03 76.6 kg): the tie columns moved out to 136 / 192 so the first hole clears the rib landing; the landing bottom is 55 mm from the vertex (60 on the pentagon),\n"
+             "leaving 20 / 16 mm of metal to the joint face. The solids are drawn straight; the real joint face leans 20.9 deg (16.5 pentagon) with the seam plane, so three straight blocks overlap at a vertex. Next cut: the leaning face.\n\n"
              "Main rib lateral brace (new requirement, 4 Nov): the main rib buckles sideways if unbraced over 2.25 m (0.79 of its load) and has 8.4 times margin braced every 562.5 mm. P-11 (PROPOSAL): a pair of 8 mm\n"
              "7075 plates on the main rib web from z 180 to z 375 at every secondary rib crossing, bolted through the web, tying the cabin flange to the grid. Size to be checked.", fontsize=7.2, va="top")
     pdf.savefig(fig); fig.savefig(f"{OUT}/RF-08_corner_node.png", dpi=130); plt.close(fig)
