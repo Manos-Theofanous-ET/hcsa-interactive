@@ -1,0 +1,95 @@
+{
+ "_meta": {
+  "document_id": "HCSA-CAD-PARAMS-RevF-working",
+  "date": "2026-11-05",
+  "units": "mm, kN, atm",
+  "supersedes": "hcsa_params.json (Rev B, 5 Sep 2026) and the Rev E drawing pack draft of 24 Oct",
+  "status_legend": {
+   "LOCKED": "locked spec",
+   "DECIDED": "decided by Manos",
+   "PROPOSAL_APPLIED": "drawn this way, waits on Manos",
+   "STUDY": "studied, not drawn"
+  }
+ },
+ "geometry": {
+  "edge": [2250.0, "LOCKED"],
+  "diameter": [11151.08, "LOCKED"],
+  "panels": [32, "LOCKED"],
+  "hexagons": [20, "LOCKED"],
+  "pentagons": [12, "LOCKED"],
+  "seams": [90, "LOCKED"],
+  "grid_k": [4, "DECIDED 23 Oct"]
+ },
+ "cabin": {
+  "pressure_atm": [0.8, "DECIDED 4 Nov"],
+  "o2_fraction": [0.26, "DECIDED 4 Nov (with 0.8 atm)"],
+  "design_pressure_psia": [12.3, "PROPOSAL_APPLIED (own relief valve)"],
+  "ultimate_factor": [2.0, "carried; Rick to confirm"],
+  "host": ["commercial station, Orbital Reef class, 1 atm", "DECIDED 4 Nov"],
+  "docking_interface": ["hatch-shut transfer lock + relief valve 12.0-12.3 psid, concept, not sized", "PROPOSAL_APPLIED"]
+ },
+ "main_rib": {
+  "option": ["B", "DECIDED 4 Nov"],
+  "depth": [400.0, "DECIDED"],
+  "flange_width": [100.0, "DECIDED"],
+  "flange_thickness": [25.0, "DECIDED"],
+  "web": [8.0, "DECIDED"],
+  "parts": ["P-04 (hexagon), P-04A (pentagon)", "DECIDED"],
+  "superseded": ["option A I 450x150x25 web 10, parts P-10/P-10A", "kept for record only"]
+ },
+ "secondary_rib": {
+  "depth": [180.0, "DECIDED 2 Nov"],
+  "flange_width": [60.0, "DECIDED"],
+  "flange_thickness": [10.0, "DECIDED"],
+  "web": [5.0, "DECIDED"],
+  "process": ["custom extrusion", "DECIDED"]
+ },
+ "frame": {
+  "depth": [180.0, "DECIDED 5 Nov (Q19)"],
+  "web": [20.0, "carried"],
+  "flange_width": [50.0, "carried"],
+  "flange_thickness": [10.0, "carried"],
+  "seat_lip_hex": [56.6, "PROPOSAL_APPLIED (OPEN-17)"],
+  "seat_lip_pent": [50.0, "carried"],
+  "material_test": ["6061-T651", "carried"],
+  "material_flight": ["2219-T851", "carried"]
+ },
+ "pane": {
+  "material": ["BOROFLOAT 33", "DECIDED 23 Oct"],
+  "thickness": [21.0, "DECIDED 5 Nov (SCHOTT standard 1,700 x 1,300 sheet; was 22 on 23 Oct)"],
+  "cut": [531.0, "DECIDED 23 Oct"],
+  "per_hexagon": [96, "DECIDED"],
+  "cut_short_of_rib_centreline": [9.09, "carried"],
+  "bite_rule_min": [20.0, "carried"]
+ },
+ "seal": {
+  "cord": ["Parker BA500 butyl, 0.210 in (5.334 mm)", "DECIDED 23 Oct"],
+  "cords_per_seam": [2, "DECIDED"],
+  "third_seal": ["RTV566 bead", "DECIDED"],
+  "gland_width": [7.1, "DECIDED 5 Nov (Q91)"],
+  "gland_depth": [4.0, "DECIDED 5 Nov"],
+  "gland_bottom_radius": ["0.5-0.9", "DECIDED 5 Nov"],
+  "loop_corner_inner_radius_min": [16.0, "NEW 4 Nov: Parker 3 Nov, 3 x cord section"],
+  "loop_corner_inner_radius_target": [32.0, "NEW 4 Nov: Parker, 6 x cord section"],
+  "centreline_spacing": [14.0, "carried"],
+  "outer_cord_z": [18.0, "carried"]
+ },
+ "seam_bolt": {
+  "part": ["NAS6705U27 + KFN670 nut, A286 160 ksi", "DECIDED 5 Nov (Q17; ratings to check against the NAS6705 sheet)"],
+  "preload_kN": [4.0, "DECIDED 5 Nov (by torque)"],
+  "per_seam": [16, "carried (drawing pack 24 Oct)"],
+  "pitch": [75.0, "carried"],
+  "row_z": [58.0, "KEPT 5 Nov: z' 70 failed the D1 run (seal gap 0.111 mm at 2.48 kN)"]
+ },
+ "corner": {
+  "blocks": [60, "LOCKED"],
+  "tie": ["7/8-14 Inconel 718, four per face", "carried"],
+  "tie_preload_kN": [198.0, "DECIDED 2 Nov"],
+  "tie_limit_kN": [227.0, "carried"]
+ },
+ "hardpoint": {
+  "per_seam": [3, "DECIDED 23 Oct"],
+  "positions": [[0.25, 0.5, 0.75], "DECIDED"],
+  "fitting": ["TP3 three-pin, titanium, 200 wide", "PROPOSAL"]
+ }
+}
