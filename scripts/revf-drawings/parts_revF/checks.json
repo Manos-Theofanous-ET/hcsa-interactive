@@ -1,0 +1,780 @@
+{
+ "P-11": {
+  "bbox": [
+   152.0,
+   90.01,
+   195.0
+  ],
+  "expected_envelope": "152 x 90 x 195 (two plates, x -76 to 76)",
+  "hole_volume_per_plate": 1158,
+  "hole_volume_expected": 1158
+ },
+ "P-07": {
+  "bbox": [
+   407.9,
+   470.0,
+   21.0
+  ],
+  "expected_envelope": "531 x 459.9 x 21 before corner cuts",
+  "thickness": 21.0
+ },
+ "PL-01": {
+  "bbox": [
+   1713.76,
+   2057.41,
+   10.23
+  ],
+  "expected_envelope": "about 2235 wide x 1518 tall x 10",
+  "area_m2": 1.664,
+  "uncut_triangle_area_m2": 1.682
+ },
+ "A-04": {
+  "bbox": [
+   3639.34,
+   3461.25,
+   400.15
+  ],
+  "expected_envelope": "3641 x 3462 x 400",
+  "counts": {
+   "frames": 5,
+   "main_ribs": 5,
+   "cap_angles": 10,
+   "hub": 3,
+   "secondary_ribs": 90,
+   "corner_blocks": 5,
+   "closure_triangles": 5
+  },
+  "secondary_segment_lengths": [
+   351.5,
+   359.5,
+   376.5,
+   384.5,
+   452.5,
+   460.5,
+   468.5
+  ],
+  "main_rib_length": 1639.0
+ },
+ "CB-01": {
+  "bbox": [
+   431.32,
+   376.21,
+   400.12
+  ],
+  "valid_solid": true,
+  "expected_envelope": "oblique prism, legs 230 from the vertex line, 50 thick normal to the joint face, z 0 to 400, at 120 deg",
+  "joint_face_lean_deg": 20.9052,
+  "vertex_line_lean_deg": 23.8002,
+  "tie_holes": 8,
+  "dowel_holes": 4,
+  "hole_volume": 236325,
+  "hole_volume_expected": 236326,
+  "tie_columns_xs": [
+   130.0,
+   186.0
+  ],
+  "tie_columns_allowed": {
+   "pocket_edge_xs": 90.48,
+   "hole_tangent": 102.47,
+   "washer_tangent_sharp_edge": 113.45,
+   "washer_clear_of_chamfer": 115.49
+  },
+  "tie_columns_brief": "87/143 not possible; 136/192 on 8 Nov",
+  "landing_bottom_from_vertex_line": 57,
+  "landing_wall_len": 36.6,
+  "clearances": {
+   "hole_to_landing": 23.84,
+   "washer_to_landing_edge": 14.31,
+   "hole_to_outer_face": 96.17,
+   "hole_to_cabin_face": 34.04,
+   "washer_to_outer_face": 86.11,
+   "washer_to_cabin_face": 41.84,
+   "washer_seat_on_flat_metal": true,
+   "hole_to_leg_end": 31.35,
+   "washer_to_leg_end": 20.6,
+   "closed_form": {
+    "hole_to_landing": 26.96,
+    "washer_to_landing_edge": 16.21,
+    "hole_to_outer_face": 96.17,
+    "hole_to_cabin_face": 34.04,
+    "washer_to_outer_face": 86.13,
+    "washer_to_cabin_face": 41.84
+   },
+   "hole_to_hole": 32.5,
+   "landing_wall_sharp_corner": {
+    "z0": 20.424,
+    "z400": 20.424
+   },
+   "landing_wall_closed_form": 20.424,
+   "landing_wall_at_R10_fillet": 23.937,
+   "n_R10_fillet_faces": 2,
+   "a_vertical_landing_breaks_the_joint_face_at_z": 57.2
+  },
+  "blends_failed": []
+ },
+ "CB-02": {
+  "bbox": [
+   385.53,
+   351.34,
+   400.12
+  ],
+  "valid_solid": true,
+  "expected_envelope": "oblique prism, legs 230 from the vertex line, 50 thick normal to the joint face, z 0 to 400, at 108 deg",
+  "joint_face_lean_deg": 16.4722,
+  "vertex_line_lean_deg": 20.0768,
+  "tie_holes": 8,
+  "dowel_holes": 4,
+  "hole_volume": 236329,
+  "hole_volume_expected": 236326,
+  "tie_columns_xs": [
+   130.0,
+   186.0
+  ],
+  "tie_columns_allowed": {
+   "pocket_edge_xs": 102.82,
+   "hole_tangent": 114.82,
+   "washer_tangent_sharp_edge": 125.79,
+   "washer_clear_of_chamfer": 127.83
+  },
+  "tie_columns_brief": "87/143 not possible; 136/192 on 8 Nov",
+  "landing_bottom_from_vertex_line": 62,
+  "landing_wall_len": 42.4,
+  "clearances": {
+   "hole_to_landing": 12.28,
+   "washer_to_landing_edge": 3.38,
+   "hole_to_outer_face": 102.86,
+   "hole_to_cabin_face": 24.33,
+   "washer_to_outer_face": 92.54,
+   "washer_to_cabin_face": 28.2,
+   "washer_seat_on_flat_metal": true,
+   "hole_to_leg_end": 31.35,
+   "washer_to_leg_end": 20.6,
+   "closed_form": {
+    "hole_to_landing": 14.87,
+    "washer_to_landing_edge": 4.12,
+    "hole_to_outer_face": 102.86,
+    "hole_to_cabin_face": 24.33,
+    "washer_to_outer_face": 92.55,
+    "washer_to_cabin_face": 28.2
+   },
+   "hole_to_hole": 32.5,
+   "landing_wall_sharp_corner": {
+    "z0": 17.099,
+    "z400": 17.099
+   },
+   "landing_wall_closed_form": 17.099,
+   "landing_wall_at_R10_fillet": 20.996,
+   "n_R10_fillet_faces": 2,
+   "a_vertical_landing_breaks_the_joint_face_at_z": 60.3
+  },
+  "blends_failed": []
+ },
+ "A-03": {
+  "bbox": [
+   457.99,
+   488.44,
+   499.91
+  ],
+  "n_ties": 12,
+  "n_dowels": 6,
+  "a_block_interference_mm3": {
+   "pent_block_0 x hex_block_1": 0.0,
+   "pent_block_0 x hex_block_2": 0.0,
+   "hex_block_1 x hex_block_2": 0.0
+  },
+  "seams": [
+   {
+    "edge_to_vertex": 39,
+    "faces": "pent-hex",
+    "dihedral_between_panels": 142.623,
+    "expected": 142.623,
+    "joint_plane_lean_from_each_panel_normal_deg": [
+     16.472,
+     20.905
+    ],
+    "edge_length": 2250.0,
+    "joint_faces_off_the_radial_plane_mm": [
+     0.0,
+     0.0
+    ],
+    "joint_faces_angle_to_radial_plane_deg": [
+     0.0,
+     0.0
+    ],
+    "joint_faces_coplanar_within_mm": 0.0,
+    "joint_face_areas_mm2": [
+     90967,
+     93467
+    ],
+    "tie_pairs_max_axis_offset_mm": 0.0,
+    "dowel_pairs_max_axis_offset_mm": 0.0,
+    "max_axis_angle_deg": 0.0,
+    "max_offset_over_the_grip_mm": 0.0,
+    "max_offset_from_true_position_mm": 0.0,
+    "n_pairs": 6
+   },
+   {
+    "edge_to_vertex": 19,
+    "faces": "pent-hex",
+    "dihedral_between_panels": 142.623,
+    "expected": 142.623,
+    "joint_plane_lean_from_each_panel_normal_deg": [
+     16.472,
+     20.905
+    ],
+    "edge_length": 2250.0,
+    "joint_faces_off_the_radial_plane_mm": [
+     0.0,
+     0.0
+    ],
+    "joint_faces_angle_to_radial_plane_deg": [
+     0.0,
+     0.0
+    ],
+    "joint_faces_coplanar_within_mm": 0.0,
+    "joint_face_areas_mm2": [
+     90967,
+     93467
+    ],
+    "tie_pairs_max_axis_offset_mm": 0.0,
+    "dowel_pairs_max_axis_offset_mm": 0.0,
+    "max_axis_angle_deg": 0.0,
+    "max_offset_over_the_grip_mm": 0.0,
+    "max_offset_from_true_position_mm": 0.0,
+    "n_pairs": 6
+   },
+   {
+    "edge_to_vertex": 31,
+    "faces": "hex-hex",
+    "dihedral_between_panels": 138.19,
+    "expected": 138.19,
+    "joint_plane_lean_from_each_panel_normal_deg": [
+     20.905,
+     20.905
+    ],
+    "edge_length": 2250.0,
+    "joint_faces_off_the_radial_plane_mm": [
+     0.0,
+     0.0
+    ],
+    "joint_faces_angle_to_radial_plane_deg": [
+     0.0,
+     0.0
+    ],
+    "joint_faces_coplanar_within_mm": 0.0,
+    "joint_face_areas_mm2": [
+     93467,
+     93467
+    ],
+    "tie_pairs_max_axis_offset_mm": 0.0,
+    "dowel_pairs_max_axis_offset_mm": 0.0,
+    "max_axis_angle_deg": 0.0,
+    "max_offset_over_the_grip_mm": 0.0,
+    "max_offset_from_true_position_mm": 0.0,
+    "n_pairs": 6
+   }
+  ],
+  "worst": {
+   "block_interference_mm3": 0.0,
+   "joint_faces_coplanar_mm": 0.0,
+   "tie_axis_offset_mm": 0.0,
+   "dowel_axis_offset_mm": 0.0,
+   "axis_angle_deg": 0.0,
+   "offset_over_grip_mm": 0.0,
+   "tie_through_block_mm3": 0.0,
+   "dowel_through_block_mm3": 0.0,
+   "fastener_to_fastener_mm3": 0.0
+  },
+  "passed": {
+   "a_no_interference": true,
+   "b_coplanar": true,
+   "c_ties_coaxial": true,
+   "c_dowels_coaxial": true,
+   "ties_and_dowels_pass_through": true
+  },
+  "control_overlap_when_one_block_is_pushed_0p5mm_into_its_neighbour_mm3": 45599.6,
+  "raw_unrounded": {
+   "axis_offset_mm": "1.333e-08",
+   "axis_angle_deg": "0.000e+00",
+   "offset_from_true_position_mm": "4.722e-08",
+   "joint_face_off_radial_plane_mm": "2.381e-08"
+  },
+  "tie_through_block_mm3_max": 0.0,
+  "dowel_through_block_mm3_max": 0.0,
+  "fastener_to_fastener_mm3_max": 0.0,
+  "wedge_angles_about_vertex_line_deg": [
+   111.381,
+   124.309,
+   124.309
+  ],
+  "block_interior_angles": [
+   108.0,
+   120.0,
+   120.0
+  ],
+  "block_masses_kg": [
+   21.554,
+   22.861,
+   22.861
+  ],
+  "edge_lengths_at_vertex": [
+   2250.0,
+   2250.0,
+   2250.0
+  ],
+  "polyhedron_diameter": 11151.1
+ },
+ "P-06H": {
+  "bbox": [
+   140.16,
+   1790.0,
+   180.0
+  ],
+  "valid_solid": true,
+  "web_lean_deg": 20.9052,
+  "joint_face_length": 192.68,
+  "length_at_z0": 1790.0,
+  "length_at_z180": 1710.61,
+  "n_bolts": 16,
+  "bolt_positions_from_vertex": [
+   271.25,
+   346.25,
+   421.25,
+   693.75,
+   768.75,
+   843.75,
+   918.75,
+   993.75,
+   1256.25,
+   1331.25,
+   1406.25,
+   1481.25,
+   1556.25,
+   1828.75,
+   1903.75,
+   1978.75
+  ],
+  "bolt_hole_volume": 17734,
+  "bolt_hole_volume_expected": 17734,
+  "gland_volume": 100356,
+  "rtv_recess_volume": 25064,
+  "end_to_corner_block_gap_mm": 0.0,
+  "end_to_corner_block_common_volume_mm3": 0.0,
+  "end_face_coplanar_with_block_leg_end_mm": 2.0833335057091062e-13,
+  "first_bolt_hole_edge_to_end": 25.1,
+  "blends_failed": []
+ },
+ "P-06P": {
+  "bbox": [
+   124.08,
+   1790.0,
+   180.0
+  ],
+  "valid_solid": true,
+  "web_lean_deg": 16.4722,
+  "joint_face_length": 187.7,
+  "length_at_z0": 1790.0,
+  "length_at_z180": 1712.66,
+  "n_bolts": 16,
+  "bolt_positions_from_vertex": [
+   271.25,
+   346.25,
+   421.25,
+   693.75,
+   768.75,
+   843.75,
+   918.75,
+   993.75,
+   1256.25,
+   1331.25,
+   1406.25,
+   1481.25,
+   1556.25,
+   1828.75,
+   1903.75,
+   1978.75
+  ],
+  "bolt_hole_volume": 17734,
+  "bolt_hole_volume_expected": 17734,
+  "gland_volume": 100352,
+  "rtv_recess_volume": 25063,
+  "end_to_corner_block_gap_mm": 0.0,
+  "end_to_corner_block_common_volume_mm3": 0.0,
+  "end_face_coplanar_with_block_leg_end_mm": 1.4210854715202004e-13,
+  "first_bolt_hole_edge_to_end": 25.1,
+  "blends_failed": []
+ },
+ "HP-01": {
+  "bbox": [
+   50.05,
+   360.0,
+   180.02
+  ],
+  "expected_envelope": "50 x 360 x 180 (block 240 plus two 60 stubs)",
+  "cut_volumes": [
+   10224,
+   10224,
+   2837,
+   2837,
+   62832,
+   62832,
+   62832,
+   1986,
+   1986,
+   1986,
+   1986,
+   1986,
+   1986
+  ],
+  "pin_bore_volume_expected": 188496,
+  "pin_bore_volume": 188496,
+  "seam_bolt_hole_volumes": [
+   2837,
+   2837
+  ],
+  "seam_bolt_hole_volume_expected": 2837,
+  "n_holes": {
+   "glands": 2,
+   "seam_bolts": 2,
+   "pin_bores": 3,
+   "fitting_taps": 6
+  },
+  "clearances": {
+   "pin_z": 140.0,
+   "bolt_z": 58.0,
+   "bolt_y": [
+    -88.75,
+    88.75
+   ],
+   "plain_bolts_beside_the_block": null,
+   "pad_z": [
+    110.0,
+    170.0
+   ],
+   "wall_bore_to_bolt_hole": 62.6,
+   "bore_to_gland": 84.5,
+   "bore_to_lip_underside": 10.0,
+   "bolt_hole_edge_above_pad": -116.25,
+   "washer16_above_pad": -120.0,
+   "bolt_nut_under_fitting_pad": false,
+   "wall_fitting_tap_to_bolt": 53.5,
+   "wall_fitting_tap_to_bore": 5.8
+  },
+  "clearances_with_bolts_at_z58": null,
+  "clearances_with_bolts_at_z110": null,
+  "blends_failed": []
+ },
+ "HP-01M": {
+  "bbox": [
+   50.05,
+   360.0,
+   180.02
+  ],
+  "expected_envelope": "50 x 360 x 180 (block 240 plus two 60 stubs)",
+  "cut_volumes": [
+   10224,
+   10224,
+   1135,
+   1135,
+   62832,
+   62832,
+   62832,
+   1986,
+   1986,
+   1986,
+   1986,
+   1986,
+   1986
+  ],
+  "pin_bore_volume_expected": 188496,
+  "pin_bore_volume": 188496,
+  "seam_bolt_hole_volumes": [
+   1135,
+   1135
+  ],
+  "seam_bolt_hole_volume_expected": 1135,
+  "n_holes": {
+   "glands": 2,
+   "seam_bolts": 2,
+   "pin_bores": 3,
+   "fitting_taps": 6
+  },
+  "clearances": {
+   "pin_z": 76.0,
+   "bolt_z": 58.0,
+   "bolt_y": [
+    -137.5,
+    137.5
+   ],
+   "plain_bolts_beside_the_block": {
+    "bolt_y": 137.5,
+    "in_web_20mm": true,
+    "washer16_to_block_end_face": 9.5,
+    "washer16_to_R10_blend_runout": -0.5,
+    "blend_height_under_washer_edge": 0.0125,
+    "largest_blend_radius_that_clears": 9.5,
+    "washer16_to_fitting_pad_end_along_seam": 29.5,
+    "hole_edge_to_block_end_face": 13.25,
+    "hole_edge_to_stub_end": 38.25,
+    "flight_layout_nearest_bolts_from_hp_centre": [
+     131.25,
+     141.25
+    ],
+    "washer16_to_blend_runout_at_flight_positions": [
+     -6.75,
+     3.25
+    ]
+   },
+   "pad_z": [
+    46.0,
+    106.0
+   ],
+   "wall_bore_to_bolt_hole": 55.3,
+   "bore_to_gland": 20.5,
+   "bore_to_lip_underside": 74.0,
+   "bolt_hole_edge_above_pad": -52.25,
+   "washer16_above_pad": -56.0,
+   "bolt_nut_under_fitting_pad": false,
+   "wall_fitting_tap_to_bolt": 39.0,
+   "wall_fitting_tap_to_bore": 5.8
+  },
+  "clearances_with_bolts_at_z58": null,
+  "clearances_with_bolts_at_z110": null,
+  "blends_failed": []
+ },
+ "HP-02A": {
+  "bbox": [
+   200.02,
+   188.0,
+   130.0
+  ],
+  "valid_solid": true,
+  "bore_volume": 147027,
+  "bore_volume_expected": 147027,
+  "mass_kg": 9.694,
+  "clashes": {
+   "common_volume_with_frame_A_web_mm3": 57.7,
+   "common_volume_with_frame_A_flange_mm3": 96180.3,
+   "common_volume_with_frame_A_lip_mm3": 0.0,
+   "common_volume_with_the_two_secondary_ribs_of_panel_A_mm3": 49663.4,
+   "largest_panel_depth_z_reached": 108.2
+  },
+  "blends_failed": []
+ },
+ "HP-02B": {
+  "bbox": [
+   200.02,
+   132.0,
+   130.0
+  ],
+  "valid_solid": true,
+  "bore_volume": 169646,
+  "bore_volume_expected": 169646,
+  "mass_kg": 6.771,
+  "clashes": {
+   "common_volume_with_frame_B_web_mm3": 0.0,
+   "common_volume_with_frame_B_flange_mm3": 203.0,
+   "common_volume_with_frame_B_lip_mm3": 0.0,
+   "common_volume_with_the_two_secondary_ribs_of_panel_B_mm3": 136340.0,
+   "largest_panel_depth_z_reached": 103.6
+  },
+  "blends_failed": []
+ },
+ "HP-03": {
+  "bbox": [
+   40.02,
+   40.04,
+   95.05
+  ],
+  "expected_envelope": "40 x 40 x 95",
+  "mass_kg": 0.948,
+  "clashes": {
+   "common_volume_with_frame_B_web_mm3": 0.0,
+   "common_volume_with_frame_B_flange_mm3": 7004.3,
+   "common_volume_with_frame_B_lip_mm3": 0.0,
+   "common_volume_with_the_two_secondary_ribs_of_panel_B_mm3": 41684.0,
+   "largest_panel_depth_z_reached": 94.0
+  },
+  "insertion": {
+   "pin_length": 95.0,
+   "pin_zp": [
+    28.5,
+    123.5
+   ],
+   "pin_line_from_joint_plane": 60.0,
+   "cabin_side": {
+    "travel_needed": 95.0,
+    "free_travel_before_the_seat_lip": 73.8,
+    "short_by": 21.2,
+    "common_volume_of_the_drive_path_with_frame_B_lip_mm3": 30733.800000000003,
+    "lip_reaches_normal_distance": 66.7,
+    "pane_seat_plane": "z 180: the pane and its seal lie on the lip, across the drive path"
+   },
+   "space_side": {
+    "common_volume_of_the_drive_path_with_frame_B_flange_mm3": 19426.199999999997,
+    "pin_as_installed_with_flange_mm3": 7004.3
+   },
+   "possible": false
+  }
+ },
+ "A-05": {
+  "bbox": [
+   360.02,
+   222.28,
+   224.66
+  ],
+  "slot": {
+   "slot_x": [
+    -101.0,
+    101.0
+   ],
+   "slot_zp": [
+    55.5,
+    96.5
+   ],
+   "corner_radius": 5.0,
+   "clearance_all_round": 1.0,
+   "to_rtv_recess_edge": 10.5,
+   "to_inner_gland_edge": 19.95,
+   "to_plain_bolt_hole_at_137p5": 32.3,
+   "to_flight_bay_bolt_holes_at_131p25_and_141p25": [
+    26.05,
+    36.05
+   ],
+   "bolt_row_zp_58_is_inside_the_slot_depth_range": true,
+   "web_left_between_slot_and_joint_face_outer_end": 55.5,
+   "web_left_between_slot_and_cabin_end_of_joint_face": 96.2,
+   "lug_square_corner_into_R5_slot_corner_mm": 0.66,
+   "largest_slot_corner_radius_that_clears_a_square_lug": 3.41,
+   "lug_with_web_A_mm3": 57.7,
+   "lug_with_web_B_mm3": 36.2
+  },
+  "clashes_moved_position": {
+   "HP-02A": {
+    "common_volume_with_frame_A_web_mm3": 57.7,
+    "common_volume_with_frame_A_flange_mm3": 96180.3,
+    "common_volume_with_frame_A_lip_mm3": 0.0,
+    "common_volume_with_the_two_secondary_ribs_of_panel_A_mm3": 49663.4,
+    "largest_panel_depth_z_reached": 108.2
+   },
+   "HP-02B": {
+    "common_volume_with_frame_B_web_mm3": 0.0,
+    "common_volume_with_frame_B_flange_mm3": 203.0,
+    "common_volume_with_frame_B_lip_mm3": 0.0,
+    "common_volume_with_the_two_secondary_ribs_of_panel_B_mm3": 136340.0,
+    "largest_panel_depth_z_reached": 103.6
+   },
+   "pins": {
+    "common_volume_with_frame_B_web_mm3": 0.0,
+    "common_volume_with_frame_B_flange_mm3": 7004.3,
+    "common_volume_with_frame_B_lip_mm3": 0.0,
+    "common_volume_with_the_two_secondary_ribs_of_panel_B_mm3": 41684.0,
+    "largest_panel_depth_z_reached": 94.0
+   },
+   "lug_with_frame_B_mm3": 36.2,
+   "HP-02A_with_HP-02B_mm3": 0.0
+  },
+  "widths": {
+   "flange_tip_panel_y": 71.4,
+   "lip_tip_panel_y": 140.2,
+   "HP_02A_reach_panel_y": 107.6,
+   "HP_02B_reach_panel_y": 186.1,
+   "pins_reach_panel_y": 100.1
+  },
+  "pin_insertion": {
+   "pin_length": 95.0,
+   "pin_zp": [
+    28.5,
+    123.5
+   ],
+   "pin_line_from_joint_plane": 60.0,
+   "cabin_side": {
+    "travel_needed": 95.0,
+    "free_travel_before_the_seat_lip": 73.8,
+    "short_by": 21.2,
+    "common_volume_of_the_drive_path_with_frame_B_lip_mm3": 30733.800000000003,
+    "lip_reaches_normal_distance": 66.7,
+    "pane_seat_plane": "z 180: the pane and its seal lie on the lip, across the drive path"
+   },
+   "space_side": {
+    "common_volume_of_the_drive_path_with_frame_B_flange_mm3": 19426.199999999997,
+    "pin_as_installed_with_flange_mm3": 7004.3
+   },
+   "possible": false
+  },
+  "as_drawn_position_lug_mid_plane_zp_140": {
+   "lug_mid_plane_zp": 140.0,
+   "lug_zp": [
+    120.5,
+    159.5
+   ],
+   "cheeks_zp": [
+    [
+     97.5,
+     120.0
+    ],
+    [
+     160.0,
+     182.5
+    ]
+   ],
+   "pins_zp": [
+    92.5,
+    187.5
+   ],
+   "base_blocks_zp": [
+    57.5,
+    187.5
+   ],
+   "straight_convention_z_equals_zp": {
+    "cheeks_beyond_180": 2.5,
+    "pins_beyond_180": 7.5,
+    "base_blocks_beyond_180": 7.5,
+    "cheeks_into_the_lip_zone_170_180": 12.5,
+    "pins_into_the_lip_zone": 17.5,
+    "base_blocks_into_the_lip_zone": 17.5
+   },
+   "leaning_hexagon_frame": {
+    "HP-02A": {
+     "common_volume_with_frame_A_flange_mm3": 0.0,
+     "common_volume_with_frame_A_lip_mm3": 0.0,
+     "largest_panel_depth_z_reached": 168.0
+    },
+    "HP-02B": {
+     "common_volume_with_frame_B_flange_mm3": 0.0,
+     "common_volume_with_frame_B_lip_mm3": 0.0,
+     "largest_panel_depth_z_reached": 163.4
+    },
+    "pins": {
+     "common_volume_with_frame_B_flange_mm3": 0.0,
+     "common_volume_with_frame_B_lip_mm3": 0.0,
+     "largest_panel_depth_z_reached": 153.7
+    },
+    "HP-02A_with_HP-02B_mm3": 0.0
+   },
+   "joint_face_length": 192.7
+  },
+  "c3_y_positions_kept_without_shift": {
+   "base_A_with_web_A_mm3": 449804.1,
+   "cheeks_and_base_B_with_web_B_mm3": 162691.6,
+   "pin_to_web_B_inner_face": 0.0,
+   "note": "C3 y positions kept as modelled: the bodies overlap the two 20 mm webs and the pins touch web B"
+  },
+  "shift_applied": {
+   "depth_stack": -16.5,
+   "body_A_y": 18.0,
+   "side_B_y": -20.0,
+   "lug_longer_than_C3_by": 38.0
+  },
+  "seam_bolts_with_fitting_bodies_mm3": 0.0,
+  "masses": {
+   "HP_02A_kg": 9.694,
+   "HP_02B_kg": 6.771,
+   "pin_each_kg": 0.948,
+   "hardpoint_2_bodies_3_pins_kg": 19.309,
+   "frame_lengths_kg": 8.402
+  },
+  "local_block_verdict": "The base blocks replace the local block. The 8 Nov HP-01 / HP-01M block (web thickened to 50 over 240 mm, three 40 mm bores ACROSS the joint, six tap holes) belongs to the schematic fitting and no longer makes sense: in the C3 geometry nothing is bored through the frame, the pins run along the depth inside the fitting, and the frame's only feature at a hardpoint is the 202 x 41 slot for the lug. What the web needs round that slot (a doubler or a thicker web, since the slot removes the web over 202 mm exactly on the bolt row) and how the two base blocks are fastened are open.",
+  "blends_failed": []
+ }
+}

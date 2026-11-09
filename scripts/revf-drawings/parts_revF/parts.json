@@ -1,0 +1,574 @@
+{
+ "CB-01": {
+  "id": "CB-01",
+  "name": "Corner block, hexagon corner (120 deg), leaning joint faces, 2219-T852",
+  "material": "2219-T852",
+  "mass_kg": 22.861,
+  "volume_mm3": 8049733,
+  "notes": "PROPOSAL of 9 Nov for the 13 Nov review (Marco, Rick); supersedes the straight block of 8 Nov. One solid block per panel corner, 2219-T852 hand forging, machined; three bolt together at a vertex (A-03). TRUE GEOMETRY: each leg's outer face IS the seam's joint plane, the radial plane through the shell edge and the sphere centre, which leans 20.905 deg from the panel normal toward the panel interior. The two joint planes of the corner meet on the vertex line (vertex to sphere centre), which in this panel's frame leans 23.80 deg along the corner bisector, so the whole block is one constant outline swept along the vertex line (an oblique prism) and cut flat to the panel planes at z 0 (outer face) and z 400 (cabin face). Legs 230 long from the vertex line, 50 thick measured normal to the joint face (53.5 in a section parallel to the panel), inner faces parallel to the joint faces, so the tie nuts seat flat; leg end faces parallel to the vertex line. Along the leaning face (z') the joint face is 428.2 long. HOLES, all normal to the joint face: four tie holes 23.5 mm per face (7/8-14 Inconel 718 studs, 198 kN preload) in rows at z' 133.8 and 380.0 (z 125.0 and 355.0 on the face) and two 20 mm dowel holes (room for 24) at z' 256.9 (z 240.0), the same z' on both block types. Columns at 130 and 186 mm along the edge FROM THE VERTEX LINE at each row's depth (pitch 56), so the columns run parallel to the vertex line; from the z 0 vertex the holes are at 157.6 / 208.3 mm (column 1, rows 1 / 2) and 213.6 / 264.3 mm (column 2). WHY 130 / 186: the rib landing's wall meets the leg's inner face 90.5 mm (hexagon) and 102.8 mm (pentagon) from the vertex line; a 23.5 hole clears it from 114.8, a 45 mm washer from 125.8 and, clear of the 2 mm chamfer, from 127.8 (pentagon governs; hexagon 115.5). The briefed 87 / 143 is not possible; 130 is the nearest round position, 6 mm nearer the vertex line than the 136 of 8 Nov, the same on both blocks so the holes meet. MEASURED ON THIS SOLID: nearest hole to the landing 23.84 mm, washer seat to the landing's edge 14.31 mm (sharp edge; 2 mm less to the chamfer), every washer wholly on flat metal: True; hole to the outer face 96.17 mm and to the cabin face 34.04 mm, washer to the outer face 86.11 mm and to the cabin face 41.84 mm; hole to the leg end 31.35 mm. LANDING for the main rib end: 110 wide (100 flange plus 5 a side) along the bisector, its walls and bottom parallel to the vertex line, bottom 57 mm from the vertex line, walls 36.6 mm long where they cut the legs' inner faces, R10 at the two inside corners, 2 mm chamfers on every outside edge. Metal between the landing corner and the joint face: 20.424 mm at z 0 and 20.424 mm at z 400 (sharp corner; 23.937 mm at the R10), the same at every depth because the landing follows the vertex line. It has to: a landing cut straight along the panel z would break out through the joint faces 57.2 mm below the outer face (the vertex line moves 176 mm along the bisector over the 400 depth). So the main rib's end is cut on the same lean (23.80 deg from square) and the rib is longer at its outer flange than at the cabin flange; P-04 is still drawn with square ends. MACHINING: every face is a plane or an R10 cylinder parallel to the vertex line, and the landing consumes the re-entrant corner between the legs, so there is no undercut and no sharp inside corner. The two R10 corners run 437 mm along the vertex line: an end mill cannot reach that far plunging along the line, so they are cut from the open (cabin interior) side with a 20 mm ball or R10 bull-nose cutter run along the vertex line, about 57 mm stick-out. With the vertex line on a rotary axis one set-up cuts the joint faces, inner faces, landing and all holes (the holes are square to the joint faces, which contain that axis); the two end cuts at z 0 and z 400 are 23.8 deg off square to the axis and take one more set-up each. Acute edges of 69.1 deg where the joint faces meet z 0 and the inner faces meet z 400, chamfered 2 mm. Not modelled: the rib fixing in the landing, the O10 corner seal path (the three chamfered spines leave a channel about 2 mm across down the vertex line), tie nuts and washers. The C1 model should be rerun with these hole positions.",
+  "dims": {
+   "legs": "2 x 230 from the vertex line, 50 thick normal to the joint face, at 120 deg in plan",
+   "joint_face_lean": "20.905 deg from the panel normal",
+   "vertex_line_lean": "23.80 deg along the bisector (moves 176.4 over z 400)",
+   "depth": "z 0 to z 400, both ends flat to the panel planes",
+   "joint_face_length_along_lean": 428.2,
+   "tie_hole": "23.5 (7/8 in clearance), normal to the joint face",
+   "tie_columns_from_vertex_line": "130, 186 (pitch 56), parallel to the vertex line",
+   "tie_columns_from_z0_vertex": "157.6, 213.6 (row 1); 208.3, 264.3 (row 2)",
+   "tie_rows_along_face": "z' 133.8, 380.0 (z 125.0, 355.0)",
+   "dowel": "20 mm (room for 24) at z' 256.9 (z 240.0)",
+   "landing": "110 wide, bottom 57 from the vertex line, walls 36.6, parallel to the vertex line",
+   "landing_wall_to_joint_face": "20.4 (constant with depth)",
+   "inside_radius": "R10 (landing corners)",
+   "outside_chamfer": 2.0,
+   "stock": "2219-T852 hand forging"
+  },
+  "rev": "9 Nov 2026 PROPOSAL",
+  "source": "RE-06-2, Ansys C1 (5 Nov), Marco's review (7 Nov), true polyhedron geometry (9 Nov)",
+  "bbox_mm": [
+   431.3,
+   376.2,
+   400.0
+  ],
+  "files": "CB-01"
+ },
+ "CB-02": {
+  "id": "CB-02",
+  "name": "Corner block, pentagon corner (108 deg), leaning joint faces, 2219-T852",
+  "material": "2219-T852",
+  "mass_kg": 21.554,
+  "volume_mm3": 7589346,
+  "notes": "PROPOSAL of 9 Nov for the 13 Nov review (Marco, Rick); supersedes the straight block of 8 Nov. One solid block per panel corner, 2219-T852 hand forging, machined; three bolt together at a vertex (A-03). TRUE GEOMETRY: each leg's outer face IS the seam's joint plane, the radial plane through the shell edge and the sphere centre, which leans 16.472 deg from the panel normal toward the panel interior. The two joint planes of the corner meet on the vertex line (vertex to sphere centre), which in this panel's frame leans 20.08 deg along the corner bisector, so the whole block is one constant outline swept along the vertex line (an oblique prism) and cut flat to the panel planes at z 0 (outer face) and z 400 (cabin face). Legs 230 long from the vertex line, 50 thick measured normal to the joint face (52.1 in a section parallel to the panel), inner faces parallel to the joint faces, so the tie nuts seat flat; leg end faces parallel to the vertex line. Along the leaning face (z') the joint face is 417.1 long. HOLES, all normal to the joint face: four tie holes 23.5 mm per face (7/8-14 Inconel 718 studs, 198 kN preload) in rows at z' 133.8 and 380.0 (z 128.3 and 364.4 on the face) and two 20 mm dowel holes (room for 24) at z' 256.9 (z 246.4), the same z' on both block types. Columns at 130 and 186 mm along the edge FROM THE VERTEX LINE at each row's depth (pitch 56), so the columns run parallel to the vertex line; from the z 0 vertex the holes are at 157.6 / 208.3 mm (column 1, rows 1 / 2) and 213.6 / 264.3 mm (column 2). WHY 130 / 186: the rib landing's wall meets the leg's inner face 90.5 mm (hexagon) and 102.8 mm (pentagon) from the vertex line; a 23.5 hole clears it from 114.8, a 45 mm washer from 125.8 and, clear of the 2 mm chamfer, from 127.8 (pentagon governs; hexagon 115.5). The briefed 87 / 143 is not possible; 130 is the nearest round position, 6 mm nearer the vertex line than the 136 of 8 Nov, the same on both blocks so the holes meet. MEASURED ON THIS SOLID: nearest hole to the landing 12.28 mm, washer seat to the landing's edge 3.38 mm (sharp edge; 2 mm less to the chamfer), every washer wholly on flat metal: True; hole to the outer face 102.86 mm and to the cabin face 24.33 mm, washer to the outer face 92.54 mm and to the cabin face 28.2 mm; hole to the leg end 31.35 mm. LANDING for the main rib end: 110 wide (100 flange plus 5 a side) along the bisector, its walls and bottom parallel to the vertex line, bottom 62 mm from the vertex line, walls 42.4 mm long where they cut the legs' inner faces, R10 at the two inside corners, 2 mm chamfers on every outside edge. Metal between the landing corner and the joint face: 17.099 mm at z 0 and 17.099 mm at z 400 (sharp corner; 20.996 mm at the R10), the same at every depth because the landing follows the vertex line. It has to: a landing cut straight along the panel z would break out through the joint faces 60.3 mm below the outer face (the vertex line moves 146 mm along the bisector over the 400 depth). So the main rib's end is cut on the same lean (20.08 deg from square) and the rib is longer at its outer flange than at the cabin flange; P-04 is still drawn with square ends. MACHINING: every face is a plane or an R10 cylinder parallel to the vertex line, and the landing consumes the re-entrant corner between the legs, so there is no undercut and no sharp inside corner. The two R10 corners run 426 mm along the vertex line: an end mill cannot reach that far plunging along the line, so they are cut from the open (cabin interior) side with a 20 mm ball or R10 bull-nose cutter run along the vertex line, about 62 mm stick-out. With the vertex line on a rotary axis one set-up cuts the joint faces, inner faces, landing and all holes (the holes are square to the joint faces, which contain that axis); the two end cuts at z 0 and z 400 are 20.1 deg off square to the axis and take one more set-up each. Acute edges of 73.5 deg where the joint faces meet z 0 and the inner faces meet z 400, chamfered 2 mm. Not modelled: the rib fixing in the landing, the O10 corner seal path (the three chamfered spines leave a channel about 2 mm across down the vertex line), tie nuts and washers. The C1 model should be rerun with these hole positions.",
+  "dims": {
+   "legs": "2 x 230 from the vertex line, 50 thick normal to the joint face, at 108 deg in plan",
+   "joint_face_lean": "16.472 deg from the panel normal",
+   "vertex_line_lean": "20.08 deg along the bisector (moves 146.2 over z 400)",
+   "depth": "z 0 to z 400, both ends flat to the panel planes",
+   "joint_face_length_along_lean": 417.1,
+   "tie_hole": "23.5 (7/8 in clearance), normal to the joint face",
+   "tie_columns_from_vertex_line": "130, 186 (pitch 56), parallel to the vertex line",
+   "tie_columns_from_z0_vertex": "157.6, 213.6 (row 1); 208.3, 264.3 (row 2)",
+   "tie_rows_along_face": "z' 133.8, 380.0 (z 128.3, 364.4)",
+   "dowel": "20 mm (room for 24) at z' 256.9 (z 246.4)",
+   "landing": "110 wide, bottom 62 from the vertex line, walls 42.4, parallel to the vertex line",
+   "landing_wall_to_joint_face": "17.1 (constant with depth)",
+   "inside_radius": "R10 (landing corners)",
+   "outside_chamfer": 2.0,
+   "stock": "2219-T852 hand forging"
+  },
+  "rev": "9 Nov 2026 PROPOSAL",
+  "source": "RE-06-2, Ansys C1 (5 Nov), Marco's review (7 Nov), true polyhedron geometry (9 Nov)",
+  "bbox_mm": [
+   385.5,
+   351.3,
+   400.0
+  ],
+  "files": "CB-02"
+ },
+ "HP-01": {
+  "id": "HP-01",
+  "name": "Hardpoint block in the frame, 50 thick, as drawn (pins at z 140)",
+  "material": "6061-T6",
+  "mass_kg": 6.408,
+  "volume_mm3": 2373191,
+  "notes": "PROPOSAL for the 13 Nov review. The frame web thickened from 20 to 50 mm over 240 mm of the seam at a hardpoint (three per seam at the quarter points), joint face flat at x 20 (P-06 convention, panel side toward -x), modelled alone with a 60 mm stub of the 20 mm web at each end and R10 blends from the block to the web. The two 7.1 x 4.0 butyl glands at z 18 and 32 run through on the joint face (the fitting must not cover them: it sits on the panel side). Three 40 mm pin bores at 60 mm pitch through the thickness, two 8.5 mm seam bolt holes (the plain bolts beside the fitting, 31.25 mm inside each end face) and six 8.5 mm tap-drill holes 35 deep (M10) from the panel face for the fitting HP-02 (two pairs at the ends, one each between the bores; the brief's two rows of three cannot clear the three bores). The frame flange and lip (z 0-10 and 170-180) are not in this solid. SUPERSEDED IN CONCEPT (9 Nov): the three pin bores across the joint and the six tap holes belong to the schematic fitting of 8 Nov. The real TP3 fitting from the C3 model (HP-02A lug, HP-02B clevis, HP-03 pins along the depth; assembly A-05) bores nothing through the frame: its base blocks seat on the web's inner face and replace this local block, and the frame's only feature at a hardpoint is the slot for the lug. This entry is kept for the 13 Nov comparison of the two fitting depths and for the plain-bolt position. AS DRAWN (RE-06-1): pins at z 140, fitting pads z 110 to 170; the pad touches the underside of the seat lip at z 170. Clearances: bore to seam bolt hole 62.6 mm, bore to the inner gland 84.5 mm, bore to the lip underside 10.0 mm. The HP1 run of 6-7 Nov shows this position fails: the fitting sits 64 mm below the line of the pull and acts as a hinge, the seals open at 0.22 to 0.47 atm. Kept so both positions can be compared on 13 Nov.",
+  "dims": {
+   "block": "240 along the seam x 180 deep x 50 thick",
+   "web_stubs": "20 x 60 each end, R10 blend",
+   "glands": "2 x 7.1 x 4.0 at z 18 and 32",
+   "pin_bores": "3 x 40 at 60 pitch, z 140",
+   "seam_bolts": "2 x 8.5 at y +-88.75, z' 58 (inside the block, 8 Nov artefact)",
+   "fitting_fixing": "6 x 8.5 tap drill (M10) 35 deep from the panel face",
+   "fitting_pad_z": "110 to 170"
+  },
+  "rev": "8 Nov 2026 PROPOSAL",
+  "source": "RE-06-1, Ansys HP1/HP1M (6-7 Nov), C3 (Oct)",
+  "bbox_mm": [
+   50.0,
+   360.0,
+   180.0
+  ],
+  "files": "HP-01"
+ },
+ "HP-01M": {
+  "id": "HP-01M",
+  "name": "Hardpoint block, moved fitting (pins at z 76), plain bolts beside the block",
+  "material": "6061-T6",
+  "mass_kg": 6.417,
+  "volume_mm3": 2376596,
+  "notes": "PROPOSAL for the 13 Nov review. The frame web thickened from 20 to 50 mm over 240 mm of the seam at a hardpoint (three per seam at the quarter points), joint face flat at x 20 (P-06 convention, panel side toward -x), modelled alone with a 60 mm stub of the 20 mm web at each end and R10 blends from the block to the web. The two 7.1 x 4.0 butyl glands at z 18 and 32 run through on the joint face (the fitting must not cover them: it sits on the panel side). Three 40 mm pin bores at 60 mm pitch through the thickness, two 8.5 mm seam bolt holes (the plain bolts beside the fitting, in the 20 mm web 17.5 mm beyond each end face of the block) and six 8.5 mm tap-drill holes 35 deep (M10) from the panel face for the fitting HP-02 (two pairs at the ends, one each between the bores; the brief's two rows of three cannot clear the three bores). The frame flange and lip (z 0-10 and 170-180) are not in this solid. SUPERSEDED IN CONCEPT (9 Nov): the three pin bores across the joint and the six tap holes belong to the schematic fitting of 8 Nov. The real TP3 fitting from the C3 model (HP-02A lug, HP-02B clevis, HP-03 pins along the depth; assembly A-05) bores nothing through the frame: its base blocks seat on the web's inner face and replace this local block, and the frame's only feature at a hardpoint is the slot for the lug. This entry is kept for the 13 Nov comparison of the two fitting depths and for the plain-bolt position. MOVED (HP1M study of 7 Nov, passes): pins at z 76, fitting envelope z 46 to 106, on the line of the pull. Drawn straight, so z here is z' along the joint face. CORRECTED 9 Nov: the two plain seam bolts stay ON THE BOLT ROW at z' 58 and sit beside the block along the seam at y = +-137.5 mm from the hardpoint centre, in the 20 mm frame web, which is where the HP1M model had them; none is under the fitting pad (y +-100). The 8 Nov solid had put them inside the block at y +-88.75, found that the moved pad covered them, and moved them deeper to z 118: that clash was an artefact of the solid, not of the design, and the deeper position was wrong for the seal (D1: the seal gap grows when the bolt row moves away from the seals). The flight layout (3-5-5-3 at 75 pitch) has the nearest seam bolts 131.25 and 141.25 mm from the hardpoint centre, so +-137.5 is 6.25 / 3.75 mm off the drawn bays; one of the two has to move to the other (P-06H and P-06P are drawn with the flight bays). CLEARANCES: a 16 mm washer at y 137.5 is 9.5 mm from the block's end face and 29.5 mm along the seam from the end of the fitting pad (which is also 30 mm further into the panel), the hole edge 13.25 mm from the end face. ONE THING DOES NOT CLEAR: the R10 blend from the block to the web runs out on the web face at y 130 and the washer's edge is at y 129.5, so the washer rides 0.5 mm onto the blend (0.0125 mm proud there). A blend of R9.5 or smaller clears, or the bolt at the flight position 141.25 (3.25 mm clear; at 131.25 the washer is 6.75 mm onto an R10). The blend is left at R10 here for the review. The 40 mm bore at z 76 (edges z 56 to 96) is 20.5 mm above the inner gland (z 28.5-35.5) and 55.3 mm of metal from the nearest plain bolt hole; bore to the fitting tap holes 5.8 mm, tap holes to the plain bolts 39.0 mm.",
+  "dims": {
+   "block": "240 along the seam x 180 deep x 50 thick",
+   "web_stubs": "20 x 60 each end, R10 blend",
+   "glands": "2 x 7.1 x 4.0 at z 18 and 32",
+   "pin_bores": "3 x 40 at 60 pitch, z 76",
+   "seam_bolts": "2 x 8.5 at y +-137.5, z' 58 (in the 20 mm web beside the block)",
+   "fitting_fixing": "6 x 8.5 tap drill (M10) 35 deep from the panel face",
+   "fitting_pad_z": "46 to 106"
+  },
+  "rev": "9 Nov 2026 PROPOSAL",
+  "source": "RE-06-1, Ansys HP1/HP1M (6-7 Nov), C3 (Oct)",
+  "bbox_mm": [
+   50.0,
+   360.0,
+   180.0
+  ],
+  "files": "HP-01M"
+ },
+ "HP-03": {
+  "id": "HP-03",
+  "name": "Hardpoint pin, 40 x 95, A286, along the depth, double shear (from the C3 model)",
+  "material": "A286",
+  "mass_kg": 0.948,
+  "volume_mm3": 119381,
+  "notes": "PROPOSAL of 9 Nov, from the C3 model; replaces the 160 mm pin of 8 Nov. Hardpoint pin 40.0 x 95, A286, three per hardpoint at X -60, 0, +60, axes along the depth (z'), zero clearance in C3, in double shear between the lug (39) and the two cheeks (22.5 each); drawn plain, without chamfers or retention. In the moved position it lies at z' 28.5 to 123.5, 60 mm from the joint plane on panel B's side. CAN IT BE INSERTED? Not as drawn. From the cabin side it needs 95 mm of travel below z' 123.5; the seat lip of frame B is met after 73.8 mm (21.2 mm short), and the pane lies on that lip. From the space side the outer flange is in the way, and the installed pin itself overlaps the flange (7004.3 mm3). A notch in the lip or the flange over the 160 mm of the three pins, or pins put in before the panel is glazed through a notched lip, is needed: OPEN.",
+  "dims": {
+   "diameter": 40.0,
+   "length": 95.0,
+   "quantity_per_hardpoint": 3,
+   "axis": "along the depth z'",
+   "shear": "double: lug 39 between two 22.5 cheeks",
+   "pin_zp": "28.5 to 123.5"
+  },
+  "rev": "9 Nov 2026 PROPOSAL",
+  "source": "Ansys C3 (TP3)",
+  "bbox_mm": [
+   40.0,
+   40.0,
+   95.0
+  ],
+  "files": "HP-03"
+ },
+ "P-11": {
+  "id": "P-11",
+  "name": "Main rib lateral brace at a node, 7075-T7351 (pair)",
+  "material": "7075-T7351",
+  "mass_kg": 1.116,
+  "volume_mm3": 397259,
+  "notes": "PROPOSAL, the size needs its own check. Requirement from the 4 Nov survival check: the 400 x 100 x 25 main rib buckles sideways if unbraced over 2.25 m (0.79 of its load) and has 8.4 times margin braced at every secondary rib crossing (562.5 mm). This bracket holds the rib's cabin flange sideways at the node where the secondary grid meets the main rib: a pair of 7075-T7351 plates, 8 mm thick and 90 mm wide, one each side of the 8 mm web, from z 180 (the secondary grid's cabin face) to z 375 (the cap angles), with a 60 x 8 leg under the cap angle's horizontal leg, bolted through the web with two 3/8-24 A286 bolts (9.6 mm holes at z 210 and 260, common to both plates). CHANGE AGAINST THE BRIEF: the cap angle P-04A has a 12 mm vertical leg down the web from z 300 to 375, so a flat 8 mm plate against the web cannot reach z 375; the plate is stepped out 12 mm at z 280-300 (20 thick there) and runs up the outside of the angle's vertical leg (x 16-24) to the flange. R3 at the two machined inside corners; the notch corner at z 300 is left sharp for the angle. The foot at z 180 stands on the main rib's seat ledge (z 170-180, 30 wide) beside the secondary rib's end and is not fixed to it here; whether the brace also needs a tie into the node star plate P-02 is open (Q95). The holes at z 210 and 260 clear the rib's cap bolt holes at z 360. One pair at every secondary rib crossing: 3 per main rib on a hexagon, 2 or 3 on a pentagon.",
+  "dims": {
+   "plates": "2 x 90 wide x 8 thick, z 180 to 375",
+   "step": "12 mm out at z 280-300 to pass the cap angle's vertical leg",
+   "top_leg": "60 x 8 under the cap angle, z 367-375",
+   "bolts": "2 x 3/8-24 A286 through the web, 9.6 holes at z 210 and 260",
+   "material": "7075-T7351"
+  },
+  "rev": "8 Nov 2026 PROPOSAL",
+  "source": "Does option B at 0.8 atm survive (4 Nov), Q95",
+  "bbox_mm": [
+   152.0,
+   90.0,
+   195.0
+  ],
+  "files": "P-11"
+ },
+ "P-07": {
+  "id": "P-07",
+  "name": "Pressure pane L7, 531 mm, 21 mm BOROFLOAT 33",
+  "material": "BOROFLOAT 33",
+  "mass_kg": 5.498,
+  "volume_mm3": 2465691,
+  "notes": "Equilateral 531 mm (k 4 cut, 9.09 mm short of each rib centre line). Corners truncated 60 mm for the node star plates and clamp screws. Edges ground and polished, 1 mm chamfers. Rests on the cabin face of the secondary rib inner flanges; pressure seats it. 21 mm since 5 November 2026 (SCHOTT's standard 1,700 x 1,300 sheet; 22 mm would need container loads); regenerated at 21 mm on 8 November, so the model, drawing views, STEP and GLB are now at 21 mm. 96 per hexagon.",
+  "dims": {
+   "side": 531.0,
+   "thickness": 21.0,
+   "corner_cut": 60.0,
+   "bite_on_60mm_flange": 20.9
+  },
+  "rev": "DECIDED 5 Nov 2026 (21 mm), regenerated 8 Nov",
+  "source": "Rev E restack (24 Oct), rib study (2 Nov), Glass at 21 mm (4 Nov)",
+  "bbox_mm": [
+   407.9,
+   470.0,
+   21.0
+  ],
+  "files": "P-07"
+ },
+ "PL-01": {
+  "id": "PL-01",
+  "name": "Pentagon closure plate, one of five triangles, 10 mm 6061-T6",
+  "material": "6061-T6",
+  "mass_kg": 44.926,
+  "volume_mm3": 16639301,
+  "notes": "PROPOSAL. The pentagon's pressure closure: a 10 mm 6061-T6 plate cut as five triangles sealed at the five main ribs, one triangle shown (the bottom one of A-04, centre to the two corners of a 2,250 mm edge). Which side of the ribs it goes on is OPEN (register Q57); drawn on the cabin side at the seat plane, z 180 to 190, where the glass sits on a hexagon, so it rests on the secondary rib flanges (z 170-180), the main rib ledges and the frame web top and lip, like the panes. Edges: 10 mm from each main rib centre line (24 mm bite on the 30 mm ledge, which runs from 4 to 34 mm off the centre line) and 10 mm from the frame joint face (60 mm seat on the web top and lip), a 20 mm wide seal land along all three edges (RTV or a butyl cord in a gland in the rib ledge, to decide). The apex is cut back 100 mm from the centre to clear the 160 mm hub core, and the two outer corners are cut to the CB-02 corner block outline. CHANGE AGAINST THE BRIEF: it said 100 mm from the rib centre lines and 100 mm from the frame, but a 100 mm cut-back leaves the plate 66 mm clear of the 30 mm ledge and 30 mm clear of the lip, so it would seat on nothing; 10 mm is the pane rule (9.09). Confirm. Fixing (screws into the ribs through the land, or clamps) is not drawn. CLASH AT THE APEX: the hub's fork cheeks (P-05, 4.1 to 14.1 mm off each main rib centre line, out to r 210, between z 54 and 346) cross the plate's edge line (10 mm off the centre line) between r 100 and r 210, so each triangle's two rib edges need a 15 mm cut-back over that 110 mm, or the cheeks notched at the seat plane; the same applies to the hexagon's innermost panes. Open.",
+  "dims": {
+   "thickness": 10.0,
+   "sides": "rib edges 1914 nominal, frame edge 2250 nominal, cut back 10/10",
+   "apex_cut": "r 100 about the hub",
+   "corner_cuts": "to the CB-02 outline",
+   "seal_land": 20,
+   "area_m2": 1.664,
+   "per_pentagon": 5
+  },
+  "rev": "8 Nov 2026 PROPOSAL",
+  "source": "TRUTH Rev F draft (5 Nov) pentagon, Q57",
+  "bbox_mm": [
+   1713.6,
+   2057.4,
+   10.0
+  ],
+  "files": "PL-01"
+ },
+ "A-03": {
+  "id": "A-03",
+  "name": "Corner node assembly: two hexagon blocks and one pentagon block mated at a vertex, with 12 ties and 6 dowels through the mated holes",
+  "material": "2219-T852 + Inconel 718 + A286",
+  "mass_kg": 80.19,
+  "notes": "PROPOSAL of 9 Nov, rebuilt with the leaning corner blocks. The three corner blocks of one vertex of the real truncated icosahedron (edge 2,250 mm, 11,151 mm across; the 60 vertices from the standard coordinates, scaled): two hexagon blocks CB-01 and one pentagon block CB-02, each placed in its own panel plane with its vertex at the shared vertex, its legs along the two panel edges meeting there and its depth along the panel's inward normal. Panel dihedrals measured at this vertex: pent-hex 142.623; pent-hex 142.623; hex-hex 138.19 deg; the radial joint plane of each seam leans pent-hex 16.472 and 20.905; pent-hex 16.472 and 20.905; hex-hex 20.905 and 20.905 deg from the two panel normals. WHAT WAS CHECKED ON THE PLACED SOLIDS: (a) the three blocks do not overlap: pairwise common volume 0.0, 0.0, 0.0 mm3, and the same test reports 45600 mm3 when one block is pushed 0.5 mm into its neighbour (the straight blocks of 8 Nov overlapped in a 75 mm prism along each edge); (b) on each seam the two blocks' joint faces lie on the radial plane, off it by at most 0.000000 mm and coplanar with each other within 0.000000 mm; (c) all 12 facing tie hole pairs and 6 dowel hole pairs are coaxial: axes apart by at most 0.000000 mm (ties) and 0.000000 mm (dowels) at the joint plane, 0.000000 deg between axes. The 12 ties (22.2 x 300, the 7/8-14 Inconel 718 studs with their nut length) and 6 dowels (20 x 100) are drawn through the mated holes, normal to the joint planes, rows at z' 133.8 and 380.0, dowels at z' 256.9, columns 130 and 186 mm from the vertex line; none touches a block or another fastener (common volumes 0.0, 0.0, 0.0 mm3; the 300 mm stud length is carried from 8 Nov and is not a sized part). The three blocks' wedge angles about the vertex line are 111.381, 124.309 and 124.309 deg, 359.999 in all. The 2 mm chamfers on the three spines leave a three-sided channel about 2 mm across down the vertex line: it is the path the O10 corner seal has to close, not modelled. Exported in a node frame: vertex at the origin, +z inward along the vertex line, x along the hex-hex edge; the vertex sat at [0.0, -1125.0, 5460.9] in the polyhedron frame. Masses: blocks 67.28 kg (21.554, 22.861, 22.861), ties 11.41 kg, dowels 1.5 kg.",
+  "dims": {
+   "blocks": 3,
+   "ties": 12,
+   "dowels": 6,
+   "edge": 2250.0,
+   "seams": [
+    {
+     "edge_to_vertex": 39,
+     "faces": "pent-hex",
+     "dihedral_between_panels": 142.623,
+     "expected": 142.623,
+     "joint_plane_lean_from_each_panel_normal_deg": [
+      16.472,
+      20.905
+     ],
+     "edge_length": 2250.0,
+     "joint_faces_off_the_radial_plane_mm": [
+      0.0,
+      0.0
+     ],
+     "joint_faces_angle_to_radial_plane_deg": [
+      0.0,
+      0.0
+     ],
+     "joint_faces_coplanar_within_mm": 0.0,
+     "joint_face_areas_mm2": [
+      90967,
+      93467
+     ],
+     "tie_pairs_max_axis_offset_mm": 0.0,
+     "dowel_pairs_max_axis_offset_mm": 0.0,
+     "max_axis_angle_deg": 0.0,
+     "max_offset_over_the_grip_mm": 0.0,
+     "max_offset_from_true_position_mm": 0.0,
+     "n_pairs": 6
+    },
+    {
+     "edge_to_vertex": 19,
+     "faces": "pent-hex",
+     "dihedral_between_panels": 142.623,
+     "expected": 142.623,
+     "joint_plane_lean_from_each_panel_normal_deg": [
+      16.472,
+      20.905
+     ],
+     "edge_length": 2250.0,
+     "joint_faces_off_the_radial_plane_mm": [
+      0.0,
+      0.0
+     ],
+     "joint_faces_angle_to_radial_plane_deg": [
+      0.0,
+      0.0
+     ],
+     "joint_faces_coplanar_within_mm": 0.0,
+     "joint_face_areas_mm2": [
+      90967,
+      93467
+     ],
+     "tie_pairs_max_axis_offset_mm": 0.0,
+     "dowel_pairs_max_axis_offset_mm": 0.0,
+     "max_axis_angle_deg": 0.0,
+     "max_offset_over_the_grip_mm": 0.0,
+     "max_offset_from_true_position_mm": 0.0,
+     "n_pairs": 6
+    },
+    {
+     "edge_to_vertex": 31,
+     "faces": "hex-hex",
+     "dihedral_between_panels": 138.19,
+     "expected": 138.19,
+     "joint_plane_lean_from_each_panel_normal_deg": [
+      20.905,
+      20.905
+     ],
+     "edge_length": 2250.0,
+     "joint_faces_off_the_radial_plane_mm": [
+      0.0,
+      0.0
+     ],
+     "joint_faces_angle_to_radial_plane_deg": [
+      0.0,
+      0.0
+     ],
+     "joint_faces_coplanar_within_mm": 0.0,
+     "joint_face_areas_mm2": [
+      93467,
+      93467
+     ],
+     "tie_pairs_max_axis_offset_mm": 0.0,
+     "dowel_pairs_max_axis_offset_mm": 0.0,
+     "max_axis_angle_deg": 0.0,
+     "max_offset_over_the_grip_mm": 0.0,
+     "max_offset_from_true_position_mm": 0.0,
+     "n_pairs": 6
+    }
+   ],
+   "interference_mm3": {
+    "pent_block_0 x hex_block_1": 0.0,
+    "pent_block_0 x hex_block_2": 0.0,
+    "hex_block_1 x hex_block_2": 0.0
+   },
+   "worst": {
+    "block_interference_mm3": 0.0,
+    "joint_faces_coplanar_mm": 0.0,
+    "tie_axis_offset_mm": 0.0,
+    "dowel_axis_offset_mm": 0.0,
+    "axis_angle_deg": 0.0,
+    "offset_over_grip_mm": 0.0,
+    "tie_through_block_mm3": 0.0,
+    "dowel_through_block_mm3": 0.0,
+    "fastener_to_fastener_mm3": 0.0
+   },
+   "passed": {
+    "a_no_interference": true,
+    "b_coplanar": true,
+    "c_ties_coaxial": true,
+    "c_dowels_coaxial": true,
+    "ties_and_dowels_pass_through": true
+   },
+   "wedge_angles_deg": [
+    111.381,
+    124.309,
+    124.309
+   ],
+   "vertex_xyz": [
+    0.0,
+    -1125.0,
+    5460.9
+   ]
+  },
+  "rev": "9 Nov 2026 PROPOSAL",
+  "source": "Truncated icosahedron coordinates; RE-06-2; C1 (5 Nov)",
+  "files": "A-03_corner_node",
+  "bbox_mm": [
+   457.99,
+   488.44,
+   499.91
+  ],
+  "masses": {
+   "blocks_kg": 67.28,
+   "ties_kg": 11.41,
+   "dowels_kg": 1.5
+  },
+  "assembly": true
+ },
+ "A-04": {
+  "id": "A-04",
+  "name": "Pentagon panel assembly, schematic: five frames, five main ribs, hub, 90 secondary ribs, five corner blocks, closure plate",
+  "material": "6061-T6 + 2219-T852",
+  "mass_kg": 921.9,
+  "notes": "PROPOSAL, schematic. One of the 12 pentagons: five 180 mm frame members (P-06 section, straight, 1790 long between the corner blocks' leg ends; the real webs lean 16.472 deg), five 400 x 100 x 25 main ribs with their cap angles from the hub to the corner block landings (1639 mm, schematic ends), the hub (five-fork P-05 core and two five-arm P-05A star plates), the 90 secondary rib segments of the k 4 grid as plain I 180 x 60 x 10 sections (18 per triangle; segment lengths 351.5 to 468.5, cut back 47 mm at a node, 55 at a main rib, 72 at the frame; the node cores and star plates are not drawn), five CB-02 corner blocks and the 10 mm closure plate as five PL-01 triangles on the cabin side at the seat plane (Q57 open). Counts and positions are right; joints, holes, hardpoints, seals, shutters and the pentagon kit (greenhouse, solar, shield, dock) are not in it. Masses from the model: frames 110.8, main ribs and caps 238.4, hub 50.8, secondary ribs 193.8, corner blocks 103.5, closure 224.6 kg; 921.9 kg in all for the structure drawn.",
+  "dims": {
+   "edge": 2250.0,
+   "circumradius": 1914.0,
+   "apothem": 1548.4,
+   "frames": 5,
+   "main_ribs": 5,
+   "cap_angles": 10,
+   "hub": 3,
+   "secondary_ribs": 90,
+   "corner_blocks": 5,
+   "closure_triangles": 5
+  },
+  "rev": "8 Nov 2026 PROPOSAL",
+  "source": "TRUTH Rev F draft (5 Nov); parts_lib.py primitives",
+  "files": "A-04_pentagon_panel",
+  "bbox_mm": [
+   3639.34,
+   3461.25,
+   400.15
+  ],
+  "masses": {
+   "frames": 110.8,
+   "main_ribs": 238.4,
+   "hub": 50.8,
+   "secondary": 193.8,
+   "blocks": 103.5,
+   "closure": 224.6
+  },
+  "assembly": true
+ },
+ "P-06H": {
+  "id": "P-06H",
+  "name": "Frame member, hexagon, web leaning 20.905 deg, 180 deep",
+  "material": "6061-T6",
+  "mass_kg": 22.547,
+  "volume_mm3": 8350860,
+  "notes": "PROPOSAL of 9 Nov. The edge frame member of a hexagon panel with its web LEANING 20.905 deg, so that the web's joint face lies on the seam's radial plane (through the shell edge and the sphere centre). DEPTH CONVENTION: the 180 mm is panel depth z, outer face z 0 to the pane seat plane z 180, both cut flat to the panel planes; the joint face is therefore 192.7 mm long down the lean (z'). Web 20 thick measured normal to the joint face (21.4 in a section parallel to the panel); outer flange 50 x 10 at z 0-10 and seat lip 50 x 10 at z 170-180, both parallel to the panel planes on the panel side, their 50 mm measured from the web's inner face at z 0 and at z 180. SEAM FEATURES are placed along the joint face by z' and cut normal to it: two butyl glands 7.1 x 4.0 (bottom R0.7) at z' 18 and 32, the RTV recess (R3 half-round) at z' 42, and 16 seam bolt holes 8.4 mm at z' 58 through the web, 75 pitch in bays of 3, 5, 5, 3, the first 271.25 mm from the vertex (positions from the vertex: 271.25, 346.25, 421.25, 693.75, 768.75, 843.75, 918.75, 993.75 and mirrored). This is the gland-carrying member (frame B of the test pieces); its mate across the seam is the same member with a flat joint face. ENDS: cut on the corner block CB-01's leg end plane, 230 mm from the vertex line and parallel to it, so the member is 1790 mm long at z 0 and 1710.6 mm at z 180 (each end leans 12.44 deg from square in the panel's side view, 11.64 deg in the joint face). Checked against the CB-01 solid in the same frame: gap 0.0000 mm, common volume 0.0000 mm3, end face coplanar with the block's leg end within 0.000000 mm. The first bolt hole's edge is 25.1 mm from the end. NOT IN THIS SOLID: the three hardpoint blocks (web thickened to 50 over 240 mm at 562.5, 1125, 1687.5; HP-01M), the gland loop corners at the corner blocks (the glands simply run out at the ends; R16 minimum loop, Q92), the leak port, inside radii at the web (R6 on the test pieces), and how the member is fixed to the corner block. The parameter file carries a 56.6 mm seat lip for the hexagon (OPEN-17, proposal); 50 is drawn here as briefed. The straight P-06 stays in the library as a schematic.",
+  "dims": {
+   "depth": "180 (panel z 0 to 180)",
+   "joint_face_length_along_lean": 192.7,
+   "web_lean": "20.905 deg",
+   "web_t": "20 normal to the joint face",
+   "flange": "50 x 10 at z 0-10",
+   "lip": "50 x 10 at z 170-180",
+   "glands": "2 x 7.1 x 4.0 at z' 18 and 32",
+   "rtv_recess": "R3 at z' 42",
+   "seam_bolts": "16 x 8.4 at z' 58, 75 pitch, bays 3-5-5-3, first 271.25 from the vertex",
+   "length_at_z0": 1790.0,
+   "length_at_z180": 1710.6,
+   "ends": "on the CB-01 leg end planes, parallel to the vertex line"
+  },
+  "rev": "9 Nov 2026 PROPOSAL",
+  "source": "P-06 (Rev E sizing, 24 Oct), RF-05 (5 Nov), true polyhedron geometry (9 Nov)",
+  "bbox_mm": [
+   140.2,
+   1790.0,
+   180.0
+  ],
+  "files": "P-06H"
+ },
+ "P-06P": {
+  "id": "P-06P",
+  "name": "Frame member, pentagon, web leaning 16.472 deg, 180 deep",
+  "material": "6061-T6",
+  "mass_kg": 22.091,
+  "volume_mm3": 8181755,
+  "notes": "PROPOSAL of 9 Nov. The edge frame member of a pentagon panel with its web LEANING 16.472 deg, so that the web's joint face lies on the seam's radial plane (through the shell edge and the sphere centre). DEPTH CONVENTION: the 180 mm is panel depth z, outer face z 0 to the pane seat plane z 180, both cut flat to the panel planes; the joint face is therefore 187.7 mm long down the lean (z'). Web 20 thick measured normal to the joint face (20.9 in a section parallel to the panel); outer flange 50 x 10 at z 0-10 and seat lip 50 x 10 at z 170-180, both parallel to the panel planes on the panel side, their 50 mm measured from the web's inner face at z 0 and at z 180. SEAM FEATURES are placed along the joint face by z' and cut normal to it: two butyl glands 7.1 x 4.0 (bottom R0.7) at z' 18 and 32, the RTV recess (R3 half-round) at z' 42, and 16 seam bolt holes 8.4 mm at z' 58 through the web, 75 pitch in bays of 3, 5, 5, 3, the first 271.25 mm from the vertex (positions from the vertex: 271.25, 346.25, 421.25, 693.75, 768.75, 843.75, 918.75, 993.75 and mirrored). This is the gland-carrying member (frame B of the test pieces); its mate across the seam is the same member with a flat joint face. ENDS: cut on the corner block CB-02's leg end plane, 230 mm from the vertex line and parallel to it, so the member is 1790 mm long at z 0 and 1712.7 mm at z 180 (each end leans 12.12 deg from square in the panel's side view, 11.64 deg in the joint face). Checked against the CB-02 solid in the same frame: gap 0.0000 mm, common volume 0.0000 mm3, end face coplanar with the block's leg end within 0.000000 mm. The first bolt hole's edge is 25.1 mm from the end. NOT IN THIS SOLID: the three hardpoint blocks (web thickened to 50 over 240 mm at 562.5, 1125, 1687.5; HP-01M), the gland loop corners at the corner blocks (the glands simply run out at the ends; R16 minimum loop, Q92), the leak port, inside radii at the web (R6 on the test pieces), and how the member is fixed to the corner block. The straight P-06 stays in the library as a schematic.",
+  "dims": {
+   "depth": "180 (panel z 0 to 180)",
+   "joint_face_length_along_lean": 187.7,
+   "web_lean": "16.472 deg",
+   "web_t": "20 normal to the joint face",
+   "flange": "50 x 10 at z 0-10",
+   "lip": "50 x 10 at z 170-180",
+   "glands": "2 x 7.1 x 4.0 at z' 18 and 32",
+   "rtv_recess": "R3 at z' 42",
+   "seam_bolts": "16 x 8.4 at z' 58, 75 pitch, bays 3-5-5-3, first 271.25 from the vertex",
+   "length_at_z0": 1790.0,
+   "length_at_z180": 1712.7,
+   "ends": "on the CB-02 leg end planes, parallel to the vertex line"
+  },
+  "rev": "9 Nov 2026 PROPOSAL",
+  "source": "P-06 (Rev E sizing, 24 Oct), RF-05 (5 Nov), true polyhedron geometry (9 Nov)",
+  "bbox_mm": [
+   124.1,
+   1790.0,
+   180.0
+  ],
+  "files": "P-06P"
+ },
+ "HP-02A": {
+  "id": "HP-02A",
+  "name": "Hardpoint fitting body A, lug, Ti-6Al-4V (TP3, from the C3 model)",
+  "material": "Ti-6Al-4V",
+  "mass_kg": 9.694,
+  "volume_mm3": 2188374,
+  "notes": "PROPOSAL of 9 Nov, from the C3 finite element model (TP3, the run that gave 2.876 million N/mm); replaces the schematic fitting half HP-02 of 8 Nov. Body A, the LUG, Ti-6Al-4V, on panel A: base block 200 wide x 48 x 130 deep, and a lug the full 200 width, 39 thick, reaching through the slot in both frame webs across the joint plane to its tip; tip chamfer 8 x 8 on both faces, root fillets R10 on both faces, three 40 mm bores with 1 x 1 chamfers, 60 from bore centre to the tip and 40 to the side faces. The pins run ALONG THE DEPTH (z'), in double shear between this lug and the two cheeks of HP-02B. Drawn in the joint frame: X along the seam, Y normal to the joint plane (panel A at +Y), Z = z' down the joint face. PLACEMENT (moved position): the C3 depth stack is shifted -16.5 so the lug's mid-plane is at z' 76 on the joint face: lug z' 56.5 to 95.5, cheeks 33.5 to 56.0 and 96.0 to 118.5, pins 28.5 to 123.5, base blocks -6.5 to 123.5. DEPARTURE FROM C3 in the pull direction: C3 has no frame webs (its bodies meet at y 0 to 2). Kept at C3's y, base A would overlap web A (449804 mm3), the cheeks would overlap web B (162692 mm3) and the pins would touch web B. So each body is seated on the inner face of its own 20 mm web: body A's base face moved from y 2 to y 20, everything on side B moved 20 mm further in (cheek tops y -20, pin line y -60, lug tip y -120, slot floor y -122, base B y -152 to -122). The lug is therefore 38 mm longer than in C3 (140 from base face to tip, not 102) and the pin line is 60 mm from the joint plane, not 40; every other dimension is C3's. The 2.876 million N/mm of C3 does not apply to this longer lug: to rerun. CLASHES FOUND with the leaning hexagon frame (P-06H section, common volumes in mm3): HP-02A with frame A flange 96180.3, lip 0.0, web 57.7 (only the lug's four corners in the slot's R5 corners); HP-02B with frame B flange 203.0, lip 0.0, web 0.0; pins with frame B flange 7004.3, lip 0.0; with the two secondary ribs that land on the hardpoint node (I 180 x 60, cut back 72): HP-02A 49663.4, HP-02B 136340.0, pins 41684.0. The base blocks start at z' -6.5, above the shell edge, and run under the outer flange (z 0-10). How the base block fastens to the frame is NOT in the C3 model: it is drawn seated on the web's inner face and the fastening is OPEN. See A-05.",
+  "dims": {
+   "base_block": "200 x 48 x 130 deep",
+   "lug": "200 wide x 39 thick, 140 from base face to tip (102 in C3)",
+   "tip_chamfer": "8 x 8, both faces",
+   "root_fillet": "R10, both faces",
+   "bores": "3 x 40 at 60 pitch, 1 x 1 chamfers, 60 to the tip, 40 to the sides",
+   "lug_zp": "56.5 to 95.5 (mid-plane z' 76)",
+   "base_zp": "-6.5 to 123.5"
+  },
+  "rev": "9 Nov 2026 PROPOSAL",
+  "source": "Ansys C3 (TP3), geometry as measured from the model; HP1M (7 Nov)",
+  "bbox_mm": [
+   200.0,
+   188.0,
+   130.0
+  ],
+  "files": "HP-02A"
+ },
+ "HP-02B": {
+  "id": "HP-02B",
+  "name": "Hardpoint fitting body B, clevis, Ti-6Al-4V (TP3, from the C3 model)",
+  "material": "Ti-6Al-4V",
+  "mass_kg": 6.771,
+  "volume_mm3": 1528350,
+  "notes": "PROPOSAL of 9 Nov, from the C3 model; replaces the schematic fitting half HP-02 of 8 Nov. Body B, the CLEVIS, Ti-6Al-4V, on panel B: base block 200 wide x 30 x 130 deep and two cheeks the full width, each 22.5 thick, 102 tall, with a 40 mm slot between them (0.5 mm each side of the 39 lug); slot floor with R10 fillets, outer root R10 on one side and R4 on the side where only 5 mm of base remains, cheek top inner edges relieved 8 x 8 (in C3 this cleared the lug's root fillet; with the webs between, the root is now 40 mm away and the relief is not needed), three 40 mm bores with 1 x 1 chamfers. PLACEMENT (moved position): the C3 depth stack is shifted -16.5 so the lug's mid-plane is at z' 76 on the joint face: lug z' 56.5 to 95.5, cheeks 33.5 to 56.0 and 96.0 to 118.5, pins 28.5 to 123.5, base blocks -6.5 to 123.5. DEPARTURE FROM C3 in the pull direction: C3 has no frame webs (its bodies meet at y 0 to 2). Kept at C3's y, base A would overlap web A (449804 mm3), the cheeks would overlap web B (162692 mm3) and the pins would touch web B. So each body is seated on the inner face of its own 20 mm web: body A's base face moved from y 2 to y 20, everything on side B moved 20 mm further in (cheek tops y -20, pin line y -60, lug tip y -120, slot floor y -122, base B y -152 to -122). The lug is therefore 38 mm longer than in C3 (140 from base face to tip, not 102) and the pin line is 60 mm from the joint plane, not 40; every other dimension is C3's. The 2.876 million N/mm of C3 does not apply to this longer lug: to rerun. CLASHES FOUND with the leaning hexagon frame (P-06H section, common volumes in mm3): HP-02A with frame A flange 96180.3, lip 0.0, web 57.7 (only the lug's four corners in the slot's R5 corners); HP-02B with frame B flange 203.0, lip 0.0, web 0.0; pins with frame B flange 7004.3, lip 0.0; with the two secondary ribs that land on the hardpoint node (I 180 x 60, cut back 72): HP-02A 49663.4, HP-02B 136340.0, pins 41684.0. The base blocks start at z' -6.5, above the shell edge, and run under the outer flange (z 0-10). Fastening of the base block to the frame: OPEN, not in C3. See A-05.",
+  "dims": {
+   "base_block": "200 x 30 x 130 deep",
+   "cheeks": "2 x 200 wide x 22.5 thick x 102 tall, 40 slot between",
+   "slot_floor": "R10",
+   "outer_roots": "R10 and R4",
+   "cheek_top_relief": "8 x 8",
+   "bores": "3 x 40 at 60 pitch, 1 x 1 chamfers",
+   "cheeks_zp": "33.5 to 56.0 and 96.0 to 118.5",
+   "base_zp": "-6.5 to 123.5"
+  },
+  "rev": "9 Nov 2026 PROPOSAL",
+  "source": "Ansys C3 (TP3), geometry as measured from the model; HP1M (7 Nov)",
+  "bbox_mm": [
+   200.0,
+   132.0,
+   130.0
+  ],
+  "files": "HP-02B"
+ },
+ "A-05": {
+  "id": "A-05",
+  "name": "Hardpoint, moved position: two lengths of leaning hexagon frame, lug HP-02A, clevis HP-02B, three pins, two plain seam bolts",
+  "material": "6061-T6 + Ti-6Al-4V + A286",
+  "mass_kg": 27.711,
+  "notes": "PROPOSAL of 9 Nov. The hardpoint in the MOVED position (lug mid-plane at z' 76), from the C3 model's real fitting: two 360 mm lengths of the leaning hexagon frame P-06H (panel A with the flat joint face, panel B with the glands and RTV recess) on a hexagon-to-hexagon seam, drawn in the joint frame (X along the seam, Y normal to the joint plane, Z = z' down the joint face, so the two panels' flanges and lips lean away at 20.905 deg); the slot for the lug through both webs, 202 x 41 at z' 55.5 to 96.5 (1 mm clear of the lug all round, R5 corners, and an 11 x 11 relief on web A's inner face so the lug's R10 root fillet clears). The R5 corners and the 1 mm clearance do not go together with a square-edged lug: each lug corner is 0.66 mm into the slot's corner radius (57.7 and 36.2 mm3 in the two webs); R3.41 or less, or a 2 mm break on the lug's four long edges, clears. Drawn as specified. Also in the assembly: HP-02A (lug) on panel A, HP-02B (clevis) on panel B, three HP-03 pins along the depth, and the two plain seam bolts at X +-137.5 on the bolt row z' 58. Both base blocks and the cheeks sit on the inner (panel-interior) side of the frame webs, not in the joint face. PLACEMENT (moved position): the C3 depth stack is shifted -16.5 so the lug's mid-plane is at z' 76 on the joint face: lug z' 56.5 to 95.5, cheeks 33.5 to 56.0 and 96.0 to 118.5, pins 28.5 to 123.5, base blocks -6.5 to 123.5. DEPARTURE FROM C3 in the pull direction: C3 has no frame webs (its bodies meet at y 0 to 2). Kept at C3's y, base A would overlap web A (449804 mm3), the cheeks would overlap web B (162692 mm3) and the pins would touch web B. So each body is seated on the inner face of its own 20 mm web: body A's base face moved from y 2 to y 20, everything on side B moved 20 mm further in (cheek tops y -20, pin line y -60, lug tip y -120, slot floor y -122, base B y -152 to -122). The lug is therefore 38 mm longer than in C3 (140 from base face to tip, not 102) and the pin line is 60 mm from the joint plane, not 40; every other dimension is C3's. The 2.876 million N/mm of C3 does not apply to this longer lug: to rerun. SLOT CLEARANCES: 10.5 mm to the RTV recess (z' 42), 19.95 mm to the inner gland (z' 32), 32.3 mm to the plain bolt holes at +-137.5 (26.05 / 36.05 mm to the flight bay bolts at 131.25 / 141.25). The bolt row z' 58 lies inside the slot's depth range, so the seam has no clamp bolt and no web over the 202 mm of the slot; the seals above it (z' 18, 32, 42) keep 55.5 mm of web. CLASHES FOUND with the leaning hexagon frame (P-06H section, common volumes in mm3): HP-02A with frame A flange 96180.3, lip 0.0, web 57.7 (only the lug's four corners in the slot's R5 corners); HP-02B with frame B flange 203.0, lip 0.0, web 0.0; pins with frame B flange 7004.3, lip 0.0; with the two secondary ribs that land on the hardpoint node (I 180 x 60, cut back 72): HP-02A 49663.4, HP-02B 136340.0, pins 41684.0. The base blocks start at z' -6.5, above the shell edge, and run under the outer flange (z 0-10). WIDTH: the flange tip is 71.4 mm and the lip tip 140.2 mm into the panel from the edge line; HP-02A reaches 107.6 mm and HP-02B 186.1 mm, so the clevis stands 46 mm beyond the lip into the first pane bay. PINS: cannot be inserted as drawn: from the cabin side the seat lip is met after 73.8 of the 95 mm (21.2 mm short) and the pane lies on the lip; from the space side the flange is in the way. AS-DRAWN POSITION (lug mid-plane z' 140, check only, not drawn): cheeks to z' 182.5, pins and base blocks to z' 187.5; taking z = z' (straight frame) that is 2.5 mm (cheeks) and 7.5 mm (pins, base blocks) beyond the 180 frame depth. OPEN: the fastening of the base blocks to the frame (not in C3), the web round the slot, the flange and lip cut-outs, the secondary rib ends at the node, pin insertion and retention, and a check that the slot, which lies on the cabin side of the three seals (z' 18, 32, 42) and so joins cabin to cabin, leaves the seals enough web (10.5 mm below the RTV recess). The base blocks replace the local block. The 8 Nov HP-01 / HP-01M block (web thickened to 50 over 240 mm, three 40 mm bores ACROSS the joint, six tap holes) belongs to the schematic fitting and no longer makes sense: in the C3 geometry nothing is bored through the frame, the pins run along the depth inside the fitting, and the frame's only feature at a hardpoint is the 202 x 41 slot for the lug. What the web needs round that slot (a doubler or a thicker web, since the slot removes the web over 202 mm exactly on the bolt row) and how the two base blocks are fastened are open. Masses: HP-02A 9.694 kg, HP-02B 6.771 kg, pin 0.948 kg each, the hardpoint (two bodies and three pins) 19.309 kg.",
+  "dims": {
+   "frame_lengths": "2 x 360 of P-06H",
+   "slot": "202 x 41 at z' 55.5 to 96.5, R5",
+   "lug_mid_plane_zp": 76.0,
+   "pins": "3 x 40 x 95 along the depth",
+   "plain_bolts": "2 at X +-137.5, z' 58",
+   "slot_clearances": {
+    "slot_x": [
+     -101.0,
+     101.0
+    ],
+    "slot_zp": [
+     55.5,
+     96.5
+    ],
+    "corner_radius": 5.0,
+    "clearance_all_round": 1.0,
+    "to_rtv_recess_edge": 10.5,
+    "to_inner_gland_edge": 19.95,
+    "to_plain_bolt_hole_at_137p5": 32.3,
+    "to_flight_bay_bolt_holes_at_131p25_and_141p25": [
+     26.05,
+     36.05
+    ],
+    "bolt_row_zp_58_is_inside_the_slot_depth_range": true,
+    "web_left_between_slot_and_joint_face_outer_end": 55.5,
+    "web_left_between_slot_and_cabin_end_of_joint_face": 96.2,
+    "lug_square_corner_into_R5_slot_corner_mm": 0.66,
+    "largest_slot_corner_radius_that_clears_a_square_lug": 3.41,
+    "lug_with_web_A_mm3": 57.7,
+    "lug_with_web_B_mm3": 36.2
+   },
+   "widths": {
+    "flange_tip_panel_y": 71.4,
+    "lip_tip_panel_y": 140.2,
+    "HP_02A_reach_panel_y": 107.6,
+    "HP_02B_reach_panel_y": 186.1,
+    "pins_reach_panel_y": 100.1
+   }
+  },
+  "rev": "9 Nov 2026 PROPOSAL",
+  "source": "Ansys C3 (TP3), HP1M (7 Nov), P-06H (9 Nov)",
+  "files": "A-05_hardpoint_moved",
+  "bbox_mm": [
+   360.02,
+   222.28,
+   224.66
+  ],
+  "masses": {
+   "HP_02A_kg": 9.694,
+   "HP_02B_kg": 6.771,
+   "pin_each_kg": 0.948,
+   "hardpoint_2_bodies_3_pins_kg": 19.309,
+   "frame_lengths_kg": 8.402
+  },
+  "assembly": true
+ }
+}
