@@ -4,7 +4,7 @@
 | --- | --- |
 | This package, as a PDF | Drive, UPDATES / Week 10 (9 to 15 Nov 2026), and hcsa-site.vercel.app/downloads |
 | The Rev F sheets RF-01 to RF-09 and the test-piece sheets TP-00 to TP-04 | Website, /blueprints/#revf, each as an image and as a PDF; Drive, Week 10 |
-| The test-piece STEP files, 21 solids and 6 assemblies | Website, /downloads (HCSA-Rev-F-test-pieces-STEP-8-Nov-2026.zip); Drive, Week 10 |
+| The test-piece STEP files, 21 solids and 6 assemblies | Website, /downloads (HCSA-Rev-F-test-pieces-STEP-9-Nov-2026.zip); Drive, Week 10 |
 | The parts library, every flight part with STEP, GLB and four views | Website, /parts |
 | The master 3D model, with the taken-apart view | Website, /model (team, behind the password) and /explore (public) |
 | The computer test results, the Rev F decks and the result files | The laptop, Documents\HCSA_FEA\F_revF_4nov; the write-up is part 4 of this package and the Project note "What the computer tests say, Rev F (7 Nov)" |

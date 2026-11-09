@@ -38,9 +38,9 @@ Z_RTV   = 42.0; R_RTV = 3.0
 Z_PORT  = 25.0; D_PORT = 2.0; D_M5_DRILL = 4.2; M5_DEPTH = 8.0
 Z_BOLT  = v("seam_bolt", "row_z")        # 58
 PITCH   = v("seam_bolt", "pitch")        # 75
-D_BOLT_HOLE = 8.4                        # RE-01: 8.4 reamed. DFM: 8.5 drilled is enough for a clamp bolt
+D_BOLT_HOLE = 8.5                        # drilled (RE-01 had 8.4 reamed); a clamp bolt, not a shear pin
 R_IN    = 6.0                            # inside corners web/flange, web/lip (TRUTH 10.4, OPEN-5)
-LEG_HOLE = 13.5                          # ISO 273 medium for M12
+LEG_HOLE = 14.0                          # drilled; M12 screws need play to find the block threads (was 13.5)
 BLK_X   = 80.0                           # block along the leg
 BLK_Z0, BLK_Z1 = FL_T, D - FL_T          # block between the legs: z 10 .. 170 (160 tall)
 M12_DRILL, M12_DEPTH = 10.2, 31.0        # tapped M12 from each bearing face, 26 mm full thread

@@ -96,8 +96,8 @@ def tp00(pdf):
            ("Gland depth 4.0", "+-0.05", "+-0.05 (keep)", "sets the 25 % squeeze; a shallow groove, easy to hold"),
            ("Gland width 7.1", "+-0.05", "+-0.10", "fill 78.7 % moves 1 point per 0.1 mm"),
            ("Gland position z 18, 32", "+-0.05", "+-0.15", "the cords only have to meet the flat face of frame A"),
-           ("Seam bolt holes", "8.4 reamed, pos +-0.2", "8.5 drilled, pos +-0.2", "a clamp bolt, not a shear pin, in the test articles"),
-           ("Leg holes", "13.5", "14.0 drilled, pattern +-0.2", "M12 screws need play to find the block threads"),
+           ("Seam bolt holes", "8.4 reamed, pos +-0.2 (old)", "8.5 drilled, pos +-0.2 (as modelled)", "a clamp bolt, not a shear pin, in the test articles"),
+           ("Leg holes", "13.5 (old)", "14.0 drilled, pattern +-0.2 (as modelled)", "M12 screws need play to find the block threads"),
            ("Hardpoint bores (550)", "40 H7", "40 +0.10 / 0", "the dummy pins are fitted loose by design"),
            ("Block bearing faces", "parallel 0.05", "parallel 0.10, height 160 +-0.1", "the legs must not be sprung when the screws go in"),
            ("Everything else", "ISO 2768-f", "ISO 2768-m", "legs, lengths, block outline: nothing seals on them")]
@@ -146,11 +146,11 @@ def tp01(pdf):
         ax.add_patch(Circle((-GD / 2 + 0.3, zc), 5.33 / 2, fc=SEAL, ec="none"))
     ax.add_patch(Arc((0, ZR), 6, 6, theta1=90, theta2=270, lw=0.8, color="k")); ax.add_patch(Rectangle((-3, ZR - 3), 3, 6, fc="white", ec="none"))
     ax.add_patch(Rectangle((-WEB, ZP - 1), WEB, 2, fc="white", ec="k", lw=0.5)); ax.add_patch(Rectangle((-WEB, ZP - 2.1), 8, 4.2, fc="white", ec="k", lw=0.5))
-    ax.add_patch(Rectangle((-WEB, ZB - 4.2), WEB, 8.4, fc="white", ec="k", lw=0.6))
+    ax.add_patch(Rectangle((-WEB, ZB - 4.25), WEB, 8.5, fc="white", ec="k", lw=0.6))
     # block outline and leg holes
     bx0 = -(WEB + LEG); ax.add_patch(Rectangle((bx0, BZ0), BX, BZ1 - BZ0, fill=False, ec=STEEL, lw=0.8, ls="--"))
     for xr in (bx0 + 20, bx0 + BX - 20):
-        ax.add_patch(Rectangle((xr - 6.75, 0), 13.5, FLT, fc="white", ec="k", lw=0.5)); ax.add_patch(Rectangle((xr - 6.75, D - FLT), 13.5, FLT, fc="white", ec="k", lw=0.5))
+        ax.add_patch(Rectangle((xr - 7.0, 0), 14.0, FLT, fc="white", ec="k", lw=0.5)); ax.add_patch(Rectangle((xr - 7.0, D - FLT), 14.0, FLT, fc="white", ec="k", lw=0.5))
     dim(ax, (-WEB, D), (0, D), f"{WEB:.0f}", off=14)
     dim(ax, (-(WEB + LEG), D), (-WEB, D), f"{LEG:.0f} (DFM: 120)", off=14)
     dim(ax, (0, 0), (0, D), f"{D:.0f}", off=36, horiz=False)
@@ -162,8 +162,8 @@ def tp01(pdf):
     ax.annotate(f"2 glands {GW} x {GD}, bottom R0.5-0.9,\nrun through, dammed at the ends", (-GD, Z1), (-120, 60), fontsize=7, arrowprops=dict(arrowstyle="->", lw=0.6))
     ax.annotate("RTV recess R3", (-3, ZR), (-120, 85), fontsize=7, arrowprops=dict(arrowstyle="->", lw=0.6))
     ax.annotate("leak port dia 2 through, M5 from the leg side, 8 deep,\none per slice at mid-length", (-WEB, ZP), (-215, 118), fontsize=7, arrowprops=dict(arrowstyle="->", lw=0.6))
-    ax.annotate("seam bolt holes dia 8.5 (8.4 reamed as drawn)\nat 75 pitch, centred", (-WEB, ZB), (-215, 150), fontsize=7, arrowprops=dict(arrowstyle="->", lw=0.6))
-    ax.annotate("leg holes dia 14 (13.5 as drawn), 2 rows,\nthrough both legs; block threads match", (bx0 + 20, FLT), (-215, -40), fontsize=7, arrowprops=dict(arrowstyle="->", lw=0.6))
+    ax.annotate("seam bolt holes dia 8.5 drilled\nat 75 pitch, centred", (-WEB, ZB), (-215, 150), fontsize=7, arrowprops=dict(arrowstyle="->", lw=0.6))
+    ax.annotate("leg holes dia 14 drilled, 2 rows,\nthrough both legs; block threads match", (bx0 + 20, FLT), (-215, -40), fontsize=7, arrowprops=dict(arrowstyle="->", lw=0.6))
     ax.annotate("R6 inside corners (both)", (-WEB - 6, FLT + 6), (-150, 30), fontsize=7, arrowprops=dict(arrowstyle="->", lw=0.6))
     ax.text(2, D / 2, "joint face\n(x = 0)", fontsize=7, color=RED, va="center"); ax.plot([0, 0], [-10, D + 10], ls="-.", lw=0.6, c=RED)
     ax.text(-(WEB + LEG) + 5, D + 40, "space side (z 0) at the bottom, cabin side (z 180) at the top; the seat lip (z 170-180) doubles as the second grip leg", fontsize=7, color="#555")
@@ -232,7 +232,7 @@ def tp02(pdf):
              "(z 170-180, P-06), so the span is 160 mm. The single M24 for run 1 sits at the block centre, which puts the straight pull at z 90; the D1 and HP1 twins\n"
              "pull at the frame middle (76 mm), so run 1's pull line is 14 mm off the twin's. Run 2 (the one the seal design turns on) is unchanged at z 24.\n"
              "The 2.0 and 3.5 mm walls round the two M24 threads of the 24 Oct blocks are gone: rev B has one M24 and the z 24 pull goes through the lugs.\n"
-             "DFM questions for Marco: block in 6061-T651 instead of 4140 (19 kg instead of 55 kg on the 550 pair; the M12 and M24 threads in aluminium carry\n"
+             "DFM questions for Marco: block in 6061-T651 instead of 4140 (19 kg instead of 55 kg for each 550 block; the M12 and M24 threads in aluminium carry\n"
              "the 100 kN frame load with margin); legs 120 instead of 200 (stock 190 x 150 instead of 190 x 230; the block moves in; the twins' fixture legs change).", fontsize=7.6, va="top")
     pdf.savefig(fig); fig.savefig(f"{OUT}/TP-02_assembled.png", dpi=130); plt.close(fig)
 
@@ -261,7 +261,7 @@ def tp03(pdf):
              "bead cured 24 h; end dams fitted; the space between the cords pressurised to 1 and 2 atm and logged (LC5, 7-14 Dec). Then pulled in prying through the lugs while the\n"
              "leak rate is read against the gap, which measures the gap at which the butyl stops sealing, the number the whole seal design turns on. Afterwards it stays assembled as the ageing sample.\n"
              "Bolts: 2 + 2 at 75 pitch in the two 175 mm bays beside the 200 mm dummy fitting (RF-03), none inside it. Leg holes: 7 positions at 75 pitch (50 to 500), two rows, both legs.\n"
-             "Pull blocks: 160 x 80 x 550 (TP-04), 55 kg each in 4140; 19 kg each in 6061-T651 (DFM option). Expected pulls: about 3.3 kN per bolt to a 0.11 mm gap, so about 60 kN on the article.", fontsize=7.5, va="top")
+             "Pull blocks: 160 x 80 x 550 (TP-04), 55 kg each in 4140; 19 kg each in 6061-T651 (DFM option). The seam model reaches the 0.11 mm gap at 3.75 kN per plain bolt; the pull on the article at that point comes from the D1-550 run, still owed. Fixture rated 50 kN.", fontsize=7.5, va="top")
     axj = fig.add_axes([0.64, 0.14, 0.34, 0.33]); axj.axis("off"); axj.imshow(png("SA-550-PB_iso")); axj.set_title("SA-550-PB, 160 x 80 x 550", fontsize=7.5)
     pdf.savefig(fig); fig.savefig(f"{OUT}/TP-03_550.png", dpi=130); plt.close(fig)
 

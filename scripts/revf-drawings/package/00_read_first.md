@@ -17,17 +17,17 @@ Rev E became Rev F in the first week of November. Eight decisions did it.
 | 5&nbsp;Nov | Seam bolt row stays at z' 58 | Moving it to z' 70, to give the seal loops rounder corners, failed the seam model |
 | 5&nbsp;Nov | We stop quoting 35 MPa as the glass allowable until our own bars measure it | SCHOTT's figure is 25 MPa, a 5 percent fractile on abraded glass, with no Weibull data |
 
-Three of these still have to be signed by Rick on Tuesday 10 November: the 0.8 atm cabin and the transfer lock, withdrawing leak before break, and the safety factors of 1.5 at proof and 2.0 at ultimate. Where the package depends on them it says so.
+Rick still has to sign three things on Tuesday 10 November: the 0.8 atm cabin with its transfer lock, which is in the table, and two that go with it, withdrawing leak before break and the safety factors of 1.5 at proof and 2.0 at ultimate. Where the package depends on them it says so.
 
 ## What the computer tests found, in two sentences
 
-At 0.8 atm the corners pass with about 12 kN of room on the worst tie, and still pass, by 0.7 kN, if the hatch is left open and the cabin goes to 1 atm; the seams pass with about 40 percent margin. The hardpoint as drawn does not work, because the fitting sits 64 mm deeper than the line of the pull and the two frames hinge about it, so the seals open at 0.2 to 0.5 atm; moved onto the line of the pull it holds to 2.5 atm, and that move is the decision for Tuesday.
+At 0.8 atm the corners pass with about 12 kN of room on the worst tie, and still pass, by 0.7 kN, if the hatch is left open and the cabin goes to 1 atm; the seams pass with about 40 percent margin. The hardpoint as drawn does not work, because the fitting sits 64 mm deeper than the line of the pull and the two frames hinge about it, so the seals open at 0.2 to 0.5 atm; moved onto the line of the pull the seal at the fitting holds to 2.5 atm, with the bolt beside it 3 percent short of its requirement, and that move is the decision for Tuesday.
 
 ## How to read the package
 
 - Part 1 is the facility as a whole, taken apart, with the spec card. Part 2 is every flight part, drawn and in 3D. Part 3 is the test pieces, with the drawings and STEP files a shop quotes from. Part 4 is what the computer tests say. Part 5 is everything still open, by subsystem. Part 6 is the questions for the call, in order. Part 7 says where every file lives.
 - The sheets are A3 and sit behind the text of their part. Every sheet has a status line in its title block. LOCKED is spec, DECIDED is a decision Manos has taken, PROPOSAL is drawn to carry a load from the models but not yet tested or signed, OPEN is a decision not taken, with the default stated.
-- Depths. On the panels, z runs from the outer face at 0 to the cabin seat plane at 180 mm. On the joint face of a seam, which is mitred, the same features sit at z', and the table on sheet RF-05 converts one to the other for the hexagon (times 0.934) and the pentagon (times 0.959).
+- Depths. On the panels, z runs from the outer face at 0 to the cabin seat plane at 180 mm, measured square to the panel. On the joint face of a seam, which is mitred, the same features sit at z', and the table on sheet RF-05 converts one to the other for the hexagon (times 0.934) and the pentagon (times 0.959).
 - Every number in the text has a source in the project notes or the parameter file, and the sheets are drawn from that file. Where a number is a model result it says which run.
 
 ## Words

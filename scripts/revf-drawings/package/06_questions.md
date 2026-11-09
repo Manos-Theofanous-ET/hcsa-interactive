@@ -1,49 +1,28 @@
-# 6. Questions for Marco, in the order of the call
+# 6. For the call with Marco: four positions and three open questions
 
-The call is 45 minutes, so the questions are in the order that matters most for making things, and the first two are the ones we most need answered. Each question says which sheet it is on.
+After Marco's emails of 7 November we worked each of his points with numbers (the note of 9 November has the sums). So the call can start from positions he can agree with or knock down, and keep the time for the three things we cannot answer ourselves.
 
-## 1. The corner node (RF-08, and CB-01 in the parts library)
+## Positions: agree or disagree
 
-The block is a machined 2219 forging as drawn, 120 degrees on a hexagon and 108 on a pentagon, with four 7/8-14 tie holes per face, dowel holes and a landing for the main rib, 21.5 kg. After your email we put an R10 radius in every inside corner and R12 at the re-entrant corner at the vertex. The solid in the parts library is still drawn straight; the real joint face leans 20.9 degrees with the seam plane, so the real section is a parallelogram with the ties normal to the leaning face, and that is the next cut.
+**1. The corner block is machined from plate, not cast and not die forged (RF-08, CB-01).** It carries seal loops on two faces, and a casting's porosity is a leak path there; there are only 180 blocks, too few for a die. Cut from a billet it starts at 87 kg and ends at 23 kg. Every surface is a plane or an R10 corner parallel to one line, so one set-up on a rotary axis does the faces, the landing and the holes. The R10 corners are 430 mm long and have to be cut from the open side. The weak spots are the 17 to 20 mm of metal between the rib landing and the joint face, and a washer seat 3.4 mm from the landing edge on the pentagon block.
 
-- Are those radii enough for an end mill, and which corners would you still change?
-- Machined from a forging, or cast? If cast, which alloy, and what does that do to the 198 kN tie seat?
-- The landing for the main rib leaves only 20 mm of metal to the joint face on the hexagon block and 16 mm on the pentagon block, and the first tie column had to move out to 136 mm from the vertex to clear it. Is a pocket that close to a sealing face something you would machine, or should the rib land on the block's cabin face instead?
-- With the leaning face, the block is a wedge, 153 mm of lean over its 400 mm depth. Does that change forging against casting for you?
-- The ties are tightened by measured stretch, because a torque wrench scatters about 25 percent and the hatch-open case leaves 0.7 kN. Is stretch measurement on a 7/8 Inconel tie something a crew can do in orbit, or should the ties be set on the ground and the seam design live with it?
+**2. 6061-T651 for every test piece; 7050-T7451 proposed for the flight frame and blocks.** The test pieces are only pulled, at low load. For flight, the hardpoint run puts the frame at 235 MPa against a 240 MPa yield in 6061; 7050-T7451 yields near 440, is made thick, and needs no heat treatment after machining. Nothing is welded since the bolted grid was chosen.
 
-## 2. The test pieces (TP-00 to TP-04)
+**3. Only two features are tight on the test pieces (TP-00).** The gland depth, plus or minus 0.05, and the joint face flatness, 0.10 over 150 mm and 0.15 over 550. They are the only two that change the squeeze on the cord, which stays above 16 percent in the worst stack. Everything else is ordinary shop tolerance, lengths measured at 20 degrees. Hardware for the test pieces comes from McMaster.
 
-- The tolerance table splits tight from normal. Is the split right, and is 0.10 over 150 mm and 0.15 over 550 the right flatness for a seal face?
-- Material: the frames are 6061-T651 and the pull blocks 4140. Would you make the blocks in 6061 too, and if so, do the M12 threads need inserts? You suggested 7000-series for the frames; what would it buy on a test piece that is only pulled?
-- Fixturing: how would you hold frame B to cut the glands and the joint face in one setting, so the glands are square to the face?
-- The 40 mm bores at plus 0.10 and minus nothing, with 40 mm pins: ream, or bore, and is a dry-film lubricant on the pins enough against galling?
-- Anything else that makes these cheaper or quicker. We are getting Xometry quotes this weekend and will have them on the call.
+**4. The corner ties are set with a multi-jackbolt nut, and the stretch is read on the stud.** 198 kN in a 7/8 stud would take 650 to 900 N m on a plain nut. A jackbolt nut does about 145 kN on an M24 thread with eight screws at 14 N m, and 215 kN on M27 with six at 36 N m, so our load needs the high-strength series or a 1 inch stud. We are also running the corner at 180 and 160 kN to see whether the preload can simply come down at 0.8 atm.
 
-## 3. The hardpoint at the moved position (RF-07)
+## Open: we need your judgement
 
-The model says the fitting has to sit on the line of the pull, at z' 46 to 106. The solid shows the bores clear the bolt row by 9.7 mm, but the 200 mm pad covers the two plain bolts beside the fitting, so their nuts would sit under it. The ways out are to move those two bolts along the seam into the web beside the block, make the fitting shorter, or drop them and let the fitting clamp the seals there; drawing them deeper is out, because the seam model says the seal opens as the bolts move away from it.
+**5. The hardpoint fitting (RF-07).** The position is settled by the models: on the line of the pull. The part is not. It is a titanium lug in a two-cheek clevis with three 40 mm pins along the panel depth, and in the 180 mm frame it runs into the outer flange and the secondary ribs, and its pins cannot be put in past the seat lip. How would you build a pinned joint that carries about 110 kN per atmosphere across a seam, is stiff (it must stretch less than a tenth of a millimetre), can be closed by a crew from inside, and fits in 180 mm of depth? Pins from the side, a tapered or expanding pin, or something that is not a pin at all?
 
-- Can two titanium fitting halves with three 40 mm pins each be made and fitted the way we draw them, and what would you change?
-- Which of the three ways out would you take?
-- The fitting's own fixing bolts, two pairs at the ends and one between each pair of bores, are in tension under the seam pull. Is that a fixing you would accept, or should the fitting be captive in the block?
-- Every hardpoint as drawn is about 20 kg of blocks, fitting halves and pins, so the 270 of them are 5.3 t. Where would you take that weight out: fewer pins, a shorter pin, or fewer hardpoints?
+**6. Launch vibration.** Our first hand model puts the pane's first mode near 600 Hz. With NASA's general component spectrum as an upper bound (0.16 g squared per hertz, 14.1 g rms), the pane pushes 6.6 to 10.4 kN on a clamp that holds 9.1 kN, and the glass sees 3.5 to 5.5 MPa. So the clamp squeeze, not the glass, is what vibration sizes. Is that the right placeholder spectrum, and is a tap test of one clamped pane the right first test?
 
-## 4. The forces you called achievable but unreasonable
+**7. Holding frame B to cut the glands and the joint face in one setting.** That is the fixturing question behind the flatness, and it is the machinist's, so we would like your view before the drawings go to Xometry.
 
-198 kN in each corner tie, 4 kN in each seam bolt, about 109 kN per atmosphere through each hardpoint, and a 0.2 mm tolerance on the 2,250 mm edge of a panel.
-
-- Which of these would you attack first, and how? Our own order is the edge tolerance, then the ties.
-
-## 5. Launch vibration (RF-01, PR1 in part 4)
-
-You said launch is the hard case for the panes, not pressure. The pane model at launch ran with a clamp and holds with room, and the clamp force comes from tightening. We do not have SpaceX's spectrum.
-
-- How would you set up the model and the test without it? Which published envelope would you use as a placeholder, and which test does a university lab do first?
-
-## 6. If there is time
+## If there is time
 
 - The pentagon closure plate: which side of the frame, and fixed how (RF-09, Q57).
-- The cold soak: there is no chamber for the 550 article at minus 40 degrees. What is the cheapest way to get one seam piece cold in the 100 kN frame?
+- The cold soak: there is no chamber for the 550 article at minus 40 degrees.
 - The pass leak rate for the 550 article, and how a shop would pressure test a seam of this kind.
 - The seal loop corners at R16, which have to be solved in the corner block (RF-02, Q92).

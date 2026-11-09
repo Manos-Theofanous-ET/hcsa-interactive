@@ -16,10 +16,10 @@ PDF = "/downloads/HCSA-Rev-S-drawings-explained-26-Sep-2026.pdf"
 PDF_REVD = "/downloads/HCSA-Rev-D-blueprint-pack-14-Oct-2026.pdf"
 PDF_REVD_SPEC = "/downloads/HCSA-Rev-D-design-spec-14-Oct-2026.pdf"
 PDF_REVF_1 = "/downloads/HCSA-Rev-F-sheets-RF-01-to-RF-04-5-Nov-2026.pdf"
-PDF_REVF_2 = "/downloads/HCSA-Rev-F-sheets-RF-05-to-RF-09-8-Nov-2026.pdf"
-PDF_REVF_TP = "/downloads/HCSA-Rev-F-test-pieces-TP-00-to-TP-04-8-Nov-2026.pdf"
-ZIP_REVF_TP = "/downloads/HCSA-Rev-F-test-pieces-STEP-8-Nov-2026.zip"
-REVF_DATED = "8 November 2026"
+PDF_REVF_2 = "/downloads/HCSA-Rev-F-sheets-RF-05-to-RF-09-9-Nov-2026.pdf"
+PDF_REVF_TP = "/downloads/HCSA-Rev-F-test-pieces-TP-00-to-TP-04-9-Nov-2026.pdf"
+ZIP_REVF_TP = "/downloads/HCSA-Rev-F-test-pieces-STEP-9-Nov-2026.zip"
+REVF_DATED = "9 November 2026"
 UPDATED = "23 October 2026"
 REVD_DATED = "14 October 2026"
 REVS_DATED = "28 September 2026"
@@ -215,13 +215,13 @@ REVF_SHEETS = [
     ("rf-03", "Sheet RF-03", "The T1 seam slices (75, 150 and 225 mm) and the 550 mm piece with a dummy hardpoint, redrawn at 180 mm deep with the bolt row at z' 58."),
     ("rf-04", "Sheet RF-04", "The docking transfer lock, a concept: the module at 0.8 atm, the 1 atm host station, the hatch that stays shut while the pressures differ, the equalising valves and our own relief valve."),
     ("rf-05", "Sheet RF-05", "A hexagon-to-hexagon seam cut through at the first bolt, 271 mm from the corner. It shows the 180 mm frame, the two butyl glands at z' 18 and 32, the RTV bead at z' 42, the seam bolt at z' 58, the corner tie rows and both hardpoint positions, as drawn at z' 110 to 170 and moved onto the line of the pull at z' 46 to 106. A table turns every depth on the joint face into the panel's own depth, for the hexagon mitre of 20.9 degrees and the pentagon mitre of 16.5 degrees, so the holes line up on hexagon-to-pentagon seams too."),
-    ("rf-06", "Sheet RF-06", "The hexagon panel seen from the cabin side at Rev F: 6 main ribs, 108 secondary rib segments on the 562.5 mm grid, 96 panes of 531 mm, 18 six-way star-plate nodes, 3 hardpoints on every edge at the quarter points, and the 16 seam bolts on one edge. The parts list gives the mass of every part. The parts drawn here come to 1,524 kg, before the corner blocks, the hardpoints and the rib braces are counted."),
-    ("rf-07", "Sheet RF-07", "The hardpoint at both positions. As drawn, the fitting sits 64 mm deeper than the line of the pull, so the two frames hinge about it and the seals open at 0.22 to 0.47 atm against the 1.93 atm required. Moved onto the pull line it holds to 2.5 atm, but its 40 mm bore then crosses the seam bolt row at z' 58, and the sheet lists the ways to resolve that clash. The position is decided with Rick on 10 November."),
-    ("rf-08", "Sheet RF-08", "The corner node in plan and on the joint face, with the 7/8-14 Inconel 718 ties preloaded to 198 kN by measured stretch. The results of the corner model are on the sheet: the worst tie at proof, at 0.8 atm, is 214.5 kN against a limit of 227 kN, and 226.3 kN with the hatch open at 1 atm. Marco's machining points are drawn in: an R10 radius in every inside corner and R12 at the vertex, a landing for the main rib, and 6061-T651 for the test blocks. The P-11 brace that holds the main rib sideways is the proposal at the bottom."),
-    ("rf-09", "Sheet RF-09", "The pentagon panel seen from the cabin side: 5 main ribs, 90 secondary rib segments, 5 corner blocks of 108 degrees, 15 hardpoints, and the 10 mm closure plate as five triangles sealed at the main ribs. The notes give what the pentagons do, where the solar cells have to stand off the structure, and the one open question: which side of the frame the closure plate sits on."),
+    ("rf-06", "Sheet RF-06", "The hexagon panel seen from the cabin side at Rev F: 6 main ribs, 108 secondary rib segments on the 562.5 mm grid, 96 panes of 531 mm, 18 six-way star-plate nodes, 3 hardpoints on every edge at the quarter points, and the 16 seam bolts on one edge. The parts list gives the mass of every part, now with the corner blocks, the hardpoint fittings and the rib braces: about 1.9 t for a hexagon with its glass. That does not yet agree with the 36.1 t of the shell model, and the sheet says so."),
+    ("rf-07", "Sheet RF-07", "The hardpoint fitting, redrawn on 9 November from the October model: a titanium lug on one panel reaching into a two-cheek clevis on the other, with three 40 mm pins along the panel depth. Where it was first drawn, the frames hinge about it and the seals open at 0.22 to 0.47 atm against the 1.93 atm required. On the line of the pull the seal holds, and the slot for the lug clears the seals and the seam bolts. But in the 180 mm frame the fitting runs into the outer flange and the ribs, and its pins cannot be put in, so the part has to be redrawn. The position is decided with Rick on 10 November."),
+    ("rf-08", "Sheet RF-08", "The corner node in plan and on the joint face, with the 7/8-14 Inconel 718 ties preloaded to 198 kN by measured stretch. The corner model gives the worst tie at proof, at 0.8 atm, as 214.5 kN against a limit of 227 kN, and 226.3 kN with the hatch open at 1 atm. The blocks now have their real leaning joint faces: three of them placed at a vertex fit with every tie hole on axis. The ties sit 130 and 186 mm from the vertex line, inside corners are R10, and the block is machined from plate. The P-11 brace that holds the main rib sideways is the proposal at the bottom."),
+    ("rf-09", "Sheet RF-09", "The pentagon panel seen from the cabin side: 5 main ribs, 90 secondary rib segments, 5 corner blocks of 108 degrees, 15 hardpoints, and the 10 mm closure plate as five triangles sealed at the main ribs. The notes give what the pentagons do, where the solar cells have to stand off the structure, and the open questions, the first being which side of the frame the closure plate sits on."),
     ("tp-00", "Sheet TP-00", "The cover of the test-piece set: what each piece is for, the notes for the shop, the tolerance table with the loose and tight limits Marco asked us to separate, and the bill of materials for the whole set."),
     ("tp-01", "Sheet TP-01", "Frame B of the T1 seam slice, the grooved half: the 180 mm section with the two 7.1 x 4.0 mm glands, the RTV recess and the leak-test port, the joint face with the bolt holes, and the table of leg holes for the 75, 150 and 225 mm slices."),
-    ("tp-02", "Sheet TP-02", "Frame A, the plain half, and the two frames assembled with the pull block on each side. The two pull lines are drawn: run 1 pulls through the block centre at z 90, run 2 through the lugs at z 24, the depth the flight hardpoint pulls at."),
+    ("tp-02", "Sheet TP-02", "Frame A, the plain half, and the two frames assembled with the pull block on each side. The two pull lines are drawn: run 1 pulls through the block centre at z 90, run 2 through a pin on the z 24 line near the outer flange, which pries the seam open the way pressure does."),
     ("tp-03", "Sheet TP-03", "The 550 mm article with its dummy hardpoint, drawn at both fitting depths, as drawn and moved onto the pull line, with its 2 + 2 seam bolts and the three 40 mm pins at 60 mm pitch."),
     ("tp-04", "Sheet TP-04", "The pull blocks and the fixture: every face of the block with its holes, the M24 pull hole at the centre and the M12 pattern, and the three fixture pieces F-01 to F-03 that put the article in the 100 kN frame."),
 ]
@@ -234,16 +234,13 @@ REVF_INTRO = (
     "station, which it joins through a small transfer lock. The pressure pane is 21 mm BOROFLOAT 33, the thickness "
     "SCHOTT makes as a standard sheet, in 531 mm panes, 96 to a hexagon. The frame is 180 mm deep, the seals are two "
     "loops of butyl in 7.1 by 4.0 mm grooves with an RTV bead behind them, and the seam bolts are NAS6705U27 at 4 kN. "
-    "The corner ties are preloaded to 198 kN. The structure weighs about 36.1 t.",
+    "The corner ties are preloaded to 198 kN. The shell model weighs 36.1 t; the parts lists add up to more and are being reconciled.",
     "The computer tests of 4 and 5 November ran on this design. The corners pass at 0.8 atm, with the worst tie at "
     "214.5 kN at proof against a limit of 227 kN, and they still pass, only just, if the hatch is left open and the "
     "cabin goes to 1 atm. The seams pass with about 40 percent margin. The hardpoint test of 6 and 7 November found "
     "that the fitting as drawn acts as a hinge and lets the seals open, and that moving it onto the line of the pull "
     "fixes that. Two things are still open: how the seal loops turn their corners, and how the panes are held at launch.",
-    "On 8 November we added five more sheets for the release to Marco Cross: the seam section with the depth table, "
-    "the hexagon and pentagon panels as they now are, the hardpoint at both positions and the corner node with the "
-    "machining points from his review. The five test-piece sheets, TP-00 to TP-04, are the drawings the shop quotes "
-    "from, and the STEP files of every test piece go with them.",
+    "On 8 November we added five more sheets for the release to Marco Cross: the seam section with the depth table, the hexagon and pentagon panels as they now are, the hardpoint and the corner node with the machining points from his review. The five test-piece sheets, TP-00 to TP-04, are the drawings the shop quotes from, and the STEP files of every test piece go with them. On 9 November an independent check corrected them: the corner blocks were rebuilt with their leaning faces so that three fit at a vertex, the hardpoint fitting was redrawn from the October model, and the test-piece files were rebuilt with the drilled hole sizes on sheet TP-00.",
 )
 
 
@@ -351,7 +348,7 @@ def blueprints():
 <p class="tested">Fourteen sheets at A3 size: nine of the facility and five of the test pieces. Click any sheet to open it full size. They are drawn from our parameter file, and the facility sheets are not yet checked for machining.</p>
 {"".join(f"<p>{e(t)}</p>" for t in REVF_INTRO)}
 <p class="muted">The Rev D sheets below are the last full signed set. Where they disagree with these sheets, the Rev F sheets win.</p>
-<p><a class="btn" href="{PDF_REVF_1}">Sheets RF-01 to RF-04 (PDF, 5 November)</a><a class="btn" href="{PDF_REVF_2}">Sheets RF-05 to RF-09 (PDF, 8 November)</a><a class="btn" href="{PDF_REVF_TP}">Test pieces TP-00 to TP-04 (PDF, 8 November)</a><a class="btn" href="{ZIP_REVF_TP}">Test pieces, STEP files (zip, 1.3 MB)</a><a class="btn" href="/parts/">The parts library</a></p>
+<p><a class="btn" href="{PDF_REVF_1}">Sheets RF-01 to RF-04 (PDF, 5 November)</a><a class="btn" href="{PDF_REVF_2}">Sheets RF-05 to RF-09 (PDF, 9 November)</a><a class="btn" href="{PDF_REVF_TP}">Test pieces TP-00 to TP-04 (PDF, 9 November)</a><a class="btn" href="{ZIP_REVF_TP}">Test pieces, STEP files (zip, 1.3 MB)</a><a class="btn" href="/parts/">The parts library</a></p>
 <div class="thumbs">{revf_thumbs()}</div>
 </div></section>
 <section id="revd" class="subject"><div class="wrap">

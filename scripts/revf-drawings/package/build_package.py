@@ -16,12 +16,12 @@ SITE = os.path.abspath(os.path.join(HERE, "..", "..", ".."))          # the repo
 DL = os.path.join(SITE, "public", "downloads")
 OUT = os.path.join(HERE, "out"); os.makedirs(OUT, exist_ok=True)
 DRAFT = len(sys.argv) > 1 and sys.argv[1] == "draft"
-DATE = "draft of 8 November 2026" if DRAFT else "12 November 2026"
-STAMP = "draft_8Nov2026" if DRAFT else "12Nov2026"
+DATE = "draft of 9 November 2026" if DRAFT else "12 November 2026"
+STAMP = "draft_9Nov2026" if DRAFT else "12Nov2026"
 
 SHEETS_RF14 = os.path.join(DL, "HCSA-Rev-F-sheets-RF-01-to-RF-04-5-Nov-2026.pdf")
-SHEETS_RF59 = os.path.join(DL, "HCSA-Rev-F-sheets-RF-05-to-RF-09-8-Nov-2026.pdf")
-SHEETS_TP = os.path.join(DL, "HCSA-Rev-F-test-pieces-TP-00-to-TP-04-8-Nov-2026.pdf")
+SHEETS_RF59 = os.path.join(DL, "HCSA-Rev-F-sheets-RF-05-to-RF-09-9-Nov-2026.pdf")
+SHEETS_TP = os.path.join(DL, "HCSA-Rev-F-test-pieces-TP-00-to-TP-04-9-Nov-2026.pdf")
 
 # (bookmark title, markdown file or None, list of (sheet pdf, [sheet names]) to append after the text)
 PARTS = [
@@ -29,13 +29,14 @@ PARTS = [
     ("1. The facility", os.path.join(HERE, "01_facility.md"), []),
     ("2. The flight parts, drawn and in 3D", os.path.join(HERE, "02_flight_parts.md"),
      [(SHEETS_RF14, ["RF-01 Ribs", "RF-02 Seam and gland", "RF-03 T1 articles (superseded by TP)", "RF-04 Transfer lock"]),
-      (SHEETS_RF59, ["RF-05 Seam section and z' table", "RF-06 Hexagon GA", "RF-07 Hardpoint, both positions", "RF-08 Corner node", "RF-09 Pentagon GA"])]),
+      (SHEETS_RF59, ["RF-05 Seam section and z' table", "RF-06 Hexagon GA", "RF-07 Hardpoint fitting", "RF-08 Corner node", "RF-09 Pentagon GA"])]),
     ("3. The test pieces", os.path.join(HERE, "03_test_pieces.md"),
      [(SHEETS_TP, ["TP-00 Cover, tolerances, parts list", "TP-01 Frame B", "TP-02 Frame A and assembled", "TP-03 550 article", "TP-04 Pull blocks and fixture"])]),
     ("4. What the computer tests say", os.path.join(HERE, "04_computer_tests.md"), []),
     ("5. What is still open, by subsystem", os.path.join(HERE, "05_open_items.md"), []),
-    ("6. Questions for Marco", os.path.join(HERE, "06_questions.md"), []),
+    ("6. For the call with Marco", os.path.join(HERE, "06_questions.md"), []),
     ("7. Where everything lives", os.path.join(HERE, "07_where.md"), []),
+    ("Appendix. Marco's points worked with numbers", os.path.join(HERE, "A1_marcos_points.md"), []),
 ]
 
 CSS = """

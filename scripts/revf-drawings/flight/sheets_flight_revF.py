@@ -27,7 +27,7 @@ def sheet(no, title, status):
     for y in (0.75, 0.5, 0.25): tb.plot([0, 1], [y, y], lw=0.6, c="k")
     tb.plot([0.6, 0.6], [0, 0.75], lw=0.6, c="k")
     tb.text(0.02, 0.86, f"HCSA  {no}  {title}", fontsize=10.5, weight="bold", va="center")
-    tb.text(0.02, 0.62, "Rev F flight design, 8 Nov 2026. Replaces the Rev E draft sheet of 24 Oct", fontsize=6.8, va="center")
+    tb.text(0.02, 0.62, "Rev F flight design, 9 Nov 2026. Replaces the Rev E draft sheet of 24 Oct", fontsize=6.8, va="center")
     tb.text(0.02, 0.37, f"Status: {status[:92]}", fontsize=6.2, va="center")
     tb.text(0.02, 0.12, "Drawn: Claude for M. Theofanous    Checked: -    Released: -", fontsize=8, va="center")
     tb.text(0.62, 0.62, "mm. Drawn from the parameters", fontsize=7.5, va="center")
@@ -114,7 +114,7 @@ def rf05(pdf):
     # dims along the joint plane
     for s, lab, zt in ((Z1, "z' 18 outer gland, 7.1 x 4.0", 28), (Z2, "z' 32 inner gland", 62), (ZR, "z' 42 RTV566 bead, R3 recess", 76), (ZB, "z' 58 seam bolt NAS6705U27, 4 kN", 90)):
         ax.annotate(lab, jp(s, 2), (-250, zt), fontsize=6.8, va="center", ha="left", arrowprops=dict(arrowstyle="->", lw=0.5, color="#333"))
-    pA, pB = jp(0, -60), jp(D, -60); ax.annotate("", pA, pB, arrowprops=dict(arrowstyle="<->", lw=0.7)); ax.text(*(jp(D / 2, -74)), "180 along the joint plane", fontsize=7, rotation=90 - MH, ha="center", va="center")
+    pA, pB = jp(0, -60), jp(D, -60); ax.annotate("", pA, pB, arrowprops=dict(arrowstyle="<->", lw=0.7)); ax.text(*(jp(D / 2, -74)), "drawn 180 along the joint face (true face 192.7: 180 is square to the panel)", fontsize=7, rotation=90 - MH, ha="center", va="center")
     ax.text(-250, 212, "L7: 21 mm BOROFLOAT 33 on a 2 mm strip, 10 mm clear of the web at its cabin face;\nthe 56.6 lip gives 20.0 mm of bite (OPEN-17)", fontsize=6.8, color=BLU, va="top")
     ax.text(-250, 248, "cabin scratch pane, cast acrylic, unloaded (envelope)", fontsize=6.5, color="#886")
     ax.text(-250, 4, "L1 6 mm fused silica, gap vented to space (position: Rev E stack proposal)", fontsize=6.5, color=BLU)
@@ -234,12 +234,12 @@ def rf06(pdf):
     axp = fig.add_axes([0.63, 0.14, 0.35, 0.40]); axp.axis("off"); axp.set_xlim(0, 1); axp.set_ylim(0, 1)
     axp.text(0, 1.0, "Parts list, one hexagon (model masses)", fontsize=9.5, weight="bold", va="top")
     rows = [("Part", "Qty", "Each kg", "Total kg"),
-            ("P-06 frame member, 180 deep", 6, MASS["P-06"]), ("P-04 main rib B", 6, MASS["P-04"]), ("P-04A cap angle", 12, MASS["P-04A"]),
+            ("P-06H frame member, 1,790 between the blocks", 6, 22.55), ("P-04 main rib B", 6, MASS["P-04"]), ("P-04A cap angle", 12, MASS["P-04A"]),
             ("P-05 hub core", 1, MASS["P-05"]), ("P-05A hub star plate", 2, MASS["P-05A"]), ("P-01 secondary rib segment", 108, MASS["P-01"]),
             ("P-02 node star plate", 36, MASS["P-02"]), ("P-03 node web core", 18, MASS["P-03"]), ("P-07 pane, 21 mm", 96, MASS["P-07"]),
             ("P-08 pane corner clamp", 18, MASS["P-08"]), ("P-14 seam bolt (half of 16 x 6)", 48, MASS["P-14"]),
-            ("CB-01 corner block, 2219 forging (parts library, 8 Nov)", 6, 21.51), ("HP-01 hardpoint block, 6061, in the frame", 18, 6.41),
-            ("HP-02 fitting half, Ti-6Al-4V", 18, 1.03), ("HP-03 pin 40 x 160, A286 (3 per hardpoint, shared)", 27, 1.60), ("P-11 main rib brace pair, 7075", 18, 1.12)]
+            ("CB-01 corner block, leaning faces (9 Nov)", 6, 22.86), ("HP-02A lug body, Ti-6Al-4V (half of 18 hardpoints)", 9, 9.69),
+            ("HP-02B clevis body, Ti-6Al-4V (the other half)", 9, 6.77), ("HP-03 pin 40 x 95, A286 (3 per hardpoint, shared)", 27, 0.948), ("P-11 main rib brace pair, 7075", 18, 1.12)]
     tot = 0.0
     for i, r in enumerate(rows):
         y = 0.92 - i * 0.05
@@ -248,52 +248,67 @@ def rf06(pdf):
             axp.plot([0, 1], [y - 0.028, y - 0.028], lw=0.6, c="k"); continue
         nm, q, e = r; t = (q * e) if e else None; tot += t or 0
         for c, s in zip((0, 0.62, 0.74, 0.88), (nm, str(q), f"{e:.2f}" if e else "-", f"{t:.0f}" if t else "-")): axp.text(c, y, s, fontsize=6.9, va="top")
-    axp.text(0, 0.04, f"Listed parts: {tot:.0f} kg per hexagon with its share of the shared pins (shell model 36.1 t for 32 panels; to reconcile).", fontsize=7, va="top", color="#444")
+    axp.text(0, 0.04, f"Listed parts: {tot:.0f} kg per hexagon with its glass (528 kg) and its half share of the hardpoints. Masses at 6061 density; shell model 36.1 t; to reconcile.", fontsize=7, va="top", color="#444")
     pdf.savefig(fig); fig.savefig(f"{OUT}/RF-06_hexagon_GA.png", dpi=130); plt.close(fig)
 
 # ---------------- RF-07 hardpoint ----------------
 def rf07(pdf):
-    fig = sheet("RF-07", "Seam hardpoint: block, TP3 fitting, both positions", "PROPOSAL; as drawn fails HP1, moved passes; decision Tue 10 Nov")
-    # plan of the seam at a hardpoint (looking at the joint face)
+    fig = sheet("RF-07", "Seam hardpoint: the TP3 fitting from the C3 model, at the moved position", "PROPOSAL, not yet buildable; position decided Tue 10 Nov")
+    LUG0, LUG1 = 56.5, 95.5            # lug, mid-plane z' 76
+    CH = ((33.5, 56.0), (96.0, 118.5))  # cheeks
+    PIN0, PIN1 = 28.5, 123.5
+    # joint face at a hardpoint
     ax = fig.add_axes([0.03, 0.50, 0.58, 0.42]); ax.set_aspect("equal"); ax.axis("off")
-    L = 500; x0 = -L / 2
+    L = 520; x0 = -L / 2
     ax.add_patch(Rectangle((x0, 0), L, D, fc=MET2, ec="k", lw=0.8))
-    ax.add_patch(Rectangle((-120, 0), 240, D, fc="#b0b7be", ec="k", lw=0.8)); ax.text(0, D + 12, "local block in the frame, 50 thick over 240 (web 20 elsewhere)", ha="center", fontsize=7)
     for zc in (Z1, Z2): ax.plot([x0, x0 + L], [zc, zc], c=SEAL, lw=1.6)
     ax.plot([x0, x0 + L], [ZR, ZR], c="k", lw=0.5, ls=":")
-    for xb in (-120 - 31.25, 120 + 31.25, -120 - 31.25 - 75, 120 + 31.25 + 75): ax.add_patch(Circle((xb, ZB), 4.25, fc="white", ec="k", lw=0.6))
-    for (zc, col, lab) in ((140, ORG, "as drawn: pads z' 110-170"), (76, GRN, "moved: pads z' 46-106")):
-        for j in (-1, 0, 1): ax.add_patch(Circle((j * 60, zc), 20, fill=False, ec=col, lw=1.2, ls="-" if col == ORG else "--"))
-        ax.add_patch(Rectangle((-100, zc - 30), 200, 60, fill=False, ec=col, lw=0.8, ls="--")); ax.text(140, zc, lab, fontsize=7, color=col, va="center")
-    dim(ax, (-60, 76), (60, 76), "2 x 60", off=-40, fs=6.5); dim(ax, (-120, 0), (-120 - 31.25, 0), "31.25", off=-12, fs=6.5)
-    dim(ax, (-120, D), (120, D), "240 block", off=30, fs=6.5); dim(ax, (-100, D), (100, D), "200 fitting", off=46, fs=6.5)
-    ax.set_xlim(x0 - 20, x0 + L + 150); ax.set_ylim(-60, D + 70)
-    ax.set_title("Joint face at a hardpoint: the 50 mm block, the three 40 mm pin bores at 60 pitch, the two seam bolts beside the fitting (31.25 from its faces)", fontsize=8.5)
+    ax.add_patch(Rectangle((-101, LUG0 - 1), 202, LUG1 - LUG0 + 2, fc="white", ec=GRN, lw=1.2)); ax.text(0, 76, "slot for the lug, 202 x 41, z' 55.5 to 96.5", ha="center", va="center", fontsize=7, color=GRN)
+    for j in (-1, 0, 1): ax.add_patch(Rectangle((j * 60 - 20, PIN0), 40, PIN1 - PIN0, fill=False, ec="#555", lw=0.7, ls="--"))
+    ax.text(0, PIN1 + 6, "three 40 x 95 pins behind the web (dashed), axes along the depth", ha="center", va="top", fontsize=6.5, color="#555")
+    for xb in (-141.25, 131.25, -141.25 - 75, 131.25 + 75): ax.add_patch(Circle((xb, ZB), 4.25, fc="white", ec="k", lw=0.6))
+    ax.text(x0 + 6, ZB - 9, "seam bolts, z' 58", fontsize=6.5)
+    dim(ax, (-101, 0), (-141.25, 0), "40.25", off=-12, fs=6.5); dim(ax, (101, 0), (131.25, 0), "30.25", off=-12, fs=6.5)
+    dim(ax, (-101, D), (101, D), "202 slot (200 lug)", off=22, fs=6.5)
+    ax.text(x0 + L + 8, Z1, "butyl z' 18", fontsize=6.5, va="center", color=SEAL); ax.text(x0 + L + 8, Z2, "butyl z' 32", fontsize=6.5, va="center", color=SEAL); ax.text(x0 + L + 8, ZR + 6, "RTV z' 42", fontsize=6.5, va="center")
+    ax.set_xlim(x0 - 20, x0 + L + 110); ax.set_ylim(-50, D + 50)
+    ax.set_title("Joint face at a hardpoint (HP1 of a seam): only the lug crosses the joint, through a slot on the cabin side of all three seal lines", fontsize=8.5)
     # section across the seam
     ax2 = fig.add_axes([0.62, 0.50, 0.36, 0.42]); ax2.set_aspect("equal"); ax2.axis("off")
-    for sgn, col in ((-1, MET2), (1, MET3)):
-        ax2.add_patch(Rectangle((0 if sgn > 0 else -50, 0), 50, D, fc=col, ec="k", lw=0.8))
-    for (zc, col) in ((140, ORG), (76, GRN)):
-        ax2.add_patch(Rectangle((-80, zc - 20), 160, 40, fc="#ddd", ec=col, lw=1.0, ls="-" if col == ORG else "--"))   # pin through both blocks and both fittings
-        for sgn in (-1, 1): ax2.add_patch(Rectangle((50 if sgn > 0 else -80, zc - 30), 30, 60, fill=False, ec=col, lw=1.0, ls="-" if col == ORG else "--"))
-        ax2.text(95, zc, "fitting 30 thick\n(Ti-6Al-4V)", fontsize=6.5, va="center", color=col)
-    ax2.add_patch(Rectangle((-50, ZB - 4), 100, 8, fc="#555", ec="k", lw=0.5)); ax2.text(55, ZB, "seam bolt z' 58", fontsize=6.5, va="center")
-    for s in (Z1, Z2): ax2.add_patch(Circle((-2, s), 2.67, fc=SEAL, ec="none"))
-    ax2.plot([0, 0], [-10, D + 10], ls="-.", lw=0.6, c=RED)
-    ax2.set_xlim(-130, 170); ax2.set_ylim(D + 20, -20)
-    ax2.set_title("Section across the seam (space side at the top): pin 40 x 160 through fitting, block, block, fitting", fontsize=8)
-    fig.text(0.03, 0.46, "What the models say (HP1, 6-7 Nov). As drawn, the fitting sits 64 mm deeper than the line of the pull (about 76 mm), so the two frames hinge about it and the seals open: the gap between the cords\n"
-             "reaches 0.11 mm at 0.22 atm with the frames free to turn and 0.47 atm with them held, against the 1.93 atm required; the two plain bolts beside the fitting carry about 60 kN at 1.96 atm, nearly twice\n"
-             "their breaking load, and the frame yields round their holes from about 0.5 atm. With the fitting moved onto the line of the pull (pads 46 to 106), the hardpoint seal gap is 0.064 mm at 1.93 atm and stays\n"
-             "under 0.11 mm to 2.5 atm; the plain bolts stay at 13 kN. One place is marginal in the moved case: the seal band at the plain bolt next to the fitting reaches 0.11 mm at 1.87 atm. The fitting in the model is\n"
-             "a spring between rigid pads, not pins and bores, so the real part has to be drawn and rerun. The 2 Nov figures of 2.9 to 3.4 atm are withdrawn.\n\n"
-             "Clash to resolve in the moved position: a 40 mm bore at z' 76 spans z' 56 to 96 and crosses the bolt row at z' 58. Either the two bolts beside the fitting move deeper (about z' 110), or the pins shrink to 32 mm\n"
-             "at z' 80 (z' 64-96), or the bolt row near the fitting is dropped and the fitting takes the clamping too. Also open: the fitting's fixing to the aluminium block, the bore chamfers at 1.5 x proof\n"
-             "(194-197 MPa against 160, Q18, about 19 % lower at 0.8 atm), galling (dry-film lubricant on the pins), and the seal loops passing the fitting. Fitting stiffness 2.876 million N/mm (C3). Load 108.7 kN per atm on the worst hardpoint.", fontsize=7.2, va="top")
-    axt = fig.add_axes([0.03, 0.14, 0.55, 0.12]); axt.axis("off"); axt.set_xlim(0, 1); axt.set_ylim(0, 1)
-    axt.text(0, 1, "The three hardpoints on a 2,250 mm seam, from the vertex", fontsize=8.5, weight="bold", va="top")
-    for i, (hp, b1, b2) in enumerate(((562.5, 421.25, 693.75), (1125.0, 993.75, 1256.25), (1687.5, 1556.25, 1818.75))):
-        axt.text(0, 0.68 - i * 0.22, f"HP{i+1} at {hp:.1f}: fitting faces {hp-100:.1f} and {hp+100:.1f}; nearest bolts {b1} (41.25 off the outer face) and {b2} (31.25 off the inner face)", fontsize=7.2, va="top")
+    ax2.add_patch(Rectangle((0, 0), 20, D, fc=MET2, ec="k", lw=0.8)); ax2.add_patch(Rectangle((-20, 0), 20, D, fc=MET3, ec="k", lw=0.8))
+    for sgn in (-1, 1):
+        ax2.add_patch(Rectangle((20 if sgn > 0 else -70, 0), 50, 10, fc=MET2 if sgn > 0 else MET3, ec="k", lw=0.6))       # outer flange
+        ax2.add_patch(Rectangle((20 if sgn > 0 else -70, 170), 50, 10, fc=MET2 if sgn > 0 else MET3, ec="k", lw=0.6))     # seat lip
+    ax2.add_patch(Rectangle((20, 11), 48, 130, fc="#c9b28a", ec="k", lw=0.8)); ax2.text(44, 135, "lug body\nHP-02A", fontsize=6, ha="center", va="top")
+    ax2.add_patch(Rectangle((-120, LUG0), 140, LUG1 - LUG0, fc="#c9b28a", ec="k", lw=0.8))
+    ax2.add_patch(Rectangle((-152, 11), 30, 130, fc="#a9c0a0", ec="k", lw=0.8)); ax2.text(-137, 150, "clevis\nHP-02B", fontsize=6, ha="center", va="top")
+    for (c0, c1) in CH: ax2.add_patch(Rectangle((-122, c0), 102, c1 - c0, fc="#a9c0a0", ec="k", lw=0.8))
+    ax2.add_patch(Rectangle((-80, PIN0), 40, PIN1 - PIN0, fc="#777", ec="k", lw=0.6, alpha=0.75)); ax2.text(-60, PIN1 + 4, "pin 40 x 95", fontsize=6, ha="center", va="top")
+    ax2.plot([0, 0], [-12, D + 12], ls="-.", lw=0.6, c=RED)
+    for s in (Z1, Z2): ax2.add_patch(Circle((2.7, s), 2.67, fc=SEAL, ec="none"))
+    ax2.annotate("clash: base block and pin ends\nrun into the outer flange", (30, 10), (60, -28), fontsize=6.3, color=RED, arrowprops=dict(arrowstyle="->", lw=0.6, color=RED))
+    ax2.annotate("pin cannot be driven in:\nlip and pane in the way", (-60, 170), (-150, 205), fontsize=6.3, color=RED, arrowprops=dict(arrowstyle="->", lw=0.6, color=RED))
+    ax2.text(-20, -8, "panel B", fontsize=6.5, ha="right"); ax2.text(20, -8, "panel A", fontsize=6.5)
+    ax2.set_xlim(-175, 120); ax2.set_ylim(D + 40, -40)
+    ax2.set_title("Section across the seam, drawn straight (space side at the top): lug in two cheeks, pins in double shear", fontsize=8)
+    fig.text(0.03, 0.46,
+             "What the fitting is. Measured from the October C3 model (the run that gave 2.876 million N/mm): a Ti-6Al-4V lug 39 thick and 200 wide on panel A reaches across the joint into a clevis of two 22.5 mm cheeks on panel B;\n"
+             "three A286 pins, 40 x 95, at 60 pitch, run along the panel depth with no clearance and work in double shear. The 8 November solids (pins across the joint, a pad of 200 x 60) were wrong and are withdrawn.\n\n"
+             "What the models say (HP1, 6-7 Nov). With the fitting where sheet RE-06-1 put it, 64 mm deeper than the line of the pull, the frames hinge about it and the seal gap reaches 0.11 mm at 0.22 atm (0.47 with the frames\n"
+             "held) against the 1.93 atm required. With it on the line of the pull (lug mid-plane at z' 76) the gap at the hardpoint is 0.064 mm at 1.93 atm; the band at the plain bolt beside it reaches 0.11 mm at 1.87 atm, 3 % short.\n"
+             "Runs with that bolt closer (115 mm) and tighter (6 kN) are on the laptop, 9 Nov. Those runs model the fitting as a spring between rigid pads of 200 x 60, not this part.\n\n"
+             "What the solid found (9 Nov, leaning hexagon frame). Good: the slot is 10.5 mm from the RTV recess, 20 mm from the inner gland and 32 mm from the nearest bolt hole; the seam bolts on the flight layout (131.25 and\n"
+             "141.25 mm from the hardpoint centre) are clear of it; the 8 Nov 'pad covers the bolts' clash was a bolt drawn in the wrong place. Not good: (1) to sit behind the 20 mm webs the bodies had to move apart 38 mm, so the lug is\n"
+             "140 long, not 102, and the pin line is 60 mm from the joint, not 40: the C3 stiffness no longer applies. (2) The base blocks and pin ends run into the outer flange, and both bodies and the pins run into the two secondary\n"
+             "ribs that land on the hardpoint. (3) The pins cannot be driven in: the seat lip and the pane are in the way from the cabin side, the flange from the space side. (4) The web is cut through over 202 mm at the bolt row's\n"
+             "depth, and nothing yet says how the base blocks fasten to the frame. The old 50 mm local block (HP-01) has no job left. So the position is right and the part is not yet a design: it needs to be redrawn for the 180 mm\n"
+             "frame (a shallower stack, pins put in from the side or along the seam, the ribs landing on the base blocks) and C3 and HP1 rerun on that. Load 108.7 kN per atm on the worst hardpoint; one hardpoint is 19.3 kg.", fontsize=7.0, va="top")
+    axt = fig.add_axes([0.03, 0.115, 0.6, 0.11]); axt.axis("off"); axt.set_xlim(0, 1); axt.set_ylim(0, 1)
+    axt.text(0, 1, "The three hardpoints on a 2,250 mm seam, from the vertex, with the nearest seam bolts (bays 3-5-5-3 at 75 pitch)", fontsize=8.5, weight="bold", va="top")
+    bolts = seam_bolt_positions()
+    for i, hp in enumerate((562.5, 1125.0, 1687.5)):
+        lo = max(b for b in bolts if b < hp); hi = min(b for b in bolts if b > hp)
+        axt.text(0, 0.70 - i * 0.22, f"HP{i+1} at {hp:.1f}: slot from {hp-101:.1f} to {hp+101:.1f}; nearest bolts {lo:.2f} ({hp-lo:.2f} from the centre) and {hi:.2f} ({hi-hp:.2f} from the centre)", fontsize=7.2, va="top")
     pdf.savefig(fig); fig.savefig(f"{OUT}/RF-07_hardpoint.png", dpi=130); plt.close(fig)
 
 # ---------------- RF-08 corner node ----------------
@@ -306,10 +321,10 @@ def rf08(pdf):
     legB = np.array([[0, 0], 230 * dB, 230 * dB + 50 * np.array([math.sin(a2), -math.cos(a2)]), [50 / math.tan(a2 / 2), 50]])
     ax.add_patch(Polygon(legA, fc="#8a8f96", ec="k", lw=0.8)); ax.add_patch(Polygon(legB, fc="#8a8f96", ec="k", lw=0.8))
     ax.add_patch(Polygon([[50 / math.tan(a2 / 2), 50], [50 / math.tan(a2 / 2) + 60, 50 + 60 * math.tan(math.radians(60))], [50 / math.tan(a2 / 2) + 60 - 110 * math.sin(math.radians(60)), 50 + 60 * math.tan(math.radians(60)) + 110 * math.cos(math.radians(60))]], fill=False, ec=ORG, lw=0.8, ls="--"))
-    ax.text(70, 140, "main rib landing (pocket 110 wide, bottom 55 from the vertex, R10)", fontsize=6.5, color=ORG)
-    ax.add_patch(Arc((50 / math.tan(a2 / 2) + 12, 62), 24, 24, theta1=120, theta2=240, lw=0.8, color=RED)); ax.text(20, 95, "R12", fontsize=7, color=RED)
-    for xc in (136, 192): ax.add_patch(Circle((xc, 25), 11.75, fc="white", ec="k", lw=0.5))
-    ax.text(164, -22, "tie columns 56 apart at 136 / 192 (2 rows in depth)", fontsize=6.5, ha="center")
+    ax.text(70, 140, "main rib landing (110 wide, bottom 57 from the vertex line, R10; it leans with the vertex line)", fontsize=6.5, color=ORG)
+    ax.add_patch(Arc((50 / math.tan(a2 / 2) + 12, 62), 24, 24, theta1=120, theta2=240, lw=0.8, color=RED)); ax.text(20, 95, "(R12 taken up by the landing)", fontsize=6, color=RED)
+    for xc in (130, 186): ax.add_patch(Circle((xc, 25), 11.75, fc="white", ec="k", lw=0.5))
+    ax.text(164, -22, "tie columns 56 apart at 130 / 186 from the vertex line (2 rows in depth)", fontsize=6.5, ha="center")
     dim(ax, (0, 0), (230, 0), "230", off=-45, fs=7); dim(ax, (230, 0), (230, 50), "50", off=20, horiz=False, fs=7)
     ax.add_patch(Arc((0, 0), 120, 120, theta1=0, theta2=120, lw=0.6, color=RED)); ax.text(40, 75, "120 deg (108 on a pentagon block)", fontsize=6.5, color=RED)
     ax.text(0, -70, "joint faces: the legs' outer faces, on the radial joint planes", fontsize=6.5)
@@ -318,7 +333,7 @@ def rf08(pdf):
     ax2 = fig.add_axes([0.45, 0.50, 0.25, 0.42]); ax2.set_aspect("equal"); ax2.axis("off")
     ax2.add_patch(Rectangle((0, 0), 230, 400, fc="#8a8f96", ec="k", lw=0.8))
     for z in (125, 355):
-        for xc in (136, 192): ax2.add_patch(Circle((xc, z), 11.75, fc="white", ec="k", lw=0.6))
+        for xc in (130, 186): ax2.add_patch(Circle((xc, z), 11.75, fc="white", ec="k", lw=0.6))
     for xc in (50, 210): ax2.add_patch(Circle((xc, 240), 10, fc="white", ec="k", lw=0.5, ls="--"))
     dim(ax2, (0, 0), (0, 125), "125", off=-20, horiz=False, fs=6.5); dim(ax2, (0, 0), (0, 355), "355", off=-38, horiz=False, fs=6.5)
     dim(ax2, (136, 400), (192, 400), "56", off=12, fs=6.5); dim(ax2, (230, 0), (230, 400), "400", off=16, horiz=False, fs=6.5)
@@ -329,13 +344,14 @@ def rf08(pdf):
     axr.text(0, 1, "What the corner model says (C1, 5 Nov)", fontsize=8.5, weight="bold", va="top")
     for i, t in enumerate(["Tie preload 198 kN, held to 196.5-198.1 kN, by stretch", "Worst tie at proof, 0.8 atm: 214.5 kN (limit 227)", "Pentagon 15 K warmer: 213.3 kN", "Hatch open, 1 atm: 226.3 kN, 0.7 kN under the limit", "Faces open at proof: 0.55 mm (0.74 at 1 atm), limit 0.8", "Block stress, 95th percentile: 236 MPa (255 at 1 atm), no limit set yet", "Worst corner load 235 kN at 0.8 atm, 290 at 1 atm"]):
         axr.text(0, 0.90 - i * 0.1, "- " + t, fontsize=7.0, va="top")
-    fig.text(0.03, 0.46, "Making it (Marco, 7 Nov). As drawn the node cannot be machined: every inside corner needs a radius an end mill can cut (R10 here, R12 at the re-entrant vertex corner), and the part could be cast instead\n"
-             "of machined from a 2219-T852 hand forging (about 300 mm of stock for the 400 mm deep block), which may change the alloy. Both routes are open for Friday. The main rib's flanges enter the block at the\n"
+    fig.text(0.03, 0.46, "Making it (Marco, 7 Nov). As drawn the node cannot be machined: every inside corner needs a radius a cutter can reach (R10 here; the landing takes up the re-entrant corner), and the part could be cast instead\n"
+             "of machined. Our position (9 Nov): machine it from 7050-T7451 or 2219-T851 plate, not a casting (seal faces) and not a die forging (180 parts). The main rib's flanges enter the block at the\n"
              "vertex landing (notch, PROPOSAL); the two frame members run into the legs' inner faces; the tie-to-web-fillet clash (Q29), the O10 maze-patch corner seal and the loop corners R16 (Q27, Q92) are open.\n"
              "The ties are tightened by measured stretch, because a torque wrench scatters about 25 % and the hatch-open case leaves only 0.7 kN. Forces Marco called 'achievable but unreasonable': 198 kN per tie\n"
              "(about 650-900 N m if torqued), 12 ties per node, 720 on the station. The corner node assembly A-03 (two hexagon blocks and one pentagon block at a real vertex, dihedral 138.19 / 142.62 deg) is in the parts library.\n"
-             "Solids of 8 Nov (CB-01 21.5 kg, CB-02 20.7 kg, A-03 76.6 kg): the tie columns moved out to 136 / 192 so the first hole clears the rib landing; the landing bottom is 55 mm from the vertex (60 on the pentagon),\n"
-             "leaving 20 / 16 mm of metal to the joint face. The solids are drawn straight; the real joint face leans 20.9 deg (16.5 pentagon) with the seam plane, so three straight blocks overlap at a vertex. Next cut: the leaning face.\n\n"
+             "Solids of 9 Nov, with the real leaning joint faces (CB-01 22.9 kg, CB-02 21.6 kg, node A-03 80.2 kg): three blocks placed at a real vertex share no volume, the joint faces are coplanar and the 12 tie\n"
+             "holes and 6 dowel holes meet on axis. The block is one outline swept along the vertex line, which leans 23.8 deg (20.1 pentagon), so the main rib end is mitred to match. Tie columns 130 / 186 mm from the vertex\n"
+             "line (87 / 143 cannot clear the landing). Metal from landing to joint face 20.4 mm (17.1 pentagon); washer seat to landing edge 14.3 mm (3.4 pentagon, tight). The R10 corners are 430 mm long: cut from the open side.\n\n"
              "Main rib lateral brace (new requirement, 4 Nov): the main rib buckles sideways if unbraced over 2.25 m (0.79 of its load) and has 8.4 times margin braced every 562.5 mm. P-11 (PROPOSAL): a pair of 8 mm\n"
              "7075 plates on the main rib web from z 180 to z 375 at every secondary rib crossing, bolted through the web, tying the cabin flange to the grid. Size to be checked.", fontsize=7.2, va="top")
     pdf.savefig(fig); fig.savefig(f"{OUT}/RF-08_corner_node.png", dpi=130); plt.close(fig)
@@ -393,6 +409,6 @@ def rf09(pdf):
     pdf.savefig(fig); fig.savefig(f"{OUT}/RF-09_pentagon_GA.png", dpi=130); plt.close(fig)
 
 if __name__ == "__main__":
-    with PdfPages(f"{OUT}/HCSA_RevF_flight_sheets_RF-05_to_RF-09_8Nov2026.pdf") as pdf:
+    with PdfPages(f"{OUT}/HCSA_RevF_flight_sheets_RF-05_to_RF-09_9Nov2026.pdf") as pdf:
         rf05(pdf); rf06(pdf); rf07(pdf); rf08(pdf); rf09(pdf)
     print("flight sheets ok; bolts per seam:", len(seam_bolt_positions()), seam_bolt_positions()[:4])

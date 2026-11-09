@@ -11,13 +11,13 @@
 | Factors | 1.5 at proof (1.26 atm), 2.0 at ultimate (1.67 atm) | Carried, Rick to confirm |
 | Main rib | Option B, I 400 x 100 x 25, web 8, 6 per hexagon and 5 per pentagon, with two bolted cap angles | DECIDED 4 Nov |
 | Secondary rib | I 180 x 60 x 10, web 5, custom extrusion, on a k4 grid at 562.5 mm pitch | DECIDED 2 Nov |
-| Edge frame | 180 mm deep, 20 mm web, 50 x 10 flanges, seat lip at the cabin face; 6061-T651 for tests, 2219-T851 for flight | DECIDED 5 Nov |
+| Edge frame | 180 mm deep, 20 mm web, 50 x 10 flanges, seat lip at the cabin face; 6061-T651 for tests; the flight alloy is open (all checks are against 6061-T6) | Section DECIDED 5 Nov; alloy OPEN |
 | Pressure pane | 21 mm BOROFLOAT 33, 531 mm panes, 96 per hexagon, 1,920 on the shell, on 2 mm setting strips | DECIDED 5 Nov |
-| Seals | Two loops of Parker BA500 butyl, 5.33 mm cord, in 7.1 x 4.0 mm glands at z' 18 and 32; RTV566 bead at z' 42, cured on the ground | DECIDED 5 Nov |
+| Seals | Two loops of Parker BA500 butyl, 5.33 mm cord, in 7.1 x 4.0 mm glands at z' 18 and 32; RTV566 bead at z' 42 | Glands DECIDED 5 Nov; curing the RTV on the ground is open (Q80) |
 | Seam bolts | NAS6705U27 with KFN670 nut, A286, 4 kN by torque, 16 per seam at 75 mm pitch in bays of 3, 5, 5 and 3, row at z' 58; 1,440 on the shell | DECIDED 5 Nov |
-| Corner node | One machined block per panel corner, 60 on the shell, 120 degrees on a hexagon and 108 on a pentagon; four 7/8-14 Inconel 718 ties per face at 198 kN, limit 227 kN | Block PROPOSAL, preload DECIDED 2 Nov |
-| Hardpoints | 3 per seam at the quarter points, 270 on the shell; a titanium three-pin fitting, pins 40 mm at 60 mm pitch | PROPOSAL; position open until Tuesday |
-| Mass | About 36.1 t for the structure | Model figure |
+| Corner node | One machined block per panel corner, 180 blocks in 60 nodes of three, 120 degrees on a hexagon and 108 on a pentagon; four 7/8-14 Inconel 718 ties per face at 198 kN, limit 227 kN | Block PROPOSAL, preload DECIDED 2 Nov |
+| Hardpoints | 3 per seam at the quarter points, 270 on the shell; a titanium lug in a two-cheek clevis with three 40 mm pins at 60 mm pitch | PROPOSAL; position open until Tuesday; the part does not yet fit the 180 mm frame (RF-07) |
+| Mass | 36.1 t in the shell model. The parts lists of 8 Nov add up to more, and the two are not reconciled yet (part 2) | Open |
 
 ## The facility taken apart
 
@@ -31,9 +31,9 @@ The team model at hcsa-site.vercel.app/model and the public page at /explore now
 
 What the pieces are, from the outside in:
 
-- 20 hexagon panels, each about 1.5 t before its blocks and hardpoints, and 12 pentagon panels. Every hexagon is the same part, and every pentagon is the same part.
-- 60 corner blocks, one at every panel corner, tied in threes.
-- 270 hardpoint fittings along the seams, three to a seam.
+- 20 hexagon panels, each about 1.5 t with its glass and before its blocks and hardpoints, and 12 pentagon panels. Every hexagon is the same part, and every pentagon is the same part.
+- 180 corner blocks, one at every panel corner, tied in threes into 60 nodes.
+- 270 hardpoint fittings along the seams, three to a seam, each a lug on one panel and a clevis on the other.
 - 1,440 seam bolts, which only clamp the seals.
 - The mast down the middle, with the six small pods around it, handrails and perches, and the plant trays.
 - The pentagon kit: the closure plate, the solar blankets that stand off the structure, the fold-out shields, the dock and the transfer lock on one pentagon.

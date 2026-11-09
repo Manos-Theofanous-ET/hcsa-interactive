@@ -82,7 +82,8 @@
   "row_z": [58.0, "KEPT 5 Nov: z' 70 failed the D1 run (seal gap 0.111 mm at 2.48 kN)"]
  },
  "corner": {
-  "blocks": [60, "LOCKED"],
+  "nodes": [60, "LOCKED"],
+  "blocks": [180, "LOCKED (three per node; corrected 9 Nov 2026, was written 60)"],
   "tie": ["7/8-14 Inconel 718, four per face", "carried"],
   "tie_preload_kN": [198.0, "DECIDED 2 Nov"],
   "tie_limit_kN": [227.0, "carried"]

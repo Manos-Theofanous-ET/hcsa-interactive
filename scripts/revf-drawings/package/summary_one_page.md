@@ -1,10 +1,10 @@
 # HCSA Rev F release package, on one page
 
-For Marco Cross and Rick Fleeter, for the fabrication review on Friday 13 November at 1:00. It is the release of drawings in our schedule and replaces the Master Document of 27 October (Rev E). Rev F is the working baseline of November 2026: nothing is released for manufacture, and the test pieces are for quotation. Manos Theofanous and the HCSA team, 9 November 2026.
+For Marco Cross and Rick Fleeter, for the fabrication review on Friday 13 November at 1:00. It is the release of drawings in our schedule and replaces the Master Document of 27 October (Rev E). Rev F is the working baseline of November 2026: nothing is released for manufacture, and the test pieces are for quotation. Manos Theofanous and the HCSA team; checked and corrected 9 November 2026.
 
 ## What is in it
 
-Forty-two pages in seven parts, fourteen A3 sheets behind the text, the STEP files of every test piece and new flight part, and the master 3D model on the website. Part 0 is what changed since October; 1 the facility, with the spec card and stills of the model taken apart; 2 every flight part, on sheets RF-01 to RF-09 and in 3D in the parts library; 3 the test pieces a shop quotes from, sheets TP-00 to TP-04 with the tolerance table and bill of materials; 4 what the computer tests found; 5 what is still open, by subsystem; 6 the questions for the call, in order; 7 where every file lives.
+About fifty pages in eight parts, with fourteen A3 sheets, the STEP files of every test piece and new flight part, and the master 3D model on the website: what changed since October; the facility taken apart, with the spec card; every flight part, drawn (RF-01 to RF-09) and in 3D; the test pieces a shop quotes from (TP-00 to TP-04); what the computer tests found; what is still open; the positions and questions for the call; where every file lives (Drive, Week 10, and hcsa-site.vercel.app).
 
 ## The design in one paragraph
 
@@ -12,20 +12,16 @@ A truncated icosahedron 11,151 mm across: 20 glass hexagons and 12 solid pentago
 
 ## What the computer tests say
 
-At 0.8 atm the corners pass with about 12 kN of room on the worst tie, 214.5 against 227 kN at proof, and still pass by 0.7 kN if the hatch is left open and the cabin goes to 1 atm; the seams pass with about 40 percent margin. The hardpoint as drawn does not work: the fitting sits 64 mm deeper than the line of the pull, the frames hinge about it and the seals open at 0.2 to 0.5 atm. Moved onto the pull line it holds to 2.5 atm. The panes hold at launch with a clamp.
+At 0.8 atm the corners pass with about 12 kN of room on the worst tie, 214.5 against 227 kN at proof; with the hatch open at 1 atm they pass by 0.7 kN and the main rib by under 1 percent, so that case is the design point. The plain seams pass with about 40 percent to spare. The hardpoint where it was drawn fails: the frames hinge about it and the seals open at 0.2 to 0.5 atm. On the line of the pull the seal at the fitting holds to 2.5 atm, and the bolt beside it is 3 percent short of its 1.93 atm; runs with that bolt closer and tighter, and with the tie preload at 180 and 160 kN, are on the laptop now. The panes hold under steady launch loads; vibration is a hand estimate only.
 
-## What building the solids found
+## What the solids and the check found
 
-Every part is drawn straight, but the real joint face leans with the seam plane (20.9 degrees on a hexagon, 16.5 on a pentagon), so the real corner block is a wedge and three straight blocks overlap at a vertex; the leaning face is the next cut. The tie columns moved out to 136 and 192 mm to clear the rib landing, which leaves 20 mm of metal to the joint face. The moved hardpoint clears the bolt row, but its pad covers the two bolts beside it, and moving them deeper is wrong because the seal opens as the bolts move away from it. A corner node is 77 kg and a hardpoint about 20 kg: 4.6 t of nodes and 5.3 t of hardpoints, neither yet in the 36 t.
+The corner node now fits: the blocks have their real leaning joint faces, and three of them at a vertex share no volume with all 12 tie holes on axis. The ties sit 130 and 186 mm from the vertex line and the rib landing leaves 17 to 20 mm of metal to the joint face. The hardpoint part does not fit yet. The real fitting is a titanium lug in a two-cheek clevis with pins along the depth; its slot clears the seals and the bolts, but in the 180 mm frame it runs into the flange and the ribs and its pins cannot be put in. The parts lists add up to more than the model's 36 t (about 40 t before the nodes and fittings), and that is not reconciled.
 
 ## What is still open
 
-Rick signs the 0.8 atm cabin, the withdrawal of leak before break and the factors on Tuesday, and decides the hardpoint position. Without an answer yet: how the seal loops turn their corners at R16, how the panes are held at launch, the pass leak rate for the 550 article, and which side of the frame the pentagon closure plate sits on. Life support, water, power and radiation are at concept level.
+Rick signs the 0.8 atm cabin, the withdrawal of leak before break and the factors on Tuesday, and decides the hardpoint position. Without an answer yet: a hardpoint fitting that fits the frame, the flight alloy (6061 analysed, 7050 proposed), how the seal loops turn their corners at R16, the clamp that holds the panes through vibration, the mass, and which side the pentagon closure plate sits on. Life support, water, power and radiation are at concept level.
 
-## The three questions for Marco
+## For Marco: positions and questions
 
-Whether the corner block, with R10 inside radii and a rib landing 20 mm from a sealing face, is a part he would machine from a forging or cast. Whether the tolerance split on the test pieces is right (flatness 0.10 over 150 mm, 0.15 over 550) and whether the pull blocks should be 6061, not 4140. Which way out for the moved hardpoint: bolts moved along the seam, a shorter fitting, or no bolts under the pad.
-
-## Where it lives
-
-Drive, UPDATES, Week 10: the package PDF, the sheets, the STEP zips. Website hcsa-site.vercel.app: /blueprints, /parts, /model and /explore for the facility taken apart, /downloads for the files; all on pull request 6, waiting to be merged.
+Four positions to agree or knock down: the corner block machined from plate, not cast; 6061 for test pieces and 7050-T7451 for flight; only gland depth and face flatness held tight; the ties set with a jackbolt nut and read by stretch. Three questions: how to build a stiff pinned joint for 110 kN per atmosphere that a crew can close inside 180 mm of depth; whether NASA's general spectrum and a tap test are the right start on vibration; and how to hold the frame to cut glands and face in one setting.

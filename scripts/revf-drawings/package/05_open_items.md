@@ -1,33 +1,35 @@
-# What is still open, by subsystem (7 Nov 2026)
+# 5. What is still open, by subsystem
 
-This is the open-items chapter for the release package that goes to Marco before Friday 13 November. It pulls together the open questions register (rows Q01 to Q101), the Rev F open items of 5 November, the hardpoint and pane results of 6 and 7 November, Marco's comments of 7 November, and the "what is not yet proven" lists in TRUTH Rev D for launch, plants, air, water, thermal and radiation. Each item says who decides and what it holds up. Items that Marco can help with on Friday are marked **(Marco)**.
+*Written 7 November, brought up to date on 9 November: items the 8 November drawings and solids closed are marked done, and the sheet numbers are the Rev F ones.*
+
+This chapter pulls together the open questions register (rows Q01 to Q101), the Rev F open items of 5 November, the hardpoint and pane results of 6 and 7 November, Marco's comments of 7 November, and the "what is not yet proven" lists in TRUTH Rev D for launch, plants, air, water, thermal and radiation. Each item says who decides and what it holds up. Items that Marco can help with on Friday are marked **(Marco)**.
 
 ## 1. Decisions waiting on Rick, Tuesday 10 November
 
 - Sign the 0.8 atm cabin with 26 percent oxygen, docked to a 1 atm commercial station through a hatch-shut transfer lock (Q70, Q97 to Q99).
-- Withdraw leak before break as a requirement, since the metal yields before the seals open (Q93).
+- Withdraw leak before break as a requirement, since in the plain bays the metal yields before the seals open (Q93).
 - The safety factors: 2.0 at ultimate and 1.5 at proof on the 12.3 psia design pressure, 145 MPa allowable on 6061-T6 (Q68).
-- The hardpoint fitting: move it onto the line of the pull (the HP1M study), add a tie on the space side of the seals, or bigger bolts next to the fitting. This changes sheet RE-06-1 and the TP3 envelope.
+- The hardpoint fitting: move it onto the line of the pull (the HP1M study), add a tie on the space side of the seals, or bigger bolts next to the fitting. This changes sheet RF-07 and the TP3 envelope.
 - Glass bars now on the 0.5 kN frame, or in ENGN 1440 in the spring (Q42); his endorsements for Thornton Tomasetti, Research at Brown and ASTM (Q63 to Q65).
 
 ## 2. Structure
 
 | Item | What is open | Who, when | Holds up |
 | --- | --- | --- | --- |
-| Hardpoint position | As drawn the hardpoint seal fails (0.22 atm free, 0.47 held, against 1.93). Moved onto the pull line it holds. The fitting's pins have to clear the bolt row at z' 58 and the frame lip; the three seal loops have to pass the fitting | Manos and Rick decide; Fusion draws it; HP1 rerun with real pins and bores | RE-06-1, the TP3 envelope, the 550 article's dummy hardpoint pockets |
-| Plain bolt next to the hardpoint | Its seal band reaches 0.11 mm at 1.87 atm, just under 1.93. A closer bolt or a higher preload needs one run | Claude, laptop | RE-06-1 |
+| Hardpoint position | As drawn the hardpoint seal fails (0.22 atm free, 0.47 held, against 1.93). Moved onto the pull line it holds. The nearest seam bolts are 131 to 141 mm from the hardpoint centre, clear of the 200 mm fitting. The fitting solids in the parts library are an envelope only and must be redrawn from the C3 model (a plate in two cheeks with the pins in double shear) | Manos and Rick decide; Claude redraws; HP1 rerun with real pins and bores | RF-07, the TP3 envelope, the 550 article's dummy hardpoint pockets |
+| Plain bolt next to the hardpoint | Its seal band reaches 0.11 mm at 1.87 atm, just under 1.93. A closer bolt (115 mm from the centre) and a higher preload (6 kN) are both running on the laptop, 9 Nov | Claude, laptop | RF-07 |
 | Corner node, machinability **(Marco)** | Marco: as drawn it cannot be machined; inside corners need radii an end mill can cut; it could be cast, which may change the material. Also the tie-to-fillet clash (Q29), the O10 corner seal section (Q27), the units on Heintges' 4-6 lap (Q28), and the way the main rib flanges enter the block | Manos with Marco Friday; Fusion | RE-06-2, T3 |
 | Corner block stress limit | 95th percentile 236 MPa at proof at 0.8 atm, 255 MPa with the hatch open; no limit has been set | Manos, Rick, Henann | Signing the corner |
-| Corner tie tightening | 198 kN by stretch or angle control, held to 196.5 to 198.1 kN; the hatch-open case leaves 0.7 kN | Manos, with Marco on the method | RE-06-2, T3 |
-| Corner forging stock | 2219-T852 hand forging proposed (Q85); no quotes yet (Q58 for ties and titanium) | Manos, suppliers | Cost |
-| Main rib bracing | The star-plate node must hold the main rib's cabin flange sideways every 562 mm (Q95). Not drawn | Fusion | RE-05, RE-06, parts A-01 |
-| Rib joints | 1,620 rib joints inside the pressure boundary and the main rib splice are not designed; the bolted star-plate grid is now the way (Marco, 7 Nov, by serviceability) | Manos, Fusion | RE-05-1, cost |
+| Corner tie tightening | 198 kN by measured stretch. The band of 196.5 to 198.1 kN and the 0.7 kN hatch-open margin are both tighter than any tightening method can hold or any model can promise, so either the preload comes down (runs at 180 and 160 kN queued 9 Nov) or the hatch-open case is ruled out by the lock. A multi-jackbolt nut would set it with a hand wrench | Manos, with Marco on the method | RF-08, T3 |
+| Corner block stock | 2219-T852 hand forging was proposed (Q85); we now propose machining from 7050-T7451 or 2219-T851 plate (9 Nov note); no quotes yet (Q58 for ties and titanium) | Manos, suppliers | Cost |
+| Main rib bracing | The star-plate node must hold the main rib's cabin flange sideways every 562 mm (Q95). Drawn as P-11, a proposal with no check behind it | Claude | RF-08, parts A-01 |
+| Rib joints | 1,620 rib joints inside the pressure boundary and the main rib splice are not designed; the bolted star-plate grid is now the way (Marco, 7 Nov, by serviceability) | Manos | RF-06, cost |
 | Hardpoint bore chamfers | 194 to 197 MPa at 1.5 x proof against 160 (Q18): accept, bush or thicken | Manos | Hardpoint drawing |
-| Pane clamp | How the panes are held is a proposal (OPEN-11): the clamp bar, the strip squeeze, the bolt spacing, the 531 or 517 mm cut (OPEN-10), the setting strip hardness (Q13) | Manos | RE-04, RE-05-2, P-08 |
+| Pane clamp | How the panes are held is a proposal (OPEN-11): the clamp bar, the strip squeeze, the bolt spacing, the 531 or 517 mm cut (OPEN-10), the setting strip hardness (Q13) | Manos | RF-01, RF-06, P-08 |
 | Glass | The Weibull m from T0 decides 21 mm and the pane size (708 upside, 425 fallback); SCHOTT still owes flatness, wedge and sag data for 21 mm (Q03, Q06, Q77) | T0 (spring 2027), SCHOTT | Every glass number |
 | Backup pane | A second glass pane or an unloaded acrylic pane behind L7 (Q14); the 1/200 deflection rule (Q15) | Manos, Rick, Henann, after T0 | Stack mass |
 | Launch **(Marco)** | Only quasi-static stand-in loads are checked. Random vibration and the 137.7 dB sound field need a model; pack the panels outer face up or rate the clamps (Q96); SpaceX's V3 load factors and spectrum are not public | Claude for the model; Manos asks SpaceX | Packing plan, pane clamps |
-| Flight alloy | Whether the flight frames and ribs stay 6061 or go to 2219 | Rick | Materials section |
+| Flight alloy | Every check in part 4 is against 6061-T6 (145 MPa allowable, 240 yield). Whether the flight frames, ribs and blocks stay 6061 or go to 2219 or 7050-T7451 is open; 7050 is our proposal of 9 Nov | Rick, with Marco | Materials section, the corner block stress limit |
 | Shell pre-camber and misalignment | The pre-cambered shell (Q52) and the 0.2 mm misalignment case (Q24) have not run | Claude | T1 run 2 |
 
 ## 3. Seals
@@ -45,16 +47,16 @@ This is the open-items chapter for the release package that goes to Marco before
 
 | Item | What is open | Who, when | Holds up |
 | --- | --- | --- | --- |
-| A shop **(Marco)** | Blackhawk and JEPIS declined. Marco says Xometry. Quotes need STEP files of the frames at 180 mm and the pull blocks | Manos, this weekend | Everything |
-| Tolerances **(Marco)** | Marco: do not hold 0.05 or even 0.1 mm on every dimension; 7 C of temperature moves 550 mm of aluminium by 0.09 mm; design the part so the machinist does not have to be a hero. We need a table of the few features that really need tight limits (the seal face flatness, the groove depth, the bolt hole positions) and normal shop tolerance everywhere else | Manos drafts, Marco reviews Friday | The release to the shop |
-| Material **(Marco)** | 6061-T651 as drawn, or a 7000-series alloy that needs no heat treatment after machining, as Marco suggests; and the fixturing that holds the part flat | Marco Friday | The RFQ |
-| Design for manufacture **(Marco)** | Marco wants to go through the parts for changes that make them less scary for a shop; the 2.0 and 3.5 mm walls round the M24 threads in the pull blocks are one | Marco Friday | RE-01 to RE-03 |
+| A shop **(Marco)** | Blackhawk and JEPIS declined. Marco says Xometry. The STEP files of the frames at 180 mm and the pull blocks exist since 8 Nov | Manos, quotes this week | Everything |
+| Tolerances **(Marco)** | Marco: do not hold 0.05 or even 0.1 mm on every dimension; 7 C of temperature moves 550 mm of aluminium by 0.09 mm; design the part so the machinist does not have to be a hero. The table is on sheet TP-00, and the squeeze sum behind it is in part 3: only the gland depth and the joint face flatness are tight | Marco reviews | The release to the shop |
+| Material **(Marco)** | 6061-T651 as drawn, or a 7000-series alloy that needs no heat treatment after machining, as Marco suggests; and the fixturing that holds the part flat. Our position is in part 6 | Marco | The RFQ |
+| Design for manufacture **(Marco)** | Marco wants to go through the parts for changes that make them less scary for a shop; the thin walls round the M24 threads in the pull blocks are gone with the 160 mm block | Marco | TP-01 to TP-04 |
 | Parts from McMaster **(Marco)** | Spec the test-article hardware from McMaster-Carr; the flight bolts stay NAS parts. The parts memo for NAS6705U27 and its ratings is still owed (Q17) | Manos | The parts order |
-| T1 slices and the 550 article | Drawn at 180 mm on RF-03 and RE-03 rev B, but the solids and STEP files at 180 do not exist, and no sheet is checked or released (Q55) | Claude or Fusion this week | The quotes |
+| T1 slices and the 550 article | Done 8 Nov as sheets TP-00 to TP-04 and 21 solids; no sheet is checked or released yet (Q55) | Marco's review | The order |
 | Instron adapter | Cannot be drawn until the three frame interfaces are measured with Jerry; the Instron is free from 18 November (Q21) | Manos, Jerry | T1 |
 | T0 bars | The test-bar drawing and the arris size from Swift (Q04); two bar sizes and the count (Q51); order after the funding decision | Manos, Swift, Rick | T0 |
 | T2 water panel | Redraw the 1:4 article on the Rev F grid with option B ribs and the tie-bolt circle moved in; a host and a safety sign-off (Q45); a budget for B E Peterson (Q46); the gauge map. Marco says do it, with a written plan, video and a process watcher | Manos, Breuer | T2 in February or March |
-| Pentagon closure **(Marco)** | Which side of the ribs the 10 mm closure plate goes on and how it is held and sealed as five triangles (Q57) | Manos, Marco | RE-07 |
+| Pentagon closure **(Marco)** | Which side of the ribs the 10 mm closure plate goes on and how it is held and sealed as five triangles (Q57) | Manos, Marco | RF-09 |
 | Printed fit checks | PLA arrives Tuesday 10 November; the PCBWay files still have to be uploaded; the 1:20 model should show option B ribs | Manos | Fit checks |
 | Cold soak | No chamber for the 550 article at -40 C **(Marco)**; D6 not rerun with butyl | Manos | D6 |
 
