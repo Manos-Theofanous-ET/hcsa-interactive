@@ -25,3 +25,6 @@ tsconfig.tsbuildinfo
 
 # Rev F drawing outputs (rebuilt from the scripts)
 scripts/revf-drawings/**/out/
+scripts/revf-drawings/package/__pycache__/
+scripts/static-pages/test_plan/__pycache__/
+scripts/static-pages/test_plan/out/

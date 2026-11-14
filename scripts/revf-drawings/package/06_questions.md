@@ -10,7 +10,7 @@ After Marco's emails of 7 November we worked each of his points with numbers (th
 
 **3. Only two features are tight on the test pieces (TP-00).** The gland depth, plus or minus 0.05, and the joint face flatness, 0.10 over 150 mm and 0.15 over 550. They are the only two that change the squeeze on the cord, which stays above 16 percent in the worst stack. Everything else is ordinary shop tolerance, lengths measured at 20 degrees. Hardware for the test pieces comes from McMaster.
 
-**4. The corner ties are set with a multi-jackbolt nut, and the stretch is read on the stud.** 198 kN in a 7/8 stud would take 650 to 900 N m on a plain nut. A jackbolt nut does about 145 kN on an M24 thread with eight screws at 14 N m, and 215 kN on M27 with six at 36 N m, so our load needs the high-strength series or a 1 inch stud. We are also running the corner at 180 and 160 kN to see whether the preload can simply come down at 0.8 atm.
+**4. The corner ties are set with a multi-jackbolt nut, and the stretch is read on the stud.** 198 kN in a 7/8 stud would take 650 to 900 N m on a plain nut. A jackbolt nut does about 145 kN on an M24 thread with eight screws at 14 N m, and 215 kN on M27 with six at 36 N m, so our load needs the high-strength series or a 1 inch stud. The corner runs of 14 November say the preload can come down at 0.8 atm: at 160 kN the worst tie at proof is 181.5 kN, 45 kN under the limit, and the faces open 0.60 mm against 0.8. That also brings it inside what an M27 jackbolt nut does (215 kN).
 
 ## Open: we need your judgement
 

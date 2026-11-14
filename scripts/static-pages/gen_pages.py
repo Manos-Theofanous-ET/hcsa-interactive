@@ -19,8 +19,8 @@ PDF_REVF_1 = "/downloads/HCSA-Rev-F-sheets-RF-01-to-RF-04-5-Nov-2026.pdf"
 PDF_REVF_2 = "/downloads/HCSA-Rev-F-sheets-RF-05-to-RF-09-9-Nov-2026.pdf"
 PDF_REVF_TP = "/downloads/HCSA-Rev-F-test-pieces-TP-00-to-TP-04-9-Nov-2026.pdf"
 ZIP_REVF_TP = "/downloads/HCSA-Rev-F-test-pieces-STEP-9-Nov-2026.zip"
-PDF_REVF_PKG = "/downloads/HCSA-Rev-F-release-package-13-Nov-2026.pdf"
-PDF_REVF_PKG1 = "/downloads/HCSA-Rev-F-release-package-one-page-summary-13-Nov-2026.pdf"
+PDF_REVF_PKG = "/downloads/HCSA-Rev-F-release-package-14-Nov-2026.pdf"
+PDF_REVF_PKG1 = "/downloads/HCSA-Rev-F-release-package-one-page-summary-14-Nov-2026.pdf"
 REVF_DATED = "9 November 2026"
 UPDATED = "23 October 2026"
 REVD_DATED = "14 October 2026"
@@ -350,7 +350,7 @@ def blueprints():
 <p class="tested">Fourteen sheets at A3 size: nine of the facility and five of the test pieces. Click any sheet to open it full size. They are drawn from our parameter file, and the facility sheets are not yet checked for machining.</p>
 {"".join(f"<p>{e(t)}</p>" for t in REVF_INTRO)}
 <p class="muted">The Rev D sheets below are the last full signed set. Where they disagree with these sheets, the Rev F sheets win.</p>
-<p><a class="btn" href="{PDF_REVF_1}">Sheets RF-01 to RF-04 (PDF, 5 November)</a><a class="btn" href="{PDF_REVF_2}">Sheets RF-05 to RF-09 (PDF, 9 November)</a><a class="btn" href="{PDF_REVF_TP}">Test pieces TP-00 to TP-04 (PDF, 9 November)</a><a class="btn" href="{ZIP_REVF_TP}">Test pieces, STEP files (zip, 1.3 MB)</a><a class="btn" href="{PDF_REVF_PKG}">The release package for Marco (PDF, 13 November)</a><a class="btn" href="{PDF_REVF_PKG1}">The package on one page (PDF)</a><a class="btn" href="/parts/">The parts library</a></p>
+<p><a class="btn" href="{PDF_REVF_1}">Sheets RF-01 to RF-04 (PDF, 5 November)</a><a class="btn" href="{PDF_REVF_2}">Sheets RF-05 to RF-09 (PDF, 9 November)</a><a class="btn" href="{PDF_REVF_TP}">Test pieces TP-00 to TP-04 (PDF, 9 November)</a><a class="btn" href="{ZIP_REVF_TP}">Test pieces, STEP files (zip, 1.3 MB)</a><a class="btn" href="{PDF_REVF_PKG}">The release package for Marco (PDF, 14 November)</a><a class="btn" href="{PDF_REVF_PKG1}">The package on one page (PDF)</a><a class="btn" href="/tests/">The physical test plan (13 November)</a><a class="btn" href="/parts/">The parts library</a></p>
 <div class="thumbs">{revf_thumbs()}</div>
 </div></section>
 <section id="revd" class="subject"><div class="wrap">
@@ -425,13 +425,13 @@ MILESTONES = [
 
 TESTS = [
     ("t0", "T0: how strong is our glass?", "3d_render-17_T0_ring_on_ring",
-     "We bend borosilicate glass bars, 1 inch wide and 1/8 inch thick, at four points until they break, the way the ENGN 1440 class does it. We break 30 or more for each edge finish, so we learn the real strength and how much it scatters. That scatter picks the final pane size. We plan on 531 mm, can go to 708 mm if the glass is consistent, and drop to 425 mm if it is not. We have dropped the disc test drawn here. Its fixture would cost thousands, and the small frame at Brown only goes to 0.5 kN, not 5 kN. We keep the 60 BOROFLOAT and 15 sapphire discs we already received for a second look.",
+     "We bend borosilicate glass bars, 1 inch wide and 1/8 inch thick, at four points until they break, the way the ENGN 1440 class does it. We break 30 or more for each edge finish, so we learn the real strength and how much it scatters. That scatter picks the final pane size. We plan on 531 mm, can go to 708 mm if the glass is consistent, and drop to 425 mm if it is not. We have dropped the disc test drawn here. Its fixture would cost thousands, and the small frame at Brown only goes to 0.5 kN, not 5 kN. We keep the BOROFLOAT discs from Precision Glass & Optics and the 15 sapphire discs from Meller Optics for a second look.",
      "This happens in spring 2027, in ENGN 1440, the Brown materials lab course. We are still deciding whether to break a first set of bars this fall on the 0.5 kN frame."),
     ("t1", "T1: does the seam hold when it is pulled apart?", "3d_render-10_T1_slice_150",
      "We pull full-size slices of the seam, 75, 150 and 225 mm long, in the 100 kN load frame at Brown, and check the seal between the two butyl loops while we pull. A 550 mm piece of the seam checks that it goes together and holds air. On 23 October we changed the seal to two butyl BA500 loops and the silicone bead, in place of fluorosilicone cord. Parker advised this, because a closed loop has no cut ends that could leak at the corners.",
-     "We build it this fall from the 8 November drawings and pull it in late January and February 2027. The frame is free after 18 November, and Dewesoft lends the 16-channel strain recorder in batches of 3 to 4 weeks, booked a month ahead."),
+     "The Rev F test pieces are drawn (sheets TP-00 to TP-04, 9 November). We make them once the money is in and pull them in late January and February 2027. The frame is free after 18 November, and Dewesoft lends the 16-channel strain recorder in batches of 3 to 4 weeks, booked a month ahead."),
     ("t2p", "T2: how does a window panel bend?", "3d_render-14_T2_rig_pinned",
-     "We load a hexagon panel at quarter scale, 1.1 m across, with water in a steel tub, up to 2 atm. It has aluminium panes in place of glass. The test shows how the panes bend onto the frame and ribs. We redraw this test piece for the Rev E pane before 8 November.",
+     "We load a hexagon panel at quarter scale, 1.1 m across, with water in a steel tub, up to 2 atm. It has aluminium panes in place of glass. The test shows how the panes bend onto the frame and ribs. The test piece is being redrawn on the Rev F grid, and it needs its own funding and a host.",
      "This happens in spring 2027."),
     ("shell", "FEA: how does the whole shell share the load?", "3d_render-02_shell_cutaway",
      "FEA means our computer stress models. We model one panel, a cap of seven panels and the full shell. They tell us how much load the seams and corners really carry, and that sets the bolt size.",
@@ -441,30 +441,30 @@ TESTS = [
 # What we need, grouped by test. (item, size and quantity, needed by)
 NEEDS = [
     ("For T0, the glass bars", [
-        ("Borosilicate glass bars (Borofloat 33)", "The bars are 1 inch wide, 1/8 inch thick and about 4 inches long, with the same edge finish within a set. We need 30 or more for each edge finish. We already have the 60 Borofloat discs from SCHOTT and the 15 sapphire discs from Meller Optics.", "Early 2027"),
+        ("Borosilicate glass bars (Borofloat 33)", "The bars are 1 inch wide, 1/8 inch thick and about 4 inches long, with the same edge finish within a set. We need 30 or more for each edge finish. Swift Glass has quoted about $1,040 for 100 bars. We already have BOROFLOAT discs from Precision Glass & Optics and 15 sapphire discs from Meller Optics.", "Early 2027"),
         ("A four-point bending fixture", "We need the ENGN 1440 fixture, or one like it, that fits a 0.5 kN frame.", "Early 2027"),
     ]),
     ("For T1, the seam slices and the 550 mm joint piece", [
-        ("6061-T6 aluminium, and CNC machining of 8 edge frames", "There are six slice frames, about 205 by 140 mm in section and 75, 150 and 225 mm long, two of each. There are also two frames of about 60 by 140 by 550 mm. The O-ring grooves are 6.6 by 4.0 mm, and the bolt holes are 8.03 mm, every 75 mm. The finished parts weigh about 27 kg, and the STEP files are ready now.", "Drawings out 8 November"),
-        ("4140 steel pull blocks, quenched and tempered", "There are six blocks, 83 by 80 mm in section and 75, 150 and 225 mm long, each with a tapped M24 hole. Together they weigh about 45 kg.", "Drawings out 8 November"),
-        ("A286 bolts, 5/16 inch (size -10), with nuts and washers", "We need 30 sets. We use 13 and keep the rest as spares. The part number is confirmed on 1 November.", "November"),
-        ("Butyl seal loops (Parker BA500)", "Each joint takes two closed loops, spliced from extruded cord 0.210 inch thick. The sizes come with the 8 November drawings. We no longer need fluorosilicone cord.", "November"),
+        ("6061-T651 aluminium, and CNC machining of 8 edge frames", "There are six slice frames, 180 mm deep and 75, 150 and 225 mm long, two of each, and the two frames of the 550 mm piece. The two butyl glands are 7.1 by 4.0 mm and the bolts are every 75 mm. The frames weigh about 40 kg in all. The STEP files and sheets TP-00 to TP-04 are ready (9 November).", "Once funded"),
+        ("4140 steel pull blocks, quenched and tempered", "There are six blocks for the slices, 160 by 80 mm in section, and two 550 mm blocks for the long piece, about 200 kg in all; in 6061 aluminium they would be much lighter. A lug, fork and pin pry the joint open in the second run.", "Once funded"),
+        ("5/16-24 bolts, with nuts and washers", "We need about 20 sets. Catalogue alloy steel bolts stand in for the NAS6705 flight bolt in every test piece, since at 4 kN the bolt's stiffness is what matters.", "Once funded"),
+        ("Butyl seal loops (Parker BA500)", "Each joint takes two closed loops, spliced from extruded cord 0.210 inch thick, in glands 7.1 by 4.0 mm (sheets TP-00 to TP-04). We no longer need fluorosilicone cord.", "November"),
         ("RTV566 silicone with its primer", "We need one kit, plus a syringe and tips to lay a 3 mm bead.", "November"),
-        ("Fixture hardware", "We need 50 M12 bolts of class 10.9, 1 m of M8 threaded rod with nuts, eight steel end plates of 84 by 38 by 10 mm, and a 3 mm neoprene sheet of 300 by 300 mm.", "November"),
+        ("Fixture hardware", "We have 60 M12 class 12.9 screws from Bolt Depot. We still need 2 m of M8 threaded rod with nuts, eight rubber-faced end dams, and the adapters to the load frame.", "Once funded"),
     ]),
-    ("For T2, one panel at quarter scale and its water rig", [
+    ("For T2, one panel at quarter scale and its water rig (sizes from the October article, being redrawn for Rev F)", [
         ("6061-T6 aluminium for the panel frame, six ribs and hub", "When finished it weighs about 31 kg and measures 1,217 by 1,054 by 124 mm. It is cut from 12 mm and 10 mm plate and bar, and the cut list comes with the drawings.", "January"),
         ("Six aluminium panes", "The panes are triangles of about 525 by 455 mm, cut from 8 mm (5/16 inch) 6061-T6 plate. One sheet of 1,220 by 2,440 mm covers all six. They are cut by laser or waterjet.", "January"),
         ("Steel plate for the rig, cut and welded", "We need about 490 kg of A36 or S355 steel. That covers a 25 mm floor of 1,222 by 1,058 mm, 12 mm walls 175 mm tall, and three hexagonal rings 1,409 by 1,220 mm outside, 25, 22 and 25 mm thick.", "January"),
         ("Rubber and small parts", "We need a 1 mm EPDM sheet of 1.5 by 1.3 m, 8 m of neoprene strip 1.5 by 10 mm, 24 M16 bolts of class 8.8 with nuts, six ground steel bars 12 mm thick and 548 mm long, a relief valve set at 220 kPa, brass fittings and a pressure gauge.", "January"),
     ]),
     ("For measuring", [
-        ("Strain gauges", "We need rosettes and single gauges, and we are settling the final count with the test plan. The 16-channel strain recorder comes on loan from Dewesoft, in batches of 3 to 4 weeks.", "November"),
+        ("Strain gauges", "TML is donating 30 gauges for the seam test, 15 rosettes and 15 single gauges. The count for T2 is still being settled. The 16-channel strain recorder comes on loan from Dewesoft, in batches of 3 to 4 weeks.", "T2 gauges by January"),
         ("Dial gauges or LVDTs, and a pressure sensor", "We need four gauges that measure how far a point moves, either dial gauges or LVDTs, their electronic version. We also need one pressure sensor that reads 0 to 300 kPa.", "January"),
     ]),
     ("Time, software and funds", [
         ("Test frame time", "We need the 100 kN frame at Brown for T1. It is free after 18 November, and it is booked for late January and February 2027. The T0 bars run on a 0.5 kN frame in spring 2027.", "Late January to February"),
-        ("Software for computer stress models (FEA)", "We need one academic seat for structural and thermal analysis, for the study that sizes the shell.", "October"),
+        ("Software for computer stress models (FEA)", "Ansys and SolidWorks licences are donated, and the models run on a team laptop.", "Done"),
         ("Funding", "It pays for machining, the steel rig and anything not donated. Every dollar goes to parts and shop time.", "Any time"),
         ("Expert advice", "We would value a 20 minute review from someone who knows bolted joints, seals, structural glass or pressure testing.", "Any time"),
     ]),
@@ -582,7 +582,7 @@ def plan():
 <li>We modelled the whole shell in CAD, with 32 panels, 90 seams, 2,610 bolts and every seal, and no parts overlap.</li>
 <li>We have designed the tests and drawn every test piece and rig. The test plan is going to Brown engineering faculty for review.</li>
 <li>Every drawing, with dimensions and a plain explanation, is on the <a href="/blueprints/">blueprints page</a>.</li>
-<li>The <a href="/tests/">tests page</a> has a 23-minute film of every test. It shows how each piece is made, what the test tells us, our plan B, the cost and the dates.</li>
+<li>The <a href="/tests/">tests page</a> has the physical test plan of 13 November: every test, how it runs, what it records and tells us, what has to be made, what we have, who provides each piece and the price, with an animation of each test. The October film is kept there for reference.</li>
 </ul></div>
 </div></section>
 

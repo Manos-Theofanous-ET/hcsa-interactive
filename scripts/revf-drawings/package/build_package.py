@@ -16,8 +16,8 @@ SITE = os.path.abspath(os.path.join(HERE, "..", "..", ".."))          # the repo
 DL = os.path.join(SITE, "public", "downloads")
 OUT = os.path.join(HERE, "out"); os.makedirs(OUT, exist_ok=True)
 DRAFT = len(sys.argv) > 1 and sys.argv[1] == "draft"
-DATE = "draft of 9 November 2026" if DRAFT else "13 November 2026"
-STAMP = "draft_9Nov2026" if DRAFT else "13Nov2026"
+DATE = "draft of 9 November 2026" if DRAFT else "14 November 2026"
+STAMP = "draft_9Nov2026" if DRAFT else "14Nov2026"
 
 SHEETS_RF14 = os.path.join(DL, "HCSA-Rev-F-sheets-RF-01-to-RF-04-5-Nov-2026.pdf")
 SHEETS_RF59 = os.path.join(DL, "HCSA-Rev-F-sheets-RF-05-to-RF-09-9-Nov-2026.pdf")
