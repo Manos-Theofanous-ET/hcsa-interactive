@@ -453,7 +453,7 @@ NEW_SINCE = [
 
 DATES = [
     ("15 Nov", "PCBWay sponsorship application due"),
-    ("17 Nov, 10:00", "Fabrication review with Marco Cross (Zoom): the drawings, the tolerances, the leak pass rate"),
+    ("17 Nov, 10:00", "Fabrication review with Marco Cross (online): the drawings, the tolerances, the leak pass rate"),
     ("17 Nov, 12:00", "Weekly meeting with Rick; still open with him: glass bars now or in spring (Q42), endorsements"),
     ("18 Nov, 11:30", "Prof. Padture: bars in ENGN 1440, spare bars, the fixture"),
     ("22 Nov", "Spring test plan due"),
@@ -467,7 +467,7 @@ FUNDING = [
     ("Research at Brown", "up to $500"),
     ("Champlin Foundation", "$19,885 for the water rig (T2)"),
     ("NASA Rhode Island Space Grant", "spring 2027"),
-    ("In kind", "SendCutSend $500 credit; OSH Cut student discount; PCBWay sponsorship applied for; TML gauges; Dewesoft recorder loan; Bolt Depot screws"),
+    ("In kind", "SendCutSend $500 credit; OSH Cut student discount; PCBWay sponsorship (application due 15 Nov); TML gauges; Dewesoft recorder loan; Bolt Depot screws"),
 ]
 
 SOURCES = [
