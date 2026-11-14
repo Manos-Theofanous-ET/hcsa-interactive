@@ -136,7 +136,7 @@ dict(
         "Steel pull blocks, 160 mm tall, bolt into the legs of each frame with M12 screws from both faces.",
         "Run 1, the straight pull: an M24 rod through the block centre at z 90. Run 2, the prying pull: through a lug, fork and pin on the z 24 line near the outer flange, so the joint opens about its cabin-side edge the way pressure opens it (sheet RE-03 rev B).",
         "Air in the space between the two cords, read at the leak port while the load is held. Each slice gets the two runs that do not break it, then one ramp to failure.",
-        "Load scale at Rev F: a plain-bay bolt carries 1.29 kN per atm in the station model, the worst bay 2.67 kN per bolt, and the seam model reaches the 0.11 mm gap at 3.75 kN per bolt, about 2.9 atm. So the holds are a few kN per bolt, far inside the 50 kN fixture and the 100 kN Instron. The hold-point table is being restated against 12.3 psia (owed); the October table of 41.5 kN per atm was the old upper bound and is withdrawn.",
+        "Load scale at Rev F: a plain-bay bolt carries 1.29 kN per atm in the station model, the worst bay 2.67 kN per bolt, and the seam model reaches the 0.11 mm gap at 3.75 kN per bolt, about 2.9 atm. So the holds are a few kN per bolt, far inside the 50 kN fixture and the 100 kN Instron. The holds restated at 12.3 psia (TEST-PLAN-001, 14 Nov) are 1.08, 1.62, 2.16 and 2.49 kN per bolt at design, proof, ultimate and 1.93 atm, and 2.67 kN with the pentagons 15 K warmer; the October table of 41.5 kN per atm is withdrawn.",
     ],
     record=[
         "Load and crosshead from the Instron (analog out, on the same clock as everything else)",
@@ -211,11 +211,11 @@ dict(
         "The seam model at Rev F (D1, 5 Nov), to file the predictions from",
     ],
     need=[
-        "Money for the machined parts, then quotes (Xometry from the STEP pack; PCBWay if the sponsorship comes through)",
+        "Money for the machined parts, then quotes (Xometry from the STEP pack; PCBWay's student track would take up to $200 off)",
         "Cord, RTV and primer, the leak-port fitting, the LVDTs, the gap gauges",
         "The Instron rate and the three frame interfaces measured with Jerry, then the adapters drawn and made",
         "A safety shield",
-        "The hold points and pass lines restated against 12.3 psia, and the seam model's prediction filed for each gauge",
+        "The seam model rerun with the test pieces as drawn (200 mm legs at depth 0 and 170; the D1 model still has the October legs), then its prediction filed for each gauge",
         "Marco's view on the run 1 pull line, 14 mm off (17 Nov)",
     ],
 ),
@@ -286,7 +286,7 @@ dict(
         "The pull blocks and the dummy pins priced and made",
         "Cord, RTV, the port fitting (from T1)",
         "The pass leak rate, agreed with Marco",
-        "The model rerun with the drawn bolt positions, to predict the pull at which the gap reaches 0.11 mm (D1-550, owed)",
+        "The model of the article as drawn, to predict the pull at which the gap reaches 0.11 mm (D1-550: running on the laptop from 14 Nov)",
         "Tools to borrow: torque wrench, feelers, dial gauge",
     ],
 ),
@@ -452,7 +452,7 @@ NEW_SINCE = [
 ]
 
 DATES = [
-    ("15 Nov", "PCBWay sponsorship application due"),
+    ("15 Nov", "PCBWay application (the date we gave Evan; PCBWay takes applications all year, needs a PCBWay quote first)"),
     ("17 Nov, 10:00", "Fabrication review with Marco Cross (online): the drawings, the tolerances, the leak pass rate"),
     ("17 Nov, 12:00", "Weekly meeting with Rick; still open with him: glass bars now or in spring (Q42), endorsements"),
     ("18 Nov, 11:30", "Prof. Padture: bars in ENGN 1440, spare bars, the fixture"),
@@ -467,7 +467,7 @@ FUNDING = [
     ("Research at Brown", "up to $500"),
     ("Champlin Foundation", "$19,885 for the water rig (T2)"),
     ("NASA Rhode Island Space Grant", "spring 2027"),
-    ("In kind", "SendCutSend $500 credit; OSH Cut student discount; PCBWay sponsorship (application due 15 Nov); TML gauges; Dewesoft recorder loan; Bolt Depot screws"),
+    ("In kind", "SendCutSend $500 credit; OSH Cut student discount; PCBWay student track, 50% off up to $200 (needs a PCBWay quote first; use within about 30 days of approval); TML gauges; Dewesoft recorder loan; Bolt Depot screws"),
 ]
 
 SOURCES = [
@@ -480,7 +480,7 @@ SOURCES = [
 
 # Who makes or supplies what, across the tests
 FAB = [
-    ("Xometry (instant quote from the STEP pack)", "T1 frames A and B (3 lengths), the 550 frames A and B, pull blocks; PCBWay instead if the sponsorship comes through", "T1, SA-550", "Need to buy; quote once funded"),
+    ("Xometry (instant quote from the STEP pack)", "T1 frames A and B (3 lengths), the 550 frames A and B, pull blocks; or PCBWay, whose student track takes 50% off up to $200", "T1, SA-550", "Need to buy; quote once funded"),
     ("Brown shop", "End dams, the T2 hub, retaining beads and round bars, the Instron adapters; pull blocks or the run 2 fixture if cheaper", "T1, SA-550, T2", "Need to buy; adapters wait on measuring the Instron with Jerry"),
     ("Swift Glass", "BOROFLOAT 33 test bars with fine-ground edges and arris", "T0", "Quote in hand, about $1,040; free if ENGN 1440 has spares"),
     ("A welding shop (not found yet); Derecktor for plate", "The T2 steel tub, rings and clamp ring; hydrotest of the empty tub (B E Peterson would review)", "T2", "Need to buy; the tub has to be redrawn first"),
