@@ -16,7 +16,7 @@ PDF = "/downloads/HCSA-Rev-S-drawings-explained-26-Sep-2026.pdf"
 PDF_REVD = "/downloads/HCSA-Rev-D-blueprint-pack-14-Oct-2026.pdf"
 PDF_REVD_SPEC = "/downloads/HCSA-Rev-D-design-spec-14-Oct-2026.pdf"
 PDF_REVF_1 = "/downloads/HCSA-Rev-F-sheets-RF-01-to-RF-04-5-Nov-2026.pdf"
-PDF_REVF_2 = "/downloads/HCSA-Rev-F-sheets-RF-05-to-RF-09-9-Nov-2026.pdf"
+PDF_REVF_2 = "/downloads/HCSA-Rev-F-sheets-RF-05-to-RF-09-14-Nov-2026.pdf"
 PDF_REVF_TP = "/downloads/HCSA-Rev-F-test-pieces-TP-00-to-TP-04-9-Nov-2026.pdf"
 ZIP_REVF_TP = "/downloads/HCSA-Rev-F-test-pieces-STEP-9-Nov-2026.zip"
 PDF_REVF_PKG = "/downloads/HCSA-Rev-F-release-package-14-Nov-2026.pdf"
@@ -350,7 +350,7 @@ def blueprints():
 <p class="tested">Fourteen sheets at A3 size: nine of the facility and five of the test pieces. Click any sheet to open it full size. They are drawn from our parameter file, and the facility sheets are not yet checked for machining.</p>
 {"".join(f"<p>{e(t)}</p>" for t in REVF_INTRO)}
 <p class="muted">The Rev D sheets below are the last full signed set. Where they disagree with these sheets, the Rev F sheets win.</p>
-<p><a class="btn" href="{PDF_REVF_1}">Sheets RF-01 to RF-04 (PDF, 5 November)</a><a class="btn" href="{PDF_REVF_2}">Sheets RF-05 to RF-09 (PDF, 9 November)</a><a class="btn" href="{PDF_REVF_TP}">Test pieces TP-00 to TP-04 (PDF, 9 November)</a><a class="btn" href="{ZIP_REVF_TP}">Test pieces, STEP files (zip, 1.3 MB)</a><a class="btn" href="{PDF_REVF_PKG}">The release package for Marco (PDF, 14 November)</a><a class="btn" href="{PDF_REVF_PKG1}">The package on one page (PDF)</a><a class="btn" href="/tests/">The physical test plan (updated 14 November)</a><a class="btn" href="/parts/">The parts library</a></p>
+<p><a class="btn" href="{PDF_REVF_1}">Sheets RF-01 to RF-04 (PDF, 5 November)</a><a class="btn" href="{PDF_REVF_2}">Sheets RF-05 to RF-09 (PDF, 14 November)</a><a class="btn" href="{PDF_REVF_TP}">Test pieces TP-00 to TP-04 (PDF, 9 November)</a><a class="btn" href="{ZIP_REVF_TP}">Test pieces, STEP files (zip, 1.3 MB)</a><a class="btn" href="{PDF_REVF_PKG}">The release package for Marco (PDF, 14 November)</a><a class="btn" href="{PDF_REVF_PKG1}">The package on one page (PDF)</a><a class="btn" href="/tests/">The physical test plan (updated 14 November)</a><a class="btn" href="/parts/">The parts library</a></p>
 <div class="thumbs">{revf_thumbs()}</div>
 </div></section>
 <section id="revd" class="subject"><div class="wrap">

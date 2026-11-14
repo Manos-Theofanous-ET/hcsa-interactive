@@ -63,7 +63,7 @@ def seam_bolt_positions():
 
 # ---------------- RF-05 seam cross-section of the flight design ----------------
 def rf05(pdf):
-    fig = sheet("RF-05", "Seam cross-section, hexagon to hexagon, at the first bolt", "frame 180, gland, bolt decided 5 Nov; hardpoint position open; outer layers OPEN-11")
+    fig = sheet("RF-05", "Seam cross-section, hexagon to hexagon, at the first bolt", "frame 180, gland, bolt decided 5 Nov; hardpoint position decided 10 Nov; outer layers OPEN-11")
     ax = fig.add_axes([0.03, 0.17, 0.60, 0.76]); ax.set_aspect("equal"); ax.axis("off")
     m = math.radians(MH); u = np.array([-math.sin(m), math.cos(m)])          # joint plane direction, from the outer edge inward
     nrm = np.array([-math.cos(m), -math.sin(m)])                               # into the left panel, normal to the joint plane
@@ -136,9 +136,9 @@ def rf05(pdf):
         y = 0.80 - i * 0.065
         for c, t in zip((0, 0.42, 0.62, 0.82), r): ax2.text(c, y, t, fontsize=7.4, weight="bold" if i == 0 else "normal", va="top")
         if i == 0: ax2.plot([0, 1], [y - 0.03, y - 0.03], lw=0.6, c="k")
-    ax2.text(0, 0.20, "Seal: two loops of Parker BA500 butyl 5.33 mm in 7.1 x 4.0 glands (25 % squeeze, 79 % fill), RTV566 bead cured on the ground (Q80).\nBolt: NAS6705U27 A286 with KFN670 nut, 4 kN by torque, 16 per seam at 75 pitch in bays of 3, 5, 5, 3.\nLoop corners: R16 minimum at the corner block, OPEN (Q92).", fontsize=7.2, va="top")
+    ax2.text(0, 0.20, "Seal: two loops of Parker BA500 butyl 5.33 mm in 7.1 x 4.0 glands (25 % squeeze, 79 % fill), RTV566 bead cured on the ground (Q80).\nBolt: NAS6705U27 A286 with KFN670 nut, 4 kN by torque, 16 per seam at 75 pitch in bays of 3, 5, 5, 3; the two beside each hardpoint 6 kN, measured (14 Nov).\nLoop corners: R16 minimum at the corner block, OPEN (Q92).", fontsize=7.2, va="top")
     fig.text(0.03, 0.14, "What changed from RE-04 (24 Oct): frame 140 to 180; pane 22 to 21 mm; bolt NAS6705U27 at 4 kN (was NAS9306C-06, a rivet standard); the lip and seat moved to the cabin face (z 170-180, P-06) for the restack (Q78);\n"
-             "the hardpoint shown in both positions because the fitting as drawn fails the HP1 seal check (0.22 atm free) and the moved fitting holds (0.064 mm at 1.93 atm); Rick decides on 10 Nov. Shear along the seam goes to the hardpoint pins and the\n"
+             "the hardpoint shown in both positions because the fitting as drawn fails the HP1 seal check (0.22 atm free) and the moved fitting holds (0.064 mm at 1.93 atm); Rick agreed the move on 10 Nov. Shear along the seam goes to the hardpoint pins and the\n"
              "vertex dowels, no shear key (OPEN-15, confirmed by FEA 24 Oct). Secondary ribs (I 180 x 60 x 10) and the main rib cap angles (z 375-400) are off this section: see RF-01 and RF-06.", fontsize=7.4, va="top")
     pdf.savefig(fig); fig.savefig(f"{OUT}/RF-05_seam_section.png", dpi=130); plt.close(fig)
 
@@ -295,8 +295,9 @@ def rf07(pdf):
              "What the fitting is. Measured from the October C3 model (the run that gave 2.876 million N/mm): a Ti-6Al-4V lug 39 thick and 200 wide on panel A reaches across the joint into a clevis of two 22.5 mm cheeks on panel B;\n"
              "three A286 pins, 40 x 95, at 60 pitch, run along the panel depth with no clearance and work in double shear. The 8 November solids (pins across the joint, a pad of 200 x 60) were wrong and are withdrawn.\n\n"
              "What the models say (HP1, 6-7 Nov). With the fitting where sheet RE-06-1 put it, 64 mm deeper than the line of the pull, the frames hinge about it and the seal gap reaches 0.11 mm at 0.22 atm (0.47 with the frames\n"
-             "held) against the 1.93 atm required. With it on the line of the pull (lug mid-plane at z' 76) the gap at the hardpoint is 0.064 mm at 1.93 atm; the band at the plain bolt beside it reaches 0.11 mm at 1.87 atm, 3 % short.\n"
-             "Runs with that bolt closer (115 mm) and tighter (6 kN) are on the laptop, 9 Nov. Those runs model the fitting as a spring between rigid pads of 200 x 60, not this part.\n\n"
+             "held) against the 1.93 atm required. With it on the line of the pull (lug mid-plane at z' 76) the gap at the hardpoint is 0.064 mm at 1.93 atm; the band at the plain bolt beside it reaches 0.11 mm at 1.87 atm at 4 kN, 3 % short.\n"
+             "That bolt moved closer (115 mm) is worse, 1.76 atm (13 Nov); tightened to 6 kN it clears, about 1.95 atm (14 Nov), so the two bolts beside each hardpoint go to 6 kN, measured.\n"
+             "These runs model the fitting as a spring between rigid pads of 200 x 60, not this part.\n\n"
              "What the solid found (9 Nov, leaning hexagon frame). Good: the slot is 10.5 mm from the RTV recess, 20 mm from the inner gland and 32 mm from the nearest bolt hole; the seam bolts on the flight layout (131.25 and\n"
              "141.25 mm from the hardpoint centre) are clear of it; the 8 Nov 'pad covers the bolts' clash was a bolt drawn in the wrong place. Not good: (1) to sit behind the 20 mm webs the bodies had to move apart 38 mm, so the lug is\n"
              "140 long, not 102, and the pin line is 60 mm from the joint, not 40: the C3 stiffness no longer applies. (2) The base blocks and pin ends run into the outer flange, and both bodies and the pins run into the two secondary\n"
@@ -342,7 +343,7 @@ def rf08(pdf):
     # results and notes
     axr = fig.add_axes([0.72, 0.50, 0.27, 0.42]); axr.axis("off"); axr.set_xlim(0, 1); axr.set_ylim(0, 1)
     axr.text(0, 1, "What the corner model says (C1, 5 Nov)", fontsize=8.5, weight="bold", va="top")
-    for i, t in enumerate(["Tie preload 198 kN, held to 196.5-198.1 kN, by stretch", "Worst tie at proof, 0.8 atm: 214.5 kN (limit 227)", "Pentagon 15 K warmer: 213.3 kN", "Hatch open, 1 atm: 226.3 kN, 0.7 kN under the limit", "Faces open at proof: 0.55 mm (0.74 at 1 atm), limit 0.8", "Block stress, 95th percentile: 236 MPa (255 at 1 atm), no limit set yet", "Worst corner load 235 kN at 0.8 atm, 290 at 1 atm"]):
+    for i, t in enumerate(["Tie preload 198 kN, held to 196.5-198.1 kN, by stretch", "Worst tie at proof, 0.8 atm: 214.5 kN (limit 227)", "Pentagon 15 K warmer: 213.3 kN", "Hatch open, 1 atm: 226.3 kN, 0.7 kN under the limit", "Faces open at proof: 0.55 mm (0.74 at 1 atm), limit 0.8", "Ties at 160 kN (14 Nov): 181.5 kN, faces 0.60 mm; 1 atm case to run", "Block stress, 95th percentile: 236 MPa (255 at 1 atm), no limit set yet", "Worst corner load 235 kN at 0.8 atm, 290 at 1 atm"]):
         axr.text(0, 0.90 - i * 0.1, "- " + t, fontsize=7.0, va="top")
     fig.text(0.03, 0.46, "Making it (Marco, 7 Nov). As drawn the node cannot be machined: every inside corner needs a radius a cutter can reach (R10 here; the landing takes up the re-entrant corner), and the part could be cast instead\n"
              "of machined. Our position (9 Nov): machine it from 7050-T7451 or 2219-T851 plate, not a casting (seal faces) and not a die forging (180 parts). The main rib's flanges enter the block at the\n"
@@ -409,6 +410,6 @@ def rf09(pdf):
     pdf.savefig(fig); fig.savefig(f"{OUT}/RF-09_pentagon_GA.png", dpi=130); plt.close(fig)
 
 if __name__ == "__main__":
-    with PdfPages(f"{OUT}/HCSA_RevF_flight_sheets_RF-05_to_RF-09_9Nov2026.pdf") as pdf:
+    with PdfPages(f"{OUT}/HCSA_RevF_flight_sheets_RF-05_to_RF-09_14Nov2026.pdf") as pdf:
         rf05(pdf); rf06(pdf); rf07(pdf); rf08(pdf); rf09(pdf)
     print("flight sheets ok; bolts per seam:", len(seam_bolt_positions()), seam_bolt_positions()[:4])

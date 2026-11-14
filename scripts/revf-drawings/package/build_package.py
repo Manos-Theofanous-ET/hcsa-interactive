@@ -20,7 +20,7 @@ DATE = "draft of 9 November 2026" if DRAFT else "14 November 2026"
 STAMP = "draft_9Nov2026" if DRAFT else "14Nov2026"
 
 SHEETS_RF14 = os.path.join(DL, "HCSA-Rev-F-sheets-RF-01-to-RF-04-5-Nov-2026.pdf")
-SHEETS_RF59 = os.path.join(DL, "HCSA-Rev-F-sheets-RF-05-to-RF-09-9-Nov-2026.pdf")
+SHEETS_RF59 = os.path.join(DL, "HCSA-Rev-F-sheets-RF-05-to-RF-09-14-Nov-2026.pdf")
 SHEETS_TP = os.path.join(DL, "HCSA-Rev-F-test-pieces-TP-00-to-TP-04-9-Nov-2026.pdf")
 
 # (bookmark title, markdown file or None, list of (sheet pdf, [sheet names]) to append after the text)
