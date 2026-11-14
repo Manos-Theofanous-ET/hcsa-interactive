@@ -78,6 +78,7 @@
   <button data-mode="explore" class="on">Explore</button>
   <button data-mode="walk">Walk inside</button>
   <button data-mode="fly">Fly inside</button>
+  <button data-mode="apart">Taken apart</button>
   <button data-mode="systems" class="internal">Systems</button>
   <button data-mode="shields" class="internal">Shutters, shields, pressure</button>
   <button data-mode="visit">The visit</button>
@@ -150,6 +151,36 @@
   <label class="row">Stay inside the room <input id="flyClamp" type="checkbox" checked style="width:auto"></label>
   <div class="row2"><button id="flyIn">Start in the middle</button><button id="flyOut">Start outside</button></div>
   <div class="row2"><button id="flyNight">Cabin dark</button></div>
+</section>
+
+<section data-mode="apart" hidden>
+  <h1>The facility, taken apart</h1>
+  <div class="sub">Every piece of the station, pulled off the ball so you can see it.</div>
+  <label class="row">Take apart <input id="apartK" type="range" min="0" max="100" value="0"></label>
+  <label class="row">Open one panel <input id="apartP" type="range" min="0" max="100" value="0"></label>
+  <h2>Look at</h2>
+  <div class="views">
+    <button data-apart="whole" class="on">Whole facility</button>
+    <button data-apart="hex">One hexagon</button>
+    <button data-apart="pent">Pentagon kit</button>
+    <button data-apart="mast">Mast and pods</button>
+    <button id="apartLbl">Labels</button>
+    <button id="apartReset">Reset</button>
+  </div>
+  <h2>What it is made of</h2>
+  <div class="spec">
+    <span>Hexagon panels</span><span>20</span>
+    <span>Pentagon panels</span><span>12</span>
+    <span>Corner nodes</span><span>60</span>
+    <span>Hardpoint fittings</span><span>270</span>
+    <span>Seam bolts</span><span>1,440</span>
+    <span>Pressure panes</span><span>1,920</span>
+    <span>Main ribs</span><span>180</span>
+    <span>Secondary ribs</span><span>3,240</span>
+    <span>Butyl seal loops</span><span>180</span>
+  </div>
+  <div class="row2"><button id="apartShot">Save picture</button></div>
+  <div class="note">Labels show once the ball is more than a third apart. Save picture downloads the canvas as a PNG, with the labels that are on screen.<a class="back internal" href="/parts/">Parts library →</a></div>
 </section>
 
 <section data-mode="systems" hidden>
@@ -1836,6 +1867,49 @@ hooks.push((t, dt) => {
 });
 
 // =====================================================================
+// TAKEN APART: every panel pulled off the ball along its normal, one hexagon opened in place
+// =====================================================================
+const apart = { k: 0, p: 0, labels: false };
+const APART_OUT = { hex: 4.0, pent: 5.5 };   // metres at full slider, pentagons further so the two kinds separate
+const apartDir = V3(15, 4.5, 17).normalize();   // the approach direction
+const facing = (list) => list.reduce((a, b) => (b.n.dot(apartDir) > a.n.dot(apartDir) ? b : a));
+const demoPent = facing(pents.filter(p => p.role === 'solar')), demoGh = facing(pents.filter(p => p.role === 'greenhouse'));
+const apartLabels = [
+  [() => demoHex.c.clone().addScaledVector(demoHex.n, apart.k * APART_OUT.hex + 0.3), 'Glass hexagon, 20 of them: frame, 6 main ribs, 108 secondary ribs, 96 panes of 21 mm glass'],
+  [() => demoPent.c.clone().addScaledVector(demoPent.n, apart.k * APART_OUT.pent + 0.5), 'Solid pentagon, 12 of them: closure plate, solar, shield roll; one is the docking port'],
+  [() => demoHex.v[0].clone(), '60 corner nodes, three forged blocks and 12 ties each'],
+  [() => V3(colR + 0.25, 3.4, 0), 'Central mast: power, water, plants'],
+  [() => pods[0].center.clone().add(V3(0, pods[0].ay + 0.15, 0)), 'Six pods'],
+  [() => demoGh.c.clone().multiplyScalar(0.78), 'Greenhouse alcove'],
+  [() => dock.c.clone().addScaledVector(dock.n, apart.k * APART_OUT.pent + 1.9), 'Docking port and transfer lock'],
+].map(([at, text]) => Object.assign(addLabel(text, at(), 'apart'), { at }));
+function applyApart() {
+  const { k, p } = apart;
+  faces.forEach(f => { f.group.position.copy(f.n).multiplyScalar(k * APART_OUT[f.kind]); f.group.quaternion.identity(); });
+  for (const key in demoHex.parts) demoHex.parts[key].position.copy(demoHex.n).multiplyScalar((PART_EXPLODE[key] ?? 0) * p * 1.4);
+  if (window.cornerMesh) window.cornerMesh.visible = k < 0.15;
+  seamMesh.visible = false; interior.visible = true;
+  apartLabels.forEach(l => l.pos.copy(l.at()));
+  showLabels('apart', apart.labels && k > 0.3);
+  $('apartK').value = Math.round(k * 100); $('apartP').value = Math.round(p * 100);
+  $('apartLbl').classList.toggle('on', apart.labels);
+}
+const APART_R = pents[0].c.length() + 0.6;   // the assembled ball, solar stand-offs included
+function apartView(name, instant = false) {
+  const side = (f) => { const s = V3().crossVectors(f.n, V3(0, 1, 0)); if (s.lengthSq() < 1e-6) s.set(1, 0, 0); return s.normalize(); };
+  const k = apart.k; let c;
+  if (name === 'hex') { const t = demoHex.c.clone().addScaledVector(demoHex.n, k * APART_OUT.hex); c = { p: t.clone().addScaledVector(demoHex.n, 3.4).addScaledVector(side(demoHex), 6.5).add(V3(0, 2.2, 0)), t, f: 42 }; }
+  else if (name === 'pent') { const t = demoPent.c.clone().addScaledVector(demoPent.n, k * APART_OUT.pent + 0.2); c = { p: t.clone().addScaledVector(demoPent.n, 3.0).addScaledVector(side(demoPent), 4.5).add(V3(0, 1.6, 0)), t, f: 42 }; }
+  else if (name === 'mast') { const v = views.interior; c = { p: V3(...v.p), t: V3(...v.t), f: v.fov }; }
+  else { name = 'whole'; const R = APART_R + k * APART_OUT.pent; c = { p: apartDir.clone().multiplyScalar(3.0 * R * Math.max(1, 1 / camera.aspect)), t: V3(0, 0, 0), f: 42 }; }
+  document.querySelectorAll('[data-apart]').forEach(b => b.classList.toggle('on', b.dataset.apart === name));
+  if (instant) { tween = null; camera.position.copy(c.p); controls.target.copy(c.t); camera.fov = c.f; camera.updateProjectionMatrix(); controls.update(); return; }
+  tween = { p0: camera.position.clone(), t0: controls.target.clone(), p1: c.p, t1: c.t, f0: camera.fov, f1: c.f, s: performance.now(), d: 1600 };
+}
+function enterApart() { resetAssembly(); applyApart(); apartView('whole'); }
+function leaveApart() { resetAssembly(); showLabels('apart', false); }
+
+// =====================================================================
 // MODES
 // =====================================================================
 let mode = 'explore';
@@ -1849,6 +1923,7 @@ function setMode(m) {
   if (mode === 'shields') { setPressure(0); seamMesh.visible = false; glass.emissive = new THREE.Color(0, 0, 0); }
   if (mode === 'visit') { visit.group.visible = false; paths.visible = false; camRig.visible = false; spotLight.intensity = 0; visit.playing = false; clutter.visible = true; setSun(38); setShutters(shutterPresets.clear); cabinLights.forEach(l => l.intensity = 8 * 0.55); }
   if (mode === 'life') { life.playing = false; resetAssembly(); shield.td = shield.tk = 0; lifeCh = -1; }
+  if (mode === 'apart') leaveApart();
   if (mode === 'fly') leaveFly();
   mode = m;
   document.querySelectorAll('#tabs button').forEach(b => b.classList.toggle('on', b.dataset.mode === m));
@@ -1860,6 +1935,7 @@ function setMode(m) {
   if (m === 'shields') { go('approach'); setPressure(0); }
   if (m === 'visit') { clutter.visible = false; visit.group.visible = true; paths.visible = $('pathsBtn').classList.contains('on'); setVisit(visit.t); go('cutaway'); }
   if (m === 'life') setLife(life.L);
+  if (m === 'apart') enterApart();
   if (m === 'fly') enterFly();
 }
 document.querySelectorAll('#tabs button').forEach(b => b.onclick = () => setMode(b.dataset.mode));
@@ -1905,6 +1981,26 @@ $('lt').oninput = (e) => { life.playing = false; $('lplay').textContent = 'Play'
 $('lplay').onclick = (e) => { life.playing = !life.playing; if (life.playing && life.L >= 8.99) life.L = 0; e.target.textContent = life.playing ? 'Pause' : 'Play'; };
 $('chapters').innerHTML = CHAPTERS.map((c, i) => `<button data-ch="${i}">${i + 1}. ${c[0]}</button>`).join('');
 document.querySelectorAll('[data-ch]').forEach(b => b.onclick = () => { life.playing = false; $('lplay').textContent = 'Play'; setLife(+b.dataset.ch + (+b.dataset.ch === 3 ? 0.9 : 0.5)); });
+// taken-apart UI
+$('apartK').oninput = (e) => { apart.k = +e.target.value / 100; applyApart(); };
+$('apartP').oninput = (e) => { apart.p = +e.target.value / 100; applyApart(); };
+document.querySelectorAll('[data-apart]').forEach(b => b.onclick = () => apartView(b.dataset.apart));
+$('apartLbl').onclick = () => { apart.labels = !apart.labels; applyApart(); };
+$('apartReset').onclick = () => { apart.k = 0; apart.p = 0; apart.labels = false; applyApart(); };
+$('apartShot').onclick = () => {   // the still for the PDF: the canvas, with the labels on screen drawn in
+  composer.render();
+  const src = renderer.domElement, c = document.createElement('canvas'); c.width = src.width; c.height = src.height;
+  const g = c.getContext('2d'), s = src.width / innerWidth; g.drawImage(src, 0, 0);
+  g.font = `${11.5 * s}px Inter, sans-serif`; g.textBaseline = 'middle'; g.lineWidth = s;
+  for (const l of apartLabels) {
+    if (!l.visible || l.el.style.display === 'none') continue;
+    const r = l.el.getBoundingClientRect(); if (!r.width) continue;
+    g.fillStyle = 'rgba(8,12,20,.8)'; g.strokeStyle = 'rgba(255,255,255,.18)'; g.beginPath();
+    g.roundRect ? g.roundRect(r.left * s, r.top * s, r.width * s, r.height * s, 7 * s) : g.rect(r.left * s, r.top * s, r.width * s, r.height * s);
+    g.fill(); g.stroke(); g.fillStyle = '#e8edf3'; g.fillText(l.el.textContent, (r.left + 8) * s, (r.top + r.height / 2) * s);
+  }
+  const a = document.createElement('a'); a.href = c.toDataURL('image/png'); a.download = 'hcsa-taken-apart.png'; a.click();
+};
 // quality: phones get a lighter renderer (no shadows, no glass refraction, no bloom, fewer lights)
 const glassHigh = { transmission: glass.transmission, opacity: glass.opacity, transparent: glass.transparent };
 let quality = 'high';
@@ -1921,13 +2017,21 @@ function setQuality(q) {
 }
 $('qual').onclick = () => setQuality(quality === 'high' ? 'low' : 'high');
 if (/[?&]q=low/.test(location.search) || (matchMedia('(pointer: coarse)').matches && Math.min(screen.width, screen.height) < 820)) setQuality('low');
-window.__setMode = setMode; window.__api = { setVisit, setLife, setSystem, setPressure, goStop, shield, setPlant, updateShields, setShutters, shutterPresets };
+window.__setMode = setMode; window.__api = { setVisit, setLife, setSystem, setPressure, goStop, shield, setPlant, updateShields, setShutters, shutterPresets, apart, applyApart, apartView };
 
 // url hash picks a starting view (used for stills)
 const startView = location.hash.slice(1) || 'approach';
 setSun(38);
-if (['walk','systems','shields','visit','life'].includes(startView)) { go('approach', true); setMode(startView); } else go(startView, true);
+if (['walk','systems','shields','visit','life','apart'].includes(startView)) { go('approach', true); setMode(startView); } else go(startView, true);
 if (/[?&]sun=/.test(location.search)) { const s = +new URLSearchParams(location.search).get('sun'); setSun(s); }
+{ // ?apart=0.7&panel=0.8&labels=1&view=whole|hex|pent|mast opens the taken-apart mode for a scripted still (values above 1 read as per cent)
+  const q = new URLSearchParams(location.search), frac = (v) => { v = +v || 0; return clamp(v > 1 ? v / 100 : v, 0, 1); };
+  if (q.has('apart') || q.has('panel')) {
+    apart.k = frac(q.get('apart')); apart.p = frac(q.get('panel')); apart.labels = q.get('labels') === '1';
+    if (mode !== 'apart') { go('approach', true); setMode('apart'); } else applyApart();
+    apartView(q.get('view') || 'whole', true);
+  }
+}
 
 addEventListener('resize', () => {
   camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix();
