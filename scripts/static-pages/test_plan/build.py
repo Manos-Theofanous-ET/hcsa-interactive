@@ -4,8 +4,8 @@
 Outputs
   site     public/tests/index.html (team side of hcsa-site, self-hosted fonts, site nav)
   artifact out/index.html          (Google Fonts, no site nav) for the claude.ai artifact
-  md       out/HCSA_physical_test_plan_13Nov2026.md (Drive and Project text copy)
-  pdf      out/HCSA_physical_test_plan_13Nov2026.pdf (headless Chrome, still frames)
+  md       out/HCSA_physical_test_plan_14Nov2026.md (Drive and Project text copy)
+  pdf      out/HCSA_physical_test_plan_14Nov2026.pdf (headless Chrome, still frames)
 
 Run: python3 build.py [all|site|artifact|md|pdf]
 """
@@ -16,7 +16,7 @@ import data as D
 
 SITE = os.path.abspath(os.path.join(HERE, "..", "..", ".."))
 OUT = os.path.join(HERE, "out"); os.makedirs(OUT, exist_ok=True)
-STAMP = "13Nov2026"
+STAMP = "14Nov2026"
 ANIM = open(os.path.join(HERE, "anim.js"), encoding="utf-8").read()
 
 

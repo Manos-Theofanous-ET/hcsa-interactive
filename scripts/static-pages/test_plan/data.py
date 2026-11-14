@@ -20,7 +20,7 @@ Status keys used in the parts lists:
   counted   counted under another test
 """
 
-DATE = "13 November 2026"
+DATE = "13 November 2026, updated 14 November"
 
 STATUS = {
     "have": ("In hand", "ok"),
