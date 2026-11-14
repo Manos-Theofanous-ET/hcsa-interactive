@@ -123,7 +123,7 @@ dict(
 # ==========================================================================
 dict(
     id="t1", code="T1", name="Seam slices, 75, 150 and 225 mm, pulled apart",
-    when="Late January to February 2027, in the first Dewesoft loan batch (dates set in late November)",
+    when="Late January to February 2027, in the first Dewesoft loan batch (dates set in late November), if the parts are funded and made by then",
     state="Drawn (TP-00 to TP-04, STEP files); not checked, not ordered", state_cls="pend",
     anim_caption="A full-size cut through the seam: frame A on the left, frame B with the two cords and the silicone bead on the right, one bolt between them. Run 1 pulls straight, run 2 pries the joint open the way cabin pressure does. Gaps are drawn about 150 times too big so they can be seen.",
     what=[
@@ -156,8 +156,8 @@ dict(
     why=[
         "Bolts, cords and glands do not scale down, so the seam is tested at full size. A whole seam is far too big for a lab frame; a slice is not.",
         "Three lengths: one bolt shows the bolt and the seal, two add the bending of the web between bolts, three give a middle bolt that sees two neighbours, like every bolt in a real seam. The October seam model put the 150 mm and long-seam bolts within 0.23 percent of each other; the test checks it at Rev F.",
-        "Run 2 pries rather than pulls straight because the seam model shows pressure opens the seam by rotating it about its cabin-side edge from the first newton. Run 1 is the simple control; whether it stays in the plan is open.",
-        "Prof. Henann's rule: a joint that does not break at the bolt cannot be trusted to the model alone and has to be pulled.",
+        "Run 2 pries rather than pulls straight because the seam model shows pressure opens the seam by rotating it about its cabin-side edge from the first newton. Run 1 is the simple control. Its pull sits 14 mm off the slices' pull line (z 90 against z 76); we think that does not matter, and it is on the list for Marco.",
+        "Prof. Henann's rule: if the joint does not break at the bolt, it cannot be simulated and must be pulled; if it does, the maker's bolt data is enough.",
     ],
     passes=[
         "At the worst-bay hold, the gap between the cords stays under 0.11 mm and the port pressure holds",
@@ -208,7 +208,7 @@ dict(
         "30 TML strain gauges agreed (they ship once we confirm the lead wire)",
         "The Dewesoft recorder agreed in principle",
         "The Instron, free from 18 Nov",
-        "The seam model's prediction to compare against (D1, 5 Nov)",
+        "The seam model at Rev F (D1, 5 Nov), to file the predictions from",
     ],
     need=[
         "Money for the machined parts, then quotes (Xometry from the STEP pack; PCBWay if the sponsorship comes through)",
@@ -216,13 +216,13 @@ dict(
         "The Instron rate and the three frame interfaces measured with Jerry, then the adapters drawn and made",
         "A safety shield",
         "The hold points and pass lines restated against 12.3 psia, and the seam model's prediction filed for each gauge",
-        "A decision on whether run 1 stays in the plan",
+        "Marco's view on the run 1 pull line, 14 mm off (17 Nov)",
     ],
 ),
 # ==========================================================================
 dict(
     id="t550", code="SA-550", name="The 550 mm joint article: squeeze, leak and the sealing gap",
-    when="Leak test January 2027 (December only if machining starts by mid-November); the prying pull goes in the Dewesoft batch",
+    when="Leak test January 2027 at the earliest, once the machining is funded; the prying pull goes in the Dewesoft batch",
     state="Drawn (TP-03, moved fitting agreed 10 Nov); not ordered", state_cls="pend",
     anim_caption="The joint seen face on, 550 mm long: two cords along the length, the silicone bead, two seam bolts each side of a dummy hardpoint. It is tightened, sealed, pressurised between the cords, shimmed, then pried open while the leak is read against the gap.",
     what=[

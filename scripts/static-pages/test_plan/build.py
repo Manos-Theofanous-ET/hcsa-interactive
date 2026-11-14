@@ -245,11 +245,11 @@ def summary_section():
     tot, per = totals()
     rows = []
     for t, s in per:
-        n_have = len(t["have"]); n_need = len(t["need"])
+        n_need = len(t["need"])
         rows.append('<tr><td><a href="#%s"><span class="num">%s</span></a></td><td>%s</td><td>%s</td><td><span class="chip %s">%s</span></td>'
-                    '<td class="r num">%s</td><td class="r num">%s</td><td class="num">%d / %d</td></tr>'
+                    '<td class="r num">%s</td><td class="r num">%s</td><td><span class="chip buy">No</span> %d thing%s still needed</td></tr>'
                     % (t["id"], e(t["code"]), e(t["name"]), e(t["when"]), t["state_cls"], e(t["state"]),
-                       money(s["need"] or s["later"]) + ("" if s["need"] else " later"), str(s["notpriced"]), n_have, n_need))
+                       money(s["need"] or s["later"]) + ("" if s["need"] else " later"), str(s["notpriced"]), n_need, "" if n_need == 1 else "s"))
     tiles = ('<div class="tiles">'
              '<div class="tile buy"><span class="v">%s</span><span class="k">to buy for T0, T1, SA-550 and T2 (unfunded today)</span></div>'
              '<div class="tile muted"><span class="v">%s</span><span class="k">T3 corner estimate, not needed before late 2027</span></div>'
@@ -260,8 +260,8 @@ def summary_section():
     return ('<section id="summary"><div class="wrap"><h2>The tests at a glance</h2>'
             '<p class="small" style="margin-top:8px">Budget today: $0. Prices are the 10 November budget sheet, mostly 5 October list estimates; the machining lines were made for 140 mm frames and will rise for the 180 mm Rev F frames.</p>'
             + tiles +
-            '<div class="tw"><table class="sum"><thead><tr><th>Test</th><th>What</th><th>When</th><th>State</th><th class="r">To buy</th><th class="r">Not priced</th><th>Have / still needed</th></tr></thead><tbody>%s</tbody></table></div>'
-            '<p class="small">The last column counts the readiness items listed at the end of each test: what is in hand against what still has to happen before it can run.</p>'
+            '<div class="tw"><table class="sum"><thead><tr><th>Test</th><th>What</th><th>When</th><th>State</th><th class="r">To buy</th><th class="r">Not priced</th><th>Ready to test?</th></tr></thead><tbody>%s</tbody></table></div>'
+            '<p class="small">No test is ready yet. The last column counts what still has to happen before each test can run; the section on each test lists it, next to what we already have.</p>'
             '</div></section>' % "".join(rows))
 
 
@@ -327,9 +327,9 @@ def markdown():
     tot, per = totals()
     out += ["", "## At a glance", "",
             "Budget today: $0. To buy for T0, T1, SA-550 and T2: %s (unfunded). T3 corner estimate, later: %s. %d lines not priced yet. SendCutSend credit in hand: $500. Dewesoft recorder on loan (agreed): value $4,076." % (money_md(tot["need"]), money_md(tot["later"]), tot["notpriced"]), "",
-            "| Test | When | State | To buy | Not priced |", "| --- | --- | --- | --- | --- |"]
+            "| Test | When | State | To buy | Not priced | Ready to test? |", "| --- | --- | --- | --- | --- | --- |"]
     for t, s in per:
-        out.append("| %s %s | %s | %s | %s | %d |" % (t["code"], t["name"], t["when"], t["state"], money_md(s["need"] or s["later"]), s["notpriced"]))
+        out.append("| %s %s | %s | %s | %s | %d | No: %d things still needed |" % (t["code"], t["name"], t["when"], t["state"], money_md(s["need"] or s["later"]), s["notpriced"], len(t["need"])))
     out += ["", "## What has to be made, and who makes it", "", "| Who | What | For | Where it stands |", "| --- | --- | --- | --- |"]
     out += ["| %s | %s | %s | %s |" % f for f in D.FAB]
     out += ["", "## The rules we work by", ""] + ["%d. %s" % (i + 1, r) for i, r in enumerate(D.RULES)]
