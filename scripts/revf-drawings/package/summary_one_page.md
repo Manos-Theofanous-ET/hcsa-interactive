@@ -1,6 +1,6 @@
 # HCSA Rev F release package, on one page
 
-For Marco Cross and Rick Fleeter, for the fabrication review on Friday 13 November at 1:00. It is the release of drawings in our schedule and replaces the Master Document of 27 October (Rev E). Rev F is the working baseline of November 2026: nothing is released for manufacture, and the test pieces are for quotation. Manos Theofanous and the HCSA team; checked and corrected 9 November 2026.
+For Marco Cross and Rick Fleeter, for the fabrication review on Tuesday 17 November at 10:00. It is the release of drawings in our schedule and replaces the Master Document of 27 October (Rev E). Rev F is the working baseline of November 2026: nothing is released for manufacture, and the test pieces are for quotation. Manos Theofanous and the HCSA team; checked and corrected 9 November, brought up to date 13 November 2026.
 
 ## What is in it
 
@@ -12,7 +12,7 @@ A truncated icosahedron 11,151 mm across: 20 glass hexagons and 12 solid pentago
 
 ## What the computer tests say
 
-At 0.8 atm the corners pass with about 12 kN of room on the worst tie, 214.5 against 227 kN at proof; with the hatch open at 1 atm they pass by 0.7 kN and the main rib by under 1 percent, so that case is the design point. The plain seams pass with about 40 percent to spare. The hardpoint where it was drawn fails: the frames hinge about it and the seals open at 0.2 to 0.5 atm. On the line of the pull the seal at the fitting holds to 2.5 atm, and the bolt beside it is 3 percent short of its 1.93 atm; runs with that bolt closer and tighter, and with the tie preload at 180 and 160 kN, are on the laptop now. The panes hold under steady launch loads; vibration is a hand estimate only.
+At 0.8 atm the corners pass with about 12 kN of room on the worst tie, 214.5 against 227 kN at proof; with the hatch open at 1 atm they pass by 0.7 kN and the main rib by under 1 percent, so that case is the design point. The plain seams pass with about 40 percent to spare. The hardpoint where it was drawn fails: the frames hinge about it and the seals open at 0.2 to 0.5 atm. On the line of the pull the seal at the fitting holds to 2.5 atm, and the bolt beside it is 3 percent short of its 1.93 atm; runs with that bolt closer and tighter, and with the tie preload at 180 and 160 kN, were restarted on the laptop on 13 November. The panes hold under steady launch loads; vibration is a hand estimate only.
 
 ## What the solids and the check found
 
@@ -20,7 +20,7 @@ The corner node now fits: the blocks have their real leaning joint faces, and th
 
 ## What is still open
 
-Rick signs the 0.8 atm cabin, the withdrawal of leak before break and the factors on Tuesday, and decides the hardpoint position. Without an answer yet: a hardpoint fitting that fits the frame, the flight alloy (6061 analysed, 7050 proposed), how the seal loops turn their corners at R16, the clamp that holds the panes through vibration, the mass, and which side the pentagon closure plate sits on. Life support, water, power and radiation are at concept level.
+Rick signed the 0.8 atm cabin, the withdrawal of leak before break and the factors on 10 November, and agreed to move the hardpoint onto the line of the pull. Without an answer yet: a hardpoint fitting that fits the frame, the flight alloy (6061 analysed, 7050 proposed), how the seal loops turn their corners at R16, the clamp that holds the panes through vibration, the mass, and which side the pentagon closure plate sits on. Life support, water, power and radiation are at concept level.
 
 ## For Marco: positions and questions
 

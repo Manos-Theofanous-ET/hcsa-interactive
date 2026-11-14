@@ -1,6 +1,6 @@
 # 2. The flight parts, drawn and in 3D
 
-Nine A3 sheets follow this page. They are drawn from the Rev F parameter file, not traced from CAD, and nobody has checked them for machining yet; that is what Friday is for. The same parts are in the parts library on the website, each with a STEP file, a GLB for the browser and four drawing views, and the whole facility is in the master model.
+Nine A3 sheets follow this page. They are drawn from the Rev F parameter file, not traced from CAD, and nobody has checked them for machining yet; that is what the call on 17 November is for. The same parts are in the parts library on the website, each with a STEP file, a GLB for the browser and four drawing views, and the whole facility is in the master model.
 
 ## The sheets
 
@@ -9,10 +9,10 @@ Nine A3 sheets follow this page. They are drawn from the Rev F parameter file, n
 | RF-01 | The main rib, option B, and the secondary rib, cut through, with the 21 mm panes seated and the glass bite on each. The two new requirements are in the notes: the nodes must hold the main rib sideways, and the panes need an answer for launch | Ribs DECIDED; brace PROPOSAL; pane at launch OPEN |
 | RF-02 | A seam cut through at a plain bolt: the 180 mm frame, the two glands, the RTV bead, the bolt at 4 kN, and the study of the seal loop corners against Parker's R16 minimum | Frame, gland, bolt DECIDED; loop corners OPEN |
 | RF-03 | The T1 seam slices and the 550 mm article at 180 mm deep. Superseded in detail by the TP sheets in part 3, kept for the record | For reference |
-| RF-04 | The transfer lock between the 0.8 atm module and a 1 atm host, as a concept: the hatch that stays shut while the pressures differ, the equalising valves and our relief valve | Concept, not sized |
+| RF-04 | The transfer lock between the 0.8 atm module and a 1 atm host, as a concept: the hatch that stays shut while the pressures differ, the equalising valves and our relief valve | Concept, not sized. Rick agreed the transfer lock with the 0.8 atm cabin on 10 Nov; the sheet's status line ("Rick to agree") predates that |
 | RF-05 | A hexagon-to-hexagon seam cut at the first bolt, 271 mm from the corner, with every feature on the joint face by z', both hardpoint positions as envelopes, and the table that turns z' into panel depth for the hexagon and the pentagon mitres | Seam DECIDED; hardpoint position OPEN; outer glass layers OPEN |
 | RF-06 | The hexagon panel from the cabin side: 6 main ribs, 108 secondary rib segments, 96 panes, 18 six-way nodes, 18 hardpoints, the 16 bolts on one edge, and the parts list with masses | Layout DECIDED; blocks, hardpoints and nodes PROPOSAL |
-| RF-07 | The hardpoint fitting as the October model has it, at the moved position: what fits (seals, bolts) and what does not (flange, ribs, pin insertion) | PROPOSAL, not yet buildable; position decided Tuesday |
+| RF-07 | The hardpoint fitting as the October model has it, at the moved position: what fits (seals, bolts) and what does not (flange, ribs, pin insertion) | PROPOSAL, not yet buildable; position on the line of the pull agreed 10 Nov |
 | RF-08 | The corner node in plan and on the joint face, the C1 results, Marco's machining points (inside radii, a landing for the main rib, the material), and the P-11 brace | Block PROPOSAL; ties DECIDED |
 | RF-09 | The pentagon panel from the cabin side, with its roles, the closure plate as five triangles, and the solar stand-off | Ribs and frame DECIDED; closure side OPEN (Q57) |
 

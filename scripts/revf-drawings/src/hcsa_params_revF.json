@@ -21,10 +21,10 @@
   "grid_k": [4, "DECIDED 23 Oct"]
  },
  "cabin": {
-  "pressure_atm": [0.8, "DECIDED 4 Nov"],
+  "pressure_atm": [0.8, "DECIDED 4 Nov, signed by Rick 10 Nov"],
   "o2_fraction": [0.26, "DECIDED 4 Nov (with 0.8 atm)"],
   "design_pressure_psia": [12.3, "PROPOSAL_APPLIED (own relief valve)"],
-  "ultimate_factor": [2.0, "carried; Rick to confirm"],
+  "ultimate_factor": [2.0, "confirmed by Rick 10 Nov (1.5 at proof)"],
   "host": ["commercial station, Orbital Reef class, 1 atm", "DECIDED 4 Nov"],
   "docking_interface": ["hatch-shut transfer lock + relief valve 12.0-12.3 psid, concept, not sized", "PROPOSAL_APPLIED"]
  },

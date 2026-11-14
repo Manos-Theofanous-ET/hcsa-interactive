@@ -16,8 +16,8 @@ SITE = os.path.abspath(os.path.join(HERE, "..", "..", ".."))          # the repo
 DL = os.path.join(SITE, "public", "downloads")
 OUT = os.path.join(HERE, "out"); os.makedirs(OUT, exist_ok=True)
 DRAFT = len(sys.argv) > 1 and sys.argv[1] == "draft"
-DATE = "draft of 9 November 2026" if DRAFT else "12 November 2026"
-STAMP = "draft_9Nov2026" if DRAFT else "12Nov2026"
+DATE = "draft of 9 November 2026" if DRAFT else "13 November 2026"
+STAMP = "draft_9Nov2026" if DRAFT else "13Nov2026"
 
 SHEETS_RF14 = os.path.join(DL, "HCSA-Rev-F-sheets-RF-01-to-RF-04-5-Nov-2026.pdf")
 SHEETS_RF59 = os.path.join(DL, "HCSA-Rev-F-sheets-RF-05-to-RF-09-9-Nov-2026.pdf")
@@ -92,7 +92,7 @@ def cover_html(toc_rows):
 <h1>HCSA Rev F release package</h1>
 <p class="sub">The facility taken apart, every flight part drawn and in 3D, the test pieces with their shop drawings and STEP files, what the computer tests found, and what is still open.</p></div>
 <div><table>
-<tr><td>For</td><td>Marco Cross, fabrication and feasibility review, Friday 13 November 2026, 1:00, and Rick Fleeter</td></tr>
+<tr><td>For</td><td>Marco Cross, fabrication and feasibility review, Tuesday 17 November 2026, 10:00, and Rick Fleeter</td></tr>
 <tr><td>From</td><td>Manos Theofanous and the HCSA team</td></tr>
 <tr><td>Date</td><td>{DATE}</td></tr>
 <tr><td>Replaces</td><td>The Master Document of 27 October 2026 (Rev E)</td></tr>
@@ -188,7 +188,7 @@ def main():
             page_no += len(r.pages)
 
     writer.add_metadata({"/Title": "HCSA Rev F release package", "/Author": "Manos Theofanous, HCSA team, Brown University",
-                         "/Subject": "Release of drawings for the fabrication review with Marco Cross, 13 Nov 2026"})
+                         "/Subject": "Release of drawings for the fabrication review with Marco Cross, 17 Nov 2026"})
     final = os.path.join(OUT, f"HCSA_RevF_release_package_{STAMP}.pdf")
     raw = final[:-4] + "_raw.pdf"
     with open(raw, "wb") as f:

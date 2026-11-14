@@ -1,10 +1,10 @@
 # 0. Read this first
 
-This is the Rev F release package for Marco Cross, for the call on Friday 13 November at 1:00. It replaces the Master Document of 27 October, which described Rev E. It is shorter, and it leads with the things the call is about: the parts, how they are made, and the test pieces a shop has to quote.
+This is the Rev F release package for Marco Cross, for the call on Tuesday 17 November at 10:00, on Google Meet. It replaces the Master Document of 27 October, which described Rev E. It is shorter, and it leads with the things the call is about: the parts, how they are made, and the test pieces a shop has to quote.
 
 ## What changed since the 27 October document
 
-Rev E became Rev F in the first week of November. Eight decisions did it.
+Rev E became Rev F through the eight decisions of 2 to 5 November below. On 10 November Rick signed the ones that needed him and agreed to move the hardpoint.
 
 | Date | Decision | Why |
 | --- | --- | --- |
@@ -16,12 +16,14 @@ Rev E became Rev F in the first week of November. Eight decisions did it.
 | 5&nbsp;Nov | Edge frame 180 mm deep; glands 7.1 x 4.0 mm; seam bolt NAS6705U27 with a KFN670 nut at 4 kN | The seam model at 180 mm passes with about 40 percent margin |
 | 5&nbsp;Nov | Seam bolt row stays at z' 58 | Moving it to z' 70, to give the seal loops rounder corners, failed the seam model |
 | 5&nbsp;Nov | We stop quoting 35 MPa as the glass allowable until our own bars measure it | SCHOTT's figure is 25 MPa, a 5 percent fractile on abraded glass, with no Weibull data |
+| 10&nbsp;Nov | Rick signs the 0.8 atm cabin, withdraws leak before break as a requirement, and confirms the factors, 1.5 at proof and 2.0 at ultimate | In the plain bays the metal yields before the seals open, so leak before break cannot hold; the factors are NASA's |
+| 10&nbsp;Nov | The hardpoint fitting moves onto the line of the pull (z' 46 to 106, was 110 to 170) | As drawn the frames hinge about it and the seals open at 0.2 to 0.5 atm |
 
-Rick still has to sign three things on Tuesday 10 November: the 0.8 atm cabin with its transfer lock, which is in the table, and two that go with it, withdrawing leak before break and the safety factors of 1.5 at proof and 2.0 at ultimate. Where the package depends on them it says so.
+The position of the hardpoint is settled, but the part behind it still has to be redesigned to fit the 180 mm frame (part 2, sheet RF-07).
 
 ## What the computer tests found, in two sentences
 
-At 0.8 atm the corners pass with about 12 kN of room on the worst tie, and still pass, by 0.7 kN, if the hatch is left open and the cabin goes to 1 atm; the seams pass with about 40 percent margin. The hardpoint as drawn does not work, because the fitting sits 64 mm deeper than the line of the pull and the two frames hinge about it, so the seals open at 0.2 to 0.5 atm; moved onto the line of the pull the seal at the fitting holds to 2.5 atm, with the bolt beside it 3 percent short of its requirement, and that move is the decision for Tuesday.
+At 0.8 atm the corners pass with about 12 kN of room on the worst tie, and still pass, by 0.7 kN, if the hatch is left open and the cabin goes to 1 atm; the seams pass with about 40 percent margin. The hardpoint as drawn does not work, because the fitting sits 64 mm deeper than the line of the pull and the two frames hinge about it, so the seals open at 0.2 to 0.5 atm; moved onto the line of the pull the seal at the fitting holds to 2.5 atm, with the bolt beside it 3 percent short of its requirement, and Rick agreed that move on 10 November.
 
 ## How to read the package
 

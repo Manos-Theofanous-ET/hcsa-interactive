@@ -2,25 +2,28 @@
 
 *Written 7 November, brought up to date on 9 November: items the 8 November drawings and solids closed are marked done, and the sheet numbers are the Rev F ones.*
 
-This chapter pulls together the open questions register (rows Q01 to Q101), the Rev F open items of 5 November, the hardpoint and pane results of 6 and 7 November, Marco's comments of 7 November, and the "what is not yet proven" lists in TRUTH Rev D for launch, plants, air, water, thermal and radiation. Each item says who decides and what it holds up. Items that Marco can help with on Friday are marked **(Marco)**.
+This chapter pulls together the open questions register (rows Q01 to Q101), the Rev F open items of 5 November, the hardpoint and pane results of 6 and 7 November, Marco's comments of 7 November, and the "what is not yet proven" lists in TRUTH Rev D for launch, plants, air, water, thermal and radiation. Each item says who decides and what it holds up. Items that Marco can help with on 17 November are marked **(Marco)**.
 
-## 1. Decisions waiting on Rick, Tuesday 10 November
+## 1. What Rick decided on Tuesday 10 November, and what still waits on him
 
-- Sign the 0.8 atm cabin with 26 percent oxygen, docked to a 1 atm commercial station through a hatch-shut transfer lock (Q70, Q97 to Q99).
-- Withdraw leak before break as a requirement, since in the plain bays the metal yields before the seals open (Q93).
+Rick agreed these four on 10 November:
+
+- The 0.8 atm cabin with 26 percent oxygen, docked to a 1 atm commercial station through a hatch-shut transfer lock (Q70, Q97 to Q99).
+- Leak before break is withdrawn as a requirement, since in the plain bays the metal yields before the seals open (Q93).
 - The safety factors: 2.0 at ultimate and 1.5 at proof on the 12.3 psia design pressure, 145 MPa allowable on 6061-T6 (Q68).
-- The hardpoint fitting: move it onto the line of the pull (the HP1M study), add a tie on the space side of the seals, or bigger bolts next to the fitting. This changes sheet RF-07 and the TP3 envelope.
-- Glass bars now on the 0.5 kN frame, or in ENGN 1440 in the spring (Q42); his endorsements for Thornton Tomasetti, Research at Brown and ASTM (Q63 to Q65).
+- The hardpoint fitting moves onto the line of the pull (the HP1M study). This changes sheet RF-07 and the TP3 envelope.
+
+Still with him: glass bars now on the 0.5 kN frame, or in ENGN 1440 in the spring (Q42); his endorsements for Thornton Tomasetti, Research at Brown and ASTM (Q63 to Q65); and whether the transfer lock rules out the hatch-open case (see corner tie tightening below).
 
 ## 2. Structure
 
 | Item | What is open | Who, when | Holds up |
 | --- | --- | --- | --- |
-| Hardpoint position | As drawn the hardpoint seal fails (0.22 atm free, 0.47 held, against 1.93). Moved onto the pull line it holds. The nearest seam bolts are 131 to 141 mm from the hardpoint centre, clear of the 200 mm fitting. The fitting solids in the parts library are an envelope only and must be redrawn from the C3 model (a plate in two cheeks with the pins in double shear) | Manos and Rick decide; Claude redraws; HP1 rerun with real pins and bores | RF-07, the TP3 envelope, the 550 article's dummy hardpoint pockets |
-| Plain bolt next to the hardpoint | Its seal band reaches 0.11 mm at 1.87 atm, just under 1.93. A closer bolt (115 mm from the centre) and a higher preload (6 kN) are both running on the laptop, 9 Nov | Claude, laptop | RF-07 |
-| Corner node, machinability **(Marco)** | Marco: as drawn it cannot be machined; inside corners need radii an end mill can cut; it could be cast, which may change the material. Also the tie-to-fillet clash (Q29), the O10 corner seal section (Q27), the units on Heintges' 4-6 lap (Q28), and the way the main rib flanges enter the block | Manos with Marco Friday; Fusion | RE-06-2, T3 |
+| Hardpoint fitting | As drawn the hardpoint seal fails (0.22 atm free, 0.47 held, against 1.93). Moved onto the pull line it holds, and Rick agreed the move on 10 November. The nearest seam bolts are 131 to 141 mm from the hardpoint centre, clear of the 200 mm fitting. The fitting is now drawn from the C3 model (HP-02A, HP-02B, A-05): in the 180 mm frame it runs into the outer flange and the secondary ribs, and its pins cannot be put in past the seat lip, so it needs a redesign for the frame | Position decided 10 Nov; Claude redesigns the part; HP1 rerun with real pins and bores | RF-07, the TP3 envelope, the 550 article's dummy hardpoint pockets |
+| Plain bolt next to the hardpoint | Its seal band reaches 0.11 mm at 1.87 atm, just under 1.93. A closer bolt (115 mm from the centre) and a higher preload (6 kN) were set up on 9 Nov; the laptop shut down before they finished, and they were restarted on 13 Nov | Claude, laptop | RF-07 |
+| Corner node, machinability **(Marco)** | Marco: as drawn it cannot be machined; inside corners need radii an end mill can cut; it could be cast, which may change the material. Also the tie-to-fillet clash (Q29), the O10 corner seal section (Q27), the units on Heintges' 4-6 lap (Q28), and the way the main rib flanges enter the block | Manos with Marco, 17 Nov; Fusion | RE-06-2, T3 |
 | Corner block stress limit | 95th percentile 236 MPa at proof at 0.8 atm, 255 MPa with the hatch open; no limit has been set | Manos, Rick, Henann | Signing the corner |
-| Corner tie tightening | 198 kN by measured stretch. The band of 196.5 to 198.1 kN and the 0.7 kN hatch-open margin are both tighter than any tightening method can hold or any model can promise, so either the preload comes down (runs at 180 and 160 kN queued 9 Nov) or the hatch-open case is ruled out by the lock. A multi-jackbolt nut would set it with a hand wrench | Manos, with Marco on the method | RF-08, T3 |
+| Corner tie tightening | 198 kN by measured stretch. The band of 196.5 to 198.1 kN and the 0.7 kN hatch-open margin are both tighter than any tightening method can hold or any model can promise, so either the preload comes down (runs at 180 and 160 kN restarted 13 Nov) or the hatch-open case is ruled out by the lock. A multi-jackbolt nut would set it with a hand wrench | Manos, with Marco on the method | RF-08, T3 |
 | Corner block stock | 2219-T852 hand forging was proposed (Q85); we now propose machining from 7050-T7451 or 2219-T851 plate (9 Nov note); no quotes yet (Q58 for ties and titanium) | Manos, suppliers | Cost |
 | Main rib bracing | The star-plate node must hold the main rib's cabin flange sideways every 562 mm (Q95). Drawn as P-11, a proposal with no check behind it | Claude | RF-08, parts A-01 |
 | Rib joints | 1,620 rib joints inside the pressure boundary and the main rib splice are not designed; the bolted star-plate grid is now the way (Marco, 7 Nov, by serviceability) | Manos | RF-06, cost |
@@ -57,7 +60,7 @@ This chapter pulls together the open questions register (rows Q01 to Q101), the 
 | T0 bars | The test-bar drawing and the arris size from Swift (Q04); two bar sizes and the count (Q51); order after the funding decision | Manos, Swift, Rick | T0 |
 | T2 water panel | Redraw the 1:4 article on the Rev F grid with option B ribs and the tie-bolt circle moved in; a host and a safety sign-off (Q45); a budget for B E Peterson (Q46); the gauge map. Marco says do it, with a written plan, video and a process watcher | Manos, Breuer | T2 in February or March |
 | Pentagon closure **(Marco)** | Which side of the ribs the 10 mm closure plate goes on and how it is held and sealed as five triangles (Q57) | Manos, Marco | RF-09 |
-| Printed fit checks | PLA arrives Tuesday 10 November; the PCBWay files still have to be uploaded; the 1:20 model should show option B ribs | Manos | Fit checks |
+| Printed fit checks | PLA was due on 10 November; the PCBWay files still have to be uploaded; the 1:20 model should show option B ribs | Manos | Fit checks |
 | Cold soak | No chamber for the 550 article at -40 C **(Marco)**; D6 not rerun with butyl | Manos | D6 |
 
 ## 5. Tests and instruments
@@ -127,15 +130,15 @@ Nobody on this semester's team owns air, water or thermal; Skye and Lauren wrote
 
 ## 14. Documents, website and the paper
 
-- TRUTH Rev F exists only as replacement text; there is no assembled Rev E or Rev F document. Rev D (14 October) is the last full one. Manos signs Rev F once Rick has answered Q68, Q70 and Q93 (Q76).
+- TRUTH Rev F exists only as replacement text; there is no assembled Rev E or Rev F document. Rev D (14 October) is the last full one. Rick answered Q68, Q70 and Q93 on 10 November, so Rev F can now be assembled and signed (Q76).
 - The 47 items on the Rev E fix list of 24 October are not applied. The team pages still show the spring team (Q73); the Heintges credit wording (Q74); the case for the shape (Q69); some meetings have no notes (Q71).
 - The Master Document of 27 October is Rev E; this package is its Rev F addendum until it is rebuilt.
-- The website carries Rev F since 5 November; the parts library still lacks the corner block, the hardpoint, the pentagon, the shutters and the outer layers; the pane files at 21 mm need regenerating. Marco's "PhD" comes off the credits.
+- The website carries Rev F since 5 November. Since 9 November the parts library has the corner blocks, the hardpoint fitting, the pentagon closure plate and panel, the node assembly and the pane at 21 mm; it still lacks the shutters and the outer layers, and PL-01 and A-04 still use the straight corner block of 8 November. Marco's credit no longer says "PhD" (13 November).
 - A conference entry for any talk other than Space Horizons 2026; a Rev E spacewalk and robot assembly time for TRUTH.
 
 ## 15. Money and schedule
 
-- No purchasing budget until the funding decision, expected around Thursday 12 November. Then: Trans-Tek, the Swift bars, the cord, the RTV and the A286 bolts.
+- No purchasing budget until the funding decision comes through. Then: Trans-Tek, the Swift bars, the cord, the RTV and the A286 bolts.
 - Thornton Tomasetti ($13,612 for T1), Research at Brown (up to $500) and Champlin ($19,885 for the water rig) are open; the NASA Rhode Island Space Grant is spring 2027.
 - The 550 article leak test needs machining to start by mid-November to make 7 to 14 December; the T1 slices are needed before the late-January Dewesoft loan; the fall report is due 11 December.
 - The flight cost estimate ($8M to $26M for the structure) has no quotes behind most lines; Marco thinks many of our force values add cost without need.

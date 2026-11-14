@@ -47,6 +47,6 @@ export const earlierMembers: TeamMember[] = [
   { name: 'Katie Liu', role: 'Structure and FEA' },
   { name: 'Keren Dial', role: 'Design and outreach' },
   { name: 'Lauren Hogan', role: 'Thermal and the water loop' },
-  { name: 'Marco Cross, PhD', role: 'Fabrication advisor' },
+  { name: 'Marco Cross', role: 'Fabrication advisor' },
   { name: 'Skye Rosario', role: 'Thermal and life support · Presenter, Brown Space Horizons 2026' },
 ]

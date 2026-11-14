@@ -10,7 +10,7 @@ These are the parts a shop quotes and makes this winter. The five TP sheets foll
 | T1-150 | A 150 mm slice, two bolts | The same | The same | 6.1 and 29.5 kg |
 | T1-225 | A 225 mm slice, three bolts | The same | The same | 9.1 and 44.4 kg |
 | SA-550 | The 550 mm article: a seam with a dummy hardpoint, three 40 mm pins at 60 mm pitch in a 200 mm block, and 2 + 2 seam bolts beside it. The pins are loose by design and the article is pulled in prying through the lugs, so the seam bolts and the seals carry it | Frame A, frame B with the hardpoint block, 2 pull blocks | Frames 6061-T651, blocks 4140 QT | 21.9 kg of frames, 109 kg of blocks |
-| SA-550 moved | The same article with the dummy fitting moved onto the line of the pull (z' 46 to 106 instead of 110 to 170). We make one or the other, after Tuesday's decision | The same | The same | The same |
+| SA-550 moved | The same article with the dummy fitting moved onto the line of the pull (z' 46 to 106 instead of 110 to 170). This is the one we make: Rick agreed the moved fitting on 10 November. Sheet TP-03 draws both positions and the STEP zip has both | The same | The same | The same |
 | F-01 to F-03 | The pinned fixture that puts the article in the frame: the lug plate, the fork with its 20 mm pin, and the adapter to the machine | 3 pieces | 4140 QT | See TP-04 |
 
 Each frame has legs 200 mm long so the pull block can bolt to it from both bearing faces with M12 screws. Run 1 pulls straight through the block centre at z 90 with an M24 rod, run 2 pulls through a pin on the z 24 line, near the outer flange, which pries the seam open the way pressure does. The pull blocks are tall (160 mm) because the seat lip at the cabin face moved the frame to 180 mm deep; the old problem of a 2 mm wall round the M24 thread is gone.
@@ -43,7 +43,7 @@ The test pieces use catalogue hardware from McMaster-Carr. At 4 kN the seam bolt
 
 ## What a shop needs from us
 
-The STEP files and the TP sheets, the quantities (one of each slice, one 550 article, two blocks per article, one fixture set), the material and heat treatment, the tolerance table, and the surface finish on the joint face and the glands, Ra 0.8. Manos is getting instant quotes from Xometry with this zip this weekend, as he told Marco.
+The STEP files and the TP sheets, the quantities (one of each slice, one 550 article, two blocks per article, one fixture set), the material and heat treatment, the tolerance table, and the surface finish on the joint face and the glands, Ra 0.8. This zip is what goes to Xometry for instant quotes, as Manos told Marco.
 
 ## Still open on the test pieces
 

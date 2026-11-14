@@ -6,9 +6,9 @@
 | --- | --- | --- |
 | Shape | Truncated icosahedron, 32 flat panels, 20 glass hexagons and 12 solid pentagons, 90 seams, 60 corners | LOCKED |
 | Size | 11,151 mm across the corners; every edge 2,250 mm | LOCKED |
-| Cabin | 0.8 atm (81 kPa) with 26 percent oxygen; design pressure 12.3 psia with our own relief valve | DECIDED 4 Nov, Rick to sign |
+| Cabin | 0.8 atm (81 kPa) with 26 percent oxygen; design pressure 12.3 psia with our own relief valve | DECIDED 4 Nov, signed by Rick 10 Nov |
 | Host | A module for a 1 atm commercial station, joined through a hatch-shut transfer lock | DECIDED 4 Nov |
-| Factors | 1.5 at proof (1.26 atm), 2.0 at ultimate (1.67 atm) | Carried, Rick to confirm |
+| Factors | 1.5 at proof (1.26 atm), 2.0 at ultimate (1.67 atm) | Confirmed by Rick 10 Nov |
 | Main rib | Option B, I 400 x 100 x 25, web 8, 6 per hexagon and 5 per pentagon, with two bolted cap angles | DECIDED 4 Nov |
 | Secondary rib | I 180 x 60 x 10, web 5, custom extrusion, on a k4 grid at 562.5 mm pitch | DECIDED 2 Nov |
 | Edge frame | 180 mm deep, 20 mm web, 50 x 10 flanges, seat lip at the cabin face; 6061-T651 for tests; the flight alloy is open (all checks are against 6061-T6) | Section DECIDED 5 Nov; alloy OPEN |
@@ -16,7 +16,7 @@
 | Seals | Two loops of Parker BA500 butyl, 5.33 mm cord, in 7.1 x 4.0 mm glands at z' 18 and 32; RTV566 bead at z' 42 | Glands DECIDED 5 Nov; curing the RTV on the ground is open (Q80) |
 | Seam bolts | NAS6705U27 with KFN670 nut, A286, 4 kN by torque, 16 per seam at 75 mm pitch in bays of 3, 5, 5 and 3, row at z' 58; 1,440 on the shell | DECIDED 5 Nov |
 | Corner node | One machined block per panel corner, 180 blocks in 60 nodes of three, 120 degrees on a hexagon and 108 on a pentagon; four 7/8-14 Inconel 718 ties per face at 198 kN, limit 227 kN | Block PROPOSAL, preload DECIDED 2 Nov |
-| Hardpoints | 3 per seam at the quarter points, 270 on the shell; a titanium lug in a two-cheek clevis with three 40 mm pins at 60 mm pitch | PROPOSAL; position open until Tuesday; the part does not yet fit the 180 mm frame (RF-07) |
+| Hardpoints | 3 per seam at the quarter points, 270 on the shell; a titanium lug in a two-cheek clevis with three 40 mm pins at 60 mm pitch | PROPOSAL; position on the line of the pull agreed 10 Nov; the part does not yet fit the 180 mm frame (RF-07) |
 | Mass | 36.1 t in the shell model. The parts lists of 8 Nov add up to more, and the two are not reconciled yet (part 2) | Open |
 
 ## The facility taken apart

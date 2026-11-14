@@ -65,7 +65,7 @@ def leg_ys(L):
 
 # ---------------- TP-00 cover: index, notes, tolerance table, BOM ----------------
 def tp00(pdf):
-    fig = sheet("TP-00", "Cover: sheet list, notes, tolerances, parts list", "for quotation; tolerances and DFM items are proposals for Marco, 13 Nov")
+    fig = sheet("TP-00", "Cover: sheet list, notes, tolerances, parts list", "for quotation; tolerances and DFM items are proposals for Marco, 17 Nov")
     fig.text(0.03, 0.95, "HCSA test pieces, Rev F, 8 November 2026", fontsize=15, weight="bold", va="top")
     fig.text(0.03, 0.915, "The T1 seam slices (75, 150, 225 mm), the 550 mm seal article with its grip legs and dummy hardpoint, and the pull blocks, all at the 180 mm frame.\n"
              "Drawn from hcsa_params_revF.json (5 Nov). What changed from the 24 Oct Rev E draft: frame depth 140 to 180, gland 7.1 x 4.0, seam bolt NAS6705U27 at 4 kN,\n"
@@ -89,7 +89,7 @@ def tp00(pdf):
     for i, n in enumerate(notes): ax.text(0, 0.44 - i * 0.047, n, fontsize=7.3, va="top")
     # tolerance table
     ax2 = fig.add_axes([0.50, 0.47, 0.48, 0.40]); ax2.axis("off")
-    ax2.text(0, 1.0, "Tolerances: tight only where the seal or the fit needs it (proposal for Marco, 13 Nov)", fontsize=10, weight="bold", va="top")
+    ax2.text(0, 1.0, "Tolerances: tight only where the seal or the fit needs it (proposal for Marco, 17 Nov)", fontsize=10, weight="bold", va="top")
     tol = [("Feature", "As drawn 24 Oct", "Proposed", "Why"),
            ("Joint face flatness", "0.05 over the length", "0.10 per 150 mm, 0.15 over 550", "0.1 mm of gap moves the squeeze 2 points of 25 %"),
            ("Joint face finish", "Ra 0.8", "Ra 0.8 (keep)", "Parker face-seal finish"),
@@ -121,7 +121,7 @@ def tp00(pdf):
     rows += [("F-01", "Lug plate 80 x 100 x 20 (RE-03 rev B)", "4140 QT", 2, "1.05", "from the parts library STEP"),
              ("F-02", "Fork with M24 x 3 for the Instron adapter", "4140 QT", 2, "1.80", "parts library STEP"),
              ("F-03", "Pin 20 h6 x 70 with shoulder and E-clip groove", "17-4PH H900 or 4140 QT", 2, "0.20", "parts library STEP"),
-             ("SA-550-HPmoved-*", "The same three 550 parts with the dummy fitting bores at z 76 instead of 140 (if Tuesday chooses the moved fitting)", "as above", "-", "same", "same")]
+             ("SA-550-HPmoved-*", "The same three 550 parts with the dummy fitting bores at z 76 instead of 140 (make these: moved fitting agreed 10 Nov)", "as above", "-", "same", "same")]
     cols = (0, 0.13, 0.62, 0.75, 0.80, 0.89)
     for c, h in zip(cols, hdr): ax3.text(c, 0.9, h, fontsize=7.8, weight="bold", va="top")
     ax3.plot([0, 1], [0.86, 0.86], lw=0.6, c="k")
@@ -238,7 +238,7 @@ def tp02(pdf):
 
 # ---------------- TP-03 the 550 article ----------------
 def tp03(pdf):
-    fig = sheet("TP-03", "550 mm seal article with legs and the dummy hardpoint", "dummy fitting at z 140 (as drawn) or z 76 (moved): decision Tue 10 Nov; both STEPs")
+    fig = sheet("TP-03", "550 mm seal article with legs and the dummy hardpoint", "both positions drawn; make the moved one, z 76 (agreed 10 Nov)")
     L = 550
     for k, (hz, lab, name) in enumerate(((HP["z_as_drawn"], "as drawn (RE-06-1: fitting 110 to 170 deep)", "SA-550"), (HP["z_moved"], "moved onto the pull line (HP1M study: 46 to 106 deep)", "SA-550-HPmoved"))):
         ax = fig.add_axes([0.03, 0.62 - k * 0.3, 0.6, 0.28]); ax.set_aspect("equal"); ax.axis("off")

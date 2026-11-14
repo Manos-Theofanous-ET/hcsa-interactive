@@ -52,7 +52,7 @@ Marco called several forces achievable but unreasonable. For the corner tie the 
 
 There is a catalogue part made for this. A multi-jackbolt tensioner replaces the nut with a ring of small screws that each push on a hardened washer. Nord-Lock's Superbolt MT series reaches 145 kN on an M24 thread with eight screws at 14 N m each, and 215 kN on an M27 thread with six screws at 36 N m. So the tie can be set with a small hand torque wrench. The two questions it raises are size and accuracy: our 198 kN is above the standard M24 nut's capacity of 185 kN, so it needs either the high-strength series or a 1 inch stud, and the scatter of a jackbolt nut is better than a plain nut but not the one percent the hatch-open case wants. The stretch can still be read by an ultrasonic gauge on the stud end, and that reading, not the torque, is the record.
 
-The other half of the answer is to need less force. Two corner runs at 180 and 160 kN preload, at 0.8 atm, are queued on the laptop today; if the faces stay under 0.8 mm at proof, the preload comes down and so does everything that follows from it.
+The other half of the answer is to need less force. Two corner runs at 180 and 160 kN preload, at 0.8 atm, were set up on 9 November and restarted on 13 November after the laptop shut down; if the faces stay under 0.8 mm at proof, the preload comes down and so does everything that follows from it.
 
 ## 5. Launch vibration: a first model that needs no data from SpaceX
 

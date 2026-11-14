@@ -1,9 +1,9 @@
 """One-page summary of the release package -> out/HCSA_RevF_release_package_one_page_summary_<date>.pdf"""
 import importlib.util, os, sys
 HERE = os.path.dirname(os.path.abspath(__file__))
+STAMP = sys.argv[1] if len(sys.argv) > 1 else "9Nov2026"   # read before sys.argv is reset for build_package
 spec = importlib.util.spec_from_file_location("bp", os.path.join(HERE, "build_package.py"))
 bp = importlib.util.module_from_spec(spec); sys.argv = ["x"]; spec.loader.exec_module(bp)
-STAMP = sys.argv[1] if len(sys.argv) > 1 else "9Nov2026"
 body = bp.md_to_html(os.path.join(HERE, "summary_one_page.md"))
 css = (bp.CSS.replace("html { font-size: 10.6pt; }", "html { font-size: 9.4pt; }")
        .replace("@page { size: A4; margin: 18mm 18mm 20mm 18mm; }", "@page { size: A4; margin: 12mm 16mm 12mm 16mm; }")
