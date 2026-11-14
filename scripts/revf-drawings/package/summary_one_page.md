@@ -12,7 +12,7 @@ A truncated icosahedron 11,151 mm across: 20 glass hexagons and 12 solid pentago
 
 ## What the computer tests say
 
-At 0.8 atm the corners pass with about 12 kN of room on the worst tie, 214.5 against 227 kN at proof; with the hatch open at 1 atm they pass by 0.7 kN and the main rib by under 1 percent, so that case is the design point. The plain seams pass with about 40 percent to spare. The hardpoint where it was drawn fails: the frames hinge about it and the seals open at 0.2 to 0.5 atm. On the line of the pull the seal at the fitting holds to 2.5 atm, and the bolt beside it is 3 percent short of its 1.93 atm; runs with that bolt closer and tighter, and with the tie preload at 180 and 160 kN, were restarted on the laptop on 13 November. The panes hold under steady launch loads; vibration is a hand estimate only.
+At 0.8 atm the corners pass with about 12 kN of room on the worst tie, 214.5 against 227 kN at proof; with the hatch open at 1 atm they pass by 0.7 kN and the main rib by under 1 percent, so that case is the design point. The plain seams pass with about 40 percent to spare. The hardpoint where it was drawn fails: the frames hinge about it and the seals open at 0.2 to 0.5 atm. On the line of the pull the seal at the fitting holds to 2.5 atm, and the bolt beside it is 3 percent short of its 1.93 atm; with that bolt moved closer it is worse (about 1.76 atm, run on 13 November), and the runs with it tighter, and with the tie preload at 180 and 160 kN, are running on the laptop. The panes hold under steady launch loads; vibration is a hand estimate only.
 
 ## What the solids and the check found
 
