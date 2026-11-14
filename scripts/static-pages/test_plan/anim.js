@@ -66,7 +66,7 @@
     o = o || {}; var c = this.c;
     this.text(label, x, y - 8, { size: 13, color: C.ink2 });
     this.rect(x, y, w, 12, "rgba(255,255,255,.06)", C.line);
-    var f = clamp(frac, 0, 1.15), col = o.color || C.meas;
+    var f = clamp(frac, 0, (o.max || 1) * 1.15), col = o.color || C.meas;
     if (o.limit !== undefined && frac > o.limit) col = C.bad;
     this.rect(x + 1, y + 1, Math.min(w - 2, (w - 2) * f / (o.max || 1)), 10, col);
     if (o.limit !== undefined) {
@@ -618,7 +618,7 @@
         // pull arrows along the seat
         if (t >= 7.5) {
           var ax = cx + ox + (R + 12) * Math.cos(am), ay = cy + oy + (R + 12) * Math.sin(am);
-          g.arrow(ax, ay, ax + Math.cos(am) * (22 + 46 * pull), ay + Math.sin(am) * (22 + 46 * pull), C.force, 4);
+          g.arrow(ax, ay, ax + Math.cos(am) * (20 + 36 * pull), ay + Math.sin(am) * (20 + 36 * pull), C.force, 4);
         }
         // ties across the face between this block and the next
         var af = a1, n = [Math.cos(af), Math.sin(af)], perp = [-Math.sin(af), Math.cos(af)];
@@ -646,8 +646,8 @@
       g.text("Model values at 0.8 atm, proof pressure.", rx, 320, { size: 13, color: C.ink2 });
       g.text("With the hatch open (1 atm) the tie reaches", rx, 340, { size: 13, color: C.ink3 });
       g.text("226.3 kN, 0.7 kN under the limit.", rx, 360, { size: 13, color: C.ink3 });
-      g.text("Runs at 180 and 160 kN preload are on", rx, 392, { size: 13, color: C.ink3 });
-      g.text("the laptop now.", rx, 412, { size: 13, color: C.ink3 });
+      g.text("With 160 kN of preload (14 Nov) the worst", rx, 392, { size: 13, color: C.ink3 });
+      g.text("tie is 181.5 kN and the faces open 0.60 mm.", rx, 412, { size: 13, color: C.ink3 });
     }
   };
 

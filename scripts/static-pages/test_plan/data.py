@@ -385,7 +385,7 @@ dict(
     ],
     tells=[
         "Whether the corner model holds: at 0.8 atm it puts the worst tie at 214.5 kN at proof against a 227 kN limit, and the faces open 0.55 mm against the 0.8 mm the corner seal is sized for.",
-        "Whether the tie preload can come down (runs at 180 and 160 kN are on the laptop now).",
+        "Whether the tie preload can come down. The 14 Nov runs say yes at 0.8 atm: at 160 kN the worst tie at proof is 181.5 kN and the faces open 0.60 mm (at 180 kN, 198.9 kN and 0.57 mm). The hatch-open case still has to be run at the lower preload.",
     ],
     why=[
         "The corner is where the model is least sure: its block stress has no limit set yet, and its seal (O10) is not designed.",
@@ -406,7 +406,7 @@ dict(
     need=[
         "The corner seal (O10) designed, and the seal loop corners solved in the corner block (Q92)",
         "A stress limit for the block",
-        "The tie tightening method agreed (Marco)",
+        "The new tie preload picked, after the hatch-open case is run at it, and the tightening method agreed (Marco)",
         "A three-pull rig",
         "T1 and T2 passed",
     ],
@@ -473,7 +473,7 @@ FUNDING = [
 SOURCES = [
     "HCSA test budget sheet, 10 Nov 2026 (prices, suppliers, statuses)",
     "Fabrication and testing plan, 23 Oct 2026 (methods, instruments, the T2 rig)",
-    "Rev F release package, 13 Nov 2026: part 3 (test pieces), part 4 (computer tests), part 5 (open items), the appendix on Marco's points",
+    "Rev F release package, 14 Nov 2026: part 3 (test pieces), part 4 (computer tests), part 5 (open items), the appendix on Marco's points",
     "Sheets TP-00 to TP-04 and the test-piece STEP files, 9 Nov 2026",
     "Mail: TML (4 Nov), Trans-Tek (3 Nov), Parker (2-3 Nov), SendCutSend (11 Nov), Marco Cross (7-11 Nov), Kelly da Ponte (9 Nov)",
 ]
