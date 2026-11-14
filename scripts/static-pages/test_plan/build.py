@@ -348,7 +348,7 @@ def markdown():
                 pr = "-"
             out.append("| %s | %s | %s | %s | %s | %s |" % (name, qty, who, D.STATUS[st][0], pr, note))
         s = sums(t["parts"])
-        out += ["", "Need to buy %s; quote pending %s; %d lines not priced." % (money_md(s["need"]), money_md(s["pend"]), s["notpriced"]), "",
+        out += ["", "Need to buy %s; quote pending %s; %d line%s not priced." % (money_md(s["need"]), money_md(s["pend"]), s["notpriced"], "" if s["notpriced"] == 1 else "s"), "",
                 "### We have", ""] + ["- " + x for x in t["have"]] + ["", "### Still needed before it can run", ""] + ["- " + x for x in t["need"]]
     out += ["", "## Proposed, not yet in the plan", ""]
     for p in D.PROPOSED:
