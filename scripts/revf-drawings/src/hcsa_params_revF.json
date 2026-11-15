@@ -77,6 +77,7 @@
  "seam_bolt": {
   "part": ["NAS6705U27 + KFN670 nut, A286 160 ksi", "DECIDED 5 Nov (Q17; ratings to check against the NAS6705 sheet)"],
   "preload_kN": [4.0, "DECIDED 5 Nov (by torque)"],
+  "preload_beside_hardpoint_kN": [6.0, "PROPOSED 14 Nov: the two bolts beside each hardpoint, measured; HP1M run B clears 1.93 atm (about 1.95); at 4 kN 1.87"],
   "per_seam": [16, "carried (drawing pack 24 Oct)"],
   "pitch": [75.0, "carried"],
   "row_z": [58.0, "KEPT 5 Nov: z' 70 failed the D1 run (seal gap 0.111 mm at 2.48 kN)"]

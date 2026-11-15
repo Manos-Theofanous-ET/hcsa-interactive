@@ -47,7 +47,7 @@ The STEP files and the TP sheets, the quantities (one of each slice, one 550 art
 
 ## Still open on the test pieces
 
-- The hardpoint position, which decides whether we cut SA-550 or SA-550 moved.
+- Settled on 10 November: we cut SA-550 moved, with the dummy fitting on the line of the pull.
 - Whether run 1, the straight pull, stays in the plan now that run 2 pulls at the right depth.
 - The leak test on the 550 article: the pass rate, and the port and fittings for it.
 - The M24 pull in run 1 is 14 mm off the pull line of the slices (z 90 against z 76); we have noted it and think it does not matter for a straight pull, but it is a question for Marco.
