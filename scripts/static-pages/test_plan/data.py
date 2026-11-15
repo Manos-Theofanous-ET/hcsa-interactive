@@ -279,6 +279,7 @@ dict(
     ],
     have=[
         "Sheet TP-03 with both fitting positions and the STEP files; the moved position agreed on 10 Nov",
+        "The model of the article as drawn (D1-550, 14 Nov): the gap between the cords reaches 0.11 mm at about 11.8 kN of pull, first at the fitting centre; the frame yields only at about 32 kN",
         "The pressure transducer through the Dewesoft loan (agreed in principle)",
     ],
     need=[
@@ -286,7 +287,6 @@ dict(
         "The pull blocks and the dummy pins priced and made",
         "Cord, RTV, the port fitting (from T1)",
         "The pass leak rate, agreed with Marco",
-        "The model of the article as drawn, to predict the pull at which the gap reaches 0.11 mm (D1-550: running on the laptop from 14 Nov)",
         "Tools to borrow: torque wrench, feelers, dial gauge",
     ],
 ),
