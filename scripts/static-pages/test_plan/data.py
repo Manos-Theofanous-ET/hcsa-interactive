@@ -20,7 +20,7 @@ Status keys used in the parts lists:
   counted   counted under another test
 """
 
-DATE = "13 November 2026, updated 14 November"
+DATE = "13 November 2026, updated 15 November"
 
 STATUS = {
     "have": ("In hand", "ok"),
@@ -136,7 +136,7 @@ dict(
         "Steel pull blocks, 160 mm tall, bolt into the legs of each frame with M12 screws from both faces.",
         "Run 1, the straight pull: an M24 rod through the block centre at z 90. Run 2, the prying pull: through a lug, fork and pin on the z 24 line near the outer flange, so the joint opens about its cabin-side edge the way pressure opens it (sheet RE-03 rev B).",
         "Air in the space between the two cords, read at the leak port while the load is held. Each slice gets the two runs that do not break it, then one ramp to failure.",
-        "Load scale at Rev F: a plain-bay bolt carries 1.29 kN per atm in the station model, the worst bay 2.67 kN per bolt, and the seam model reaches the 0.11 mm gap at 3.75 kN per bolt, about 2.9 atm. So the holds are a few kN per bolt, far inside the 50 kN fixture and the 100 kN Instron. The holds restated at 12.3 psia (TEST-PLAN-001, 14 Nov) are 1.08, 1.62, 2.16 and 2.49 kN per bolt at design, proof, ultimate and 1.93 atm, and 2.67 kN with the pentagons 15 K warmer; the October table of 41.5 kN per atm is withdrawn.",
+        "Load scale at Rev F: a plain-bay bolt carries 1.29 kN per atm in the station model, the worst bay 2.67 kN per bolt, and the seam model reaches the 0.11 mm gap at 3.75 kN per bolt, about 2.9 atm (3.18 kN per bolt with the grip legs the test pieces actually have, 15 Nov). So the holds are a few kN per bolt, far inside the 50 kN fixture and the 100 kN Instron. The holds restated at 12.3 psia (TEST-PLAN-001, 14 Nov) are 1.08, 1.62, 2.16 and 2.49 kN per bolt at design, proof, ultimate and 1.93 atm, and 2.67 kN with the pentagons 15 K warmer; the October table of 41.5 kN per atm is withdrawn.",
     ],
     record=[
         "Load and crosshead from the Instron (analog out, on the same clock as everything else)",
@@ -208,14 +208,14 @@ dict(
         "30 TML strain gauges agreed (they ship once we confirm the lead wire)",
         "The Dewesoft recorder agreed in principle",
         "The Instron, free from 18 Nov",
-        "The seam model at Rev F (D1, 5 Nov), to file the predictions from",
+        "The seam model at Rev F (D1, 5 Nov), and the same slice with the grip legs as drawn (15 Nov): 0.11 mm at 3.18 kN per bolt in prying and 4.71 kN pulled straight, with the stroke at every hold",
     ],
     need=[
         "Money for the machined parts, then quotes (Xometry from the STEP pack; PCBWay's student track would take up to $200 off)",
         "Cord, RTV and primer, the leak-port fitting, the LVDTs, the gap gauges",
         "The Instron rate and the three frame interfaces measured with Jerry, then the adapters drawn and made",
         "A safety shield",
-        "The seam model rerun with the test pieces as drawn (200 mm legs at depth 0 and 170; the D1 model still has the October legs), then its prediction filed for each gauge",
+        "The seam model's prediction filed for each gauge (the run with the drawn legs is done, 15 Nov)",
         "Marco's view on the run 1 pull line, 14 mm off (17 Nov)",
     ],
 ),
@@ -385,7 +385,7 @@ dict(
     ],
     tells=[
         "Whether the corner model holds: at 0.8 atm it puts the worst tie at 214.5 kN at proof against a 227 kN limit, and the faces open 0.55 mm against the 0.8 mm the corner seal is sized for.",
-        "Whether the tie preload can come down. The 14 Nov runs say yes at 0.8 atm: at 160 kN the worst tie at proof is 181.5 kN and the faces open 0.60 mm (at 180 kN, 198.9 kN and 0.57 mm). The hatch-open case still has to be run at the lower preload.",
+        "Whether the tie preload can come down to 180 kN, as the models now say: at 180 kN the worst tie at proof is 198.9 kN at 0.8 atm and 212.1 kN with the hatch open, and the faces open 0.57 and 0.77 mm. At 160 kN the faces reach 0.81 mm with the hatch open, past the 0.8 limit (14 and 15 Nov).",
     ],
     why=[
         "The corner is where the model is least sure: its block stress has no limit set yet, and its seal (O10) is not designed.",
@@ -406,7 +406,7 @@ dict(
     need=[
         "The corner seal (O10) designed, and the seal loop corners solved in the corner block (Q92)",
         "A stress limit for the block",
-        "The new tie preload picked, after the hatch-open case is run at it, and the tightening method agreed (Marco)",
+        "The 180 kN preload agreed (Rick) and the tightening method (Marco); the warm-pentagon case run at 180 kN",
         "A three-pull rig",
         "T1 and T2 passed",
     ],
@@ -473,7 +473,7 @@ FUNDING = [
 SOURCES = [
     "HCSA test budget sheet, 10 Nov 2026 (prices, suppliers, statuses)",
     "Fabrication and testing plan, 23 Oct 2026 (methods, instruments, the T2 rig)",
-    "Rev F release package, 14 Nov 2026: part 3 (test pieces), part 4 (computer tests), part 5 (open items), the appendix on Marco's points",
+    "Rev F release package, 15 Nov 2026: part 3 (test pieces), part 4 (computer tests), part 5 (open items), the appendix on Marco's points",
     "Sheets TP-00 to TP-04 and the test-piece STEP files, 9 Nov 2026",
     "Mail: TML (4 Nov), Trans-Tek (3 Nov), Parker (2-3 Nov), SendCutSend (11 Nov), Marco Cross (7-11 Nov), Kelly da Ponte (9 Nov)",
 ]

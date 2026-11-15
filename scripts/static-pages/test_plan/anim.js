@@ -646,8 +646,8 @@
       g.text("Model values at 0.8 atm, proof pressure.", rx, 320, { size: 13, color: C.ink2 });
       g.text("With the hatch open (1 atm) the tie reaches", rx, 340, { size: 13, color: C.ink3 });
       g.text("226.3 kN, 0.7 kN under the limit.", rx, 360, { size: 13, color: C.ink3 });
-      g.text("With 160 kN of preload (14 Nov) the worst", rx, 392, { size: 13, color: C.ink3 });
-      g.text("tie is 181.5 kN and the faces open 0.60 mm.", rx, 412, { size: 13, color: C.ink3 });
+      g.text("At the proposed 180 kN, hatch open, the worst", rx, 392, { size: 13, color: C.ink3 });
+      g.text("tie is 212.1 kN and the faces open 0.77 mm.", rx, 412, { size: 13, color: C.ink3 });
     }
   };
 

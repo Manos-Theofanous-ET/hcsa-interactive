@@ -343,7 +343,7 @@ def rf08(pdf):
     # results and notes
     axr = fig.add_axes([0.72, 0.50, 0.27, 0.42]); axr.axis("off"); axr.set_xlim(0, 1); axr.set_ylim(0, 1)
     axr.text(0, 1, "What the corner model says (C1, 5 Nov)", fontsize=8.5, weight="bold", va="top")
-    for i, t in enumerate(["Tie preload 198 kN, held to 196.5-198.1 kN, by stretch", "Worst tie at proof, 0.8 atm: 214.5 kN (limit 227)", "Pentagon 15 K warmer: 213.3 kN", "Hatch open, 1 atm: 226.3 kN, 0.7 kN under the limit", "Faces open at proof: 0.55 mm (0.74 at 1 atm), limit 0.8", "Ties at 160 kN (14 Nov): 181.5 kN, faces 0.60 mm; 1 atm case to run", "Block stress, 95th percentile: 236 MPa (255 at 1 atm), no limit set yet", "Worst corner load 235 kN at 0.8 atm, 290 at 1 atm"]):
+    for i, t in enumerate(["Tie preload 198 kN, held to 196.5-198.1 kN, by stretch", "Worst tie at proof, 0.8 atm: 214.5 kN (limit 227)", "Pentagon 15 K warmer: 213.3 kN", "Hatch open, 1 atm: 226.3 kN, 0.7 kN under the limit", "Faces open at proof: 0.55 mm (0.74 at 1 atm), limit 0.8", "Proposed 180 kN (15 Nov): 212.1 kN, faces 0.77 mm at 1 atm; 160 kN opens 0.81", "Block stress, 95th percentile: 236 MPa (255 at 1 atm), no limit set yet", "Worst corner load 235 kN at 0.8 atm, 290 at 1 atm"]):
         axr.text(0, 0.90 - i * 0.1, "- " + t, fontsize=7.0, va="top")
     fig.text(0.03, 0.46, "Making it (Marco, 7 Nov). As drawn the node cannot be machined: every inside corner needs a radius a cutter can reach (R10 here; the landing takes up the re-entrant corner), and the part could be cast instead\n"
              "of machined. Our position (9 Nov): machine it from 7050-T7451 or 2219-T851 plate, not a casting (seal faces) and not a die forging (180 parts). The main rib's flanges enter the block at the\n"
@@ -410,6 +410,6 @@ def rf09(pdf):
     pdf.savefig(fig); fig.savefig(f"{OUT}/RF-09_pentagon_GA.png", dpi=130); plt.close(fig)
 
 if __name__ == "__main__":
-    with PdfPages(f"{OUT}/HCSA_RevF_flight_sheets_RF-05_to_RF-09_14Nov2026.pdf") as pdf:
+    with PdfPages(f"{OUT}/HCSA_RevF_flight_sheets_RF-05_to_RF-09_15Nov2026.pdf") as pdf:
         rf05(pdf); rf06(pdf); rf07(pdf); rf08(pdf); rf09(pdf)
     print("flight sheets ok; bolts per seam:", len(seam_bolt_positions()), seam_bolt_positions()[:4])
