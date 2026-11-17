@@ -15,7 +15,7 @@
 | Pressure pane | 21 mm BOROFLOAT 33, 531 mm panes, 96 per hexagon, 1,920 on the shell, on 2 mm setting strips | DECIDED 5 Nov |
 | Seals | Two loops of Parker BA500 butyl, 5.33 mm cord, in 7.1 x 4.0 mm glands at z' 18 and 32; RTV566 bead at z' 42 | Glands DECIDED 5 Nov; curing the RTV on the ground is open (Q80) |
 | Seam bolts | NAS6705U27 with KFN670 nut, A286, 4 kN by torque, 16 per seam at 75 mm pitch in bays of 3, 5, 5 and 3, row at z' 58; 1,440 on the shell | DECIDED 5 Nov |
-| Corner node | One machined block per panel corner, 180 blocks in 60 nodes of three, 120 degrees on a hexagon and 108 on a pentagon; four 7/8-14 Inconel 718 ties per face at 198 kN, limit 227 kN | Block PROPOSAL, preload DECIDED 2 Nov |
+| Corner node | One machined block per panel corner, 180 blocks in 60 nodes of three, 120 degrees on a hexagon and 108 on a pentagon; four 7/8-14 Inconel 718 ties per face at 180 kN, limit 227 kN | Block PROPOSAL, preload DECIDED 17 Nov (was 198 kN) |
 | Hardpoints | 3 per seam at the quarter points, 270 on the shell; a titanium lug in a two-cheek clevis with three 40 mm pins at 60 mm pitch | PROPOSAL; position on the line of the pull agreed 10 Nov; the part does not yet fit the 180 mm frame (RF-07) |
 | Mass | 36.1 t in the shell model. The parts lists of 8 Nov add up to more, and the two are not reconciled yet (part 2) | Open |
 

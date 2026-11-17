@@ -20,7 +20,7 @@ Status keys used in the parts lists:
   counted   counted under another test
 """
 
-DATE = "13 November 2026, updated 15 November"
+DATE = "13 November 2026, updated 17 November"
 
 STATUS = {
     "have": ("In hand", "ok"),
@@ -384,8 +384,8 @@ dict(
         "The leak at the corner",
     ],
     tells=[
-        "Whether the corner model holds: at 0.8 atm it puts the worst tie at 214.5 kN at proof against a 227 kN limit, and the faces open 0.55 mm against the 0.8 mm the corner seal is sized for.",
-        "Whether the tie preload can come down to 180 kN, as the models now say: at 180 kN the worst tie at proof is 198.9 kN at 0.8 atm and 212.1 kN with the hatch open, and the faces open 0.57 and 0.77 mm. At 160 kN the faces reach 0.81 mm with the hatch open, past the 0.8 limit (14 and 15 Nov).",
+        "Whether the corner model holds: at the 180 kN preload (decided 17 Nov, was 198 kN) and 0.8 atm it puts the worst tie at 198.9 kN at proof against a 227 kN limit, and the faces open 0.57 mm against the 0.8 mm the corner seal is sized for.",
+        "Whether 180 kN is the right preload, and how far a tie can sit from it. In the models, with the hatch open, the worst tie at proof is 212.0 kN at 180 kN and the faces open 0.77 mm; at 160 kN the faces reach 0.81 mm, past the 0.8 limit, and at 198 kN the tie reached 226.3 kN, 0.7 kN under its limit (14 to 17 Nov).",
     ],
     why=[
         "The corner is where the model is least sure: its block stress has no limit set yet, and its seal (O10) is not designed.",
@@ -402,11 +402,12 @@ dict(
     ],
     have=[
         "The corner model at Rev F (C1, 5 Nov) and the corner block drawn (CB-01)",
+        "The corner runs at the 180 kN preload (14 to 17 Nov): every pressure case passes, with the pentagon 15 K warmer too",
     ],
     need=[
         "The corner seal (O10) designed, and the seal loop corners solved in the corner block (Q92)",
         "A stress limit for the block",
-        "The 180 kN preload agreed (Rick) and the tightening method (Marco); the warm-pentagon case run at 180 kN",
+        "Rick's agreement to the 180 kN preload (decided by Manos, 17 Nov), and the tightening method and its tolerance (Marco)",
         "A three-pull rig",
         "T1 and T2 passed",
     ],
@@ -473,7 +474,7 @@ FUNDING = [
 SOURCES = [
     "HCSA test budget sheet, 10 Nov 2026 (prices, suppliers, statuses)",
     "Fabrication and testing plan, 23 Oct 2026 (methods, instruments, the T2 rig)",
-    "Rev F release package, 15 Nov 2026: part 3 (test pieces), part 4 (computer tests), part 5 (open items), the appendix on Marco's points",
+    "Rev F release package, 17 Nov 2026: part 3 (test pieces), part 4 (computer tests), part 5 (open items), the appendix on Marco's points",
     "Sheets TP-00 to TP-04 and the test-piece STEP files, 9 Nov 2026",
     "Mail: TML (4 Nov), Trans-Tek (3 Nov), Parker (2-3 Nov), SendCutSend (11 Nov), Marco Cross (7-11 Nov), Kelly da Ponte (9 Nov)",
 ]

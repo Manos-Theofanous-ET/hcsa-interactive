@@ -634,18 +634,18 @@
       }
       // readouts
       var rx = 650;
-      var tie = 198 + pull * (214.5 - 198);
+      var tie = 180 + pull * (198.9 - 180);
       g.bar(rx, 130, 260, "Worst corner tie (kN)", pre ? tie : 0, {
         max: 240, limit: 227, limitLabel: "227 limit", color: C.acc,
-        marks: t >= 16 ? [[198, "198 preload", C.ink3, 16], [214.5, "214.5 model at proof", C.meas, -50]] : [[198, "198 preload", C.ink3, 16]]
+        marks: t >= 16 ? [[180, "180 preload", C.ink3, 16], [198.9, "198.9 model at proof", C.meas, -50]] : [[180, "180 preload", C.ink3, 16]]
       });
-      g.bar(rx, 230, 260, "Corner faces open (mm)", pull * .55, {
+      g.bar(rx, 230, 260, "Corner faces open (mm)", pull * .57, {
         max: 1, limit: .8, limitLabel: "0.8 the seal takes", color: C.meas,
-        marks: t >= 16 ? [[.55, "0.55 model at proof", C.meas, -50]] : []
+        marks: t >= 16 ? [[.57, "0.57 model at proof", C.meas, -50]] : []
       });
       g.text("Model values at 0.8 atm, proof pressure.", rx, 320, { size: 13, color: C.ink2 });
       g.text("With the hatch open (1 atm) the tie reaches", rx, 340, { size: 13, color: C.ink3 });
-      g.text("226.3 kN, 0.7 kN under the limit.", rx, 360, { size: 13, color: C.ink3 });
+      g.text("212.0 kN and the faces open 0.77 mm.", rx, 360, { size: 13, color: C.ink3 });
       g.text("At the proposed 180 kN, hatch open, the worst", rx, 392, { size: 13, color: C.ink3 });
       g.text("tie is 212.1 kN and the faces open 0.77 mm.", rx, 412, { size: 13, color: C.ink3 });
     }
