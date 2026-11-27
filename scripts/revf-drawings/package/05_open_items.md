@@ -140,7 +140,7 @@ Nobody on this semester's team owns air, water or thermal; Skye and Lauren wrote
 
 - No purchasing budget until the funding decision comes through. Then: Trans-Tek, the Swift bars, the cord, the RTV and the A286 bolts.
 - Thornton Tomasetti ($13,612 for T1), Research at Brown (up to $500) and Champlin ($19,885 for the water rig) are open; the NASA Rhode Island Space Grant is spring 2027.
-- The 550 article leak test needs machining to start by mid-November to make 7 to 14 December; the T1 slices are needed before the late-January Dewesoft loan; the fall report is due 11 December.
+- The 550 article leak test is January 2027 at the earliest, once the machining is funded; the T1 slices are needed before the late-January Dewesoft loan; the fall report goes to Rick on 18 December.
 - The flight cost estimate ($8M to $26M for the structure) has no quotes behind most lines; Marco thinks many of our force values add cost without need.
 
 *Sources: Open questions register (4 Nov), TRUTH Rev F draft (5 Nov) open items, What is open (4 Nov), The hardpoint seal HP1 (6-7 Nov), Pane at launch PR1 (6 Nov), Marco's review (7 Nov), Interior update (5 Nov), Conference gap list (3 Nov), the HCSA Master Document (27 Oct) chapters 11, 18, 20 and 24, and TRUTH Rev D sections 3.7, 4.9, 5.9, 6.7 and 7.8 (read from the Drive copy; the text export stops at section 8.3, so sections 8 to 16 were not re-read for this list). Written 7 November 2026.*
