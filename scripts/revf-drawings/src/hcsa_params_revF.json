@@ -4,6 +4,7 @@
   "date": "2026-11-05",
   "units": "mm, kN, atm",
   "supersedes": "hcsa_params.json (Rev B, 5 Sep 2026) and the Rev E drawing pack draft of 24 Oct",
+  "labels_updated": "27 Nov 2026: status labels only (cabin.design_pressure_psia, cabin.docking_interface, seam_bolt.per_seam) and the hardpoint.position note; no value changed",
   "status_legend": {
    "LOCKED": "locked spec",
    "DECIDED": "decided by Manos",
@@ -23,10 +24,10 @@
  "cabin": {
   "pressure_atm": [0.8, "DECIDED 4 Nov, signed by Rick 10 Nov"],
   "o2_fraction": [0.26, "DECIDED 4 Nov (with 0.8 atm)"],
-  "design_pressure_psia": [12.3, "PROPOSAL_APPLIED (own relief valve)"],
+  "design_pressure_psia": [12.3, "DECIDED 4 Nov, signed by Rick 10 Nov (own relief valve)"],
   "ultimate_factor": [2.0, "confirmed by Rick 10 Nov (1.5 at proof)"],
   "host": ["commercial station, Orbital Reef class, 1 atm", "DECIDED 4 Nov"],
-  "docking_interface": ["hatch-shut transfer lock + relief valve 12.0-12.3 psid, concept, not sized", "PROPOSAL_APPLIED"]
+  "docking_interface": ["hatch-shut transfer lock + relief valve 12.0-12.3 psid, concept, not sized", "concept, agreed by Rick 10 Nov, not sized"]
  },
  "main_rib": {
   "option": ["B", "DECIDED 4 Nov"],
@@ -78,7 +79,7 @@
   "part": ["NAS6705U27 + KFN670 nut, A286 160 ksi", "DECIDED 5 Nov (Q17; ratings to check against the NAS6705 sheet)"],
   "preload_kN": [4.0, "DECIDED 5 Nov (by torque)"],
   "preload_beside_hardpoint_kN": [6.0, "PROPOSED 14 Nov: the two bolts beside each hardpoint, measured; HP1M run B clears 1.93 atm (about 1.95); at 4 kN 1.87"],
-  "per_seam": [16, "carried (drawing pack 24 Oct)"],
+  "per_seam": [16, "DECIDED 5 Nov"],
   "pitch": [75.0, "carried"],
   "row_z": [58.0, "KEPT 5 Nov: z' 70 failed the D1 run (seal gap 0.111 mm at 2.48 kN)"]
  },
@@ -92,6 +93,7 @@
  "hardpoint": {
   "per_seam": [3, "DECIDED 23 Oct"],
   "positions": [[0.25, 0.5, 0.75], "DECIDED"],
+  "position": ["on the line of the pull, z' 46 to 106", "agreed by Rick 10 Nov; the part must be redesigned for the 180 mm frame (RF-07)"],
   "fitting": ["TP3 three-pin, titanium, 200 wide", "PROPOSAL"]
  }
 }
