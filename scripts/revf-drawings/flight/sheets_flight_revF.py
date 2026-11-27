@@ -108,7 +108,7 @@ CHANGES_27NOV = [
     ("RF-05", "Web drawn at its true 180 mm panel depth (joint face 192.7 long), so it meets the lip; detail A at 2:1; notes kept inside the sheet."),
     ("RF-06", "Scale stated is the scale drawn (1:25; it said 1:20); bite on the main rib 24.9; masses use each part's own material, not 6061."),
     ("RF-07", "Joint face turned so the space side is at the top, as on RF-05; fitting bodies at z' -6.5 to 123.5 as in the solids (drawn 11 to 141)."),
-    ("RF-08", "Block plan from the CB-01 builder; joint face drawn true (leans 11.64 deg); dowels in the tie columns at 130 / 186, as in the solid (drawn at 50 / 210); 198 kN results labelled as the earlier value."),
+    ("RF-08", "Block plan from the CB-01 builder; joint face drawn true (leans 11.64 deg); dowels in the tie columns at 130 / 186, as in the solid (drawn at 50 / 210); 198 kN results labelled as the earlier value; the 'not below 180 kN' reason replaced by the 18 Nov runs (170 to 198 kN pass, 165 kN fails by 0.002 mm)."),
     ("RF-09", "Scale 1:25 as drawn; docking label moved off the hatching; text kept inside the sheet."),
     ("TP-00 to 04", "TP-01 leg holes dimensioned from the joint face (160 / 200); the section scale is 1:2 (it said 1:1). TP-03 leak port at mid-length as in the STEP. TP-04 lug-screw rows dimensioned from the block (32 / 64; they were 42 / 74 measured from the block edge). Clashes marked."),
 ]
@@ -116,7 +116,7 @@ CHANGES_27NOV = [
 OPEN_ITEMS = [
     "Hardpoint fitting: redesign it to fit the 180 mm frame; it runs into the outer flange and the secondary ribs and its pins cannot be put in (RF-07).",
     "Seal loop corners at the seam ends: drawn R4.3 on the test pieces, Parker asks R16 at least (R32 target); the bolt row cannot move to make room (RF-02, Q92).",
-    "Corner tie tightening tolerance: hold 180 kN or just above (160 kN opens the faces 0.81 mm); the band and the stretch method are not set (RF-08).",
+    "Corner tie tightening tolerance: not set. In the corner model with all ties at one preload, 170 to 198 kN pass and 165 kN fails by 0.002 mm (computer results, 18 Nov). The band and the stretch method are still open (RF-08).",
     "Corner block stress limit: 236 MPa (95th percentile) at the earlier 198 kN, and no allowable set for the block (RF-08).",
     "Found on 27 Nov: TP-04 lug-screw holes break into the leg-screw holes on the 75 and 150 blocks, and F-01's M12 x 45 screws are longer than the 20 mm tapped holes (TP-04).",
     "Found on 27 Nov: frame-side pane bite with the 56.6 mm hexagon lip (OPEN-17): the old note says 20.0 mm, the pane as drawn has 46.6 mm; the rule for where frame-side panes are cut is not in the parameter file (RF-05).",
@@ -146,7 +146,7 @@ def rf00(pdf):
             f"- Main rib option B, I {MR['d']:g} x {MR['bf']:g} x {MR['tf']:g}, web {MR['tw']:g}; secondary rib I {SR['d']:g} x {SR['bf']:g} x {SR['tf']:g}, web {SR['tw']:g}; k {KGRID} grid at {PITCH:g} mm.\n"
             f"- Seam: two loops of Parker BA500 butyl in {GW:g} x {GD:g} glands at z' {Z1:g} and {Z2:g}, RTV566 bead at z' {ZR:g}; NAS6705U27 bolt with KFN670 nut at {v('seam_bolt','preload_kN'):g} kN, one row at z' {ZB:g}, {v('seam_bolt','per_seam')} per seam.\n"
             f"- Corner ties 7/8-14 Inconel 718, four per face, {TIE_PRE:g} kN (decided 17 Nov; 198 kN is the earlier value), limit {TIE_LIM:g} kN.\n"
-            f"- Hardpoints: three per seam at the quarter points; the fitting on the line of the pull, z' 46 to 106 (decided 10 Nov).")
+            f"- Hardpoints: three per seam at the quarter points; the fitting {P['hardpoint']['position'][0]}, {P['hardpoint']['position'][1]}.")
     yr = note(Pp, xr, yr, wr, base, fs=7.5) - 3
     yr = heading(Pp, xr, yr, "Conventions")
     conv = ("- Units mm, angles in degrees, Ø diameter. Third-angle projection.\n"
@@ -810,11 +810,11 @@ def rf08(pdf):
            f"- At {TIE_PRE:g} kN, proof, 0.8 atm: worst tie 198.9 kN (limit {TIE_LIM:g}); faces open 0.57 mm (0.55 with the pentagon 15 K warmer).\n"
            f"- At {TIE_PRE:g} kN, hatch open, 1 atm: worst tie 212.0 kN; faces open 0.773 mm (limit 0.8).\n"
            "- Pentagon 15 K warmer: 197.0 kN at 0.8 atm, 208.6 kN hatch open.\n"
-           "- Not below 180 kN: at 160 kN the faces open 0.813 mm with the hatch open.\n"
+           "- In the corner model with all ties at one preload, 170 to 198 kN pass and 165 kN fails by 0.002 mm (computer results, 18 Nov).\n"
            "- Earlier value, 198 kN (before 17 Nov): 214.5 kN at 0.8 atm and 226.3 kN hatch open, 0.7 kN from the limit.\n"
            "- Block stress at the earlier 198 kN, 95th percentile: 236 MPa (255 at 1 atm). No stress limit is set for the block: OPEN.\n"
            "- Worst corner load 235 kN at 0.8 atm, 290 kN at 1 atm.\n"
-           "- Tightening tolerance: held at 180 kN or just above; the band is OPEN.")
+           "- The tightening tolerance is still open.")
     note(Pp, xr0, y, 100, res, fs=7.5)
     nt = ("Making it (Marco, 7 Nov). As first drawn the node could not be machined: every inside corner needs a radius a cutter can reach (R10 here; the landing takes up the re-entrant corner). Our position (9 Nov): "
           "machine it from 7050-T7451 or 2219-T851 plate, not a casting (seal faces) and not a die forging (180 parts). The main rib's flanges enter the block at the landing (PROPOSAL); the two frame members run into the legs' inner faces; "
