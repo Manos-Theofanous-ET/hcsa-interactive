@@ -418,7 +418,7 @@ dict(
 PROPOSED = [
 dict(
     id="tap", code="Tap", name="Tap test of one pane in its clamp",
-    when="Proposed (first suggested for the 17 Nov call with Marco)",
+    when="Proposed; first suggested for the 17 Nov call with Marco",
     state="Proposed", state_cls="muted",
     anim_caption="A small hammer taps the clamped pane; an accelerometer records the ring. How fast it rings gives the first mode, and how fast the ring dies away gives the damping.",
     what=["The first natural frequency of a pane in its clamp and the damping of the rubber strip."],
