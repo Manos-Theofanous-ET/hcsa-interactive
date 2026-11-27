@@ -1,2 +1,3 @@
 User-agent: *
 Disallow: /downloads/review/
+Sitemap: https://hcsa-site.vercel.app/sitemap.xml
