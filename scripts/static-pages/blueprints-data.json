@@ -489,7 +489,7 @@
   ]
  ],
  "overview": {
-  "intro": "The facility is a closed shell 11.15 m across, in the shape of a football. It has 20 glass hexagons, which are the windows, and 12 solid pentagons, which hold the solar panels and the shields that fold out over the windows. Inside is air at 1 atm and outside is vacuum. So the air pushes out on every panel, with about 1.33 MN on each hexagon, and the whole shell is in tension, pulled outward everywhere. It can fail by breaking glass, by leaking at a seam or by pulling a seam apart, but not by buckling.",
+  "intro": "The facility is a closed shell 11.15 m across, in the shape of a football. It has 20 glass hexagons, which are the windows, and 12 solid pentagons, which hold the solar panels and the shields that fold out over the windows. Inside is air at 0.8 atm and outside is vacuum. So the air pushes out on every panel, with about 1.07 MN on each hexagon, and the whole shell is in tension, pulled outward everywhere. It can fail by breaking glass, by leaking at a seam or by pulling a seam apart, and its main ribs must be braced sideways at every secondary rib, or they buckle before the ultimate load.",
   "chain": [
    [
     "The shell",

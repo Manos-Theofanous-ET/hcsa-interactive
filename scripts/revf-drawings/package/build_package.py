@@ -88,7 +88,7 @@ def cover_html(toc_rows):
     toc = "".join(f"<tr><td>{html.escape(a)}</td><td>{html.escape(b)}</td></tr>" for a, b in toc_rows)
     return f"""
 <div class="cover">
-<div><p class="eyebrow">Human-Centric Space Habitat, Brown University</p>
+<div><p class="eyebrow">Human-Centric Space Architecture, Brown University</p>
 <h1>HCSA Rev F release package</h1>
 <p class="sub">The facility taken apart, every flight part drawn and in 3D, the test pieces with their shop drawings and STEP files, what the computer tests found, and what is still open.</p></div>
 <div><table>
