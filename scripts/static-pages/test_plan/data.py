@@ -20,7 +20,7 @@ Status keys used in the parts lists:
   counted   counted under another test
 """
 
-DATE = "13 November 2026, updated 17 November"
+DATE = "13 November 2026, updated 27 November"
 
 STATUS = {
     "have": ("In hand", "ok"),
@@ -55,8 +55,8 @@ TESTS = [
 # ==========================================================================
 dict(
     id="t0", code="T0", name="Glass bars in four-point bending",
-    when="Spring 2027 in ENGN 1440, or now on the 0.5 kN frame (Rick to decide, Q42)",
-    state="Waiting on bars and the now-or-spring decision", state_cls="pend",
+    when="Spring 2027 in ENGN 1440, before April. The class runs five specimens per condition: a first look at the strength, not the Weibull m (Prof. Padture, 18 Nov)",
+    state="Spring 2027 in the class; the route to a Weibull m is open", state_cls="pend",
     anim_caption="A bar on two supports, pressed by two pins until it breaks. Each break gives one strength and one fracture origin; thirty or more breaks give the Weibull slope m. The points on the plot are an example, not data.",
     what=[
         "How strong our pane glass is when it is finished the way the panes will be: BOROFLOAT 33 with fine-ground edges and an arris (a small bevel).",
@@ -98,7 +98,7 @@ dict(
         ("BOROFLOAT 33 bars, 1 x 1/8 in, fine-ground edges with arris", "100+", "Swift Glass (quote); PGO asked", "buy", 1040,
          "Swift quote about $1,000 plus UPS up to $40, valid to the end of 2026. Free if ENGN 1440 has spare bars (McMaster 8476K12): ask Prof. Padture on 18 Nov"),
         ("Four-point bend fixture and frame time", "1", "ENGN 1440 (Prof. Padture)", "free", 0,
-         "$0 if run inside ENGN 1440 in spring 2027; to confirm on 18 Nov"),
+         "$0 inside ENGN 1440 in spring 2027, within the class's own runs (Prof. Padture, 18 Nov)"),
         ("SEM time to find fracture origins", "about 4 h", "Brown SEM facility", "optional", 384,
          "$59 an hour plus 2 h training at $74 an hour; reduced rate asked 9 Oct; an optical microscope may be enough"),
         ("BOROFLOAT 33 discs, 50 x 3.3 mm (reference set)", "15", "Precision Glass & Optics, donated", "have", 375,
@@ -109,12 +109,12 @@ dict(
          "Offered; nothing has arrived"),
     ],
     have=[
-        "A route to the fixture and frame: ENGN 1440, to confirm with Prof. Padture on 18 Nov at 11:30",
+        "The fixture and frame: ENGN 1440 in spring 2027, agreed with Prof. Padture on 18 Nov, at five specimens per condition inside the class's own runs",
         "A written quote for the bars from Swift Glass, valid to the end of 2026",
         "Reference discs in hand (15 BOROFLOAT, 15 sapphire), not needed for the bar test",
     ],
     need=[
-        "The decision: bars now on the 0.5 kN frame, or in ENGN 1440 in the spring (Rick, Q42)",
+        "A route to the Weibull m, since five per condition is a first look only: Dr. Bongki Shin's set-up, an adapted ring-on-ring jig with the discs in hand, or an outside lab (open since 18 Nov; the email to Dr. Shin is drafted)",
         "The bars: $1,040 from Swift, or spare bars from the class",
         "The test-bar drawing with the arris size, agreed with Swift (Q04), and the count and the two lengths (Q51)",
         "The pass lines rerun for bars and the Rev F pane (the old ones were written for discs)",
@@ -385,7 +385,7 @@ dict(
     ],
     tells=[
         "Whether the corner model holds: at the 180 kN preload (decided 17 Nov, was 198 kN) and 0.8 atm it puts the worst tie at 198.9 kN at proof against a 227 kN limit, and the faces open 0.57 mm against the 0.8 mm the corner seal is sized for.",
-        "Whether 180 kN is the right preload, and how far a tie can sit from it. In the models, with the hatch open, the worst tie at proof is 212.0 kN at 180 kN and the faces open 0.77 mm; at 160 kN the faces reach 0.81 mm, past the 0.8 limit, and at 198 kN the tie reached 226.3 kN, 0.7 kN under its limit (14 to 17 Nov).",
+        "Whether 180 kN is the right preload, and how far a tie can sit from it. In the models, with the hatch open, the worst tie at proof is 212.0 kN at 180 kN and the faces open 0.77 mm; at 160 kN the faces reach 0.81 mm, past the 0.8 limit, and at 198 kN the tie reached 226.3 kN, 0.7 kN under its limit (14 to 17 Nov). With every tie at the same preload, 170 and 190 kN pass, 165 kN fails by 0.002 mm and 198 kN passes by 0.8 kN (18 Nov). How unevenly the ties may be tightened is still being run.",
     ],
     why=[
         "The corner is where the model is least sure: its block stress has no limit set yet, and its seal (O10) is not designed.",
@@ -418,13 +418,13 @@ dict(
 PROPOSED = [
 dict(
     id="tap", code="Tap", name="Tap test of one pane in its clamp",
-    when="Proposed for the 17 Nov call with Marco",
+    when="Proposed (first suggested for the 17 Nov call with Marco)",
     state="Proposed", state_cls="muted",
     anim_caption="A small hammer taps the clamped pane; an accelerometer records the ring. How fast it rings gives the first mode, and how fast the ring dies away gives the damping.",
     what=["The first natural frequency of a pane in its clamp and the damping of the rubber strip."],
     how=["Tap the pane with an instrumented hammer and read an accelerometer glued to it; repeat at a few points."],
     record=["The hammer force and the acceleration against time, then the frequency spectrum"],
-    tells=["Two numbers that replace the guesses in the launch vibration hand model: about 600 Hz and a damping factor Q of 10. With the NASA general spectrum the clamp sees 6.6 to 10.4 kN against the 9.1 kN it holds, so the damping decides whether the 0.3 mm squeeze is enough."],
+    tells=["The damping of the rubber strip and the pane's first frequency in its clamp, the two inputs the launch vibration model of 15 Nov had to assume (a computer result). That model says a clamp force of at least 14 kN per pane on the soft strip, or 19 kN on an 80 Shore A strip, keeps the pane seated, so the measured damping decides how much margin that leaves."],
     why=["It is the cheapest launch-vibration test a university lab can do, and it needs no launcher data."],
     needs="A pane (or a stand-in of the same glass and size), the clamp, a hammer and an accelerometer. Not priced; to agree with Marco.",
 ),
@@ -453,14 +453,10 @@ NEW_SINCE = [
 ]
 
 DATES = [
-    ("15 Nov", "PCBWay application (the date we gave Evan; PCBWay takes applications all year, needs a PCBWay quote first)"),
-    ("17 Nov, 10:00", "Fabrication review with Marco Cross (online): the drawings, the tolerances, the leak pass rate"),
-    ("17 Nov, 12:00", "Weekly meeting with Rick; still open with him: glass bars now or in spring (Q42), endorsements"),
-    ("18 Nov, 11:30", "Prof. Padture: bars in ENGN 1440, spare bars, the fixture"),
-    ("22 Nov", "Spring test plan due"),
     ("Late Nov", "Dewesoft loan dates and units"),
     ("About 1 Dec", "Thornton Tomasetti proposal to the foundation through OSP (about $14,700, all test hardware)"),
-    ("11 Dec", "Fall report due"),
+    ("1 Dec", "Weekly meeting with Rick"),
+    ("18 Dec", "Fall report to Rick"),
 ]
 
 FUNDING = [
