@@ -30,7 +30,7 @@ const PUBLIC = [
   /^\/explore\/?$/,          // the public 3D model (same page as /model, without the internal tabs)
   /^\/model\/vendor\//,        // three.js, needed by /explore
   /^\/api\/login$/,
-  /^\/favicon\.svg$/,
+  /^\/favicon\.svg$/, /^\/favicon\.ico$/, /^\/sitemap\.xml$/,
   /^\/og-[\w-]+\.jpg$/,
   /^\/og-image\.jpg$/,
   /^\/robots\.txt$/,
