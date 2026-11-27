@@ -15,14 +15,14 @@ SIZES = json.load(open(os.path.join(HERE, "image-sizes.json")))
 PDF = "/downloads/HCSA-Rev-S-drawings-explained-26-Sep-2026.pdf"
 PDF_REVD = "/downloads/HCSA-Rev-D-blueprint-pack-14-Oct-2026.pdf"
 PDF_REVD_SPEC = "/downloads/HCSA-Rev-D-design-spec-14-Oct-2026.pdf"
-PDF_REVF_1 = "/downloads/HCSA-Rev-F-sheets-RF-01-to-RF-04-5-Nov-2026.pdf"
-PDF_REVF_2 = "/downloads/HCSA-Rev-F-sheets-RF-05-to-RF-09-17-Nov-2026.pdf"
-PDF_REVF_TP = "/downloads/HCSA-Rev-F-test-pieces-TP-00-to-TP-04-9-Nov-2026.pdf"
+PDF_REVF_1 = "/downloads/HCSA-Rev-F-sheets-RF-00-to-RF-04-27-Nov-2026.pdf"
+PDF_REVF_2 = "/downloads/HCSA-Rev-F-sheets-RF-05-to-RF-09-27-Nov-2026.pdf"
+PDF_REVF_TP = "/downloads/HCSA-Rev-F-test-pieces-TP-00-to-TP-04-27-Nov-2026.pdf"
 ZIP_REVF_TP = "/downloads/HCSA-Rev-F-test-pieces-STEP-9-Nov-2026.zip"
 PDF_REVF_PKG = "/downloads/HCSA-Rev-F-release-package-17-Nov-2026.pdf"
 PDF_REVF_PKG1 = "/downloads/HCSA-Rev-F-release-package-one-page-summary-17-Nov-2026.pdf"
-REVF_DATED = "9 November 2026"
-UPDATED = "23 October 2026"
+REVF_DATED = "27 November 2026"
+UPDATED = "27 November 2026"
 REVD_DATED = "14 October 2026"
 REVS_DATED = "28 September 2026"
 
@@ -209,23 +209,24 @@ SHORT = {"shell": "The whole shell", "hex": "Hexagon panel", "pent": "Pentagon p
          "t550": "T1 550 mm piece", "t2p": "T2 panel at 1:4 scale", "t2r": "T2 water rig"}
 
 
-# Rev F sheets (public/blueprints/img/revf-<id>.webp). RF-01 to RF-04 are from 5 Nov 2026, RF-05 to RF-09 and the
-# test-piece sheets TP-00 to TP-04 from 8 Nov 2026. Make the images with convert_revf_sheets.py.
+# Rev F sheets (public/blueprints/img/revf-<id>.webp), all reissued on 27 Nov 2026 (RF-00 new; RF-01 to RF-04 first drawn
+# 5 Nov, RF-05 to RF-09 and TP-00 to TP-04 8 Nov). Make the images with convert_revf_sheets.py.
 REVF_SHEETS = [
-    ("rf-01", "Sheet RF-01", "Main rib option B (I 400 x 100 x 25, web 8) and the secondary rib (I 180 x 60 x 10, web 5), cut through, with the 21 mm panes seated and the glass bite on each. The notes give the two new requirements: the star-plate nodes must hold the main rib sideways, and the panes need a launch answer."),
-    ("rf-02", "Sheet RF-02", "A section through one seam: the 180 mm frame, the two 7.1 x 4.0 mm glands with the butyl cords, the RTV bead and the NAS6705U27 bolt at 4 kN. On the right, the seal loop ends against Parker's R16 minimum. Moving the bolt row to make room failed the 5 November seam run, so the loop corners are still open."),
-    ("rf-03", "Sheet RF-03", "The T1 seam slices (75, 150 and 225 mm) and the 550 mm piece with a dummy hardpoint, redrawn at 180 mm deep with the bolt row at z' 58."),
+    ("rf-00", "Sheet RF-00", "The index of the Rev F set: every sheet with its date and status, the revision history, the corrections of 27 November, the conventions (z and z', frames A and B, the status words), the baseline values and the open items that need a decision."),
+    ("rf-01", "Sheet RF-01", "Main rib option B (I 400 x 100 x 25, web 8) and the secondary rib (I 180 x 60 x 10, web 5), cut through at half size, with the 21 mm panes on their seats and the glass bite on each: 24.9 mm on the main rib's seat ledges and 20.9 mm on the secondary rib. The notes give the two requirements: the main rib must be braced sideways at every secondary rib crossing, and the panes need a launch answer."),
+    ("rf-02", "Sheet RF-02", "A section through one seam at full size: the 180 mm frame with its seat lip at the cabin face, the two 7.1 x 4.0 mm glands with the butyl cords, the leak port, the RTV bead and the NAS6705U27 bolt at 4 kN. On the right, the seal loop ends against Parker's R16 minimum. Moving the bolt row to make room failed the 5 November seam run, so the loop corners are still open."),
+    ("rf-03", "Sheet RF-03", "An overview of the T1 seam slices (75, 150 and 225 mm) and the 550 mm piece with its dummy hardpoint, at 180 mm deep with the bolt row at z' 58. It is superseded for manufacture by sheets TP-00 to TP-04 and the STEP files, and kept so the set is complete."),
     ("rf-04", "Sheet RF-04", "The docking transfer lock, a concept: the module at 0.8 atm, the 1 atm host station, the hatch that stays shut while the pressures differ, the equalising valves and our own relief valve."),
-    ("rf-05", "Sheet RF-05", "A hexagon-to-hexagon seam cut through at the first bolt, 271 mm from the corner. It shows the 180 mm frame, the two butyl glands at z' 18 and 32, the RTV bead at z' 42, the seam bolt at z' 58, the corner tie rows and both hardpoint positions, as drawn at z' 110 to 170 and moved onto the line of the pull at z' 46 to 106. A table turns every depth on the joint face into the panel's own depth, for the hexagon mitre of 20.9 degrees and the pentagon mitre of 16.5 degrees, so the holes line up on hexagon-to-pentagon seams too."),
-    ("rf-06", "Sheet RF-06", "The hexagon panel seen from the cabin side at Rev F: 6 main ribs, 108 secondary rib segments on the 562.5 mm grid, 96 panes of 531 mm, 18 six-way star-plate nodes, 3 hardpoints on every edge at the quarter points, and the 16 seam bolts on one edge. The parts list gives the mass of every part, now with the corner blocks, the hardpoint fittings and the rib braces: about 1.9 t for a hexagon with its glass. That does not yet agree with the 36.1 t of the shell model, and the sheet says so."),
+    ("rf-05", "Sheet RF-05", "A hexagon-to-hexagon seam cut through at the first bolt, 271 mm from the corner. It shows the 180 mm frame, the two butyl glands at z' 18 and 32, the RTV bead at z' 42, the seam bolt at z' 58, the corner tie rows and both hardpoint positions, as drawn at z' 110 to 170 and moved onto the line of the pull at z' 46 to 106. A table turns every depth on the joint face into the panel's own depth, for the hexagon mitre of 20.9 degrees and the pentagon mitre of 16.5 degrees, so the holes line up on hexagon-to-pentagon seams too. Detail A shows the glands, the leak port, the RTV recess and the bolt hole at twice full size."),
+    ("rf-06", "Sheet RF-06", "The hexagon panel seen from the cabin side at Rev F: 6 main ribs, 108 secondary rib segments on the 562.5 mm grid, 96 panes of 531 mm, 18 six-way star-plate nodes, 3 hardpoints on every edge at the quarter points, and the 16 seam bolts on one edge. The parts list gives the mass of every part, now with the corner blocks, the hardpoint fittings and the rib braces: 1,824 kg for a hexagon with its glass. That does not yet agree with the 36.1 t of the shell model, and the sheet says so."),
     ("rf-07", "Sheet RF-07", "The hardpoint fitting, redrawn on 9 November from the October model: a titanium lug on one panel reaching into a two-cheek clevis on the other, with three 40 mm pins along the panel depth. Where it was first drawn, the frames hinge about it and the seals open at 0.22 to 0.47 atm against the 1.93 atm required. On the line of the pull the seal holds, and the slot for the lug clears the seals and the seam bolts. But in the 180 mm frame the fitting runs into the outer flange and the ribs, and its pins cannot be put in, so the part has to be redrawn. The position is decided with Rick on 10 November."),
-    ("rf-08", "Sheet RF-08", "The corner node in plan and on the joint face, with the 7/8-14 Inconel 718 ties preloaded to 180 kN by measured stretch (decided 17 November, was 198 kN). The corner model gives the worst tie at proof, at 0.8 atm, as 198.9 kN against a limit of 227 kN, and 212.0 kN with the hatch open at 1 atm, where the faces open 0.77 mm against 0.8. The blocks now have their real leaning joint faces: three of them placed at a vertex fit with every tie hole on axis. The ties sit 130 and 186 mm from the vertex line, inside corners are R10, and the block is machined from plate. The P-11 brace that holds the main rib sideways is the proposal at the bottom."),
+    ("rf-08", "Sheet RF-08", "The corner node in plan and on the joint face, with the 7/8-14 Inconel 718 ties preloaded to 180 kN by measured stretch (decided 17 November, was 198 kN). The corner model gives the worst tie at proof, at 0.8 atm, as 198.9 kN against a limit of 227 kN, and 212.0 kN with the hatch to the 1 atm host open (15.2 psia), where the faces open 0.77 mm against 0.8. The blocks now have their real leaning joint faces: three of them placed at a vertex fit with every tie hole on axis. The ties and the dowels sit 130 and 186 mm from the vertex line, inside corners are R10, and the block is to be machined from plate. How tightly the preload is held is still open. The P-11 brace that holds the main rib sideways is the proposal at the bottom."),
     ("rf-09", "Sheet RF-09", "The pentagon panel seen from the cabin side: 5 main ribs, 90 secondary rib segments, 5 corner blocks of 108 degrees, 15 hardpoints, and the 10 mm closure plate as five triangles sealed at the main ribs. The notes give what the pentagons do, where the solar cells have to stand off the structure, and the open questions, the first being which side of the frame the closure plate sits on."),
-    ("tp-00", "Sheet TP-00", "The cover of the test-piece set: what each piece is for, the notes for the shop, the tolerance table with the loose and tight limits Marco asked us to separate, and the bill of materials for the whole set."),
+    ("tp-00", "Sheet TP-00", "The cover of the test-piece set: what each piece is for, the notes for the shop, the tolerance table with the loose and tight limits Marco asked us to separate, the bill of materials for the whole set, and three items to check before quoting."),
     ("tp-01", "Sheet TP-01", "Frame B of the T1 seam slice, the grooved half: the 180 mm section with the two 7.1 x 4.0 mm glands, the RTV recess and the leak-test port, the joint face with the bolt holes, and the table of leg holes for the 75, 150 and 225 mm slices."),
     ("tp-02", "Sheet TP-02", "Frame A, the plain half, and the two frames assembled with the pull block on each side. The two pull lines are drawn: run 1 pulls through the block centre at z 90, run 2 through a pin on the z 24 line near the outer flange, which pries the seam open the way pressure does."),
-    ("tp-03", "Sheet TP-03", "The 550 mm article with its dummy hardpoint, drawn at both fitting depths, as drawn and moved onto the pull line, with its 2 + 2 seam bolts and the three 40 mm pins at 60 mm pitch."),
-    ("tp-04", "Sheet TP-04", "The pull blocks and the fixture: every face of the block with its holes, the M24 pull hole at the centre and the M12 pattern, and the three fixture pieces F-01 to F-03 that put the article in the 100 kN frame."),
+    ("tp-03", "Sheet TP-03", "The 550 mm article with its dummy hardpoint moved onto the pull line, the version to make, at half size, with its 2 + 2 seam bolts and the three 40 mm pins at 60 mm pitch; the first fitting depth is shown small for comparison."),
+    ("tp-04", "Sheet TP-04", "The pull blocks and the fixture: every face of the block with its holes, the M24 pull hole at the centre and the M12 pattern, and the three fixture pieces F-01 to F-03 that put the article in the 100 kN frame. Two clashes in the blocks and the lug-plate screws are marked to settle before quoting."),
 ]
 
 REVF_INTRO = (
@@ -238,11 +239,11 @@ REVF_INTRO = (
     "loops of butyl in 7.1 by 4.0 mm grooves with an RTV bead behind them, and the seam bolts are NAS6705U27 at 4 kN. "
     "The corner ties are preloaded to 180 kN (decided 17 November, was 198 kN). The shell model weighs 36.1 t; the parts lists add up to more and are being reconciled.",
     "The computer tests of 4 and 5 November ran on this design, and the corner runs were repeated at 180 kN from 14 to 17 November. The corners pass at 0.8 atm, with the worst tie at "
-    "198.9 kN at proof against a limit of 227 kN, and they still pass, with 0.03 mm to spare on the joint opening, if the hatch is left open and the "
-    "cabin goes to 1 atm. The seams pass with about 40 percent margin. The hardpoint test of 6 and 7 November found "
+    "198.9 kN at proof against a limit of 227 kN, and they still pass, with 0.03 mm to spare on the joint opening, with the hatch to the 1 atm host open (15.2 psia, proof 1.551 atm). "
+    "The plain seams pass with 19 to 40 percent to spare, depending on how the test slice is held; the tight spot is the bolt beside each hardpoint. The hardpoint test of 6 and 7 November found "
     "that the fitting as drawn acts as a hinge and lets the seals open, and that moving it onto the line of the pull "
-    "fixes that. Two things are still open: how the seal loops turn their corners, and how the panes are held at launch.",
-    "On 8 November we added five more sheets for the release to Marco Cross: the seam section with the depth table, the hexagon and pentagon panels as they now are, the hardpoint and the corner node with the machining points from his review. The five test-piece sheets, TP-00 to TP-04, are the drawings the shop quotes from, and the STEP files of every test piece go with them. On 9 November an independent check corrected them: the corner blocks were rebuilt with their leaning faces so that three fit at a vertex, the hardpoint fitting was redrawn from the October model, and the test-piece files were rebuilt with the drilled hole sizes on sheet TP-00.",
+    "fixes that. Still open: how the seal loops turn their corners, how the panes are held at launch, a hardpoint fitting that fits the 180 mm frame, how tightly the corner tie preload is held, a stress limit for the corner block, and the flight alloy.",
+    "On 8 November we added five more sheets for the release to Marco Cross: the seam section with the depth table, the hexagon and pentagon panels as they now are, the hardpoint and the corner node with the machining points from his review. The five test-piece sheets, TP-00 to TP-04, are the drawings the shop quotes from, and the STEP files of every test piece go with them. On 9 November an independent check corrected them: the corner blocks were rebuilt with their leaning faces so that three fit at a vertex, the hardpoint fitting was redrawn from the October model, and the test-piece files were rebuilt with the drilled hole sizes on sheet TP-00. On 27 November every sheet was reissued after a drawing review: one title block on each, a new index sheet RF-00, RF-01 to RF-04 redrawn from the parameter file, and the drawing errors corrected. No design value changed.",
 )
 
 
@@ -341,16 +342,16 @@ def blueprints():
 <h1>The shell, the joint and the tests, with dimensions.</h1>
 <p class="lead">{e(ov["intro"])} Rev F is our working baseline of November 2026. It keeps the Rev D layout, with 96 glass panes per hexagon on deep ribs, a solid node at every corner and a hardpoint along every seam, and it makes the ribs thinner, the frame deeper and the cabin pressure 0.8 atm. Rev D, signed on 14 October 2026, is the last full set below it.</p>
 <ul class="facts"><li>11,151 mm across</li><li>2,250 mm edges</li><li>20 glass hexagons with 96 panes each</li><li>12 solid pentagons</li><li>90 seams and 60 corners</li><li>1,440 bolts that clamp the seals</li><li>0.8 atm inside</li></ul>
-<p style="margin-top:24px"><a class="btn" href="{PDF_REVF_1}">Rev F sheets RF-01 to RF-04 (PDF)</a><a class="btn" href="{PDF_REVF_2}">Rev F sheets RF-05 to RF-09 (PDF)</a><a class="btn" href="{PDF_REVF_TP}">Test-piece sheets TP-00 to TP-04 (PDF)</a><a class="btn" href="{PDF_REVD}">The Rev D blueprint pack (PDF)</a><a class="btn" href="/plan/">Read the plan</a></p>
-<ul class="toc" aria-label="Jump to"><li><a href="#revf">Rev F sheets</a></li><li><a href="#revd">Rev D sheets</a></li><li><a href="#revs">Rev S drawings</a></li>{toc}<li><a href="#open">Still open</a></li></ul>
+<p style="margin-top:24px"><a class="btn" href="{PDF_REVF_1}">Rev F sheets RF-00 to RF-04 (PDF)</a><a class="btn" href="{PDF_REVF_2}">Rev F sheets RF-05 to RF-09 (PDF)</a><a class="btn" href="{PDF_REVF_TP}">Test-piece sheets TP-00 to TP-04 (PDF)</a><a class="btn" href="{PDF_REVD}">The Rev D blueprint pack (PDF)</a><a class="btn" href="/plan/">Read the plan</a></p>
+<ul class="toc" aria-label="Jump to"><li><a href="#revf">Rev F sheets</a></li><li><a href="#revd">Rev D sheets</a></li><li><a href="#revs">Rev S drawings</a></li>{toc}<li><a href="#open">Open items</a></li></ul>
 </div></header>
 <section id="revf" class="subject"><div class="wrap">
 <p class="eyebrow">The current baseline</p>
 <h2>Rev F, the working baseline of November 2026</h2>
-<p class="tested">Fourteen sheets at A3 size: nine of the facility and five of the test pieces. Click any sheet to open it full size. They are drawn from our parameter file, and the facility sheets are not yet checked for machining.</p>
+<p class="tested">Fifteen sheets at A3 size: ten of the facility, the first of them the index RF-00, and five of the test pieces. Click any sheet to open it full size. They are drawn from our parameter file, and the facility sheets are not yet checked for machining.</p>
 {"".join(f"<p>{e(t)}</p>" for t in REVF_INTRO)}
 <p class="muted">The Rev D sheets below are the last full signed set. Where they disagree with these sheets, the Rev F sheets win.</p>
-<p><a class="btn" href="{PDF_REVF_1}">Sheets RF-01 to RF-04 (PDF, 5 November)</a><a class="btn" href="{PDF_REVF_2}">Sheets RF-05 to RF-09 (PDF, 17 November)</a><a class="btn" href="{PDF_REVF_TP}">Test pieces TP-00 to TP-04 (PDF, 9 November)</a><a class="btn" href="{ZIP_REVF_TP}">Test pieces, STEP files (zip, 1.3 MB)</a><a class="btn" href="{PDF_REVF_PKG}">The release package for Marco (PDF, 17 November)</a><a class="btn" href="{PDF_REVF_PKG1}">The package on one page (PDF)</a><a class="btn" href="/tests/">The physical test plan (updated 17 November)</a><a class="btn" href="/parts/">The parts library</a></p>
+<p><a class="btn" href="{PDF_REVF_1}">Sheets RF-00 to RF-04 (PDF, 27 November)</a><a class="btn" href="{PDF_REVF_2}">Sheets RF-05 to RF-09 (PDF, 27 November)</a><a class="btn" href="{PDF_REVF_TP}">Test pieces TP-00 to TP-04 (PDF, 27 November)</a><a class="btn" href="{ZIP_REVF_TP}">Test pieces, STEP files (zip, 1.3 MB)</a><a class="btn" href="{PDF_REVF_PKG}">The release package for Marco (PDF, 17 November)</a><a class="btn" href="{PDF_REVF_PKG1}">The package on one page (PDF)</a><a class="btn" href="/tests/">The physical test plan (updated 17 November)</a><a class="btn" href="/parts/">The parts library</a></p>
 <div class="thumbs">{revf_thumbs()}</div>
 </div></section>
 <section id="revd" class="subject"><div class="wrap">
@@ -364,10 +365,10 @@ def blueprints():
 <section><div class="wrap grid2">
 <div><h2>How to read the drawings</h2><ul class="dots"><li>Each Rev D sheet is one A3 drawing. Its title block gives the sheet, the material and heat treatment of the parts on it, and the status of every item as LOCKED, FEA, PROPOSAL or OPEN. The sheets are not to scale, so read the dimensions.</li>{"".join(f"<li>{e(t)}</li>" for t in ov["reading"])}</ul>
 <p class="muted">Click any drawing to open it full size. The arrow keys on your keyboard step through them.</p></div>
-<div><h2>How the pieces fit</h2>
+<div><h2>How the pieces fit (Rev D, October 2026)</h2>
 <p>The shell is made of 32 panels. Each panel has a frame along each edge. Two frames bolted together make a seam, and three seams meet at a corner. The stress model of the whole shell, run from 9 to 12 October, shows how the load is shared. Most of the pull across a seam goes into the corner nodes and about a third into the hardpoint halfway along the seam. The bolts only clamp the seals.</p>
 <p>We test the parts that decide whether the shell holds. T1 tests the seam. We build it this fall and pull it apart at the Rev D load in late January and February 2027. T0 tests the glass by bending bars at four points in spring 2027. T2 tests one hexagon panel at 1:4 scale in spring 2027, and T3 tests a corner in 2027. Every test runs on the computer first, and nothing is machined until its digital twin, the computer model of that test, has a signed sheet. A test passes when the measurement comes within 10 percent of the prediction.</p>
-<p class="muted">Rev D is a design in progress, not a design ready to fly. The open decisions are listed at the bottom of this page.</p></div>
+<p class="muted">This is the Rev D picture, kept as written. In Rev F, the working baseline, each seam has three hardpoints at the quarter points; the seam test pieces are made once the parts are funded, the T1 holds are restated at 12.3 psia, and T3 comes not before late 2027. Rev F is a design in progress, not a design ready to fly. Its open items are on sheet RF-00; the Rev D list is at the bottom of this page.</p></div>
 </div></section>
 <section id="revs" class="subject" style="padding-bottom:0"><div class="wrap">
 <p class="eyebrow">For reference</p>
@@ -396,13 +397,14 @@ def blueprints():
 </div></section>""")
     parts.append(f"""
 <section id="open"><div class="wrap">
-<h2>Still open</h2>
+<p>The current open items are in TRUTH Rev F: the hardpoint fitting, the seal loop corners, the pane clamp at launch, the corner tie tolerance and a stress limit for the corner block. Sheet RF-00 lists them with the sheet each one sits on.</p>
+<h2>What Rev D left open (23 October), kept as the record</h2>
 <p class="muted">Rev D left ten decisions open, each with a default. We took two of them on 23 October for Rev E, the pressure glass and the seal, so eight are still open.</p>
 <ul class="dots">{"".join(f"<li>{e(t)}</li>" for t in OPEN_ITEMS)}</ul>
 <p style="margin-top:20px"><a class="btn" href="{PDF_REVD}">The Rev D blueprint pack (PDF)</a><a class="btn" href="{PDF_REVD_SPEC}">The Rev D design spec (PDF)</a><a class="btn" href="{PDF}">The Rev S drawings, explained (PDF, out of date)</a><a class="btn" href="/plan/#need">What we need from sponsors</a></p>
 </div></section>""")
     return page("HCSA blueprints, Rev F",
-                "The Rev D drawing sheets of 14 October 2026 and every older Rev S drawing of the HCSA shell, panels, seam joint, corner and test pieces, each with dimensions and a plain explanation.",
+                "The Rev F drawing sheets of the HCSA shell, panels, seam joint, corner and test pieces (reissued 27 November 2026), the Rev D sheets of 14 October and every older Rev S drawing, each with dimensions and a plain explanation.",
                 "/blueprints/", "".join(parts), lightbox=True)
 
 
@@ -415,21 +417,21 @@ MILESTONES = [
     ("12 October", "A stress model of the whole shell in three different programs, which gave the Rev D sizes on 14 October", "Done"),
     ("23 October", "We decided the pane and the seal for Rev E. The glass is 22 mm thick in 531 mm panes, and the seal is two butyl loops and a silicone bead.", "Decided"),
     ("1 November", "The parts memo, with the bolt part number confirmed", ""),
-    ("8 November", "We release the drawings, parts list and quotes, which make up the Rev E pack, and decide whether to go ahead and build. Nothing is machined until its digital twin has a signed sheet.", ""),
+    ("17 November", "The Rev F release package, with the drawings and the test-piece STEP files, went to Marco Cross for the fabrication review. Nothing is machined until its digital twin has a signed sheet.", "Done"),
     ("18 November", "The 100 kN load frame at Brown becomes free", ""),
     ("22 November", "The test plan for spring 2027, with test dates set with Dewesoft for the loan of the strain recorder", ""),
-    ("6 December", "If the shop delivers on time, we build the 550 mm joint piece and measure bolt tension against how much the seal is squeezed.", ""),
-    ("11 December", "The fall report, 10 to 15 pages long", ""),
+    ("18 December", "The fall report to Rick", ""),
+    ("January 2027 at the earliest", "Once the machining is funded, we build the 550 mm joint piece and measure bolt tension against how much the seal is squeezed.", ""),
     ("Late January to February 2027", "We pull the seam slices apart in the 100 kN frame, with the strain recorder on loan from Dewesoft.", ""),
 ]
 
 TESTS = [
     ("t0", "T0: how strong is our glass?", "3d_render-17_T0_ring_on_ring",
-     "We bend borosilicate glass bars, 1 inch wide and 1/8 inch thick, at four points until they break, the way the ENGN 1440 class does it. We break 30 or more for each edge finish, so we learn the real strength and how much it scatters. That scatter picks the final pane size. We plan on 531 mm, can go to 708 mm if the glass is consistent, and drop to 425 mm if it is not. We have dropped the disc test drawn here. Its fixture would cost thousands, and the small frame at Brown only goes to 0.5 kN, not 5 kN. We keep the BOROFLOAT discs from Precision Glass & Optics and the 15 sapphire discs from Meller Optics for a second look.",
-     "This happens in spring 2027, in ENGN 1440, the Brown materials lab course. We are still deciding whether to break a first set of bars this fall on the 0.5 kN frame."),
+     "We bend borosilicate glass bars, 1 inch wide and 1/8 inch thick, at four points until they break, the way the ENGN 1440 class does it. It takes 30 or more breaks for each edge finish to learn the real strength and how much it scatters. That scatter picks the final pane size. We plan on 531 mm, can go to 708 mm if the glass is consistent, and drop to 425 mm if it is not. We have dropped the disc test drawn here. Its fixture would cost thousands, and the small frame at Brown only goes to 0.5 kN, not 5 kN. We keep the BOROFLOAT discs from Precision Glass & Optics and the 15 sapphire discs from Meller Optics for a second look.",
+     "This happens in spring 2027, in ENGN 1440, the Brown materials lab course. The class runs five bars per condition, a first look (Prof. Padture, 18 November); how we get enough breaks for the Weibull modulus is still open."),
     ("t1", "T1: does the seam hold when it is pulled apart?", "3d_render-10_T1_slice_150",
      "We pull full-size slices of the seam, 75, 150 and 225 mm long, in the 100 kN load frame at Brown, and check the seal between the two butyl loops while we pull. A 550 mm piece of the seam checks that it goes together and holds air. On 23 October we changed the seal to two butyl BA500 loops and the silicone bead, in place of fluorosilicone cord. Parker advised this, because a closed loop has no cut ends that could leak at the corners.",
-     "The Rev F test pieces are drawn (sheets TP-00 to TP-04, 9 November). We make them once the money is in and pull them in late January and February 2027. The frame is free after 18 November, and Dewesoft lends the 16-channel strain recorder in batches of 3 to 4 weeks, booked a month ahead."),
+     "The Rev F test pieces are drawn (sheets TP-00 to TP-04, reissued 27 November). We make them once the money is in and pull them in late January and February 2027. The frame is free after 18 November, and Dewesoft lends the 16-channel strain recorder in batches of 3 to 4 weeks, booked a month ahead."),
     ("t2p", "T2: how does a window panel bend?", "3d_render-14_T2_rig_pinned",
      "We load a hexagon panel at quarter scale, 1.1 m across, with water in a steel tub, up to 2 atm. It has aluminium panes in place of glass. The test shows how the panes bend onto the frame and ribs. The test piece is being redrawn on the Rev F grid, and it needs its own funding and a host.",
      "This happens in spring 2027."),
@@ -445,7 +447,7 @@ NEEDS = [
         ("A four-point bending fixture", "We need the ENGN 1440 fixture, or one like it, that fits a 0.5 kN frame.", "Early 2027"),
     ]),
     ("For T1, the seam slices and the 550 mm joint piece", [
-        ("6061-T651 aluminium, and CNC machining of 8 edge frames", "There are six slice frames, 180 mm deep and 75, 150 and 225 mm long, two of each, and the two frames of the 550 mm piece. The two butyl glands are 7.1 by 4.0 mm and the bolts are every 75 mm. The frames weigh about 40 kg in all. The STEP files and sheets TP-00 to TP-04 are ready (9 November).", "Once funded"),
+        ("6061-T651 aluminium, and CNC machining of 8 edge frames", "There are six slice frames, 180 mm deep and 75, 150 and 225 mm long, two of each, and the two frames of the 550 mm piece. The two butyl glands are 7.1 by 4.0 mm and the bolts are every 75 mm. The frames weigh about 40 kg in all. The STEP files (9 November) and sheets TP-00 to TP-04 (reissued 27 November) are ready; two clashes in the pull blocks are to be settled before quoting (TP-04).", "Once funded"),
         ("4140 steel pull blocks, quenched and tempered", "There are six blocks for the slices, 160 by 80 mm in section, and two 550 mm blocks for the long piece, about 200 kg in all; in 6061 aluminium they would be much lighter. A lug, fork and pin pry the joint open in the second run.", "Once funded"),
         ("5/16-24 bolts, with nuts and washers", "We need about 20 sets. Catalogue alloy steel bolts stand in for the NAS6705 flight bolt in every test piece, since at 4 kN the bolt's stiffness is what matters.", "Once funded"),
         ("Butyl seal loops (Parker BA500)", "Each joint takes two closed loops, spliced from extruded cord 0.210 inch thick, in glands 7.1 by 4.0 mm (sheets TP-00 to TP-04). We no longer need fluorosilicone cord.", "November"),
@@ -533,19 +535,19 @@ def plan():
     body = f"""
 <header class="hero"><div class="wrap">
 <p class="eyebrow">The plan for fall 2026. We wrote it on {REVS_DATED}, added the Rev D note on {REVD_DATED} and updated it on {UPDATED}.</p>
-<h1>This fall we build the seam between two panels. We pull it apart in late January.</h1>
+<h1>The seam test pieces are drawn. Once the parts are funded we make them, and we pull them apart in late January and February 2027.</h1>
 <p class="lead">We take the joint where two panels meet from a design on paper to hardware we have built and measured. We also do the analysis it depends on, for the loads, the glass strength and the frame material, so the tests mean something. Every test runs on the computer first.</p>
 <p style="margin-top:24px"><a class="btn" href="#need">What we need from sponsors</a><a class="btn" href="/blueprints/">See the blueprints</a><a class="btn" href="#nov">What changed in November</a><a class="btn" href="{PDF_REVF_1}">Rev F sheets (PDF)</a></p>
 </div></header>
 
 <section id="nov" style="padding:32px 0"><div class="wrap">
 <p class="eyebrow">What changed on 4 and 5 November 2026 (Rev F)</p>
-<p>In the first week of November we took six more decisions. Together they make Rev F, our working baseline. TRUTH Rev F is drafted, and Prof. Fleeter still has to sign the cabin pressure, the safety factors and the change to leak before break.</p>
+<p>In the first week of November we took six more decisions. Together they make Rev F, our working baseline. TRUTH Rev F is drafted, and Prof. Fleeter signed the cabin pressure, the safety factors and the withdrawal of leak before break on 10 November.</p>
 <ul class="dots"><li><b>Thinner ribs.</b> The secondary ribs are 180 by 60 mm (2 November) and the main rib is option B, 400 by 100 mm (4 November). About 61 percent of each window is now open glass, and the station is 3.8 t lighter than with option A.</li>
 <li><b>The cabin at 0.8 atm.</b> The air is 81 kPa with 26 percent oxygen, the same oxygen pressure as at sea level. It takes about a fifth of the load off the structure, so with the thin ribs nothing yields below the ultimate load. The station is now a module for a 1 atm commercial station, such as Orbital Reef, and not for the ISS, which is being retired. It joins its host through a small transfer lock with a hatch that stays shut while the pressures differ, and it has its own relief valve.</li>
 <li><b>21 mm glass.</b> SCHOTT told us on 4 November that 22 mm BOROFLOAT would need container loads, and 21 mm is a standard sheet of 1,700 by 1,300 mm. At 0.8 atm the 21 mm pane passes if the glass bars in the spring show a Weibull modulus of about 7.7 or more. It saves 0.6 t.</li>
 <li><b>The seam.</b> The frame is 180 mm deep, the seal grooves are 7.1 by 4.0 mm, and the seam bolts are NAS6705U27 with a KFN670 nut, tightened to 4 kN. The corner ties were preloaded to 198 kN, and came down to 180 kN on 17 November.</li></ul>
-<p>The computer tests on this design ran on 4 and 5 November. The corner passes at 0.8 atm, with the worst tie at 214.5 kN at proof against 227 kN, and it still passes, by only 0.7 kN, if the hatch is left open and the cabin goes to 1 atm. On 17 November the tie preload came down to 180 kN: the worst tie at proof is then 198.9 kN at 0.8 atm and 212.0 kN with the hatch open, with 0.03 mm to spare on the joint opening. The seam passes with about 40 percent margin. We tried moving the seam bolts 12 mm deeper to give the seal loops the rounder corners Parker asks for, and the seal then opened too far, so the bolts stay where they are and the loop corners are worked out in the corner block drawing instead. Two tests still have to give numbers: the seal at the hardpoints and the panes at launch.</p>
+<p>The computer tests on this design ran on 4 and 5 November. The corner passes at 0.8 atm: with the earlier 198 kN preload the worst tie was 214.5 kN at proof against 227 kN, and it still passed, by only 0.7 kN, with the hatch to the 1 atm host open (15.2 psia, proof 1.551 atm). On 17 November the tie preload came down to 180 kN: the worst tie at proof is then 198.9 kN at 0.8 atm and 212.0 kN with the hatch open, with 0.03 mm to spare on the joint opening. The plain seams pass with 19 to 40 percent to spare, depending on how the test slice is held; the tight spot is the bolt beside each hardpoint. We tried moving the seam bolts 12 mm deeper to give the seal loops the rounder corners Parker asks for, and the seal then opened too far, so the bolts stay where they are and the loop corners are worked out in the corner block drawing instead. The hardpoint and launch runs of 6 and 7 November are in: the hardpoint fitting has to move onto the line of the pull, and the pane clamp holds. A first launch vibration model followed on 15 November.</p>
 <p>The test plan does not change: glass bars in the spring, seam pulls in late January and February 2027. The test pieces are redrawn at 180 mm deep. <a href="/blueprints/#revf">The Rev F sheets</a> show the new parts.</p>
 </div></section>
 
@@ -568,7 +570,7 @@ def plan():
 <div><h2>A room in orbit made mostly of windows.</h2>
 <p>HCSA is a design for a facility in low Earth orbit, for short visits. Nobody lives there. People come to look at Earth, move around, meet, do research and spend time among plants.</p>
 <p>Its wall is made of 32 flat panels, in the shape of a football. The 20 hexagons are glass, and they are the windows. The 12 pentagons are solid, and they hold the solar panels and the shields that fold out over the windows around them. Every window borders three pentagons, so a shield can reach every one.</p>
-<p>Inside is air at normal pressure and outside is vacuum, so the air pushes out on every panel, with about 1.07 meganewtons on each hexagon at 0.8 atm. This fall's work is about holding that push at the seams and through the glass.</p></div>
+<p>Inside is air at 0.8 atm and outside is vacuum, so the air pushes out on every panel, with about 1.07 meganewtons on each hexagon at 0.8 atm. This fall's work is about holding that push at the seams and through the glass.</p></div>
 <div><ul class="facts" style="margin-top:0"><li>11.15 m across</li><li>2.25 m edges</li><li>630 m³ inside</li><li>32 panels</li><li>90 seams</li><li>0.8 atm inside, vacuum outside</li></ul>
 <p class="muted" style="margin-top:18px">More concept art, the 3D model and our physical model are on the <a href="/story/#work">earlier scroll site</a>.</p></div>
 </div>
@@ -578,9 +580,8 @@ def plan():
 <section id="now"><div class="wrap grid2">
 <div><p class="eyebrow">Where we are</p><h2>The design is simple enough to build.</h2></div>
 <div><ul class="dots">
-<li>In Rev S we redesigned the panel joint to be simple. Two aluminium frames are bolted face to face, with one row of bolts every 75 mm, two O-rings and a bead of sealant.</li>
-<li>We modelled the whole shell in CAD, with 32 panels, 90 seams, 2,610 bolts and every seal, and no parts overlap.</li>
-<li>We have designed the tests and drawn every test piece and rig. The test plan is going to Brown engineering faculty for review.</li>
+<li>In Rev F two aluminium frames are bolted face to face along each seam, with one row of 16 bolts at 75 mm pitch, two loops of butyl and a bead of RTV566 silicone. The station has 90 seams and 1,440 seam bolts. The hardpoint fitting still runs into the frame and is being redrawn.</li>
+<li>We have designed the tests and drawn the seam test pieces; the quarter-scale panel is being redrawn for Rev F. The test plan is going to Brown engineering faculty for review.</li>
 <li>Every drawing, with dimensions and a plain explanation, is on the <a href="/blueprints/">blueprints page</a>.</li>
 <li>The <a href="/tests/">tests page</a> has the physical test plan of 13 November: every test, how it runs, what it records and tells us, what has to be made, what we have, who provides each piece and the price, with an animation of each test. The October film is kept there for reference.</li>
 </ul></div>
@@ -593,7 +594,7 @@ def plan():
 </div></section>
 
 <section id="milestones"><div class="wrap">
-<p class="eyebrow">By 11 December</p>
+<p class="eyebrow">By 18 December</p>
 <h2>What we will finish this fall.</h2>
 <div class="tablewrap"><table class="stack"><thead><tr><th>Date</th><th>What</th><th><span class="sr">Status</span></th></tr></thead><tbody>{ms}</tbody></table></div>
 <p class="muted" style="margin-top:16px">After this fall, in late January and February 2027, we pull the T1 slices in the 100 kN frame. In spring 2027 we break the T0 bars, run T2 under water pressure, check the computer model against all of them and design the corner seal. In spring 2028 the work becomes a capstone project.</p>
