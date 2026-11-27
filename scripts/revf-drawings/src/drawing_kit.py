@@ -307,15 +307,15 @@ def dim(ax, p0, p1, text, off=8.0, fs=FS_LABEL, col="k", ext=1.5, gap=1.0, text_
     a = (p0[0] + nx * o, p0[1] + ny * o); b = (p1[0] + nx * o, p1[1] + ny * o)
     s = 1 if off >= 0 else -1
     g, e = _u(ax, gap) * s, _u(ax, ext) * s
-    ax.plot([p0[0] + nx * g, a[0] + nx * e], [p0[1] + ny * g, a[1] + ny * e], lw=0.35, c=col)
-    ax.plot([p1[0] + nx * g, b[0] + nx * e], [p1[1] + ny * g, b[1] + ny * e], lw=0.35, c=col)
+    ax.plot([p0[0] + nx * g, a[0] + nx * e], [p0[1] + ny * g, a[1] + ny * e], lw=0.35, c=col, clip_on=False)
+    ax.plot([p1[0] + nx * g, b[0] + nx * e], [p1[1] + ny * g, b[1] + ny * e], lw=0.35, c=col, clip_on=False)
     if inside:
-        ax.annotate("", b, a, arrowprops=dict(arrowstyle="<|-|>", lw=lw, color=col, shrinkA=0, shrinkB=0, mutation_scale=6))
+        ax.annotate("", b, a, annotation_clip=False, arrowprops=dict(arrowstyle="<|-|>", lw=lw, color=col, shrinkA=0, shrinkB=0, mutation_scale=6))
     else:
         for q, sg in ((a, -1), (b, 1)):
             tip = (q[0], q[1]); tail = (q[0] + sg * ux * _u(ax, 6), q[1] + sg * uy * _u(ax, 6))
-            ax.annotate("", tip, tail, arrowprops=dict(arrowstyle="-|>", lw=lw, color=col, shrinkA=0, shrinkB=0, mutation_scale=6))
-        ax.plot([a[0], b[0]], [a[1], b[1]], lw=lw, c=col)
+            ax.annotate("", tip, tail, annotation_clip=False, arrowprops=dict(arrowstyle="-|>", lw=lw, color=col, shrinkA=0, shrinkB=0, mutation_scale=6))
+        ax.plot([a[0], b[0]], [a[1], b[1]], lw=lw, c=col, clip_on=False)
     ang = math.degrees(math.atan2(dy, dx))
     if getattr(ax, "_flip", False):
         ang = -ang
@@ -330,7 +330,7 @@ def leader(ax, target, text_at, text, fs=FS_LABEL, col="k", ha=None, va="center"
     """Leader line from a label at text_at (data coordinates) to target."""
     if ha is None:
         ha = "right" if text_at[0] < target[0] else "left"
-    ax.annotate(text, target, text_at, fontsize=fs, color=col, ha=ha, va=va, zorder=21,
+    ax.annotate(text, target, text_at, fontsize=fs, color=col, ha=ha, va=va, zorder=21, annotation_clip=False,
                 arrowprops=dict(arrowstyle="-|>" if not dot else "-", lw=lw, color=col, shrinkA=1.5, shrinkB=0, mutation_scale=6),
                 bbox=dict(fc="white", ec="none", pad=0.5, alpha=0.9) if bg else None, **kw)
     if dot:
@@ -344,10 +344,10 @@ def balloon(ax, target, at, n, fs=7.5, r=2.6, col="k", dot=True):
     L = math.hypot(dx, dy)
     if L > rr:
         sx, sy = at[0] + dx / L * rr, at[1] + dy / L * rr
-        ax.plot([sx, target[0]], [sy, target[1]], lw=0.45, c=col, zorder=21)
+        ax.plot([sx, target[0]], [sy, target[1]], lw=0.45, c=col, zorder=21, clip_on=False)
     if dot:
         ax.plot([target[0]], [target[1]], marker="o", ms=2.0, c=col, zorder=22)
-    ax.add_patch(Circle(at, rr, fc="white", ec=col, lw=0.6, zorder=22))
+    ax.add_patch(Circle(at, rr, fc="white", ec=col, lw=0.6, zorder=22, clip_on=False))
     ax.text(at[0], at[1], str(n), fontsize=fs, ha="center", va="center", color=col, zorder=23, weight="bold")
 
 
