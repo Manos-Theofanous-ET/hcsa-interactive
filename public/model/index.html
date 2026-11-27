@@ -122,7 +122,7 @@
     <span>Windows</span><span>20 glass hexagons</span>
     <span>Panes</span><span>96 per hexagon, 531 mm, 21 mm BOROFLOAT 33</span>
     <span>Pentagons</span><span>12, solid: solar arrays and rolled shields</span>
-    <span>Structure</span><span>6061-T6 frames 180 deep; main ribs I 400 × 100 (option B); secondary ribs I 180 × 60; k 4 grid; 60 corner blocks</span>
+    <span>Structure</span><span>Frames 180 deep (checked as 6061-T6; flight alloy open); main ribs I 400 × 100 (option B); secondary ribs I 180 × 60; k 4 grid; 180 corner blocks in 60 nodes</span>
     <span>Cabin</span><span>0.8 atm, 26 % O₂, design pressure 12.3 psia</span>
     <span class="internal">Docking</span><span class="internal">Hatch-shut transfer lock and relief valve to a 1 atm host (concept, not sized)</span>
     <span>Inside</span><span>493 m³ clear, 9.40 m across the hexagons</span>
@@ -132,7 +132,7 @@
     <span>Drinks</span><span>Drink pouches with valved straws, clipped at the drinks ring on the mast and in every pod</span>
     <span class="internal">Mass</span><span class="internal">44.1 t in the Rev E model (all layers); option B structure 36.1 t with 21 mm panes (5 Nov shell model)</span>
   </div>
-  <div class="note internal">The shell follows the Rev F working baseline of 5 Nov: option B main ribs, thin secondary ribs, 180 mm frames, 21 mm panes, a 0.8 atm cabin and a transfer lock at the docking port. The transfer lock and relief valve are a concept until Rick agrees. The interior (5 Nov) follows Marina's 13 October working images, made much smaller: six one-to-two-person pods round the central mast, plants in the six greenhouse pentagons and up the mast, handrails, handles, foot loops, window perches, a drinks ring with pouches and tasting trays. Exact pod shape and mounts wait on Marina. Drag to orbit, scroll to zoom.</div>
+  <div class="note internal">The shell follows the Rev F working baseline of 5 Nov: option B main ribs, thin secondary ribs, 180 mm frames, 21 mm panes, a 0.8 atm cabin and a transfer lock at the docking port. Rick signed off the 0.8 atm cabin with the transfer lock on 10 November; the lock and the relief valve are a concept and not sized yet. The interior (5 Nov) follows Marina's 13 October working images, made much smaller: six one-to-two-person pods round the central mast, plants in the six greenhouse pentagons and up the mast, handrails, handles, foot loops, window perches, a drinks ring with pouches and tasting trays. Exact pod shape and mounts wait on Marina. Drag to orbit, scroll to zoom.</div>
 </section>
 
 <section data-mode="walk" hidden>
@@ -620,7 +620,7 @@ faces.forEach((f, i) => {
   delete f.G;
 });
 const glassMeshes = faces.filter(f => f.parts.glass).map(f => f.parts.glass);
-// corner blocks at the 60 nodes (2219 forgings)
+// corner blocks at the 60 nodes (three machined blocks per node, alloy open)
 {
   const list = [];
   for (const v of verts) {
@@ -1357,7 +1357,7 @@ const busX = 0.14, ductX = -0.14;
     flow([V3(ductX, -1.8, 0), V3(0, -1.8, 0).addScaledVector(V3(cIn.x, 0, cIn.z).normalize(), colR + 0.08), cp, cIn], ca, A, 0.018, 0.8);
   }
   addLabel('CO₂ removal + O₂ · 81 kPa, 26 % O₂', scrub.clone().add(V3(0, -0.4, 0)), 'air',
-    '<b>Air.</b> A machine system holds <b>81 kPa (0.8 atm) with 26 % O₂</b>, which gives the same oxygen pressure as sea level (Rev F, 4 Nov; TRUTH 5.3 to be rewritten for a hatch-shut transfer lock to a 1 atm host). It sits behind a service pentagon and blows clean air down the column to vents, then out to the pods and greenhouses.');
+    '<b>Air.</b> A machine system holds <b>81 kPa (0.8 atm) with 26 % O₂</b>, which gives the same oxygen pressure as sea level (Rev F, 4 Nov; TRUTH Rev F, section 5.3). It sits behind a service pentagon and blows clean air down the column to vents, then out to the pods and greenhouses.');
   addLabel('6 visitors · about 0.4 kg CO₂ a visit', V3(1.2, 0.2, 1.4), 'air',
     '<b>What the visitors breathe.</b> One person uses about 0.84 kg of O₂ and breathes out about 1.0 kg of CO₂ a day (life support brief). Six visitors for 90 minutes is about <b>0.375 kg of CO₂</b>, which the machines remove. The plants clean the air a little, but they cannot keep up with people (plant brief).');
   addLabel('Pod fan · size to be set (Skye)', pods[0].center.clone().add(V3(0, pods[0].ay * 0.7, 0)), 'air',
@@ -1389,7 +1389,7 @@ const busX = 0.14, ductX = -0.14;
     '<b>Heat rejection.</b> Grow lights, people and electronics all make heat, which has to leave the station. Where it leaves and how big the radiator is are <b>to be set: Skye</b>.');
   const hx = hexes.find(h => h.n.y > 0.5) || hexes[0];
   addLabel('Shutters + shields keep sun off the glass', hx.c.clone().addScaledVector(hx.n, 0.8), 'heat',
-    '<b>Sun on the glass.</b> One shutter per glass cell, plus the inflatable shields from the pentagons. With the solar arrays on insulated stand-offs, the hexagon-to-pentagon temperature difference is about <b>7 to 45 K</b> (first estimate, 24 Oct). Without the stand-off it could reach about 100 K.');
+    '<b>Sun on the glass.</b> One shutter per glass cell, plus the inflatable shields from the pentagons. With the solar arrays on insulated stand-offs, the hexagon-to-pentagon temperature difference is about <b>2 to 4 K</b> with the cabin pressurised and up to about 12 K in bad cases, with 15 K as the design case (thermal model, 1 Nov). The stand-offs and a blanket under each array are part of what keeps it there.');
 }
 let sysOn = new Set();
 const sysKeep = new Set([solar, solarBack]);
@@ -1795,12 +1795,12 @@ colStack.visible = false; scene.add(colStack);
 const COL_STACK_POS = STACK0.clone().add(V3(0.1, -0.4, -3.35));
 const assemblyOrder = [...faces].sort((a, b) => a.n.y - b.n.y);
 const CHAPTERS = [
-  ['Making the parts', 'One hexagon, taken apart: 6061-T6 frame and main ribs (I 400), the k 4 grid of secondary ribs, 96 glass panes of 21 mm BOROFLOAT 33 cut as 531 mm triangles from standard sheets, the butyl seals and RTV, one shutter per cell. The 60 corner blocks are 2219 hand forgings.'],
+  ['Making the parts', 'One hexagon, taken apart: 6061-T6 frame and main ribs (I 400), the k 4 grid of secondary ribs, 96 glass panes of 21 mm BOROFLOAT 33 cut as 531 mm triangles from standard sheets, the butyl seals and RTV, one shutter per cell. The 180 corner blocks are machined from plate (alloy still open).'],
   ['Building a panel', 'Frame first, then the six main ribs and hub, the secondary grid, the pane seats and seals, the glass, and the shutters. Each panel is finished and leak-checked on the ground.'],
   ['Testing', 'T0 breaks glass bars to measure strength (spring 2027, ENGN 1440). T1 pulls seam slices on the Instron (Jan to Feb 2027). T2 tests one panel at 1:4 scale. The pane size is picked after T0 measures the Weibull modulus.'],
   ['Packing for launch', 'Twenty flat layers in Starship V3: a hexagon beside a pentagon in twelve of them, a hexagon alone in eight, with the column standing upright beside the stack (packing study, 24 Oct). The stack fits the 8 m by 17.24 m envelope if each cradle takes no more than 0.15 m.'],
   ['Launch and arrival', 'One launch to low Earth orbit; Starship V3 is quoted at more than 100 t, and the facility manifest is about 52 to 60 t. In orbit the payload bay opens.'],
-  ['Assembling in orbit', 'The column goes in first, then the 32 panels are bolted on one by one, from the Earth side up, and the 60 corner blocks close each node. Who does the assembly in orbit, robot arm or crew, is still open in TRUTH.'],
+  ['Assembling in orbit', 'The column goes in first, then the 32 panels are bolted on one by one, from the Earth side up, and the 180 corner blocks close the 60 nodes. Who does the assembly in orbit, robot arm or crew, is still open in TRUTH.'],
   ['Pressurising', 'Air is let in slowly to 81 kPa (0.8 atm) while the seams are watched for leaks. At full pressure each glass hexagon is pushed out with about 1.07 MN.'],
   ['Years in service', 'Short visits of about six people for one orbit at a time. Shields come out to protect the glass; panes and seals can be swapped from the inside, one cell at a time.'],
   ['End of life', 'Taken apart panel by panel or brought down, as TRUTH section 16 sets out. The details are still to be written.'],
@@ -1877,7 +1877,7 @@ const demoPent = facing(pents.filter(p => p.role === 'solar')), demoGh = facing(
 const apartLabels = [
   [() => demoHex.c.clone().addScaledVector(demoHex.n, apart.k * APART_OUT.hex + 0.3), 'Glass hexagon, 20 of them: frame, 6 main ribs, 108 secondary ribs, 96 panes of 21 mm glass'],
   [() => demoPent.c.clone().addScaledVector(demoPent.n, apart.k * APART_OUT.pent + 0.5), 'Solid pentagon, 12 of them: closure plate, solar, shield roll; one is the docking port'],
-  [() => demoHex.v[0].clone(), '60 corner nodes, three forged blocks and 12 ties each'],
+  [() => demoHex.v[0].clone(), '60 corner nodes, three machined blocks and 12 ties each'],
   [() => V3(colR + 0.25, 3.4, 0), 'Central mast: power, water, plants'],
   [() => pods[0].center.clone().add(V3(0, pods[0].ay + 0.15, 0)), 'Six pods'],
   [() => demoGh.c.clone().multiplyScalar(0.78), 'Greenhouse alcove'],
