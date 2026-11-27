@@ -14,7 +14,11 @@ file, `src/hcsa_params_revF.json`, so a change there moves every sheet.
   with the bill of materials.
 - `testpieces/sheets_testpieces.py` — sheets TP-00 to TP-04 (A3 PDF and PNG)
   from the solids and `testpieces.json`.
-- `flight/sheets_flight_revF.py` — sheets RF-05 to RF-09 (A3 PDF and PNG).
+- `flight/sheets_flight_revF.py` — sheets RF-00 to RF-09 (A3 PDF and PNG): RF-00 is the sheet index, revision
+  history, conventions, baseline and open items; RF-01 to RF-04 are drawn here from the parameter file since 27 Nov.
+- `src/drawing_kit.py` — the shared sheet style: one title block (sheet, revision, issue date, sheet n of N, part,
+  material, finish, scale, units, third-angle symbol, general tolerance note, status, drawn by HCSA team), views at an
+  exact scale on A3, dimensions, leaders, balloons, wrapped notes and tables. No lettering below 7.5 pt.
 
 Run, from this folder, with Python 3.11+, `cadquery`, `matplotlib`, `numpy`,
 `Pillow` installed (and `rsvg-convert` for the SVG views):
@@ -23,13 +27,22 @@ Run, from this folder, with Python 3.11+, `cadquery`, `matplotlib`, `numpy`,
     python testpieces/sheets_testpieces.py
     python flight/sheets_flight_revF.py
 
+The Inter font (as on the earlier sheets) is used when it is installed under
+`/usr/share/fonts/opentype/inter`; otherwise DejaVu Sans.
+
 Then convert the PDFs for the website with
 `python scripts/static-pages/convert_revf_sheets.py <pdf> revf <sheet ids>`
 and regenerate the pages with `python scripts/static-pages/gen_pages.py`.
 
 The sheets are drawn from the parameters, not traced from CAD, and are not
-checked for machining. Sheets RF-01 to RF-04 of 5 November were drawn
-separately and are kept as the PDF in `/downloads`.
+checked for machining. Sheets RF-01 to RF-04 of 5 November were drawn by a
+script that is not in this repository; their PDF stays in `/downloads` for the
+record, and since 27 November they are drawn by `flight/sheets_flight_revF.py`.
+The flight script imports `parts_revF/corner_block.py` (for the corner block
+outline and hole table), so it needs CadQuery too. The PDFs of the 27 November
+issue are `HCSA-Rev-F-sheets-RF-00-to-RF-04-27-Nov-2026.pdf`,
+`HCSA-Rev-F-sheets-RF-05-to-RF-09-27-Nov-2026.pdf` and
+`HCSA-Rev-F-test-pieces-TP-00-to-TP-04-27-Nov-2026.pdf`; the earlier issues are kept.
 
 ## The release package and the Rev F parts
 
