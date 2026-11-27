@@ -4,12 +4,12 @@ This is the Rev F release package for Marco Cross, for the call on Tuesday 17 No
 
 ## What changed since the 27 October document
 
-Rev E became Rev F through the eight decisions of 2 to 5 November below. On 10 November Rick signed the ones that needed him and agreed to move the hardpoint.
+Rev E became Rev F through the eight decisions of 2 to 5 November below. On 10 November Rick signed the ones that needed him and agreed to move the hardpoint. On 17 November the corner tie preload came down from 198 to 180 kN.
 
 | Date | Decision | Why |
 | --- | --- | --- |
 | 2&nbsp;Nov | Secondary ribs I 180 x 60 x 10, web 5, a custom extrusion | Thinner ribs, more open glass; checked in the rib study |
-| 2&nbsp;Nov | Corner tie preload 198 kN, held to 196.5 to 198.1 kN, was 203 | The corner model with the real rib loads |
+| 2&nbsp;Nov | Corner tie preload 198 kN, was 203 (lowered to 180 kN on 17&nbsp;Nov, last row) | The corner model with the real rib loads |
 | 4&nbsp;Nov | Main rib option B, I 400 x 100 x 25, web 8, with bolted cap angles | 3.8 t lighter than option A, with about 61 percent of each window open glass |
 | 4&nbsp;Nov | Cabin at 0.8 atm with 26 percent oxygen; a module for a 1 atm commercial station, joined through a transfer lock | Takes a fifth of the load off the structure; the same oxygen pressure as at sea level |
 | 5&nbsp;Nov | Pressure pane 21 mm BOROFLOAT 33, in 531 mm panes, 96 to a hexagon; was 22 mm | SCHOTT makes 21 mm as a standard 1,700 x 1,300 sheet; 22 mm would need container loads |
@@ -18,12 +18,13 @@ Rev E became Rev F through the eight decisions of 2 to 5 November below. On 10 N
 | 5&nbsp;Nov | We stop quoting 35 MPa as the glass allowable until our own bars measure it | SCHOTT's figure is 25 MPa, a 5 percent fractile on abraded glass, with no Weibull data |
 | 10&nbsp;Nov | Rick signs the 0.8 atm cabin, withdraws leak before break as a requirement, and confirms the factors, 1.5 at proof and 2.0 at ultimate | In the plain bays the metal yields before the seals open, so leak before break cannot hold; the factors are NASA's |
 | 10&nbsp;Nov | The hardpoint fitting moves onto the line of the pull (z' 46 to 106, was 110 to 170) | As drawn the frames hinge about it and the seals open at 0.2 to 0.5 atm |
+| 17&nbsp;Nov | Corner tie preload 180 kN, was 198 | At 198 kN the hatch-open case left 0.7 kN on the worst tie, which is tighter than any tightening method can hold. At 180 kN every case passes. It must not drift below 180 kN, because at 160 kN the faces open 0.81 mm with the hatch open |
 
 The position of the hardpoint is settled, but the part behind it still has to be redesigned to fit the 180 mm frame (part 2, sheet RF-07).
 
 ## What the computer tests found, in two sentences
 
-At 0.8 atm the corners pass with about 12 kN of room on the worst tie, and still pass, by 0.7 kN, if the hatch is left open and the cabin goes to 1 atm; the seams pass with about 40 percent margin. The hardpoint as drawn does not work, because the fitting sits 64 mm deeper than the line of the pull and the two frames hinge about it, so the seals open at 0.2 to 0.5 atm; moved onto the line of the pull the seal at the fitting holds to 2.5 atm, with the bolt beside it 3 percent short of its requirement, and Rick agreed that move on 10 November.
+With the corner ties at 180 kN, the corners pass at 0.8 atm with about 28 kN of room on the worst tie, and still pass, with 15 kN on the tie and 0.03 mm on the joint opening, if the hatch is left open and the cabin goes to 1 atm; the seams pass with about 40 percent margin. The hardpoint as drawn does not work, because the fitting sits 64 mm deeper than the line of the pull and the two frames hinge about it, so the seals open at 0.2 to 0.5 atm; moved onto the line of the pull the seal at the fitting holds to 2.5 atm, with the bolt beside it 3 percent short of its requirement, and Rick agreed that move on 10 November.
 
 ## How to read the package
 

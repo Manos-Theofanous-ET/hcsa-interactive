@@ -27,7 +27,7 @@ def sheet(no, title, status):
     for y in (0.75, 0.5, 0.25): tb.plot([0, 1], [y, y], lw=0.6, c="k")
     tb.plot([0.6, 0.6], [0, 0.75], lw=0.6, c="k")
     tb.text(0.02, 0.86, f"HCSA  {no}  {title}", fontsize=10.5, weight="bold", va="center")
-    tb.text(0.02, 0.62, "Rev F flight design, 9 Nov 2026. Replaces the Rev E draft sheet of 24 Oct", fontsize=6.8, va="center")
+    tb.text(0.02, 0.62, "Rev F flight design, 9 Nov 2026; reissued 17 Nov 2026, corner ties 180 kN", fontsize=6.8, va="center")
     tb.text(0.02, 0.37, f"Status: {status[:92]}", fontsize=6.2, va="center")
     tb.text(0.02, 0.12, "Drawn: Claude for M. Theofanous    Checked: -    Released: -", fontsize=8, va="center")
     tb.text(0.62, 0.62, "mm. Drawn from the parameters", fontsize=7.5, va="center")
@@ -314,7 +314,7 @@ def rf07(pdf):
 
 # ---------------- RF-08 corner node ----------------
 def rf08(pdf):
-    fig = sheet("RF-08", "Corner node: blocks, ties, dowels, what the model says, machining", "PROPOSAL; ties, preload decided; radii per Marco; O10 seal, rib landing open")
+    fig = sheet("RF-08", "Corner node: blocks, ties, dowels, what the model says, machining", "PROPOSAL; ties at 180 kN (17 Nov); radii per Marco; O10 seal, rib landing open")
     ax = fig.add_axes([0.03, 0.50, 0.40, 0.42]); ax.set_aspect("equal"); ax.axis("off")
     # plan of a hexagon corner block: legs 230 x 50 at 120 deg, vertex at origin, leg A along +x, interior on +y
     a2 = math.radians(120); dB = np.array([math.cos(a2), math.sin(a2)])
@@ -342,14 +342,14 @@ def rf08(pdf):
     ax2.set_xlim(-60, 290); ax2.set_ylim(-110, 440); ax2.set_title("Joint face of a leg (z' 133.8 and 380 along the plane)", fontsize=8)
     # results and notes
     axr = fig.add_axes([0.72, 0.50, 0.27, 0.42]); axr.axis("off"); axr.set_xlim(0, 1); axr.set_ylim(0, 1)
-    axr.text(0, 1, "What the corner model says (C1, 5 Nov)", fontsize=8.5, weight="bold", va="top")
-    for i, t in enumerate(["Tie preload 198 kN, held to 196.5-198.1 kN, by stretch", "Worst tie at proof, 0.8 atm: 214.5 kN (limit 227)", "Pentagon 15 K warmer: 213.3 kN", "Hatch open, 1 atm: 226.3 kN, 0.7 kN under the limit", "Faces open at proof: 0.55 mm (0.74 at 1 atm), limit 0.8", "Proposed 180 kN (15 Nov): 212.1 kN, faces 0.77 mm at 1 atm; 160 kN opens 0.81", "Block stress, 95th percentile: 236 MPa (255 at 1 atm), no limit set yet", "Worst corner load 235 kN at 0.8 atm, 290 at 1 atm"]):
+    axr.text(0, 1, "What the corner model says (C1, 5 to 17 Nov)", fontsize=8.5, weight="bold", va="top")
+    for i, t in enumerate(["Tie preload 180 kN by stretch, decided 17 Nov (was 198 kN)", "Worst tie at proof, 0.8 atm: 198.9 kN (limit 227)", "Hatch open, 1 atm: 212.0 kN; faces open 0.77 mm (limit 0.8)", "Pentagon 15 K warmer: 197.0 kN at 0.8 atm, 208.6 kN hatch open", "Faces open at proof, 0.8 atm: 0.57 mm (0.55 pentagon warmer)", "Not below 180 kN: at 160 kN the faces open 0.81 mm at 1 atm", "At 198 kN: 214.5 kN at 0.8 atm, 226.3 kN hatch open (0.7 kN left)", "Block stress at 198 kN, 95th pct: 236 MPa (255 at 1 atm), no limit yet", "Worst corner load 235 kN at 0.8 atm, 290 at 1 atm"]):
         axr.text(0, 0.90 - i * 0.1, "- " + t, fontsize=7.0, va="top")
     fig.text(0.03, 0.46, "Making it (Marco, 7 Nov). As drawn the node cannot be machined: every inside corner needs a radius a cutter can reach (R10 here; the landing takes up the re-entrant corner), and the part could be cast instead\n"
              "of machined. Our position (9 Nov): machine it from 7050-T7451 or 2219-T851 plate, not a casting (seal faces) and not a die forging (180 parts). The main rib's flanges enter the block at the\n"
              "vertex landing (notch, PROPOSAL); the two frame members run into the legs' inner faces; the tie-to-web-fillet clash (Q29), the O10 maze-patch corner seal and the loop corners R16 (Q27, Q92) are open.\n"
-             "The ties are tightened by measured stretch, because a torque wrench scatters about 25 % and the hatch-open case leaves only 0.7 kN. Forces Marco called 'achievable but unreasonable': 198 kN per tie\n"
-             "(about 650-900 N m if torqued), 12 ties per node, 720 on the station. The corner node assembly A-03 (two hexagon blocks and one pentagon block at a real vertex, dihedral 138.19 / 142.62 deg) is in the parts library.\n"
+             "The ties are tightened by measured stretch, because a torque wrench scatters about 25 % and the hatch-open faces leave only 0.03 mm. Preload 180 kN (decided 17 Nov), held at 180 kN or just above.\n"
+             "Marco called the force 'achievable but unreasonable': about 590-820 N m per tie if torqued (650-900 at 198 kN). 12 ties per node, 720 on the station. Node A-03 (two hexagon blocks, one pentagon block) is in the parts library.\n"
              "Solids of 9 Nov, with the real leaning joint faces (CB-01 22.9 kg, CB-02 21.6 kg, node A-03 80.2 kg): three blocks placed at a real vertex share no volume, the joint faces are coplanar and the 12 tie\n"
              "holes and 6 dowel holes meet on axis. The block is one outline swept along the vertex line, which leans 23.8 deg (20.1 pentagon), so the main rib end is mitred to match. Tie columns 130 / 186 mm from the vertex\n"
              "line (87 / 143 cannot clear the landing). Metal from landing to joint face 20.4 mm (17.1 pentagon); washer seat to landing edge 14.3 mm (3.4 pentagon, tight). The R10 corners are 430 mm long: cut from the open side.\n\n"
@@ -410,6 +410,6 @@ def rf09(pdf):
     pdf.savefig(fig); fig.savefig(f"{OUT}/RF-09_pentagon_GA.png", dpi=130); plt.close(fig)
 
 if __name__ == "__main__":
-    with PdfPages(f"{OUT}/HCSA_RevF_flight_sheets_RF-05_to_RF-09_15Nov2026.pdf") as pdf:
+    with PdfPages(f"{OUT}/HCSA_RevF_flight_sheets_RF-05_to_RF-09_17Nov2026.pdf") as pdf:
         rf05(pdf); rf06(pdf); rf07(pdf); rf08(pdf); rf09(pdf)
     print("flight sheets ok; bolts per seam:", len(seam_bolt_positions()), seam_bolt_positions()[:4])

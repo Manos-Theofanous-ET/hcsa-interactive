@@ -86,7 +86,7 @@
   "nodes": [60, "LOCKED"],
   "blocks": [180, "LOCKED (three per node; corrected 9 Nov 2026, was written 60)"],
   "tie": ["7/8-14 Inconel 718, four per face", "carried"],
-  "tie_preload_kN": [198.0, "DECIDED 2 Nov"],
+  "tie_preload_kN": [180.0, "DECIDED 17 Nov by Manos (was 198.0, DECIDED 2 Nov; 203 before). At 180 kN every corner case passes at proof: worst tie 198.9 kN at 0.8 atm and 212.0 kN hatch open, faces 0.773 mm against 0.8; pentagon 15 K warmer 197.0 and 208.6 kN. TRUTH holds it at 180 kN or just above: at 160 kN the faces open 0.813 mm with the hatch open"],
   "tie_limit_kN": [227.0, "carried"]
  },
  "hardpoint": {

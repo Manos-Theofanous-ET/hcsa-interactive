@@ -133,7 +133,7 @@ def build_corner_blocks(which):
                  f"line (an oblique prism) and cut flat to the panel planes at z 0 (outer face) and z 400 (cabin face). Legs 230 long from the vertex line, {CB.THK:.0f} thick measured "
                  f"normal to the joint face ({g['th']:.1f} in a section parallel to the panel), inner faces parallel to the joint faces, so the tie nuts seat flat; leg end faces "
                  f"parallel to the vertex line. Along the leaning face (z') the joint face is {g['zp_joint_end']:.1f} long. "
-                 f"HOLES, all normal to the joint face: four tie holes {CB.TIE_HOLE} mm per face (7/8-14 Inconel 718 studs, 198 kN preload) in rows at z' {CB.ROWS_ZP[0]} and {CB.ROWS_ZP[1]} "
+                 f"HOLES, all normal to the joint face: four tie holes {CB.TIE_HOLE} mm per face (7/8-14 Inconel 718 studs, 180 kN preload, decided 17 Nov, was 198) in rows at z' {CB.ROWS_ZP[0]} and {CB.ROWS_ZP[1]} "
                  f"(z {rows_z[0]} and {rows_z[1]} on the face) and two 20 mm dowel holes (room for 24) at z' {CB.DOWEL_ZP} (z {dz}), the same z' on both block types. Columns at "
                  f"{CB.TIE_COLS[0]:.0f} and {CB.TIE_COLS[1]:.0f} mm along the edge FROM THE VERTEX LINE at each row's depth (pitch 56), so the columns run parallel to the vertex line; "
                  f"from the z 0 vertex the holes are at {xfrom[0][0]} / {xfrom[0][1]} mm (column 1, rows 1 / 2) and {xfrom[1][0]} / {xfrom[1][1]} mm (column 2). "
