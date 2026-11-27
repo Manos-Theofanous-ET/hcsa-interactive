@@ -57,7 +57,8 @@ section.alt{background:var(--bg2)}
 
 /* hero */
 .hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;background:#000 url(/preview/loop-poster.jpg) center/cover no-repeat}
-.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.4s ease}
+.hero video.on{opacity:1}
 @media (prefers-reduced-motion: reduce){.hero video{display:none}}
 .hero::after{content:"";position:absolute;inset:0;pointer-events:none;
   background:linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,0) 22%,rgba(0,0,0,0) 45%,rgba(0,0,0,.72) 75%,rgba(0,0,0,.94) 100%),
@@ -460,6 +461,8 @@ footer{border-top:1px solid rgba(255,255,255,.08);color:var(--mut);font-size:15p
 <footer><div class="wrap">Human-Centric Space Architecture · Brown University and the Rhode Island School of Design · Images and video from the HCSA 3D model.</div></footer>
 
 <script>
+// hero film: fade in over the poster once it plays (stays on the poster if autoplay is blocked or motion is reduced)
+(function(){var v=document.getElementById('loop');if(!v)return;var on=function(){v.classList.add('on')};if(!v.paused&&v.readyState>2)on();else v.addEventListener('playing',on,{once:true});})();
 // sponsors: a logo when we have the file in /preview/logos/, the name otherwise
 const SPONSORS = [
   { name: 'SCHOTT North America', kind: 'Advice', logo: 'schott', href: 'https://www.schott.com', body: 'Advice on BOROFLOAT 33 at 21 mm and its strength values, and an offer of glass discs.' },
