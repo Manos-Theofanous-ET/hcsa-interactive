@@ -49,7 +49,7 @@ section.alt{background:var(--bg2)}
 .bar nav a{color:var(--fg);text-decoration:none;font-size:15px;font-weight:500;padding:8px 12px;border-radius:8px}
 .bar nav a:hover{background:rgba(255,255,255,.1)}
 .bar nav a.cta{border:1px solid var(--warm);color:var(--warm)}
-@media (max-width:900px){.bar nav a.opt{display:none}.brand span{display:none}}
+@media (max-width:900px){.bar nav a.opt{display:none}.brand span{display:none}} @media (max-width:560px){.bar{padding:10px 14px;gap:10px}.bar nav{flex-wrap:nowrap;gap:2px}.bar nav a{padding:8px 9px;white-space:nowrap}.bar nav a.opt2,.bar nav a .lg{display:none}}
 
 /* hero */
 .hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;background:#000 url(/preview/loop-poster.jpg) center/cover no-repeat}
@@ -58,7 +58,7 @@ section.alt{background:var(--bg2)}
 .hero::after{content:"";position:absolute;inset:0;pointer-events:none;
   background:linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,0) 22%,rgba(0,0,0,0) 45%,rgba(0,0,0,.72) 75%,rgba(0,0,0,.94) 100%),
              linear-gradient(90deg,rgba(0,0,0,.72) 0%,rgba(0,0,0,.45) 38%,rgba(0,0,0,0) 65%)}
-.hero .wrap{position:relative;z-index:1;padding-bottom:72px;width:100%}
+.hero .wrap{position:relative;z-index:1;padding-top:96px;padding-bottom:72px;width:100%}
 .hero h1{font-size:clamp(40px,5.8vw,72px);line-height:1.04;max-width:14ch;margin-bottom:20px;text-shadow:0 2px 24px rgba(0,0,0,.6)}
 .hero h1 em{font-style:italic;color:#dfe8f3}
 .hero .lead{color:#e6ebf1;text-shadow:0 1px 12px rgba(0,0,0,.8);margin-bottom:28px}
@@ -167,9 +167,9 @@ footer{border-top:1px solid rgba(255,255,255,.08);color:var(--mut);font-size:15p
   <nav aria-label="Sections">
     <a class="opt" href="#explore">Explore in 3D</a>
     <a class="opt" href="#about">About</a>
-    <a href="#timeline">Timeline</a>
+    <a class="opt2" href="#timeline">Timeline</a>
     <a class="opt" href="#status">Where we are</a>
-    <a href="/research/">Research and talks</a>
+    <a href="/research/">Research<span class="lg"> and talks</span></a>
     <a class="opt" href="#sponsors">Sponsors</a>
     <a class="cta" href="#contact">Contact us</a>
     <a href="/team/" title="For the team, password needed">Team</a>
